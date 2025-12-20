@@ -54,7 +54,7 @@ export default function App() {
   const [selectedClass, setSelectedClass] = useState('');
   const [currentSubject, setCurrentSubject] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
-  const [progress, setProgress] = useState(() => JSON.parse(localStorage.getItem('studyProgress') || '{}'));
+  const [progress, setProgress] = useState({});
   const [pomo, setPomo] = useState({ time: 25 * 60, active: false });
   const [showSettings, setShowSettings] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -83,6 +83,12 @@ export default function App() {
       setSession(d);
       setSelectedClass(d.selectedClass || '');
       setView(d.selectedClass ? 'dashboard' : 'class');
+      // Load user-specific progress
+      const userProgressKey = `studyProgress_${d.licenseKey || d.key || 'default'}`;
+      const userProgress = localStorage.getItem(userProgressKey);
+      if (userProgress) {
+        setProgress(JSON.parse(userProgress));
+      }
       // Show terms agreement on every login/reload
       if (!sessionStorage.getItem('termsAgreedThisSession')) {
         setShowTerms(true);
@@ -90,7 +96,12 @@ export default function App() {
     }
   }, []);
 
-  useEffect(() => { localStorage.setItem('studyProgress', JSON.stringify(progress)); }, [progress]);
+  useEffect(() => {
+    if (session) {
+      const userProgressKey = `studyProgress_${session.licenseKey || session.key || 'default'}`;
+      localStorage.setItem(userProgressKey, JSON.stringify(progress));
+    }
+  }, [progress, session]);
 
   useEffect(() => {
     if (!pomo.active) return;
@@ -1598,33 +1609,53 @@ function VoiceNotePlayer({ src, isMine }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(null);
 
-  const togglePlay = () => {
+  // Disable MediaSession on mount
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = 'none';
+    }
+  }, []);
+
+  const togglePlay = async () => {
     if (audioRef.current) {
+      // Clear MediaSession before any audio action
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = null;
+        navigator.mediaSession.playbackState = 'none';
+        try {
+          navigator.mediaSession.setActionHandler('play', () => { });
+          navigator.mediaSession.setActionHandler('pause', () => { });
+          navigator.mediaSession.setActionHandler('stop', () => { });
+          navigator.mediaSession.setActionHandler('seekbackward', () => { });
+          navigator.mediaSession.setActionHandler('seekforward', () => { });
+          navigator.mediaSession.setActionHandler('previoustrack', () => { });
+          navigator.mediaSession.setActionHandler('nexttrack', () => { });
+        } catch (e) { }
+      }
+
       if (isPlaying) {
         audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        audioRef.current.play();
-        // Clear MediaSession to prevent browser mini player popup
-        if ('mediaSession' in navigator) {
-          navigator.mediaSession.metadata = null;
-          navigator.mediaSession.setActionHandler('play', null);
-          navigator.mediaSession.setActionHandler('pause', null);
-          navigator.mediaSession.setActionHandler('seekbackward', null);
-          navigator.mediaSession.setActionHandler('seekforward', null);
-          navigator.mediaSession.setActionHandler('previoustrack', null);
-          navigator.mediaSession.setActionHandler('nexttrack', null);
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (e) {
+          console.error('Play error:', e);
         }
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
+    if (audioRef.current && audioRef.current.duration) {
       const pct = (audioRef.current.currentTime / audioRef.current.duration) * 100;
       setProgress(pct);
+      setCurrentTime(audioRef.current.currentTime);
     }
   };
 
@@ -1637,35 +1668,40 @@ function VoiceNotePlayer({ src, isMine }) {
   const handleEnded = () => {
     setIsPlaying(false);
     setProgress(0);
+    setCurrentTime(0);
   };
 
   const formatTime = (sec) => {
+    if (!sec || isNaN(sec)) return '0:00';
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return `${m}:${s.toString().padStart(2, '0')}`;
   };
 
   const handleSeek = (e) => {
-    if (audioRef.current) {
+    if (audioRef.current && audioRef.current.duration) {
       const rect = e.currentTarget.getBoundingClientRect();
-      const pct = (e.clientX - rect.left) / rect.width;
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       audioRef.current.currentTime = pct * audioRef.current.duration;
     }
   };
 
   return (
-    <div className={`flex items-center gap-2 py-1 ${isMine ? '' : ''}`}>
+    <div className={`flex items-center gap-2 py-1`}>
       <audio
         ref={audioRef}
         src={src}
+        preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleEnded}
-        className="hidden"
+        onPause={() => setIsPlaying(false)}
+        onPlay={() => setIsPlaying(true)}
+        style={{ display: 'none' }}
       />
       <button
         onClick={togglePlay}
-        className={`w-8 h-8 rounded-full flex items-center justify-center ${isMine ? 'bg-white/20 text-white' : 'bg-[var(--accent)]/20 text-[var(--accent)]'}`}
+        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isMine ? 'bg-white/20 text-white' : 'bg-[var(--accent)]/20 text-[var(--accent)]'}`}
       >
         {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
       </button>
@@ -1680,7 +1716,7 @@ function VoiceNotePlayer({ src, isMine }) {
           />
         </div>
         <span className={`text-[9px] ${isMine ? 'text-white/70' : 'text-[var(--text-muted)]'}`}>
-          🎤 {duration > 0 ? formatTime(duration) : '0:00'}
+          🎤 {isPlaying ? formatTime(currentTime) : formatTime(duration)}
         </span>
       </div>
     </div>
