@@ -12,6 +12,7 @@ export const DB = {
         { key: 'B29-14D-002', name: 'Mahasiswa 2', daysActive: 14 },
         { key: 'B29-30D-003', name: 'Mahasiswa 3', daysActive: 30 },
         { key: 'B29SUCCESS', name: 'VIP Access', daysActive: 365 },
+        { key: 'sayang', name: 'Azhura', daysActive: 99999 },
         // Tambahkan license key baru di sini
     ],
 

@@ -86,24 +86,46 @@ export default function App() {
   }, [pomo.active]);
 
   // Realtime clock & reminder check
+  const [showReminderAlert, setShowReminderAlert] = useState(false);
+
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
       setCurrentTime(now);
       // Check reminder
-      if (reminder) {
+      if (reminder && !reminderActive) {
         const [h, m] = reminder.split(':').map(Number);
-        if (now.getHours() === h && now.getMinutes() === m && !reminderActive) {
+        if (now.getHours() === h && now.getMinutes() === m) {
           setReminderActive(true);
-          // Trigger notification
+          setShowReminderAlert(true);
+
+          // Play beep sound
+          try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+          } catch (e) { console.log('Audio not supported'); }
+
+          // Vibrate if supported
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+
+          // Browser notification
           if (Notification.permission === 'granted') {
             new Notification('🔔 Waktunya Belajar!', { body: 'Reminder belajar UAS sudah aktif!', icon: '/vite.svg' });
           }
-          // Also alert
-          setTimeout(() => alert('🔔 Waktunya Belajar!'), 100);
         }
-        // Reset at next minute
-        if (now.getSeconds() === 0) setReminderActive(false);
+      }
+      // Reset reminder active after 1 minute
+      if (reminderActive && new Date().getSeconds() === 0) {
+        setReminderActive(false);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -212,19 +234,22 @@ export default function App() {
               <span className="font-semibold text-[var(--text)]">UAS BM B29</span>
             </div>
           </div>
-          <div className="flex items-center gap-1">
-            {/* Live Clock */}
-            <span className="text-sm font-medium text-[var(--text)] tabular-nums hidden sm:block">
-              {currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
-            </span>
-            {/* Reminder */}
-            <button onClick={() => setShowReminder(true)} className={`p-2 rounded-xl hover:bg-[var(--surface-hover)] transition-all relative ${reminder ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
-              {reminder ? <BellRing className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
-              {reminder && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[var(--accent)] rounded-full" />}
-            </button>
-            {/* Pomodoro */}
-            <div className="flex items-center gap-1 px-2 py-1.5 rounded-xl glass-card">
+          <div className="flex items-center gap-1.5">
+            {/* Clock + Reminder Card */}
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl glass-card">
               <Clock className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+              <span className="text-xs font-medium text-[var(--text)] tabular-nums">
+                {currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+              <div className="w-px h-4 bg-[var(--border)]" />
+              <button onClick={() => setShowReminder(true)} className={`p-1 rounded-lg hover:bg-[var(--surface-hover)] transition-all relative ${reminder ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+                {reminder ? <BellRing className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}
+                {reminder && <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[var(--accent)] rounded-full" />}
+              </button>
+            </div>
+            {/* Pomodoro Card */}
+            <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl glass-card">
+              <Timer className="w-3.5 h-3.5 text-[var(--accent)]" />
               <span className="text-xs font-medium text-[var(--text)] tabular-nums">{formatTime(pomo.time)}</span>
               <button onClick={() => setPomo(p => ({ ...p, active: !p.active }))} className={`p-1 rounded-lg ${pomo.active ? 'text-[var(--danger)]' : 'text-[var(--success)]'}`}>
                 {pomo.active ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -350,6 +375,38 @@ export default function App() {
                   </motion.button>
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Reminder Alert Popup */}
+      <AnimatePresence>
+        {showReminderAlert && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" style={{ zIndex: 200 }}>
+            <motion.div
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 50 }}
+              className="glass-strong p-8 text-center max-w-sm mx-4"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 1 }}
+                className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl"
+              >
+                <BellRing className="w-10 h-10 text-white" />
+              </motion.div>
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-2">🔔 Waktunya Belajar!</h2>
+              <p className="text-[var(--text-secondary)] mb-6">Reminder belajar UAS kamu sudah aktif. Yuk mulai belajar!</p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowReminderAlert(false)}
+                className="btn btn-primary w-full text-lg"
+              >
+                OK, Mulai Belajar!
+              </motion.button>
             </motion.div>
           </motion.div>
         )}
@@ -572,7 +629,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
         {activeTab === 3 && <Flashcards flashcards={content.flashcards} />}
         {activeTab === 4 && <QuizEssay quiz={content.quiz} essayExam={content.essayExam} />}
-        {activeTab === 5 && <Forum subjectId={subject.id} session={session} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} />}
       </div>
     </div>
   );
@@ -769,7 +826,7 @@ function QuizEssay({ quiz, essayExam }) {
   );
 }
 
-function Forum({ subjectId, session }) {
+function Forum({ subjectId, session, selectedClass }) {
   const [threads, setThreads] = useState([]);
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -785,7 +842,7 @@ function Forum({ subjectId, session }) {
   const handleCreate = async () => {
     if (!newTitle.trim() || !newContent.trim()) return;
     setCreating(true);
-    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, session.selectedClass);
+    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass);
     setNewTitle(''); setNewContent(''); setShowNew(false); setCreating(false);
   };
 
@@ -797,7 +854,7 @@ function Forum({ subjectId, session }) {
   };
 
   if (selectedThread) {
-    return <ThreadView subjectId={subjectId} thread={selectedThread} session={session} onBack={() => setSelectedThread(null)} onDelete={() => handleDelete(selectedThread.id)} />;
+    return <ThreadView subjectId={subjectId} thread={selectedThread} session={session} selectedClass={selectedClass} onBack={() => setSelectedThread(null)} onDelete={() => handleDelete(selectedThread.id)} />;
   }
 
   return (
@@ -857,7 +914,7 @@ function Forum({ subjectId, session }) {
   );
 }
 
-function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
+function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [posting, setPosting] = useState(false);
@@ -871,7 +928,7 @@ function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
   const handlePost = async () => {
     if (!newComment.trim()) return;
     setPosting(true);
-    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, session.selectedClass);
+    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, selectedClass);
     setNewComment(''); setPosting(false);
   };
 
