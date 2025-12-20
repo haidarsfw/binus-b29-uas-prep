@@ -178,6 +178,16 @@ export default function App() {
     updatePresence(userId, { currentSubject: currentSubject?.id || null });
   }, [session, currentSubject]);
 
+  // Periodic presence heartbeat (every 5 minutes) to keep lastSeen updated
+  useEffect(() => {
+    if (!session) return;
+    const userId = getDeviceId();
+    const interval = setInterval(() => {
+      updatePresence(userId, {}); // Just updates lastSeen timestamp
+    }, 5 * 60 * 1000); // 5 minutes
+    return () => clearInterval(interval);
+  }, [session]);
+
   // Content protection
   useEffect(() => {
     if (!session) return;

@@ -248,8 +248,16 @@ export const subscribeToPresence = (callback) => {
     const presenceRef = ref(db, 'presence');
     return onValue(presenceRef, (snapshot) => {
         const data = snapshot.val() || {};
+        const now = Date.now();
+        const ACTIVE_THRESHOLD = 15 * 60 * 1000; // 15 minutes in ms
+
         const users = Object.entries(data)
-            .filter(([_, v]) => v.online)
+            .filter(([_, v]) => {
+                if (!v.online) return false;
+                // Filter out users who haven't been active in 15 minutes
+                const lastSeen = v.lastSeen || 0;
+                return (now - lastSeen) < ACTIVE_THRESHOLD;
+            })
             .map(([id, v]) => ({ id, ...v }));
         callback(users);
     });
