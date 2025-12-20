@@ -244,6 +244,12 @@ export const updatePresence = (userId, data) => {
     update(userStatusRef, { ...data, lastSeen: serverTimestamp() });
 };
 
+// Remove user from online presence (called on logout)
+export const removePresence = (userId) => {
+    const userStatusRef = ref(db, `presence/${userId}`);
+    remove(userStatusRef);
+};
+
 export const subscribeToPresence = (callback) => {
     const presenceRef = ref(db, 'presence');
     return onValue(presenceRef, (snapshot) => {
