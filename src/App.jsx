@@ -1606,6 +1606,16 @@ function VoiceNotePlayer({ src, isMine }) {
         audioRef.current.pause();
       } else {
         audioRef.current.play();
+        // Clear MediaSession to prevent browser mini player popup
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = null;
+          navigator.mediaSession.setActionHandler('play', null);
+          navigator.mediaSession.setActionHandler('pause', null);
+          navigator.mediaSession.setActionHandler('seekbackward', null);
+          navigator.mediaSession.setActionHandler('seekforward', null);
+          navigator.mediaSession.setActionHandler('previoustrack', null);
+          navigator.mediaSession.setActionHandler('nexttrack', null);
+        }
       }
       setIsPlaying(!isPlaying);
     }
