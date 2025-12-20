@@ -574,36 +574,34 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
         </div>
       </motion.div>
 
-      {/* Widget Grid - 3 equal columns, perfectly aligned */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {/* Online Users */}
-        <div className="glass-card p-4">
+      {/* Widget Row - Auto-resize: Sedang Belajar shrinks, Jadwal UAS expands */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        {/* Online Users - shrink to fit content */}
+        <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[200px] shrink-0">
           <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
-            <span className="text-sm font-medium text-[var(--text)]">Sedang Belajar</span>
-            <span className="ml-auto text-xs px-2 py-0.5 surface-flat rounded-full text-[var(--text-muted)]">{onlineUsers.length}</span>
+            <span className="text-sm font-medium text-[var(--text)]">Online</span>
+            <span className="ml-auto text-xs px-1.5 py-0.5 surface-flat rounded-full text-[var(--text-muted)] font-medium">{onlineUsers.length}</span>
           </div>
           {onlineUsers.length > 0 ? (
-            <div className="flex flex-wrap gap-1.5">
-              {onlineUsers.slice(0, 6).map((u, i) => (
-                <motion.span key={u.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="inline-flex items-center gap-1.5 px-2.5 py-1 surface-flat rounded-full text-xs">
-                  <div className="avatar avatar-sm text-[10px] w-5 h-5">{u.userName?.charAt(0) || '?'}</div>
-                  <span className="text-[var(--text)] truncate max-w-[60px]">{u.userName}</span>
-                </motion.span>
+            <div className="flex flex-col gap-1">
+              {onlineUsers.slice(0, 4).map((u, i) => (
+                <motion.div key={u.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="flex items-center gap-1.5 text-xs">
+                  <div className="avatar avatar-sm text-[10px] w-5 h-5 shrink-0">{u.userName?.charAt(0) || '?'}</div>
+                  <span className="text-[var(--text)] truncate">{u.userName}</span>
+                </motion.div>
               ))}
-              {onlineUsers.length > 6 && (
-                <span className="inline-flex items-center px-2.5 py-1 surface-flat rounded-full text-xs text-[var(--text-muted)]">
-                  +{onlineUsers.length - 6}
-                </span>
+              {onlineUsers.length > 4 && (
+                <span className="text-xs text-[var(--text-muted)]">+{onlineUsers.length - 4} lainnya</span>
               )}
             </div>
           ) : (
-            <p className="text-[var(--text-muted)] text-xs">Belum ada yang online</p>
+            <p className="text-[var(--text-muted)] text-xs">-</p>
           )}
         </div>
 
-        {/* Exam Schedule */}
-        <div className="glass-card p-4">
+        {/* Exam Schedule - grow to fill space */}
+        <div className="glass-card p-4 flex-1">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[var(--accent)]" />
             <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
@@ -613,9 +611,12 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
               const d = new Date(date);
               return (
                 <div key={subject} className="flex items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
-                  <span className="text-[var(--text)] flex-1 truncate mr-2">{subject}</span>
-                  <span className="text-[var(--text-muted)] whitespace-nowrap">
-                    {d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })} {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                  <span className="text-[var(--text)] flex-1 mr-3">{subject}</span>
+                  <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
+                    {d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' })}
+                  </span>
+                  <span className="text-[var(--text-muted)] ml-2 whitespace-nowrap">
+                    {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
               );
@@ -623,8 +624,10 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           </div>
         </div>
 
-        {/* Exam Countdown */}
-        <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
+        {/* Exam Countdown - fixed width */}
+        <div className="md:w-[200px] shrink-0">
+          <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
+        </div>
       </div>
 
       {/* Subjects */}
