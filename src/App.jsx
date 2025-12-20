@@ -532,8 +532,6 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
 
   return (
     <div className="animate-fade">
-      {/* Exam Countdown */}
-      <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
 
       {/* Greeting */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="glass-strong p-6 sm:p-8 mb-6">
@@ -554,8 +552,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
         </div>
       </motion.div>
 
-      {/* Two Column Grid: Online Users & Schedule */}
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
+      {/* Three Column Grid: Online Users, Schedule, Countdown */}
+      <div className="grid md:grid-cols-3 gap-4 mb-6">
         {/* Online Users */}
         <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-3">
@@ -591,6 +589,9 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             ))}
           </div>
         </div>
+
+        {/* Mini Exam Countdown */}
+        <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
       </div>
 
       {/* Subjects */}
@@ -1228,30 +1229,26 @@ function ExamCountdown({ schedules, selectedClass }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={`glass-card p-4 mb-6 ${isUrgent ? 'border-2 border-red-500/50' : ''}`}
+      className={`glass-card p-4 ${isUrgent ? 'border border-red-500/50' : ''}`}
     >
-      <div className="flex items-center gap-2 mb-3">
-        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isUrgent ? 'bg-red-500/20 text-red-500' : 'bg-[var(--accent-soft)] text-[var(--accent)]'}`}>
-          <Target className="w-4 h-4" />
-        </div>
-        <div>
-          <span className="text-sm font-medium text-[var(--text)]">UAS Terdekat</span>
-          <p className="text-xs text-[var(--text-muted)]">{countdown.subject}</p>
-        </div>
-        {isUrgent && <span className="ml-auto badge badge-warning animate-pulse">⚠️ H-{countdown.days}</span>}
+      <div className="flex items-center gap-2 mb-2">
+        <Target className={`w-4 h-4 ${isUrgent ? 'text-red-500' : 'text-[var(--accent)]'}`} />
+        <span className="text-sm font-medium text-[var(--text)]">Countdown UAS</span>
+        {isUrgent && <span className="ml-auto text-xs text-red-500 font-bold animate-pulse">H-{countdown.days}</span>}
       </div>
-      <div className="grid grid-cols-4 gap-2 text-center">
+      <p className="text-xs text-[var(--text-muted)] mb-2 truncate">{countdown.subject}</p>
+      <div className="flex gap-1 text-center">
         {[
-          { value: countdown.days, label: 'Hari' },
-          { value: countdown.hours, label: 'Jam' },
-          { value: countdown.minutes, label: 'Menit' },
-          { value: countdown.seconds, label: 'Detik' },
+          { value: countdown.days, label: 'H' },
+          { value: countdown.hours, label: 'J' },
+          { value: countdown.minutes, label: 'M' },
+          { value: countdown.seconds, label: 'D' },
         ].map((item, i) => (
-          <div key={i} className="surface-flat rounded-xl p-2">
-            <div className={`text-xl sm:text-2xl font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
+          <div key={i} className="flex-1 surface-flat rounded-lg py-1.5 px-1">
+            <div className={`text-sm font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
               {String(item.value).padStart(2, '0')}
             </div>
-            <div className="text-[10px] sm:text-xs text-[var(--text-muted)]">{item.label}</div>
+            <div className="text-[8px] text-[var(--text-muted)]">{item.label}</div>
           </div>
         ))}
       </div>
@@ -1375,7 +1372,7 @@ function Tutorial({ onComplete }) {
 // ============================================
 // AI STUDY ASSISTANT
 // ============================================
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // Ganti dengan API key Gemini kamu
+const GEMINI_API_KEY = 'AIzaSyBQQzHMEUolet_x4xIvpmgkOjd1KPwDD74';
 
 function AIAssistant({ currentSubject }) {
   const [isOpen, setIsOpen] = useState(false);
