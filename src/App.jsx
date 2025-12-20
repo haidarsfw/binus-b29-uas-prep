@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image } from 'lucide-react';
 import DB from './db';
-import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, getDeviceId } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, getDeviceId } from './firebase';
 
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -834,9 +834,21 @@ function Forum({ subjectId, session, selectedClass }) {
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
+  const [newImage, setNewImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [selectedThread, setSelectedThread] = useState(null);
   const [creating, setCreating] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(null); // { type: 'thread' | 'comment', id, threadId? }
+  const [confirmDelete, setConfirmDelete] = useState(null);
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewImage(file);
+      const reader = new FileReader();
+      reader.onload = (ev) => setImagePreview(ev.target.result);
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     const unsub = subscribeToThreads(subjectId, setThreads);
@@ -847,8 +859,12 @@ function Forum({ subjectId, session, selectedClass }) {
     if (!newTitle.trim() || !newContent.trim()) return;
     setCreating(true);
     try {
-      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass);
-      setNewTitle(''); setNewContent(''); setShowNew(false);
+      let imageUrl = null;
+      if (newImage) {
+        imageUrl = await uploadImage(newImage, `threads/${subjectId}`);
+      }
+      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass, imageUrl);
+      setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
     } catch (e) { alert(e.message); }
     setCreating(false);
   };
@@ -910,8 +926,23 @@ function Forum({ subjectId, session, selectedClass }) {
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="glass-card p-5 mb-4 space-y-4">
             <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Judul thread..." className="input" />
             <textarea value={newContent} onChange={(e) => setNewContent(e.target.value)} placeholder="Isi thread..." className="input h-24" />
+
+            {/* Image Upload */}
+            <div className="flex items-center gap-3">
+              <label className="btn btn-secondary text-sm cursor-pointer">
+                <Image className="w-4 h-4 mr-1.5" />Gambar
+                <input type="file" accept="image/*" onChange={handleImageSelect} className="hidden" />
+              </label>
+              {imagePreview && (
+                <div className="relative">
+                  <img src={imagePreview} alt="Preview" className="w-16 h-16 object-cover rounded-lg" />
+                  <button onClick={() => { setNewImage(null); setImagePreview(null); }} className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center">×</button>
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-2">
-              <button onClick={() => setShowNew(false)} className="btn btn-secondary flex-1">Batal</button>
+              <button onClick={() => { setShowNew(false); setNewImage(null); setImagePreview(null); }} className="btn btn-secondary flex-1">Batal</button>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleCreate} disabled={creating || !newTitle.trim() || !newContent.trim()} className="btn btn-primary flex-1">
                 {creating ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'Buat Thread'}
               </motion.button>
@@ -1018,6 +1049,9 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
           <span>{new Date(thread.createdAt).toLocaleString('id-ID')}</span>
         </div>
         <p className="text-[var(--text)] whitespace-pre-wrap">{thread.content}</p>
+        {thread.imageUrl && (
+          <img src={thread.imageUrl} alt="Thread image" className="mt-4 rounded-xl max-w-full max-h-96 object-contain" />
+        )}
       </div>
 
       {/* Comments */}

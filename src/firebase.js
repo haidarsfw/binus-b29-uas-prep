@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, get, onValue, push, remove, update, onDisconnect, serverTimestamp } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBMhL2t-KrIS0M22607mB3ovEq_pe5OcSs",
@@ -13,6 +14,58 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const storage = getStorage(app);
+
+// Image compression and upload
+export const compressImage = (file, maxWidth = 800, quality = 0.7) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, 'image/jpeg', quality);
+            };
+            img.onerror = reject;
+            img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+};
+
+export const uploadImage = async (file, path) => {
+    try {
+        // Compress if image
+        let uploadFile = file;
+        if (file.type.startsWith('image/')) {
+            uploadFile = await compressImage(file);
+        }
+
+        const imageRef = storageRef(storage, `forum/${path}/${Date.now()}_${file.name}`);
+        await uploadBytes(imageRef, uploadFile);
+        const url = await getDownloadURL(imageRef);
+        return url;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        throw error;
+    }
+};
 
 // Generate unique device ID
 export const getDeviceId = () => {
@@ -147,7 +200,7 @@ const withTimeout = (promise, ms) => {
     return Promise.race([promise, timeout]);
 };
 
-export const createThread = async (subjectId, title, content, authorId, authorName, authorClass) => {
+export const createThread = async (subjectId, title, content, authorId, authorName, authorClass, imageUrl = null) => {
     const threadsRef = ref(db, `forums/${subjectId}/threads`);
     const newThread = {
         title,
@@ -155,6 +208,7 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
         authorId,
         authorName,
         authorClass: authorClass || 'Other',
+        imageUrl,
         createdAt: new Date().toISOString(),
         closed: false,
         commentCount: 0,
