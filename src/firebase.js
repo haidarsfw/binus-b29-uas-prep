@@ -118,6 +118,20 @@ export const validateLicenseWithDevice = async (key, licenses) => {
     const license = licenses.find(l => l.key.toUpperCase() === key.toUpperCase());
     if (!license) return { valid: false, error: 'License key tidak valid' };
 
+    // If unlimited devices, skip device validation
+    if (license.unlimitedDevices) {
+        const now = new Date();
+        const expiry = new Date(now.getTime() + license.daysActive * 86400000);
+        return {
+            valid: true,
+            license: {
+                ...license,
+                userName: license.name,
+                expiry: expiry.toISOString()
+            }
+        };
+    }
+
     const deviceId = getDeviceId();
     const licenseRef = ref(db, `licenses/${key.toUpperCase()}`);
 
