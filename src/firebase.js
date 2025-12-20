@@ -433,11 +433,11 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
     }
 };
 
-// Delete global chat message
+// Delete global chat message (soft delete - marks as deleted)
 export const deleteGlobalMessage = async (messageId) => {
     const msgRef = ref(db, `globalChat/${messageId}`);
     try {
-        await withTimeout(remove(msgRef), 8000);
+        await withTimeout(update(msgRef, { deleted: true, content: '', mediaUrl: null }), 8000);
     } catch (error) {
         console.error('Error deleting message:', error);
         throw error;

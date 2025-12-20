@@ -1588,6 +1588,92 @@ function ConfirmModal({ isOpen, onClose, onConfirm, title, message }) {
 }
 
 // ============================================
+// VOICE NOTE PLAYER (Custom native-like UI)
+// ============================================
+function VoiceNotePlayer({ src, isMine }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const pct = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      setProgress(pct);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setProgress(0);
+  };
+
+  const formatTime = (sec) => {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const handleSeek = (e) => {
+    if (audioRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      audioRef.current.currentTime = pct * audioRef.current.duration;
+    }
+  };
+
+  return (
+    <div className={`flex items-center gap-2 py-1 ${isMine ? '' : ''}`}>
+      <audio
+        ref={audioRef}
+        src={src}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={handleEnded}
+        className="hidden"
+      />
+      <button
+        onClick={togglePlay}
+        className={`w-8 h-8 rounded-full flex items-center justify-center ${isMine ? 'bg-white/20 text-white' : 'bg-[var(--accent)]/20 text-[var(--accent)]'}`}
+      >
+        {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+      </button>
+      <div className="flex-1 flex flex-col gap-0.5 min-w-[80px]">
+        <div
+          className={`h-1.5 rounded-full cursor-pointer ${isMine ? 'bg-white/30' : 'bg-[var(--accent)]/20'}`}
+          onClick={handleSeek}
+        >
+          <div
+            className={`h-full rounded-full transition-all ${isMine ? 'bg-white' : 'bg-[var(--accent)]'}`}
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <span className={`text-[9px] ${isMine ? 'text-white/70' : 'text-[var(--text-muted)]'}`}>
+          🎤 {duration > 0 ? formatTime(duration) : '0:00'}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
 // GLOBAL LIVE CHAT
 // ============================================
 const EMOJI_LIST = ['😀', '😂', '🥰', '😎', '🤔', '👍', '👎', '🔥', '❤️', '💯', '✅', '📚', '💡', '🎉', '😢', '😡'];
@@ -1768,11 +1854,25 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                 {messages.map((msg) => {
                   const isMine = msg.authorId === currentDeviceId;
                   const isMedia = msg.type === 'image' || msg.type === 'customSticker' || msg.type === 'audio';
+                  const isDeleted = msg.deleted === true;
+
+                  // Deleted message
+                  if (isDeleted) {
+                    return (
+                      <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                        <div className="px-3 py-1.5 rounded-2xl surface-flat text-[var(--text-muted)] text-sm italic flex items-center gap-1.5">
+                          <XCircle className="w-3 h-3" />
+                          <span>Pesan telah dihapus</span>
+                        </div>
+                      </motion.div>
+                    );
+                  }
+
                   return (
                     <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                       <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
                         {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
-                        <div className={`group relative inline-block ${isMedia ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !isMedia ? 'gradient-accent text-white rounded-br-sm' : !isMedia ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
+                        <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
                           {/* WhatsApp-style Reply Quote */}
                           {msg.replyToName && (
                             <div className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}>
@@ -1782,7 +1882,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                           )}
                           {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40" />}
                           {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain" />}
-                          {msg.type === 'audio' && msg.mediaUrl && <audio controls src={msg.mediaUrl} className="h-8 w-44" />}
+                          {msg.type === 'audio' && msg.mediaUrl && <VoiceNotePlayer src={msg.mediaUrl} isMine={isMine} />}
                           {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
                           {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
                           <div className={`absolute ${isMine ? '-left-12' : '-right-12'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
