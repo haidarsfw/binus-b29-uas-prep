@@ -168,6 +168,7 @@ body {
 
 .glass-card-interactive {
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .glass-card-interactive:active {
@@ -247,9 +248,12 @@ body {
   font-size: 14px;
   cursor: pointer;
   border: none;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
 }
 
 .btn::before {
@@ -330,11 +334,13 @@ body {
   backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 16px;
+  /* Prevents zoom on iOS */
   font-family: var(--font);
   color: var(--text);
   outline: none;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
 }
 
 .input::placeholder {
