@@ -574,10 +574,10 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
         </div>
       </motion.div>
 
-      {/* Widget Grid: Online Users (auto-size), Schedule (larger), Countdown */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
-        {/* Online Users - auto-size based on count */}
-        <div className={`glass-card p-4 ${onlineUsers.length <= 3 ? 'md:col-span-3' : 'md:col-span-4'}`}>
+      {/* Widget Grid - 3 equal columns, perfectly aligned */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {/* Online Users */}
+        <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
             <span className="text-sm font-medium text-[var(--text)]">Sedang Belajar</span>
@@ -602,23 +602,20 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           )}
         </div>
 
-        {/* Exam Schedule - larger with full dates */}
-        <div className={`glass-card p-4 ${onlineUsers.length <= 3 ? 'md:col-span-6' : 'md:col-span-5'}`}>
+        {/* Exam Schedule */}
+        <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[var(--accent)]" />
             <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
           </div>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {Object.entries(classSchedule).map(([subject, date]) => {
               const d = new Date(date);
               return (
-                <div key={subject} className="flex justify-between items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
-                  <span className="text-[var(--text)] flex-1 mr-3">{subject}</span>
-                  <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
-                    {d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' })}
-                  </span>
-                  <span className="text-[var(--text-muted)] ml-2 whitespace-nowrap">
-                    {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                <div key={subject} className="flex items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
+                  <span className="text-[var(--text)] flex-1 truncate mr-2">{subject}</span>
+                  <span className="text-[var(--text-muted)] whitespace-nowrap">
+                    {d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })} {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
               );
@@ -626,10 +623,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           </div>
         </div>
 
-        {/* Exam Countdown - matching height */}
-        <div className="md:col-span-3 flex">
-          <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
-        </div>
+        {/* Exam Countdown */}
+        <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
       </div>
 
       {/* Subjects */}
@@ -1435,13 +1430,19 @@ function AIAssistant({ currentSubject }) {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `${subjectContext}Kamu adalah asisten belajar UAS untuk mahasiswa. Jawab dengan singkat, jelas, dan dalam Bahasa Indonesia. Pertanyaan: ${userMessage}`
+              text: `${subjectContext}Kamu adalah asisten belajar UAS untuk mahasiswa manajemen di Indonesia. Jawab dengan singkat, jelas, dan dalam Bahasa Indonesia. Pertanyaan: ${userMessage}`
             }]
           }]
         })
       });
 
       const data = await response.json();
+      console.log('Gemini API Response:', data);
+
+      if (data.error) {
+        throw new Error(data.error.message || 'API Error');
+      }
+
       const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Maaf, saya tidak bisa menjawab saat ini.';
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
     } catch (error) {
