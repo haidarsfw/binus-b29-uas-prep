@@ -63,6 +63,8 @@ export default function App() {
   const [showReminder, setShowReminder] = useState(false);
   const [reminderActive, setReminderActive] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -75,7 +77,16 @@ export default function App() {
 
   useEffect(() => {
     const s = localStorage.getItem('session');
-    if (s) { const d = JSON.parse(s); setSession(d); setSelectedClass(d.selectedClass || ''); setView(d.selectedClass ? 'dashboard' : 'class'); }
+    if (s) {
+      const d = JSON.parse(s);
+      setSession(d);
+      setSelectedClass(d.selectedClass || '');
+      setView(d.selectedClass ? 'dashboard' : 'class');
+      // Show terms agreement on every login/reload
+      if (!sessionStorage.getItem('termsAgreedThisSession')) {
+        setShowTerms(true);
+      }
+    }
   }, []);
 
   useEffect(() => { localStorage.setItem('studyProgress', JSON.stringify(progress)); }, [progress]);
@@ -455,12 +466,39 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now(), ...n }])} />
 
-      {/* Terms Agreement Modal (First Time Only) */}
+      {/* Notification Popup */}
+      <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
+        <AnimatePresence>
+          {notifications.map((n) => (
+            <motion.div
+              key={n.id}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 100 }}
+              onAnimationComplete={() => setTimeout(() => setNotifications(prev => prev.filter(x => x.id !== n.id)), 3000)}
+              className="glass-strong px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 pointer-events-auto max-w-xs"
+            >
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${n.type === 'mention' ? 'bg-blue-500' : 'bg-[var(--accent)]'}`}>
+                {n.type === 'mention' ? <MessageSquare className="w-4 h-4 text-white" /> : <Bell className="w-4 h-4 text-white" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-[var(--text)] truncate">{n.title}</p>
+                <p className="text-xs text-[var(--text-muted)] truncate">{n.message}</p>
+              </div>
+              <button onClick={() => setNotifications(prev => prev.filter(x => x.id !== n.id))} className="text-[var(--text-muted)] hover:text-[var(--text)]">
+                <X className="w-4 h-4" />
+              </button>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* Terms Agreement Modal (Every Login) */}
       <AnimatePresence>
-        {!localStorage.getItem('termsAgreed') && view === 'dashboard' && (
-          <TermsAgreement onAgree={() => { localStorage.setItem('termsAgreed', 'true'); window.location.reload(); }} />
+        {showTerms && view === 'dashboard' && (
+          <TermsAgreement onAgree={() => { sessionStorage.setItem('termsAgreedThisSession', 'true'); setShowTerms(false); }} />
         )}
       </AnimatePresence>
 
@@ -1498,19 +1536,19 @@ function TermsAgreement({ onAgree }) {
 }
 
 // ============================================
-// GLOBAL CHAT
+// GLOBAL LIVE CHAT
 // ============================================
 const EMOJI_LIST = ['😀', '😂', '🥰', '😎', '🤔', '👍', '👎', '🔥', '❤️', '💯', '✅', '📚', '💡', '🎉', '😢', '😡'];
-const STICKERS = [
-  { id: 'study', emoji: '📚', label: 'Belajar' },
-  { id: 'tired', emoji: '😴', label: 'Capek' },
-  { id: 'help', emoji: '🆘', label: 'Butuh Bantuan' },
-  { id: 'done', emoji: '✅', label: 'Selesai' },
-  { id: 'fire', emoji: '🔥', label: 'Semangat' },
-  { id: 'love', emoji: '❤️', label: 'Suka' },
+const DEFAULT_STICKERS = [
+  { id: 'study', url: '📚', isEmoji: true },
+  { id: 'tired', url: '😴', isEmoji: true },
+  { id: 'help', url: '🆘', isEmoji: true },
+  { id: 'done', url: '✅', isEmoji: true },
+  { id: 'fire', url: '🔥', isEmoji: true },
+  { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -1519,29 +1557,52 @@ function GlobalChat({ session, selectedClass }) {
   const [showStickers, setShowStickers] = useState(false);
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [replyTo, setReplyTo] = useState(null);
+  const [showMentions, setShowMentions] = useState(false);
+  const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const stickerInputRef = useRef(null);
 
   const currentDeviceId = getDeviceId();
+  const currentUserName = session?.userName || session?.name || 'Anonymous';
   const isAdmin = session?.isAdmin === true;
 
   useEffect(() => {
     if (isOpen) {
-      const unsub = subscribeToGlobalChat(setMessages);
+      const unsub = subscribeToGlobalChat((msgs) => {
+        const prevIds = messages.map(m => m.id);
+        msgs.forEach(m => {
+          if (!prevIds.includes(m.id) && m.content?.includes(`@${currentUserName}`) && m.authorId !== currentDeviceId) {
+            addNotification?.({ type: 'mention', title: 'Kamu di-mention!', message: `${m.authorName}: ${m.content.slice(0, 50)}` });
+          }
+        });
+        setMessages(msgs);
+      });
       return () => unsub();
     }
   }, [isOpen]);
 
+  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    const match = input.match(/@(\w*)$/);
+    setShowMentions(match && onlineUsers.length > 0);
+  }, [input, onlineUsers]);
+
+  const insertMention = (userName) => {
+    setInput(prev => prev.replace(/@\w*$/, `@${userName} `));
+    setShowMentions(false);
+  };
 
   const sendTextMessage = async () => {
     if (!input.trim() || sending) return;
     setSending(true);
     try {
-      await sendGlobalMessage(input.trim(), currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'text');
+      const content = replyTo ? `↩️ ${replyTo.authorName}: "${replyTo.content?.slice(0, 25) || '...'}" — ${input.trim()}` : input.trim();
+      await sendGlobalMessage(content, currentDeviceId, currentUserName, selectedClass, 'text');
       setInput('');
+      setReplyTo(null);
     } catch (e) { console.error(e); }
     setSending(false);
     setShowEmoji(false);
@@ -1552,47 +1613,61 @@ function GlobalChat({ session, selectedClass }) {
     setSending(true);
     try {
       const url = await uploadImage(file);
-      await sendGlobalMessage('', currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'image', url);
-    } catch (e) { console.error(e); alert('Gagal upload gambar'); }
+      await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'image', url);
+    } catch (e) { console.error(e); }
     setSending(false);
   };
 
   const sendSticker = async (sticker) => {
     setSending(true);
     try {
-      await sendGlobalMessage(sticker.emoji, currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'sticker');
+      if (sticker.isEmoji) {
+        await sendGlobalMessage(sticker.url, currentDeviceId, currentUserName, selectedClass, 'sticker');
+      } else {
+        await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'customSticker', sticker.url);
+      }
     } catch (e) { console.error(e); }
     setSending(false);
     setShowStickers(false);
   };
 
+  const addCustomSticker = async (file) => {
+    if (!file) return;
+    try {
+      const url = await uploadImage(file);
+      const newStickers = [...customStickers, { id: Date.now().toString(), url, isEmoji: false }];
+      setCustomStickers(newStickers);
+      localStorage.setItem('customStickers', JSON.stringify(newStickers));
+    } catch (e) { console.error(e); }
+  };
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+      const recorder = new MediaRecorder(stream, { mimeType });
       const chunks = [];
-      recorder.ondataavailable = (e) => chunks.push(e.data);
+      recorder.ondataavailable = (e) => e.data.size > 0 && chunks.push(e.data);
       recorder.onstop = async () => {
-        const blob = new Blob(chunks, { type: 'audio/webm' });
         stream.getTracks().forEach(t => t.stop());
+        if (chunks.length === 0) return;
+        const blob = new Blob(chunks, { type: mimeType });
         setSending(true);
         try {
-          const file = new File([blob], 'voice.webm', { type: 'audio/webm' });
+          const file = new File([blob], `voice.${mimeType === 'audio/webm' ? 'webm' : 'm4a'}`, { type: mimeType });
           const url = await uploadImage(file);
-          await sendGlobalMessage('🎤 Voice Note', currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'audio', url);
+          await sendGlobalMessage('🎤', currentDeviceId, currentUserName, selectedClass, 'audio', url);
         } catch (e) { console.error(e); }
         setSending(false);
       };
       recorder.start();
       setMediaRecorder(recorder);
       setRecording(true);
-    } catch (e) {
-      alert('Izinkan akses mikrofon');
-    }
+    } catch (e) { alert('Izinkan akses mikrofon'); }
   };
 
   const stopRecording = () => {
-    if (mediaRecorder) {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
       mediaRecorder.stop();
       setRecording(false);
       setMediaRecorder(null);
@@ -1600,86 +1675,55 @@ function GlobalChat({ session, selectedClass }) {
   };
 
   const deleteMessage = async (msgId) => {
-    if (!window.confirm('Hapus pesan ini?')) return;
-    try {
-      await deleteGlobalMessage(msgId);
-    } catch (e) { console.error(e); }
+    if (!window.confirm('Hapus pesan?')) return;
+    try { await deleteGlobalMessage(msgId); } catch (e) { console.error(e); }
   };
 
   const canDelete = (msg) => isAdmin || msg.authorId === currentDeviceId;
+  const allStickers = [...DEFAULT_STICKERS, ...customStickers];
 
   return (
     <>
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-5 z-50 w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center shadow-xl glow"
-      >
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setIsOpen(true)} className="fixed bottom-24 right-5 z-50 w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center shadow-xl glow">
         <MessageSquare className="w-6 h-6 text-white" />
       </motion.button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-0 sm:p-4"
-            style={{ background: 'rgba(0,0,0,0.5)' }}
-            onClick={() => setIsOpen(false)}
-          >
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              className="glass-strong w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl overflow-hidden flex flex-col"
-              style={{ maxHeight: '85vh', height: '600px' }}
-              onClick={e => e.stopPropagation()}
-            >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-0 sm:p-4" style={{ background: 'rgba(0,0,0,0.5)' }} onClick={() => setIsOpen(false)}>
+            <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }} className="glass-strong w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl overflow-hidden flex flex-col" style={{ maxHeight: '85vh', height: '600px' }} onClick={e => e.stopPropagation()}>
+
               <div className="p-4 border-b border-[var(--border)] flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-white" />
-                  </div>
+                  <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center"><MessageSquare className="w-5 h-5 text-white" /></div>
                   <div>
-                    <h3 className="font-bold text-[var(--text)]">Live Chat</h3>
-                    <p className="text-xs text-[var(--text-muted)]">{messages.length} pesan • Ngobrol bareng! 🎉</p>
+                    <h3 className="font-bold text-[var(--text)]">Global Live Chat</h3>
+                    <p className="text-xs text-[var(--text-muted)]">{onlineUsers.length} online • {messages.length} pesan</p>
                   </div>
                 </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]">
-                  <X className="w-5 h-5 text-[var(--text-secondary)]" />
-                </button>
+                <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5 text-[var(--text-secondary)]" /></button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                {messages.length === 0 && (
-                  <div className="text-center py-8">
-                    <MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" />
-                    <p className="text-[var(--text-muted)] text-sm">Belum ada pesan. Say hi! 👋</p>
-                  </div>
-                )}
+              <div className="flex-1 overflow-y-auto p-3 space-y-2">
+                {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
                 {messages.map((msg) => {
                   const isMine = msg.authorId === currentDeviceId;
                   return (
-                    <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[85%] ${isMine ? 'items-end' : 'items-start'}`}>
-                        {!isMine && (
-                          <div className="flex items-center gap-1 mb-1">
-                            <span className="text-xs font-medium text-[var(--text)]">{msg.authorName}</span>
-                            {msg.authorClass && <span className="class-badge text-[10px]">{msg.authorClass}</span>}
+                    <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
+                        {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
+                        <div className={`group relative inline-block ${msg.type === 'image' || msg.type === 'customSticker' ? '' : 'px-3 py-1.5'} rounded-2xl text-sm ${isMine ? 'gradient-accent text-white rounded-br-sm' : 'surface-flat text-[var(--text)] rounded-bl-sm'}`}>
+                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40" />}
+                          {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain" />}
+                          {msg.type === 'audio' && msg.mediaUrl && <audio controls src={msg.mediaUrl} className="h-8 w-44" />}
+                          {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
+                          {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
+                          <div className={`absolute ${isMine ? '-left-12' : '-right-12'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
+                            <button onClick={() => setReplyTo(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px]"><Reply className="w-3 h-3" /></button>
+                            {canDelete(msg) && <button onClick={() => deleteMessage(msg.id)} className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">×</button>}
                           </div>
-                        )}
-                        <div className={`group relative p-3 rounded-2xl text-sm ${isMine ? 'gradient-accent text-white rounded-br-md' : 'surface-flat text-[var(--text)] rounded-bl-md'}`}>
-                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="max-w-full rounded-lg mb-1" style={{ maxHeight: 200 }} />}
-                          {msg.type === 'audio' && msg.mediaUrl && <audio controls src={msg.mediaUrl} className="max-w-full" style={{ height: 36 }} />}
-                          {msg.type === 'sticker' && <span className="text-4xl">{msg.content}</span>}
-                          {(msg.type === 'text' || !msg.type) && msg.content}
-                          {canDelete(msg) && (
-                            <button onClick={() => deleteMessage(msg.id)} className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">×</button>
-                          )}
                         </div>
-                        <span className="text-[10px] text-[var(--text-muted)] mt-0.5 block">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
+                        <span className="text-[8px] text-[var(--text-muted)] mt-0.5 ml-1">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
                       </div>
                     </motion.div>
                   );
@@ -1687,40 +1731,31 @@ function GlobalChat({ session, selectedClass }) {
                 <div ref={messagesEndRef} />
               </div>
 
+              {replyTo && <div className="px-3 py-1.5 border-t border-[var(--border)] flex items-center gap-2 text-xs"><Reply className="w-3 h-3 text-[var(--accent)]" /><span className="flex-1 truncate text-[var(--text-muted)]">Balas {replyTo.authorName}</span><button onClick={() => setReplyTo(null)}><X className="w-3 h-3" /></button></div>}
+
               <AnimatePresence>
-                {showEmoji && (
-                  <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]">
-                    <div className="p-3 flex flex-wrap gap-2">{EMOJI_LIST.map(e => <button key={e} onClick={() => setInput(prev => prev + e)} className="text-xl hover:scale-125 transition-transform">{e}</button>)}</div>
-                  </motion.div>
-                )}
+                {showMentions && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1">{onlineUsers.filter(u => u.userName).slice(0, 6).map(u => <button key={u.id} onClick={() => insertMention(u.userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg">@{u.userName}</button>)}</div></motion.div>}
               </AnimatePresence>
 
               <AnimatePresence>
-                {showStickers && (
-                  <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]">
-                    <div className="p-3 flex flex-wrap gap-3">
-                      {STICKERS.map(s => (
-                        <button key={s.id} onClick={() => sendSticker(s)} className="flex flex-col items-center gap-1 p-2 surface-flat rounded-xl hover:scale-105 transition-transform">
-                          <span className="text-2xl">{s.emoji}</span>
-                          <span className="text-[10px] text-[var(--text-muted)]">{s.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
+                {showEmoji && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1.5">{EMOJI_LIST.map(e => <button key={e} onClick={() => setInput(prev => prev + e)} className="text-lg hover:scale-125 transition-transform">{e}</button>)}</div></motion.div>}
               </AnimatePresence>
 
-              <div className="p-3 border-t border-[var(--border)] shrink-0">
-                <div className="flex items-center gap-2">
-                  <input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => sendImage(e.target.files[0])} className="hidden" />
-                  <button onClick={() => fileInputRef.current?.click()} className="p-2 rounded-xl hover:bg-[var(--surface-hover)] text-[var(--text-muted)]" disabled={sending}><Image className="w-5 h-5" /></button>
-                  <button onClick={() => { setShowStickers(!showStickers); setShowEmoji(false); }} className={`p-2 rounded-xl hover:bg-[var(--surface-hover)] ${showStickers ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}><Sparkles className="w-5 h-5" /></button>
-                  <button onClick={recording ? stopRecording : startRecording} className={`p-2 rounded-xl ${recording ? 'bg-red-500 text-white animate-pulse' : 'hover:bg-[var(--surface-hover)] text-[var(--text-muted)]'}`} disabled={sending}><Mic className="w-5 h-5" /></button>
-                  <div className="flex-1 flex items-center gap-1 surface-flat rounded-xl px-3">
-                    <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && sendTextMessage()} placeholder="Ketik pesan..." className="flex-1 bg-transparent py-2 text-sm text-[var(--text)] outline-none" />
-                    <button onClick={() => { setShowEmoji(!showEmoji); setShowStickers(false); }} className={showEmoji ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}><Smile className="w-5 h-5" /></button>
+              <AnimatePresence>
+                {showStickers && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">{allStickers.map(s => <button key={s.id} onClick={() => sendSticker(s)} className="w-10 h-10 surface-flat rounded-lg flex items-center justify-center overflow-hidden hover:scale-105 transition-transform">{s.isEmoji ? <span className="text-xl">{s.url}</span> : <img src={s.url} alt="" className="w-full h-full object-cover" />}</button>)}<input ref={stickerInputRef} type="file" accept="image/*" onChange={e => { addCustomSticker(e.target.files[0]); e.target.value = ''; }} className="hidden" /><button onClick={() => stickerInputRef.current?.click()} className="w-10 h-10 border border-dashed border-[var(--border)] rounded-lg flex items-center justify-center text-[var(--text-muted)]"><Plus className="w-4 h-4" /></button></div></motion.div>}
+              </AnimatePresence>
+
+              <div className="p-2.5 border-t border-[var(--border)] shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <input ref={fileInputRef} type="file" accept="image/*" onChange={e => { sendImage(e.target.files[0]); e.target.value = ''; }} className="hidden" />
+                  <button onClick={() => fileInputRef.current?.click()} className="p-1.5 rounded-lg hover:bg-[var(--surface-hover)] text-[var(--text-muted)]" disabled={sending}><Image className="w-4 h-4" /></button>
+                  <button onClick={() => { setShowStickers(!showStickers); setShowEmoji(false); }} className={`p-1.5 rounded-lg hover:bg-[var(--surface-hover)] ${showStickers ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}><Sparkles className="w-4 h-4" /></button>
+                  <button onClick={recording ? stopRecording : startRecording} className={`p-1.5 rounded-lg ${recording ? 'bg-red-500 text-white animate-pulse' : 'hover:bg-[var(--surface-hover)] text-[var(--text-muted)]'}`} disabled={sending}><Mic className="w-4 h-4" /></button>
+                  <div className="flex-1 flex items-center gap-1 surface-flat rounded-lg px-2.5">
+                    <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendTextMessage()} placeholder="Ketik... (@mention)" className="flex-1 bg-transparent py-1.5 text-sm text-[var(--text)] outline-none" />
+                    <button onClick={() => { setShowEmoji(!showEmoji); setShowStickers(false); }} className={showEmoji ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}><Smile className="w-4 h-4" /></button>
                   </div>
-                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={sendTextMessage} disabled={sending || !input.trim()} className="btn btn-primary p-2.5">
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={sendTextMessage} disabled={sending || !input.trim()} className="btn btn-primary p-2">
                     {sending ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
                   </motion.button>
                 </div>
