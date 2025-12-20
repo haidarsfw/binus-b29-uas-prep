@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield } from 'lucide-react';
 import DB from './db';
-import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, getDeviceId } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage } from './firebase';
 
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -216,7 +216,7 @@ export default function App() {
               localStorage.setItem('session', JSON.stringify(u));
               setView('dashboard');
               // Show tutorial if first time
-              if (!localStorage.getItem('tutorialCompleted')) {
+              if (!localStorage.getItem('tutorialCompletedV2')) {
                 setShowTutorial(true);
               }
             }}
@@ -454,8 +454,15 @@ export default function App() {
         </div>
       </a>
 
-      {/* AI Study Assistant */}
-      <AIAssistant currentSubject={currentSubject} />
+      {/* Global Live Chat */}
+      <GlobalChat session={session} selectedClass={selectedClass} />
+
+      {/* Terms Agreement Modal (First Time Only) */}
+      <AnimatePresence>
+        {!localStorage.getItem('termsAgreed') && view === 'dashboard' && (
+          <TermsAgreement onAgree={() => { localStorage.setItem('termsAgreed', 'true'); window.location.reload(); }} />
+        )}
+      </AnimatePresence>
 
       {/* Interactive Tutorial */}
       <AnimatePresence>
@@ -1321,9 +1328,9 @@ function Tutorial({ onComplete }) {
       icon: Clock,
     },
     {
-      title: 'AI Study Assistant 🤖',
-      content: 'Butuh bantuan? Klik tombol AI di pojok kanan bawah untuk bertanya tentang materi.',
-      icon: Bot,
+      title: 'Live Chat 💬',
+      content: 'Klik tombol chat di pojok kanan bawah untuk ngobrol bareng teman-teman saat belajar. Bisa kirim gambar, emoji, dan voice note!',
+      icon: MessageSquare,
     },
     {
       title: 'Siap Belajar! 🚀',
@@ -1339,13 +1346,13 @@ function Tutorial({ onComplete }) {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      localStorage.setItem('tutorialCompleted', 'true');
+      localStorage.setItem('tutorialCompletedV2', 'true');
       onComplete();
     }
   };
 
   const handleSkip = () => {
-    localStorage.setItem('tutorialCompleted', 'true');
+    localStorage.setItem('tutorialCompletedV2', 'true');
     onComplete();
   };
 
@@ -1407,69 +1414,211 @@ function Tutorial({ onComplete }) {
 }
 
 // ============================================
-// AI STUDY ASSISTANT
+// TERMS AGREEMENT
 // ============================================
-const GEMINI_API_KEY = 'AIzaSyBQQzHMEUolet_x4xIvpmgkOjd1KPwDD74';
+function TermsAgreement({ onAgree }) {
+  const [agreed, setAgreed] = useState(false);
 
-function AIAssistant({ currentSubject }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[300] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.7)' }}
+    >
+      <motion.div
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        className="glass-strong p-6 sm:p-8 rounded-2xl max-w-md w-full"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 gradient-accent rounded-xl flex items-center justify-center">
+            <Shield className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-[var(--text)]">Syarat & Ketentuan</h2>
+            <p className="text-xs text-[var(--text-muted)]">Harap baca dengan seksama</p>
+          </div>
+        </div>
+
+        <div className="space-y-3 mb-6 text-sm text-[var(--text-secondary)]">
+          <p className="font-medium text-[var(--text)]">Dengan menggunakan aplikasi ini, kamu menyetujui:</p>
+
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+              <span>License key bersifat <strong>pribadi</strong> dan tidak boleh dibagikan kepada siapapun.</span>
+            </div>
+            <div className="flex gap-2">
+              <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+              <span>Dilarang menjual, menyewakan, atau memindahtangankan license key.</span>
+            </div>
+            <div className="flex gap-2">
+              <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+              <span>Dilarang mengakali sistem dengan cara apapun.</span>
+            </div>
+            <div className="flex gap-2">
+              <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+              <span>Konten di forum harus sopan dan tidak melanggar hukum.</span>
+            </div>
+          </div>
+
+          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl mt-4">
+            <p className="text-red-500 font-bold text-center">⚠️ Pelanggaran = Akses DICABUT. NO REFUND!</p>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="mt-1 w-4 h-4 accent-[var(--accent)]"
+            />
+            <span className="text-sm text-[var(--text)]">
+              Saya telah membaca dan <strong>menyetujui</strong> semua syarat & ketentuan di atas.
+            </span>
+          </label>
+
+          <motion.button
+            whileHover={{ scale: agreed ? 1.02 : 1 }}
+            whileTap={{ scale: agreed ? 0.98 : 1 }}
+            onClick={onAgree}
+            disabled={!agreed}
+            className="btn btn-primary w-full disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Saya Setuju & Lanjutkan
+          </motion.button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ============================================
+// GLOBAL CHAT
+// ============================================
+const EMOJI_LIST = ['😀', '😂', '🥰', '😎', '🤔', '👍', '👎', '🔥', '❤️', '💯', '✅', '📚', '💡', '🎉', '😢', '😡'];
+const STICKERS = [
+  { id: 'study', emoji: '📚', label: 'Belajar' },
+  { id: 'tired', emoji: '😴', label: 'Capek' },
+  { id: 'help', emoji: '🆘', label: 'Butuh Bantuan' },
+  { id: 'done', emoji: '✅', label: 'Selesai' },
+  { id: 'fire', emoji: '🔥', label: 'Semangat' },
+  { id: 'love', emoji: '❤️', label: 'Suka' },
+];
+
+function GlobalChat({ session, selectedClass }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [showStickers, setShowStickers] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
 
-  const subjectContext = currentSubject ? `Konteks: User sedang belajar mata kuliah "${currentSubject.name}" - ${currentSubject.description}. ` : '';
+  const currentDeviceId = getDeviceId();
+  const isAdmin = session?.isAdmin === true;
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return;
-
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setLoading(true);
-
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: `${subjectContext}Kamu adalah asisten belajar UAS untuk mahasiswa manajemen di Indonesia. Jawab dengan singkat, jelas, dan dalam Bahasa Indonesia. Pertanyaan: ${userMessage}`
-            }]
-          }]
-        })
-      });
-
-      const data = await response.json();
-      console.log('Gemini API Response:', data);
-
-      if (data.error) {
-        throw new Error(data.error.message || 'API Error');
-      }
-
-      const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Maaf, saya tidak bisa menjawab saat ini.';
-      setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
-    } catch (error) {
-      console.error('AI Error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Error: ' + (error.message || 'Gagal menghubungi AI. Coba lagi.') }]);
+  useEffect(() => {
+    if (isOpen) {
+      const unsub = subscribeToGlobalChat(setMessages);
+      return () => unsub();
     }
+  }, [isOpen]);
 
-    setLoading(false);
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const sendTextMessage = async () => {
+    if (!input.trim() || sending) return;
+    setSending(true);
+    try {
+      await sendGlobalMessage(input.trim(), currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'text');
+      setInput('');
+    } catch (e) { console.error(e); }
+    setSending(false);
+    setShowEmoji(false);
   };
+
+  const sendImage = async (file) => {
+    if (!file) return;
+    setSending(true);
+    try {
+      const url = await uploadImage(file);
+      await sendGlobalMessage('', currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'image', url);
+    } catch (e) { console.error(e); alert('Gagal upload gambar'); }
+    setSending(false);
+  };
+
+  const sendSticker = async (sticker) => {
+    setSending(true);
+    try {
+      await sendGlobalMessage(sticker.emoji, currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'sticker');
+    } catch (e) { console.error(e); }
+    setSending(false);
+    setShowStickers(false);
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      const chunks = [];
+      recorder.ondataavailable = (e) => chunks.push(e.data);
+      recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        stream.getTracks().forEach(t => t.stop());
+        setSending(true);
+        try {
+          const file = new File([blob], 'voice.webm', { type: 'audio/webm' });
+          const url = await uploadImage(file);
+          await sendGlobalMessage('🎤 Voice Note', currentDeviceId, session.userName || session.name || 'Anonymous', selectedClass, 'audio', url);
+        } catch (e) { console.error(e); }
+        setSending(false);
+      };
+      recorder.start();
+      setMediaRecorder(recorder);
+      setRecording(true);
+    } catch (e) {
+      alert('Izinkan akses mikrofon');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setRecording(false);
+      setMediaRecorder(null);
+    }
+  };
+
+  const deleteMessage = async (msgId) => {
+    if (!window.confirm('Hapus pesan ini?')) return;
+    try {
+      await deleteGlobalMessage(msgId);
+    } catch (e) { console.error(e); }
+  };
+
+  const canDelete = (msg) => isAdmin || msg.authorId === currentDeviceId;
 
   return (
     <>
-      {/* Floating Button */}
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
         className="fixed bottom-24 right-5 z-50 w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center shadow-xl glow"
       >
-        <Bot className="w-6 h-6 text-white" />
+        <MessageSquare className="w-6 h-6 text-white" />
       </motion.button>
 
-      {/* Chat Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -1484,21 +1633,18 @@ function AIAssistant({ currentSubject }) {
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
-              className="glass-strong w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl overflow-hidden"
-              style={{ maxHeight: '80vh' }}
+              className="glass-strong w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl overflow-hidden flex flex-col"
+              style={{ maxHeight: '85vh', height: '600px' }}
               onClick={e => e.stopPropagation()}
             >
-              {/* Header */}
-              <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
+              <div className="p-4 border-b border-[var(--border)] flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center">
-                    <Bot className="w-5 h-5 text-white" />
+                    <MessageSquare className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[var(--text)]">AI Study Assistant</h3>
-                    <p className="text-xs text-[var(--text-muted)]">
-                      {currentSubject ? `📚 ${currentSubject.name}` : 'Siap membantu!'}
-                    </p>
+                    <h3 className="font-bold text-[var(--text)]">Live Chat</h3>
+                    <p className="text-xs text-[var(--text-muted)]">{messages.length} pesan • Ngobrol bareng! 🎉</p>
                   </div>
                 </div>
                 <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]">
@@ -1506,71 +1652,76 @@ function AIAssistant({ currentSubject }) {
                 </button>
               </div>
 
-              {/* Messages */}
-              <div className="h-80 overflow-y-auto p-4 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 space-y-3">
                 {messages.length === 0 && (
                   <div className="text-center py-8">
-                    <Lightbulb className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" />
-                    <p className="text-[var(--text-muted)] text-sm">Tanya apa saja tentang materi!</p>
-                    <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                      {['Jelaskan marketing mix', 'Apa itu POLC?', 'Buat quiz singkat'].map((q, i) => (
-                        <button
-                          key={i}
-                          onClick={() => { setInput(q); }}
-                          className="px-3 py-1.5 text-xs surface-flat rounded-full text-[var(--text-secondary)] hover:text-[var(--text)]"
-                        >
-                          {q}
+                    <MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" />
+                    <p className="text-[var(--text-muted)] text-sm">Belum ada pesan. Say hi! 👋</p>
+                  </div>
+                )}
+                {messages.map((msg) => {
+                  const isMine = msg.authorId === currentDeviceId;
+                  return (
+                    <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-[85%] ${isMine ? 'items-end' : 'items-start'}`}>
+                        {!isMine && (
+                          <div className="flex items-center gap-1 mb-1">
+                            <span className="text-xs font-medium text-[var(--text)]">{msg.authorName}</span>
+                            {msg.authorClass && <span className="class-badge text-[10px]">{msg.authorClass}</span>}
+                          </div>
+                        )}
+                        <div className={`group relative p-3 rounded-2xl text-sm ${isMine ? 'gradient-accent text-white rounded-br-md' : 'surface-flat text-[var(--text)] rounded-bl-md'}`}>
+                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="max-w-full rounded-lg mb-1" style={{ maxHeight: 200 }} />}
+                          {msg.type === 'audio' && msg.mediaUrl && <audio controls src={msg.mediaUrl} className="max-w-full" style={{ height: 36 }} />}
+                          {msg.type === 'sticker' && <span className="text-4xl">{msg.content}</span>}
+                          {(msg.type === 'text' || !msg.type) && msg.content}
+                          {canDelete(msg) && (
+                            <button onClick={() => deleteMessage(msg.id)} className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">×</button>
+                          )}
+                        </div>
+                        <span className="text-[10px] text-[var(--text-muted)] mt-0.5 block">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+                <div ref={messagesEndRef} />
+              </div>
+
+              <AnimatePresence>
+                {showEmoji && (
+                  <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]">
+                    <div className="p-3 flex flex-wrap gap-2">{EMOJI_LIST.map(e => <button key={e} onClick={() => setInput(prev => prev + e)} className="text-xl hover:scale-125 transition-transform">{e}</button>)}</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {showStickers && (
+                  <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]">
+                    <div className="p-3 flex flex-wrap gap-3">
+                      {STICKERS.map(s => (
+                        <button key={s.id} onClick={() => sendSticker(s)} className="flex flex-col items-center gap-1 p-2 surface-flat rounded-xl hover:scale-105 transition-transform">
+                          <span className="text-2xl">{s.emoji}</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">{s.label}</span>
                         </button>
                       ))}
                     </div>
-                  </div>
-                )}
-                {messages.map((msg, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${msg.role === 'user'
-                      ? 'gradient-accent text-white rounded-br-md'
-                      : 'surface-flat text-[var(--text)] rounded-bl-md'
-                      }`}>
-                      {msg.content}
-                    </div>
                   </motion.div>
-                ))}
-                {loading && (
-                  <div className="flex justify-start">
-                    <div className="surface-flat p-3 rounded-2xl rounded-bl-md">
-                      <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-[var(--accent)] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-2 h-2 bg-[var(--accent)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-2 h-2 bg-[var(--accent)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                      </div>
-                    </div>
-                  </div>
                 )}
-              </div>
+              </AnimatePresence>
 
-              {/* Input */}
-              <div className="p-4 border-t border-[var(--border)]">
-                <div className="flex gap-2">
-                  <input
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                    placeholder="Tanya tentang materi..."
-                    className="input flex-1"
-                  />
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={sendMessage}
-                    disabled={loading || !input.trim()}
-                    className="btn btn-primary px-4"
-                  >
-                    <Send className="w-4 h-4" />
+              <div className="p-3 border-t border-[var(--border)] shrink-0">
+                <div className="flex items-center gap-2">
+                  <input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => sendImage(e.target.files[0])} className="hidden" />
+                  <button onClick={() => fileInputRef.current?.click()} className="p-2 rounded-xl hover:bg-[var(--surface-hover)] text-[var(--text-muted)]" disabled={sending}><Image className="w-5 h-5" /></button>
+                  <button onClick={() => { setShowStickers(!showStickers); setShowEmoji(false); }} className={`p-2 rounded-xl hover:bg-[var(--surface-hover)] ${showStickers ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}><Sparkles className="w-5 h-5" /></button>
+                  <button onClick={recording ? stopRecording : startRecording} className={`p-2 rounded-xl ${recording ? 'bg-red-500 text-white animate-pulse' : 'hover:bg-[var(--surface-hover)] text-[var(--text-muted)]'}`} disabled={sending}><Mic className="w-5 h-5" /></button>
+                  <div className="flex-1 flex items-center gap-1 surface-flat rounded-xl px-3">
+                    <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && sendTextMessage()} placeholder="Ketik pesan..." className="flex-1 bg-transparent py-2 text-sm text-[var(--text)] outline-none" />
+                    <button onClick={() => { setShowEmoji(!showEmoji); setShowStickers(false); }} className={showEmoji ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}><Smile className="w-5 h-5" /></button>
+                  </div>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={sendTextMessage} disabled={sending || !input.trim()} className="btn btn-primary p-2.5">
+                    {sending ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
                   </motion.button>
                 </div>
               </div>
@@ -1581,3 +1732,4 @@ function AIAssistant({ currentSubject }) {
     </>
   );
 }
+

@@ -355,4 +355,63 @@ export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
     }
 };
 
+// ============================================
+// GLOBAL CHAT SYSTEM
+// ============================================
+
+// Subscribe to global chat messages (last 100)
+export const subscribeToGlobalChat = (callback) => {
+    const chatRef = ref(db, 'globalChat');
+    return onValue(chatRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            const messages = Object.entries(data)
+                .map(([id, msg]) => ({ id, ...msg }))
+                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                .slice(-100); // Keep last 100 messages
+            callback(messages);
+        } else {
+            callback([]);
+        }
+    });
+};
+
+// Send global chat message
+export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null) => {
+    const chatRef = ref(db, 'globalChat');
+    const newMessage = {
+        content,
+        type, // 'text', 'image', 'audio', 'sticker'
+        mediaUrl,
+        authorId,
+        authorName,
+        authorClass,
+        createdAt: new Date().toISOString()
+    };
+    try {
+        await withTimeout(push(chatRef, newMessage), 8000);
+    } catch (error) {
+        console.error('Error sending message:', error);
+        throw error;
+    }
+};
+
+// Delete global chat message
+export const deleteGlobalMessage = async (messageId) => {
+    const msgRef = ref(db, `globalChat/${messageId}`);
+    try {
+        await withTimeout(remove(msgRef), 8000);
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        throw error;
+    }
+};
+
+// Compress audio to smaller size
+export const compressAudio = async (blob) => {
+    // Return original for now - audio compression is complex
+    // In production, use a library like lamejs for MP3 compression
+    return blob;
+};
+
 export { db, ref, onValue };
