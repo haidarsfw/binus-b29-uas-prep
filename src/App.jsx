@@ -206,6 +206,7 @@ export default function App() {
 
   const confirmLogoutAction = () => {
     localStorage.removeItem('session');
+    sessionStorage.removeItem('termsAgreedThisSession'); // Clear so terms shows on next login
     setSession(null);
     setView('login');
     setSelectedClass('');
