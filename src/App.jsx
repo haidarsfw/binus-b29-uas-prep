@@ -1603,72 +1603,139 @@ function ConfirmModal({ isOpen, onClose, onConfirm, title, message }) {
 }
 
 // ============================================
-// VOICE NOTE PLAYER (Custom native-like UI)
+// VOICE NOTE PLAYER (Using Web Audio API - No MediaSession)
 // ============================================
 function VoiceNotePlayer({ src, isMine }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const audioRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Disable MediaSession on mount
+  const audioContextRef = useRef(null);
+  const audioBufferRef = useRef(null);
+  const sourceNodeRef = useRef(null);
+  const startTimeRef = useRef(0);
+  const pausedAtRef = useRef(0);
+  const animationRef = useRef(null);
+
+  // Load audio on mount
   useEffect(() => {
-    if ('mediaSession' in navigator) {
-      navigator.mediaSession.metadata = null;
-      navigator.mediaSession.playbackState = 'none';
+    const loadAudio = async () => {
+      try {
+        const response = await fetch(src);
+        const arrayBuffer = await response.arrayBuffer();
+
+        // Create AudioContext lazily
+        if (!audioContextRef.current) {
+          audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer);
+        audioBufferRef.current = audioBuffer;
+        setDuration(audioBuffer.duration);
+        setIsLoaded(true);
+      } catch (e) {
+        console.error('Error loading audio:', e);
+      }
+    };
+
+    loadAudio();
+
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (sourceNodeRef.current) {
+        try { sourceNodeRef.current.stop(); } catch (e) { }
+      }
+    };
+  }, [src]);
+
+  const updateProgress = () => {
+    if (audioContextRef.current && isPlaying) {
+      const elapsed = audioContextRef.current.currentTime - startTimeRef.current + pausedAtRef.current;
+      const dur = audioBufferRef.current?.duration || 1;
+
+      if (elapsed >= dur) {
+        setIsPlaying(false);
+        setProgress(0);
+        setCurrentTime(0);
+        pausedAtRef.current = 0;
+        return;
+      }
+
+      setCurrentTime(elapsed);
+      setProgress((elapsed / dur) * 100);
+      animationRef.current = requestAnimationFrame(updateProgress);
     }
-  }, []);
+  };
 
   const togglePlay = async () => {
-    if (audioRef.current) {
-      // Clear MediaSession before any audio action
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = null;
-        navigator.mediaSession.playbackState = 'none';
-        try {
-          navigator.mediaSession.setActionHandler('play', () => { });
-          navigator.mediaSession.setActionHandler('pause', () => { });
-          navigator.mediaSession.setActionHandler('stop', () => { });
-          navigator.mediaSession.setActionHandler('seekbackward', () => { });
-          navigator.mediaSession.setActionHandler('seekforward', () => { });
-          navigator.mediaSession.setActionHandler('previoustrack', () => { });
-          navigator.mediaSession.setActionHandler('nexttrack', () => { });
-        } catch (e) { }
-      }
+    if (!isLoaded || !audioBufferRef.current) return;
 
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        try {
-          await audioRef.current.play();
-          setIsPlaying(true);
-        } catch (e) {
-          console.error('Play error:', e);
+    // Resume AudioContext if suspended (browser autoplay policy)
+    if (audioContextRef.current?.state === 'suspended') {
+      await audioContextRef.current.resume();
+    }
+
+    if (isPlaying) {
+      // Pause
+      pausedAtRef.current += audioContextRef.current.currentTime - startTimeRef.current;
+      if (sourceNodeRef.current) {
+        try { sourceNodeRef.current.stop(); } catch (e) { }
+      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      setIsPlaying(false);
+    } else {
+      // Play
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = audioBufferRef.current;
+      source.connect(audioContextRef.current.destination);
+
+      source.onended = () => {
+        if (isPlaying) {
+          setIsPlaying(false);
+          setProgress(0);
+          setCurrentTime(0);
+          pausedAtRef.current = 0;
         }
+      };
+
+      const offset = pausedAtRef.current;
+      source.start(0, offset);
+
+      sourceNodeRef.current = source;
+      startTimeRef.current = audioContextRef.current.currentTime;
+      setIsPlaying(true);
+      animationRef.current = requestAnimationFrame(updateProgress);
+    }
+  };
+
+  const handleSeek = (e) => {
+    if (!audioBufferRef.current) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const seekTime = pct * audioBufferRef.current.duration;
+
+    pausedAtRef.current = seekTime;
+    setCurrentTime(seekTime);
+    setProgress(pct * 100);
+
+    if (isPlaying) {
+      // Stop current and restart at new position
+      if (sourceNodeRef.current) {
+        try { sourceNodeRef.current.stop(); } catch (e) { }
       }
-    }
-  };
 
-  const handleTimeUpdate = () => {
-    if (audioRef.current && audioRef.current.duration) {
-      const pct = (audioRef.current.currentTime / audioRef.current.duration) * 100;
-      setProgress(pct);
-      setCurrentTime(audioRef.current.currentTime);
-    }
-  };
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = audioBufferRef.current;
+      source.connect(audioContextRef.current.destination);
+      source.start(0, seekTime);
 
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
+      sourceNodeRef.current = source;
+      startTimeRef.current = audioContextRef.current.currentTime;
+      pausedAtRef.current = seekTime;
     }
-  };
-
-  const handleEnded = () => {
-    setIsPlaying(false);
-    setProgress(0);
-    setCurrentTime(0);
   };
 
   const formatTime = (sec) => {
@@ -1678,32 +1745,20 @@ function VoiceNotePlayer({ src, isMine }) {
     return `${m}:${s.toString().padStart(2, '0')}`;
   };
 
-  const handleSeek = (e) => {
-    if (audioRef.current && audioRef.current.duration) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      audioRef.current.currentTime = pct * audioRef.current.duration;
-    }
-  };
-
   return (
     <div className={`flex items-center gap-2 py-1`}>
-      <audio
-        ref={audioRef}
-        src={src}
-        preload="metadata"
-        onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={handleLoadedMetadata}
-        onEnded={handleEnded}
-        onPause={() => setIsPlaying(false)}
-        onPlay={() => setIsPlaying(true)}
-        style={{ display: 'none' }}
-      />
       <button
         onClick={togglePlay}
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isMine ? 'bg-white/20 text-white' : 'bg-[var(--accent)]/20 text-[var(--accent)]'}`}
+        disabled={!isLoaded}
+        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isMine ? 'bg-white/20 text-white' : 'bg-[var(--accent)]/20 text-[var(--accent)]'} ${!isLoaded ? 'opacity-50' : ''}`}
       >
-        {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+        {!isLoaded ? (
+          <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+        ) : isPlaying ? (
+          <Pause className="w-4 h-4" />
+        ) : (
+          <Play className="w-4 h-4 ml-0.5" />
+        )}
       </button>
       <div className="flex-1 flex flex-col gap-0.5 min-w-[80px]">
         <div
@@ -1982,6 +2037,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                   <input ref={fileInputRef} type="file" accept="image/*" onChange={e => { sendImage(e.target.files[0]); e.target.value = ''; }} className="hidden" />
                   <button onClick={() => fileInputRef.current?.click()} className="p-1.5 rounded-lg hover:bg-[var(--surface-hover)] text-[var(--text-muted)]" disabled={sending}><Image className="w-4 h-4" /></button>
                   <button onClick={() => { setShowStickers(!showStickers); setShowEmoji(false); }} className={`p-1.5 rounded-lg hover:bg-[var(--surface-hover)] ${showStickers ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}><Sparkles className="w-4 h-4" /></button>
+                  <button onClick={recording ? stopRecording : startRecording} className={`p-1.5 rounded-lg ${recording ? 'bg-red-500 text-white animate-pulse' : 'hover:bg-[var(--surface-hover)] text-[var(--text-muted)]'}`} disabled={sending}><Mic className="w-4 h-4" /></button>
                   <div className="flex-1 flex items-center gap-1 surface-flat rounded-lg px-2.5">
                     <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendTextMessage()} placeholder="Ketik... (@mention)" className="flex-1 bg-transparent py-1.5 text-sm text-[var(--text)] outline-none" />
                     <button onClick={() => { setShowEmoji(!showEmoji); setShowStickers(false); }} className={showEmoji ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}><Smile className="w-4 h-4" /></button>
