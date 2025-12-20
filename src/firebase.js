@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, get, onValue, push, remove, update, onDisconnect, serverTimestamp } from 'firebase/database';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBMhL2t-KrIS0M22607mB3ovEq_pe5OcSs",
@@ -14,9 +13,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const storage = getStorage(app);
 
-// Image compression and upload
+// Cloudinary Config (Free tier - unsigned upload)
+const CLOUDINARY_CLOUD_NAME = 'dmerjrm3p';
+const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
+
+// Image compression
 export const compressImage = (file, maxWidth = 800, quality = 0.7) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -49,18 +51,41 @@ export const compressImage = (file, maxWidth = 800, quality = 0.7) => {
     });
 };
 
-export const uploadImage = async (file, path) => {
+// Upload image to Cloudinary (free, reliable, no Firebase upgrade needed!)
+export const uploadImage = async (file) => {
     try {
-        // Compress if image
+        // Compress image first
         let uploadFile = file;
         if (file.type.startsWith('image/')) {
             uploadFile = await compressImage(file);
         }
 
-        const imageRef = storageRef(storage, `forum/${path}/${Date.now()}_${file.name}`);
-        await uploadBytes(imageRef, uploadFile);
-        const url = await getDownloadURL(imageRef);
-        return url;
+        // Upload to Cloudinary
+        const formData = new FormData();
+        formData.append('file', uploadFile);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+        const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+            {
+                method: 'POST',
+                body: formData
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Upload gagal. Pastikan Cloudinary config sudah benar.');
+        }
+
+        const data = await response.json();
+        console.log('Cloudinary response:', data); // Debug log
+
+        if (data.secure_url) {
+            console.log('Image URL:', data.secure_url);
+            return data.secure_url;
+        } else {
+            throw new Error(data.error?.message || 'Upload gagal');
+        }
     } catch (error) {
         console.error('Error uploading image:', error);
         throw error;

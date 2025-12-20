@@ -861,7 +861,7 @@ function Forum({ subjectId, session, selectedClass }) {
     try {
       let imageUrl = null;
       if (newImage) {
-        imageUrl = await uploadImage(newImage, `threads/${subjectId}`);
+        imageUrl = await uploadImage(newImage);
       }
       await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass, imageUrl);
       setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
