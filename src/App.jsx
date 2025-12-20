@@ -238,6 +238,10 @@ export default function App() {
               setSession(u);
               localStorage.setItem('session', JSON.stringify(u));
               setView('dashboard');
+              // Show terms agreement on every fresh login
+              if (!sessionStorage.getItem('termsAgreedThisSession')) {
+                setShowTerms(true);
+              }
               // Show tutorial if first time
               if (!localStorage.getItem('tutorialCompletedV2')) {
                 setShowTutorial(true);
