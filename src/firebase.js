@@ -216,4 +216,50 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
     }
 };
 
+export const deleteComment = async (subjectId, threadId, commentId) => {
+    const commentRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}`);
+    const threadRef = ref(db, `forums/${subjectId}/threads/${threadId}`);
+    const commentsRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments`);
+
+    try {
+        await withTimeout(remove(commentRef), 8000);
+        // Update comment count
+        const snapshot = await withTimeout(get(commentsRef), 5000);
+        const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
+        await withTimeout(update(threadRef, { commentCount: count }), 5000);
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        throw error;
+    }
+};
+
+export const addReply = async (subjectId, threadId, commentId, content, authorId, authorName, authorClass) => {
+    const repliesRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}/replies`);
+
+    const newReply = {
+        content,
+        authorId,
+        authorName,
+        authorClass: authorClass || 'Other',
+        createdAt: new Date().toISOString(),
+    };
+
+    try {
+        await withTimeout(push(repliesRef, newReply), 8000);
+    } catch (error) {
+        console.error('Error adding reply:', error);
+        throw error;
+    }
+};
+
+export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
+    const replyRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}/replies/${replyId}`);
+    try {
+        await withTimeout(remove(replyRef), 8000);
+    } catch (error) {
+        console.error('Error deleting reply:', error);
+        throw error;
+    }
+};
+
 export { db, ref, onValue };

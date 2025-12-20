@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle } from 'lucide-react';
 import DB from './db';
-import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, getDeviceId } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, getDeviceId } from './firebase';
 
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -836,6 +836,7 @@ function Forum({ subjectId, session, selectedClass }) {
   const [newContent, setNewContent] = useState('');
   const [selectedThread, setSelectedThread] = useState(null);
   const [creating, setCreating] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(null); // { type: 'thread' | 'comment', id, threadId? }
 
   useEffect(() => {
     const unsub = subscribeToThreads(subjectId, setThreads);
@@ -845,19 +846,53 @@ function Forum({ subjectId, session, selectedClass }) {
   const handleCreate = async () => {
     if (!newTitle.trim() || !newContent.trim()) return;
     setCreating(true);
-    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass);
-    setNewTitle(''); setNewContent(''); setShowNew(false); setCreating(false);
+    try {
+      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass);
+      setNewTitle(''); setNewContent(''); setShowNew(false);
+    } catch (e) { alert(e.message); }
+    setCreating(false);
   };
 
-  const handleDelete = async (threadId) => {
-    if (confirm('Hapus thread ini?')) {
-      await deleteThread(subjectId, threadId);
+  const confirmDeleteThread = async () => {
+    if (!confirmDelete) return;
+    try {
+      await deleteThread(subjectId, confirmDelete.id);
       setSelectedThread(null);
-    }
+      setConfirmDelete(null);
+    } catch (e) { alert(e.message); }
   };
 
   if (selectedThread) {
-    return <ThreadView subjectId={subjectId} thread={selectedThread} session={session} selectedClass={selectedClass} onBack={() => setSelectedThread(null)} onDelete={() => handleDelete(selectedThread.id)} />;
+    return (
+      <>
+        <ThreadView
+          subjectId={subjectId}
+          thread={selectedThread}
+          session={session}
+          selectedClass={selectedClass}
+          onBack={() => setSelectedThread(null)}
+          onDelete={() => setConfirmDelete({ type: 'thread', id: selectedThread.id })}
+        />
+        {/* Confirm Modal */}
+        <AnimatePresence>
+          {confirmDelete && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" style={{ zIndex: 200 }}>
+              <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="glass-strong p-6 max-w-sm mx-4 text-center">
+                <div className="w-14 h-14 bg-red-500/15 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="w-7 h-7 text-red-500" />
+                </div>
+                <h3 className="text-lg font-bold text-[var(--text)] mb-2">Hapus Thread?</h3>
+                <p className="text-[var(--text-secondary)] text-sm mb-5">Thread dan semua komentar akan dihapus permanen.</p>
+                <div className="flex gap-3">
+                  <button onClick={() => setConfirmDelete(null)} className="btn btn-secondary flex-1">Batal</button>
+                  <button onClick={confirmDeleteThread} className="btn btn-danger flex-1">Hapus</button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
+    );
   }
 
   return (
@@ -921,6 +956,10 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [posting, setPosting] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null); // comment id
+  const [replyText, setReplyText] = useState('');
+  const [confirmDeleteComment, setConfirmDeleteComment] = useState(null);
+  const [deleting, setDeleting] = useState(false);
   const isOwner = thread.authorId === getDeviceId();
 
   useEffect(() => {
@@ -931,8 +970,32 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const handlePost = async () => {
     if (!newComment.trim()) return;
     setPosting(true);
-    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, selectedClass);
-    setNewComment(''); setPosting(false);
+    try {
+      await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, selectedClass);
+      setNewComment('');
+    } catch (e) { alert(e.message); }
+    setPosting(false);
+  };
+
+  const handleReply = async (commentId) => {
+    if (!replyText.trim()) return;
+    setPosting(true);
+    try {
+      await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName, selectedClass);
+      setReplyText('');
+      setReplyingTo(null);
+    } catch (e) { alert(e.message); }
+    setPosting(false);
+  };
+
+  const handleDeleteComment = async () => {
+    if (!confirmDeleteComment) return;
+    setDeleting(true);
+    try {
+      await deleteComment(subjectId, thread.id, confirmDeleteComment);
+      setConfirmDeleteComment(null);
+    } catch (e) { alert(e.message); }
+    setDeleting(false);
   };
 
   return (
@@ -979,18 +1042,85 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
       )}
 
       <div className="space-y-3 stagger">
-        {comments.map(c => (
-          <motion.div key={c.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="comment-card">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
-              <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
-              {c.authorClass && <span className="class-badge text-xs">{c.authorClass}</span>}
-              <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
-            </div>
-            <p className="text-[var(--text-secondary)] text-sm">{c.content}</p>
-          </motion.div>
-        ))}
+        {comments.map(c => {
+          const isCommentOwner = c.authorId === getDeviceId();
+          const replies = c.replies ? Object.entries(c.replies).map(([id, r]) => ({ id, ...r })).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) : [];
+
+          return (
+            <motion.div key={c.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="comment-card">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
+                  <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
+                  {c.authorClass && <span className="class-badge text-xs">{c.authorClass}</span>}
+                  <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {!thread.closed && (
+                    <button onClick={() => setReplyingTo(replyingTo === c.id ? null : c.id)} className="btn-ghost text-xs p-1">
+                      <Reply className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  {isCommentOwner && (
+                    <button onClick={() => setConfirmDeleteComment(c.id)} className="btn-ghost text-xs p-1 text-[var(--danger)]">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+              <p className="text-[var(--text-secondary)] text-sm">{c.content}</p>
+
+              {/* Replies */}
+              {replies.length > 0 && (
+                <div className="ml-6 mt-3 space-y-2 border-l-2 border-[var(--border)] pl-4">
+                  {replies.map(r => (
+                    <div key={r.id} className="text-sm">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="avatar avatar-sm" style={{ width: 24, height: 24, fontSize: 10 }}>{r.authorName?.charAt(0) || '?'}</div>
+                        <span className="font-medium text-[var(--text)]">{r.authorName}</span>
+                        {r.authorClass && <span className="class-badge text-xs">{r.authorClass}</span>}
+                        <span className="text-xs text-[var(--text-muted)]">{new Date(r.createdAt).toLocaleString('id-ID')}</span>
+                      </div>
+                      <p className="text-[var(--text-secondary)]">{r.content}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Reply Input */}
+              {replyingTo === c.id && (
+                <div className="mt-3 ml-6 flex gap-2">
+                  <input value={replyText} onChange={(e) => setReplyText(e.target.value)} placeholder="Balas komentar..." className="input flex-1 text-sm" onKeyDown={(e) => e.key === 'Enter' && handleReply(c.id)} autoFocus />
+                  <button onClick={() => handleReply(c.id)} disabled={posting || !replyText.trim()} className="btn btn-primary text-xs px-3">
+                    {posting ? <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-3 h-3" />}
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
+
+      {/* Confirm Delete Comment Modal */}
+      <AnimatePresence>
+        {confirmDeleteComment && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" style={{ zIndex: 200 }}>
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="glass-strong p-6 max-w-sm mx-4 text-center">
+              <div className="w-14 h-14 bg-red-500/15 rounded-full flex items-center justify-center mx-auto mb-4">
+                <AlertTriangle className="w-7 h-7 text-red-500" />
+              </div>
+              <h3 className="text-lg font-bold text-[var(--text)] mb-2">Hapus Komentar?</h3>
+              <p className="text-[var(--text-secondary)] text-sm mb-5">Komentar akan dihapus permanen.</p>
+              <div className="flex gap-3">
+                <button onClick={() => setConfirmDeleteComment(null)} className="btn btn-secondary flex-1" disabled={deleting}>Batal</button>
+                <button onClick={handleDeleteComment} className="btn btn-danger flex-1" disabled={deleting}>
+                  {deleting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" /> : 'Hapus'}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
