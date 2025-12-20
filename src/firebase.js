@@ -92,6 +92,42 @@ export const uploadImage = async (file) => {
     }
 };
 
+// Upload audio to Cloudinary (uses /video/upload endpoint)
+export const uploadAudio = async (file) => {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        formData.append('resource_type', 'video'); // audio uses video resource type
+
+        const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
+            {
+                method: 'POST',
+                body: formData
+            }
+        );
+
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            console.error('Cloudinary audio error:', errData);
+            throw new Error('Upload audio gagal');
+        }
+
+        const data = await response.json();
+        console.log('Cloudinary audio response:', data);
+
+        if (data.secure_url) {
+            return data.secure_url;
+        } else {
+            throw new Error(data.error?.message || 'Upload audio gagal');
+        }
+    } catch (error) {
+        console.error('Error uploading audio:', error);
+        throw error;
+    }
+};
+
 // Generate unique device ID
 export const getDeviceId = () => {
     let deviceId = localStorage.getItem('deviceId');
