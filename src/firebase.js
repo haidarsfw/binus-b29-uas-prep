@@ -249,7 +249,7 @@ export const subscribeToPresence = (callback) => {
     return onValue(presenceRef, (snapshot) => {
         const data = snapshot.val() || {};
         const now = Date.now();
-        const ACTIVE_THRESHOLD = 15 * 60 * 1000; // 15 minutes in ms
+        const ACTIVE_THRESHOLD = 60 * 60 * 1000; // 1 hour in ms
 
         const users = Object.entries(data)
             .filter(([_, v]) => {

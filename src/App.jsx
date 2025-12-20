@@ -178,14 +178,38 @@ export default function App() {
     updatePresence(userId, { currentSubject: currentSubject?.id || null });
   }, [session, currentSubject]);
 
-  // Periodic presence heartbeat (every 5 minutes) to keep lastSeen updated
+  // Smart presence: frequent updates when tab visible, infrequent when hidden
   useEffect(() => {
     if (!session) return;
     const userId = getDeviceId();
-    const interval = setInterval(() => {
-      updatePresence(userId, {}); // Just updates lastSeen timestamp
-    }, 5 * 60 * 1000); // 5 minutes
-    return () => clearInterval(interval);
+    let interval = null;
+
+    const updateHeartbeat = () => {
+      updatePresence(userId, {}); // Updates lastSeen timestamp
+    };
+
+    const handleVisibilityChange = () => {
+      // Clear existing interval
+      if (interval) clearInterval(interval);
+
+      if (document.visibilityState === 'visible') {
+        // Tab is active - update immediately and every 30 seconds
+        updateHeartbeat();
+        interval = setInterval(updateHeartbeat, 30 * 1000); // 30 seconds when visible
+      } else {
+        // Tab is hidden - update every 30 minutes
+        interval = setInterval(updateHeartbeat, 30 * 60 * 1000); // 30 minutes when hidden
+      }
+    };
+
+    // Initial setup
+    handleVisibilityChange();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [session]);
 
   // Content protection
