@@ -139,6 +139,14 @@ export const subscribeToThreads = (subjectId, callback) => {
     });
 };
 
+// Helper function for timeout
+const withTimeout = (promise, ms) => {
+    const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Koneksi timeout. Coba lagi.')), ms)
+    );
+    return Promise.race([promise, timeout]);
+};
+
 export const createThread = async (subjectId, title, content, authorId, authorName, authorClass) => {
     const threadsRef = ref(db, `forums/${subjectId}/threads`);
     const newThread = {
@@ -151,9 +159,15 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
         closed: false,
         commentCount: 0,
     };
-    const newRef = push(threadsRef);
-    await set(newRef, newThread);
-    return newRef.key;
+
+    try {
+        const newRef = push(threadsRef);
+        await withTimeout(set(newRef, newThread), 8000);
+        return newRef.key;
+    } catch (error) {
+        console.error('Error creating thread:', error);
+        throw error;
+    }
 };
 
 export const deleteThread = async (subjectId, threadId) => {
@@ -190,12 +204,12 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
     };
 
     try {
-        await push(commentsRef, newComment);
+        await withTimeout(push(commentsRef, newComment), 8000);
 
-        // Update comment count using get() instead of onValue
-        const snapshot = await get(commentsRef);
+        // Update comment count using get() with timeout
+        const snapshot = await withTimeout(get(commentsRef), 5000);
         const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
-        await update(threadRef, { commentCount: count });
+        await withTimeout(update(threadRef, { commentCount: count }), 5000);
     } catch (error) {
         console.error('Error adding comment:', error);
         throw error;
