@@ -14,6 +14,7 @@ export const DB = {
         { key: 'admin1', name: 'Admin', daysActive: 365, isAdmin: true },
         { key: 'azhura', name: 'Azhura', daysActive: 99999 },
         { key: 'tester01', name: 'Tester', daysActive: 14, unlimitedDevices: true },
+        { key: 'tester02', name: 'Tester2', daysActive: 14, unlimitedDevices: true },
         // Tambahkan license key baru di sini
     ],
 

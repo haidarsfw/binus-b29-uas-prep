@@ -1053,6 +1053,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const [confirmDeleteComment, setConfirmDeleteComment] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const isOwner = thread.authorId === getDeviceId();
+  const isAdmin = session?.isAdmin === true;
 
   useEffect(() => {
     const unsub = subscribeToComments(subjectId, thread.id, setComments);
@@ -1094,7 +1095,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     <div className="animate-fade">
       <div className="flex items-center justify-between mb-4">
         <button onClick={onBack} className="btn-ghost text-sm">← Kembali</button>
-        {isOwner && (
+        {(isOwner || isAdmin) && (
           <button onClick={onDelete} className="btn-ghost text-[var(--danger)] text-sm"><Trash2 className="w-4 h-4 mr-1" />Hapus</button>
         )}
       </div>
@@ -1156,7 +1157,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
                       <Reply className="w-3.5 h-3.5" />
                     </button>
                   )}
-                  {isCommentOwner && (
+                  {(isAdmin || isOwner || isCommentOwner) && (
                     <button onClick={() => setConfirmDeleteComment(c.id)} className="btn-ghost text-xs p-1 text-[var(--danger)]">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -1427,7 +1428,7 @@ function AIAssistant({ currentSubject }) {
     setLoading(true);
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
