@@ -517,7 +517,10 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           <CircularProgress value={overallProgress} size={120} stroke={10} />
           <div className="text-center md:text-left flex-1">
             <p className="text-[var(--text-secondary)] mb-1">{greeting},</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2">{name}!</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2 flex items-center gap-2 justify-center md:justify-start">
+              {name}!
+              {session?.isAdmin && <span className="text-xs px-2 py-0.5 bg-red-500/15 text-red-500 rounded-md font-semibold">Admin</span>}
+            </h1>
             <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Progress <span className="font-bold gradient-text">{Math.round(overallProgress)}%</span></p>
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
               <span className="badge badge-accent"><BookOpen className="w-3 h-3" />{DB.subjects.length} Mata Kuliah</span>
