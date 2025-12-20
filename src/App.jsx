@@ -275,7 +275,7 @@ export default function App() {
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} />
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -593,7 +593,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass }) {
   const content = DB.content[subject.id];
 
 
