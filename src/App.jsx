@@ -613,9 +613,9 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
               const d = new Date(date);
               return (
                 <div key={subject} className="flex justify-between items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
-                  <span className="text-[var(--text)] truncate flex-1 mr-3">{subject.replace('Management', 'Mgmt')}</span>
+                  <span className="text-[var(--text)] flex-1 mr-3">{subject}</span>
                   <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
-                    {d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
+                    {d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' })}
                   </span>
                   <span className="text-[var(--text-muted)] ml-2 whitespace-nowrap">
                     {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
@@ -626,8 +626,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           </div>
         </div>
 
-        {/* Mini Exam Countdown */}
-        <div className="md:col-span-3">
+        {/* Exam Countdown - matching height */}
+        <div className="md:col-span-3 flex">
           <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
         </div>
       </div>
@@ -1267,26 +1267,26 @@ function ExamCountdown({ schedules, selectedClass }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={`glass-card p-4 ${isUrgent ? 'border border-red-500/50' : ''}`}
+      className={`glass-card p-4 h-full flex flex-col ${isUrgent ? 'border border-red-500/50' : ''}`}
     >
       <div className="flex items-center gap-2 mb-2">
         <Target className={`w-4 h-4 ${isUrgent ? 'text-red-500' : 'text-[var(--accent)]'}`} />
         <span className="text-sm font-medium text-[var(--text)]">Countdown UAS</span>
         {isUrgent && <span className="ml-auto text-xs text-red-500 font-bold animate-pulse">H-{countdown.days}</span>}
       </div>
-      <p className="text-xs text-[var(--text-muted)] mb-2 truncate">{countdown.subject}</p>
-      <div className="flex gap-1 text-center">
+      <p className="text-xs text-[var(--text-muted)] mb-3">{countdown.subject}</p>
+      <div className="flex gap-2 text-center mt-auto">
         {[
-          { value: countdown.days, label: 'H' },
-          { value: countdown.hours, label: 'J' },
-          { value: countdown.minutes, label: 'M' },
-          { value: countdown.seconds, label: 'D' },
+          { value: countdown.days, label: 'Hari' },
+          { value: countdown.hours, label: 'Jam' },
+          { value: countdown.minutes, label: 'Mnt' },
+          { value: countdown.seconds, label: 'Dtk' },
         ].map((item, i) => (
-          <div key={i} className="flex-1 surface-flat rounded-lg py-1.5 px-1">
-            <div className={`text-sm font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
+          <div key={i} className="flex-1 surface-flat rounded-lg py-2 px-1">
+            <div className={`text-lg font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
               {String(item.value).padStart(2, '0')}
             </div>
-            <div className="text-[8px] text-[var(--text-muted)]">{item.label}</div>
+            <div className="text-[9px] text-[var(--text-muted)]">{item.label}</div>
           </div>
         ))}
       </div>
