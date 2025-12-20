@@ -1749,9 +1749,11 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   const [showMentions, setShowMentions] = useState(false);
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [seenMentionIds, setSeenMentionIds] = useState(() => JSON.parse(localStorage.getItem('seenMentions') || '[]'));
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const stickerInputRef = useRef(null);
+  const isFirstLoad = useRef(true);
 
   const currentDeviceId = getDeviceId();
   const currentUserName = session?.userName || session?.name || 'Anonymous';
@@ -1759,11 +1761,18 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
 
   useEffect(() => {
     if (isOpen) {
+      isFirstLoad.current = true;
       const unsub = subscribeToGlobalChat((msgs) => {
-        const prevIds = messages.map(m => m.id);
+        // Check for new mentions that haven't been seen
         msgs.forEach(m => {
-          if (!prevIds.includes(m.id) && m.content?.includes(`@${currentUserName}`) && m.authorId !== currentDeviceId) {
+          if (m.content?.includes(`@${currentUserName}`) &&
+            m.authorId !== currentDeviceId &&
+            !seenMentionIds.includes(m.id)) {
             addNotification?.({ type: 'mention', title: 'Kamu di-mention!', message: `${m.authorName}: ${m.content.slice(0, 50)}` });
+            // Mark as seen
+            const newSeen = [...seenMentionIds, m.id].slice(-100); // Keep last 100
+            setSeenMentionIds(newSeen);
+            localStorage.setItem('seenMentions', JSON.stringify(newSeen));
           }
         });
         setMessages(msgs);
@@ -1772,7 +1781,13 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
     }
   }, [isOpen]);
 
-  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      // Use instant on first load, smooth on subsequent updates
+      messagesEndRef.current.scrollIntoView({ behavior: isFirstLoad.current ? 'instant' : 'smooth' });
+      isFirstLoad.current = false;
+    }
+  }, [messages]);
 
   useEffect(() => {
     const match = input.match(/@(\w*)$/);
@@ -1967,7 +1982,6 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                   <input ref={fileInputRef} type="file" accept="image/*" onChange={e => { sendImage(e.target.files[0]); e.target.value = ''; }} className="hidden" />
                   <button onClick={() => fileInputRef.current?.click()} className="p-1.5 rounded-lg hover:bg-[var(--surface-hover)] text-[var(--text-muted)]" disabled={sending}><Image className="w-4 h-4" /></button>
                   <button onClick={() => { setShowStickers(!showStickers); setShowEmoji(false); }} className={`p-1.5 rounded-lg hover:bg-[var(--surface-hover)] ${showStickers ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}><Sparkles className="w-4 h-4" /></button>
-                  <button onClick={recording ? stopRecording : startRecording} className={`p-1.5 rounded-lg ${recording ? 'bg-red-500 text-white animate-pulse' : 'hover:bg-[var(--surface-hover)] text-[var(--text-muted)]'}`} disabled={sending}><Mic className="w-4 h-4" /></button>
                   <div className="flex-1 flex items-center gap-1 surface-flat rounded-lg px-2.5">
                     <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendTextMessage()} placeholder="Ketik... (@mention)" className="flex-1 bg-transparent py-1.5 text-sm text-[var(--text)] outline-none" />
                     <button onClick={() => { setShowEmoji(!showEmoji); setShowStickers(false); }} className={showEmoji ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}><Smile className="w-4 h-4" /></button>
