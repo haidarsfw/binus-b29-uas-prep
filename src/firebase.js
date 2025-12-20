@@ -377,7 +377,7 @@ export const subscribeToGlobalChat = (callback) => {
 };
 
 // Send global chat message
-export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null) => {
+export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null, replyData = {}) => {
     const chatRef = ref(db, 'globalChat');
     const newMessage = {
         content,
@@ -386,7 +386,8 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
         authorId,
         authorName,
         authorClass,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        ...replyData // Include replyToId, replyToName, replyToContent if present
     };
     try {
         await withTimeout(push(chatRef, newMessage), 8000);

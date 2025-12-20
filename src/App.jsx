@@ -65,6 +65,7 @@ export default function App() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [confirmLogout, setConfirmLogout] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -200,11 +201,15 @@ export default function App() {
   }, [progress]);
 
   const logout = () => {
-    if (!window.confirm('Yakin ingin keluar?')) return;
+    setConfirmLogout(true);
+  };
+
+  const confirmLogoutAction = () => {
     localStorage.removeItem('session');
     setSession(null);
     setView('login');
     setSelectedClass('');
+    setConfirmLogout(false);
   };
 
   if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
@@ -507,6 +512,15 @@ export default function App() {
           <TermsAgreement onAgree={() => { sessionStorage.setItem('termsAgreedThisSession', 'true'); setShowTerms(false); }} />
         )}
       </AnimatePresence>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmModal
+        isOpen={confirmLogout}
+        onClose={() => setConfirmLogout(false)}
+        onConfirm={confirmLogoutAction}
+        title="Keluar"
+        message="Yakin ingin keluar dari akun?"
+      />
 
       {/* Interactive Tutorial */}
       <AnimatePresence>
@@ -1542,6 +1556,37 @@ function TermsAgreement({ onAgree }) {
 }
 
 // ============================================
+// CONFIRM MODAL (Custom - replaces window.confirm)
+// ============================================
+function ConfirmModal({ isOpen, onClose, onConfirm, title, message }) {
+  if (!isOpen) return null;
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[400] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.6)' }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, y: 10 }}
+        animate={{ scale: 1, y: 0 }}
+        className="glass-strong p-5 rounded-2xl max-w-xs w-full"
+        onClick={e => e.stopPropagation()}
+      >
+        <h3 className="font-bold text-[var(--text)] text-center mb-2">{title || 'Konfirmasi'}</h3>
+        <p className="text-sm text-[var(--text-secondary)] text-center mb-4">{message || 'Yakin?'}</p>
+        <div className="flex gap-2">
+          <button onClick={onClose} className="flex-1 py-2 px-4 rounded-xl surface-flat text-[var(--text)] text-sm font-medium">Batal</button>
+          <button onClick={() => { onConfirm(); onClose(); }} className="flex-1 py-2 px-4 rounded-xl bg-red-500 text-white text-sm font-medium">Ya</button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ============================================
 // GLOBAL LIVE CHAT
 // ============================================
 const EMOJI_LIST = ['😀', '😂', '🥰', '😎', '🤔', '👍', '👎', '🔥', '❤️', '💯', '✅', '📚', '💡', '🎉', '😢', '😡'];
@@ -1566,6 +1611,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   const [replyTo, setReplyTo] = useState(null);
   const [showMentions, setShowMentions] = useState(false);
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
+  const [confirmDelete, setConfirmDelete] = useState(null);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const stickerInputRef = useRef(null);
@@ -1605,8 +1651,9 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
     if (!input.trim() || sending) return;
     setSending(true);
     try {
-      const content = replyTo ? `↩️ ${replyTo.authorName}: "${replyTo.content?.slice(0, 25) || '...'}" — ${input.trim()}` : input.trim();
-      await sendGlobalMessage(content, currentDeviceId, currentUserName, selectedClass, 'text');
+      // Store reply info as separate fields (for WhatsApp-style display)
+      const replyData = replyTo ? { replyToId: replyTo.id, replyToName: replyTo.authorName, replyToContent: replyTo.content?.slice(0, 40) || '...' } : {};
+      await sendGlobalMessage(input.trim(), currentDeviceId, currentUserName, selectedClass, 'text', null, replyData);
       setInput('');
       setReplyTo(null);
     } catch (e) { console.error(e); }
@@ -1681,8 +1728,13 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   };
 
   const deleteMessage = async (msgId) => {
-    if (!window.confirm('Hapus pesan?')) return;
-    try { await deleteGlobalMessage(msgId); } catch (e) { console.error(e); }
+    setConfirmDelete(msgId);
+  };
+
+  const confirmDeleteMessage = async () => {
+    if (!confirmDelete) return;
+    try { await deleteGlobalMessage(confirmDelete); } catch (e) { console.error(e); }
+    setConfirmDelete(null);
   };
 
   const canDelete = (msg) => isAdmin || msg.authorId === currentDeviceId;
@@ -1714,11 +1766,19 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                 {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
                 {messages.map((msg) => {
                   const isMine = msg.authorId === currentDeviceId;
+                  const isMedia = msg.type === 'image' || msg.type === 'customSticker' || msg.type === 'audio';
                   return (
                     <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                       <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
                         {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
-                        <div className={`group relative inline-block ${msg.type === 'image' || msg.type === 'customSticker' ? '' : 'px-3 py-1.5'} rounded-2xl text-sm ${isMine ? 'gradient-accent text-white rounded-br-sm' : 'surface-flat text-[var(--text)] rounded-bl-sm'}`}>
+                        <div className={`group relative inline-block ${isMedia ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !isMedia ? 'gradient-accent text-white rounded-br-sm' : !isMedia ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
+                          {/* WhatsApp-style Reply Quote */}
+                          {msg.replyToName && (
+                            <div className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}>
+                              <span className="font-medium">{msg.replyToName}</span>
+                              <p className="opacity-70 truncate">{msg.replyToContent}</p>
+                            </div>
+                          )}
                           {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40" />}
                           {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain" />}
                           {msg.type === 'audio' && msg.mediaUrl && <audio controls src={msg.mediaUrl} className="h-8 w-44" />}
@@ -1770,6 +1830,15 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Custom Confirm Modal for Delete */}
+      <ConfirmModal
+        isOpen={!!confirmDelete}
+        onClose={() => setConfirmDelete(null)}
+        onConfirm={confirmDeleteMessage}
+        title="Hapus Pesan"
+        message="Yakin ingin menghapus pesan ini?"
+      />
     </>
   );
 }
