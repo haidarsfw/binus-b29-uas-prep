@@ -189,13 +189,17 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
         createdAt: new Date().toISOString(),
     };
 
-    await push(commentsRef, newComment);
+    try {
+        await push(commentsRef, newComment);
 
-    // Update comment count
-    onValue(commentsRef, (snapshot) => {
-        const count = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
-        update(threadRef, { commentCount: count });
-    }, { onlyOnce: true });
+        // Update comment count using get() instead of onValue
+        const snapshot = await get(commentsRef);
+        const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
+        await update(threadRef, { commentCount: count });
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        throw error;
+    }
 };
 
 export { db, ref, onValue };
