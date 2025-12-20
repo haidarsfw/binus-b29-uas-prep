@@ -94,6 +94,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  background: var(--bg-solid);
+}
+
 body {
   margin: 0;
   font-family: var(--font);
@@ -103,6 +107,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   transition: color 0.3s ease;
+  overscroll-behavior: none;
 }
 
 /* Scrollbar */
@@ -661,6 +666,21 @@ textarea.input {
   background: rgba(245, 158, 11, 0.15);
   border-color: transparent;
   color: var(--warning);
+}
+
+/* Class Badge (Forum) */
+.class-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-transform: uppercase;
 }
 
 /* ================================================================

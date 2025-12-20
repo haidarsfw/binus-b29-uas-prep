@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing } from 'lucide-react';
 import DB from './db';
 import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, getDeviceId } from './firebase';
 
@@ -58,6 +58,10 @@ export default function App() {
   const [pomo, setPomo] = useState({ time: 25 * 60, active: false });
   const [showSettings, setShowSettings] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [reminder, setReminder] = useState(() => localStorage.getItem('studyReminder') || '');
+  const [showReminder, setShowReminder] = useState(false);
+  const [reminderActive, setReminderActive] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -80,6 +84,37 @@ export default function App() {
     const i = setInterval(() => setPomo(p => p.time <= 1 ? { time: 25 * 60, active: false } : { ...p, time: p.time - 1 }), 1000);
     return () => clearInterval(i);
   }, [pomo.active]);
+
+  // Realtime clock & reminder check
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now);
+      // Check reminder
+      if (reminder) {
+        const [h, m] = reminder.split(':').map(Number);
+        if (now.getHours() === h && now.getMinutes() === m && !reminderActive) {
+          setReminderActive(true);
+          // Trigger notification
+          if (Notification.permission === 'granted') {
+            new Notification('🔔 Waktunya Belajar!', { body: 'Reminder belajar UAS sudah aktif!', icon: '/vite.svg' });
+          }
+          // Also alert
+          setTimeout(() => alert('🔔 Waktunya Belajar!'), 100);
+        }
+        // Reset at next minute
+        if (now.getSeconds() === 0) setReminderActive(false);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [reminder, reminderActive]);
+
+  // Request notification permission
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  }, []);
 
   // Setup presence
   useEffect(() => {
@@ -178,14 +213,25 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-1">
+            {/* Live Clock */}
+            <span className="text-sm font-medium text-[var(--text)] tabular-nums hidden sm:block">
+              {currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+            {/* Reminder */}
+            <button onClick={() => setShowReminder(true)} className={`p-2 rounded-xl hover:bg-[var(--surface-hover)] transition-all relative ${reminder ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+              {reminder ? <BellRing className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
+              {reminder && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[var(--accent)] rounded-full" />}
+            </button>
             {/* Pomodoro */}
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl glass-card">
-              <Clock className="w-4 h-4 text-[var(--text-muted)]" />
-              <span className="text-sm font-medium text-[var(--text)] tabular-nums">{formatTime(pomo.time)}</span>
-              <button onClick={() => setPomo(p => ({ ...p, active: !p.active }))} className={`p-1.5 rounded-lg ${pomo.active ? 'text-[var(--danger)]' : 'text-[var(--success)]'}`}>
-                {pomo.active ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+            <div className="flex items-center gap-1 px-2 py-1.5 rounded-xl glass-card">
+              <Clock className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+              <span className="text-xs font-medium text-[var(--text)] tabular-nums">{formatTime(pomo.time)}</span>
+              <button onClick={() => setPomo(p => ({ ...p, active: !p.active }))} className={`p-1 rounded-lg ${pomo.active ? 'text-[var(--danger)]' : 'text-[var(--success)]'}`}>
+                {pomo.active ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               </button>
-              <button onClick={() => setPomo({ time: 25 * 60, active: false })} className="p-1.5 rounded-lg text-[var(--text-muted)]"><RotateCcw className="w-3.5 h-3.5" /></button>
+              <button onClick={() => setPomo({ time: 25 * 60, active: false })} className="p-1 rounded-lg text-[var(--text-muted)]">
+                <RotateCcw className="w-3 h-3" />
+              </button>
             </div>
             <button onClick={() => setShowSettings(true)} className="p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all"><Settings className="w-5 h-5 text-[var(--text-secondary)]" /></button>
             <button onClick={() => setDark(!dark)} className="p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
@@ -243,6 +289,65 @@ export default function App() {
                   <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
                     <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Reminder Modal */}
+      <AnimatePresence>
+        {showReminder && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" onClick={() => setShowReminder(false)}>
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="modal p-6" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Bell className="w-5 h-5 text-[var(--accent)]" />
+                  <h3 className="text-lg font-bold text-[var(--text)]">Reminder Belajar</h3>
+                </div>
+                <button onClick={() => setShowReminder(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
+              </div>
+              <p className="text-[var(--text-secondary)] text-sm mb-4">Set waktu untuk mengingatkan Anda belajar. Notifikasi akan muncul pada waktu yang ditentukan.</p>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Waktu Reminder</label>
+                  <input
+                    type="time"
+                    value={reminder}
+                    onChange={(e) => {
+                      setReminder(e.target.value);
+                      localStorage.setItem('studyReminder', e.target.value);
+                    }}
+                    className="input text-center text-lg"
+                  />
+                </div>
+                {reminder && (
+                  <div className="p-3 bg-[var(--accent-soft)] rounded-xl text-center">
+                    <p className="text-sm text-[var(--accent)] font-medium">🔔 Reminder aktif: {reminder}</p>
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  {reminder && (
+                    <button
+                      onClick={() => {
+                        setReminder('');
+                        localStorage.removeItem('studyReminder');
+                        setShowReminder(false);
+                      }}
+                      className="btn btn-secondary flex-1"
+                    >
+                      Hapus Reminder
+                    </button>
+                  )}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setShowReminder(false)}
+                    className="btn btn-primary flex-1"
+                  >
+                    Simpan
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
@@ -433,7 +538,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
 
 function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session }) {
   const content = DB.content[subject.id];
-  const [rangkuman, setRangkuman] = useState(() => localStorage.getItem(`rangkuman_${subject.id}`) || '');
+
 
   const tabs = [
     { name: 'Materi', icon: FileText },
@@ -444,10 +549,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
     { name: 'Forum', icon: MessageSquare },
   ];
 
-  const saveRangkuman = (text) => {
-    setRangkuman(text);
-    localStorage.setItem(`rangkuman_${subject.id}`, text);
-  };
+
 
   return (
     <div className="animate-fade">
@@ -466,7 +568,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
 
       <div className="animate-fade">
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 1 && <Rangkuman text={rangkuman} onSave={saveRangkuman} />}
+        {activeTab === 1 && <Rangkuman subjectId={subject.id} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
         {activeTab === 3 && <Flashcards flashcards={content.flashcards} />}
         {activeTab === 4 && <QuizEssay quiz={content.quiz} essayExam={content.essayExam} />}
@@ -476,40 +578,19 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   );
 }
 
-function Rangkuman({ text, onSave }) {
-  const [value, setValue] = useState(text);
-  const [saved, setSaved] = useState(false);
-
-  const handleSave = () => {
-    onSave(value);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
+function Rangkuman({ subjectId }) {
+  const content = DB.content[subjectId];
+  const rangkumanText = content?.rangkuman || 'Rangkuman untuk mata kuliah ini akan segera tersedia. Silakan cek kembali nanti.';
 
   return (
     <div className="glass-card p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <StickyNote className="w-5 h-5 text-[var(--accent)]" />
-          <h3 className="font-bold text-[var(--text)]">Rangkuman</h3>
-        </div>
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSave} className={`btn text-sm ${saved ? 'bg-[var(--success)]/15 text-[var(--success)]' : 'btn-primary'}`}>
-          {saved ? <><Check className="w-4 h-4" />Tersimpan</> : 'Simpan'}
-        </motion.button>
+      <div className="flex items-center gap-2 mb-4">
+        <StickyNote className="w-5 h-5 text-[var(--accent)]" />
+        <h3 className="font-bold text-[var(--text)]">Rangkuman</h3>
       </div>
-      <p className="text-[var(--text-muted)] text-sm mb-4">Tulis rangkuman materi di sini. Data akan tersimpan di browser Anda.</p>
-      <textarea
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Tulis rangkuman materi di sini...
-
-Contoh:
-- Definisi penting
-- Rumus/formula
-- Konsep kunci
-- Catatan pribadi"
-        className="input h-64 sm:h-80 text-sm leading-relaxed"
-      />
+      <div className="prose prose-sm max-w-none">
+        <p className="text-[var(--text)] whitespace-pre-wrap leading-relaxed">{rangkumanText}</p>
+      </div>
     </div>
   );
 }
@@ -704,7 +785,7 @@ function Forum({ subjectId, session }) {
   const handleCreate = async () => {
     if (!newTitle.trim() || !newContent.trim()) return;
     setCreating(true);
-    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName);
+    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, session.selectedClass);
     setNewTitle(''); setNewContent(''); setShowNew(false); setCreating(false);
   };
 
@@ -760,7 +841,11 @@ function Forum({ subjectId, session }) {
               </div>
               <p className="text-[var(--text-secondary)] text-sm line-clamp-2 mb-3">{t.content}</p>
               <div className="flex items-center gap-4 text-xs text-[var(--text-muted)]">
-                <span className="flex items-center gap-1"><User className="w-3 h-3" />{t.authorName}</span>
+                <span className="flex items-center gap-1.5">
+                  <User className="w-3 h-3" />
+                  {t.authorName}
+                  {t.authorClass && <span className="class-badge">{t.authorClass}</span>}
+                </span>
                 <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" />{t.commentCount || 0} komentar</span>
                 <span>{new Date(t.createdAt).toLocaleDateString('id-ID')}</span>
               </div>
@@ -786,7 +871,7 @@ function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
   const handlePost = async () => {
     if (!newComment.trim()) return;
     setPosting(true);
-    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName);
+    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, session.selectedClass);
     setNewComment(''); setPosting(false);
   };
 
@@ -805,6 +890,7 @@ function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
         <div className="flex items-center gap-3 mb-4 text-sm text-[var(--text-muted)]">
           <div className="avatar avatar-sm">{thread.authorName?.charAt(0) || '?'}</div>
           <span>{thread.authorName}</span>
+          {thread.authorClass && <span className="class-badge">{thread.authorClass}</span>}
           <span>•</span>
           <span>{new Date(thread.createdAt).toLocaleString('id-ID')}</span>
         </div>
@@ -838,6 +924,7 @@ function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
             <div className="flex items-center gap-2 mb-2">
               <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
               <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
+              {c.authorClass && <span className="class-badge text-xs">{c.authorClass}</span>}
               <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
             </div>
             <p className="text-[var(--text-secondary)] text-sm">{c.content}</p>

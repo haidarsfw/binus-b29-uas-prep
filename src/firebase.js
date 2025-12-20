@@ -139,13 +139,14 @@ export const subscribeToThreads = (subjectId, callback) => {
     });
 };
 
-export const createThread = async (subjectId, title, content, authorId, authorName) => {
+export const createThread = async (subjectId, title, content, authorId, authorName, authorClass) => {
     const threadsRef = ref(db, `forums/${subjectId}/threads`);
     const newThread = {
         title,
         content,
         authorId,
         authorName,
+        authorClass: authorClass || 'Other',
         createdAt: new Date().toISOString(),
         closed: false,
         commentCount: 0,
@@ -176,7 +177,7 @@ export const subscribeToComments = (subjectId, threadId, callback) => {
     });
 };
 
-export const addComment = async (subjectId, threadId, content, authorId, authorName) => {
+export const addComment = async (subjectId, threadId, content, authorId, authorName, authorClass) => {
     const commentsRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments`);
     const threadRef = ref(db, `forums/${subjectId}/threads/${threadId}`);
 
@@ -184,6 +185,7 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
         content,
         authorId,
         authorName,
+        authorClass: authorClass || 'Other',
         createdAt: new Date().toISOString(),
     };
 
