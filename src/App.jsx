@@ -1,16 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, Target } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones } from 'lucide-react';
 import DB from './db';
+import { validateLicenseWithDevice, setupPresence, updatePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, getDeviceId } from './firebase';
 
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
-const smooth = { duration: 0.25, ease: [0.4, 0, 0.2, 1] };
+const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
 
 const themeColors = [
   { id: 'blue', name: 'Blue', color: '#3b82f6' },
   { id: 'indigo', name: 'Indigo', color: '#6366f1' },
-  { id: 'emerald', name: 'Emerald', color: '#10b981' },
+  { id: 'violet', name: 'Violet', color: '#8b5cf6' },
   { id: 'rose', name: 'Rose', color: '#f43f5e' },
+  { id: 'emerald', name: 'Emerald', color: '#10b981' },
   { id: 'amber', name: 'Amber', color: '#f59e0b' },
 ];
 
@@ -22,34 +24,23 @@ const fonts = [
 
 const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
-const validateLicense = (key) => {
-  const license = DB.licenseKeys.find(l => l.key.toUpperCase() === key.toUpperCase());
-  if (!license) return { valid: false, error: 'License key tidak valid' };
-  const stored = localStorage.getItem(`lic_${key}`);
-  if (stored) {
-    const data = JSON.parse(stored);
-    if (new Date(data.expiry) < new Date()) return { valid: false, error: 'License sudah expired' };
-    return { valid: true, license: { ...license, ...data } };
-  }
-  const now = new Date();
-  const data = { activated: now.toISOString(), expiry: new Date(now.getTime() + license.daysActive * 86400000).toISOString() };
-  localStorage.setItem(`lic_${key}`, JSON.stringify(data));
-  return { valid: true, license: { ...license, ...data } };
-};
-
-// Circular Progress Component
-function CircularProgress({ value, size = 120, stroke = 8 }) {
+function CircularProgress({ value, size = 140, stroke = 10 }) {
   const radius = (size - stroke) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (value / 100) * circumference;
-
   return (
     <div className="circular-progress" style={{ width: size, height: size }}>
       <svg width={size} height={size}>
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="var(--accent)" />
+            <stop offset="100%" stopColor="hsl(calc(var(--accent-h) + 30), 80%, 60%)" />
+          </linearGradient>
+        </defs>
         <circle className="track" cx={size / 2} cy={size / 2} r={radius} fill="none" strokeWidth={stroke} />
-        <circle className="progress" cx={size / 2} cy={size / 2} r={radius} fill="none" strokeWidth={stroke} strokeDasharray={circumference} strokeDashoffset={offset} />
+        <circle className="progress-ring" cx={size / 2} cy={size / 2} r={radius} fill="none" strokeWidth={stroke} strokeDasharray={circumference} strokeDashoffset={offset} />
       </svg>
-      <span className="value text-2xl">{Math.round(value)}%</span>
+      <span className="value text-3xl">{Math.round(value)}%</span>
     </div>
   );
 }
@@ -66,6 +57,7 @@ export default function App() {
   const [progress, setProgress] = useState(() => JSON.parse(localStorage.getItem('studyProgress') || '{}'));
   const [pomo, setPomo] = useState({ time: 25 * 60, active: false });
   const [showSettings, setShowSettings] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -89,6 +81,23 @@ export default function App() {
     return () => clearInterval(i);
   }, [pomo.active]);
 
+  // Setup presence
+  useEffect(() => {
+    if (!session) return;
+    const userId = getDeviceId();
+    setupPresence(userId, session.userName, currentSubject?.id);
+    const unsub = subscribeToPresence(setOnlineUsers);
+    return () => unsub();
+  }, [session, currentSubject]);
+
+  // Update presence when subject changes
+  useEffect(() => {
+    if (!session) return;
+    const userId = getDeviceId();
+    updatePresence(userId, { currentSubject: currentSubject?.id || null });
+  }, [session, currentSubject]);
+
+  // Content protection
   useEffect(() => {
     if (!session) return;
     const prevent = (e) => e.preventDefault();
@@ -102,8 +111,11 @@ export default function App() {
     setProgress(prev => {
       const subjectProgress = prev[subjectId] || {};
       const sectionProgress = subjectProgress[section] || [];
-      if (sectionProgress.includes(itemId)) return prev;
-      return { ...prev, [subjectId]: { ...subjectProgress, [section]: [...sectionProgress, itemId] } };
+      // Toggle: remove if exists, add if not
+      const newSectionProgress = sectionProgress.includes(itemId)
+        ? sectionProgress.filter(id => id !== itemId)
+        : [...sectionProgress, itemId];
+      return { ...prev, [subjectId]: { ...subjectProgress, [section]: newSectionProgress } };
     });
   }, []);
 
@@ -123,25 +135,25 @@ export default function App() {
   if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
 
   if (view === 'class') return (
-    <div className={`min-h-screen bg-[var(--bg)] no-select ${dark ? 'dark' : ''}`}>
+    <div className={`min-h-screen no-select ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
       <div className="min-h-screen flex items-center justify-center p-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="surface-elevated p-8 w-full max-w-sm">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="glass-strong p-8 w-full max-w-sm">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={smooth} className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg glow">
               <Users className="w-8 h-8 text-white" />
-            </div>
-            <h2 className="text-xl font-semibold text-[var(--text)]">Pilih Kelas Anda</h2>
-            <p className="text-[var(--text-secondary)] text-sm mt-1">Jadwal ujian akan menyesuaikan</p>
+            </motion.div>
+            <h2 className="text-xl font-bold text-[var(--text)]">Pilih Kelas Anda</h2>
+            <p className="text-[var(--text-secondary)] text-sm mt-2">Jadwal ujian akan menyesuaikan</p>
           </div>
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-2 gap-3 mb-6 stagger">
             {DB.classes.map(c => (
-              <motion.button key={c} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => setSelectedClass(c)}
-                className={`p-4 rounded-xl text-sm font-medium transition-all ${selectedClass === c ? 'gradient-accent text-white shadow-lg' : 'surface text-[var(--text)] hover:border-[var(--border-strong)]'}`}>{c}</motion.button>
+              <motion.button key={c} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => setSelectedClass(c)}
+                className={`p-4 rounded-xl text-sm font-medium transition-all animate-slide-up ${selectedClass === c ? 'gradient-accent text-white shadow-lg glow' : 'glass-card text-[var(--text)]'}`}>{c}</motion.button>
             ))}
           </div>
-          <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} disabled={!selectedClass}
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={!selectedClass}
             onClick={() => { const u = { ...session, selectedClass }; setSession(u); localStorage.setItem('session', JSON.stringify(u)); setView('dashboard'); }}
-            className="btn btn-primary w-full disabled:opacity-40"><span>Lanjutkan</span><ArrowRight className="w-4 h-4" /></motion.button>
+            className="btn btn-primary w-full text-base disabled:opacity-40"><span>Lanjutkan</span><ArrowRight className="w-5 h-5" /></motion.button>
         </motion.div>
       </div>
       <div className="watermark">Made by haidarsb LE86</div>
@@ -149,36 +161,37 @@ export default function App() {
   );
 
   return (
-    <div className={`min-h-screen bg-[var(--bg)] no-select ${dark ? 'dark' : ''}`}>
-      <header className="sticky top-0 z-50 bg-[var(--surface)]/80 backdrop-blur-lg border-b border-[var(--border)]">
+    <div className={`min-h-screen no-select ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
+      <header className="sticky top-0 z-50 glass border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {currentSubject && (
-              <motion.button initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} onClick={() => { setCurrentSubject(null); setActiveTab(0); }} className="p-2 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">
+              <motion.button initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} onClick={() => { setCurrentSubject(null); setActiveTab(0); }} className="p-2 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
                 <ChevronLeft className="w-5 h-5 text-[var(--text-secondary)]" />
               </motion.button>
             )}
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 gradient-accent rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 gradient-accent rounded-xl flex items-center justify-center shadow-md">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <span className="font-semibold text-[var(--text)]">UAS BM B29</span>
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <div className="flex items-center gap-1 px-3 py-2 rounded-xl bg-[var(--surface-alt)] border border-[var(--border)]">
+            {/* Pomodoro */}
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl glass-card">
               <Clock className="w-4 h-4 text-[var(--text-muted)]" />
               <span className="text-sm font-medium text-[var(--text)] tabular-nums">{formatTime(pomo.time)}</span>
-              <button onClick={() => setPomo(p => ({ ...p, active: !p.active }))} className={`p-1 rounded-lg ml-1 ${pomo.active ? 'text-[var(--danger)]' : 'text-[var(--success)]'}`}>
+              <button onClick={() => setPomo(p => ({ ...p, active: !p.active }))} className={`p-1.5 rounded-lg ${pomo.active ? 'text-[var(--danger)]' : 'text-[var(--success)]'}`}>
                 {pomo.active ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
               </button>
-              <button onClick={() => setPomo({ time: 25 * 60, active: false })} className="p-1 rounded-lg text-[var(--text-muted)]"><RotateCcw className="w-3.5 h-3.5" /></button>
+              <button onClick={() => setPomo({ time: 25 * 60, active: false })} className="p-1.5 rounded-lg text-[var(--text-muted)]"><RotateCcw className="w-3.5 h-3.5" /></button>
             </div>
-            <button onClick={() => setShowSettings(true)} className="p-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors"><Settings className="w-5 h-5 text-[var(--text-secondary)]" /></button>
-            <button onClick={() => setDark(!dark)} className="p-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">
+            <button onClick={() => setShowSettings(true)} className="p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all"><Settings className="w-5 h-5 text-[var(--text-secondary)]" /></button>
+            <button onClick={() => setDark(!dark)} className="p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
               {dark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-[var(--accent)]" />}
             </button>
-            <button onClick={logout} className="text-sm text-[var(--text-muted)] hover:text-[var(--danger)] px-3 py-2 transition-colors">Keluar</button>
+            <button onClick={logout} className="btn-ghost text-sm">Keluar</button>
           </div>
         </div>
       </header>
@@ -186,12 +199,12 @@ export default function App() {
       <main className="max-w-5xl mx-auto px-4 py-6 pb-24">
         <AnimatePresence mode="wait">
           {!currentSubject ? (
-            <motion.div key="d" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={smooth}>
-              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} onSelect={setCurrentSubject} progress={progress} />
+            <motion.div key="d" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
+              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} onSelect={setCurrentSubject} progress={progress} onlineUsers={onlineUsers} schedules={DB.schedules} />
             </motion.div>
           ) : (
-            <motion.div key="s" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} />
+            <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -201,10 +214,10 @@ export default function App() {
       <AnimatePresence>
         {showSettings && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" onClick={() => setShowSettings(false)}>
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="modal p-6" onClick={e => e.stopPropagation()}>
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="modal p-6" onClick={e => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-[var(--text)]">Pengaturan Tampilan</h3>
-                <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-alt)]"><X className="w-5 h-5" /></button>
+                <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
+                <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
               </div>
               <div className="space-y-6">
                 <div>
@@ -212,7 +225,7 @@ export default function App() {
                   <div className="flex gap-3">
                     {themeColors.map(t => (
                       <motion.button key={t.id} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(t.id)}
-                        className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-110' : 'border-transparent'}`}
+                        className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-105' : 'border-transparent'}`}
                         style={{ background: t.color }}>{theme === t.id && <Check className="w-5 h-5 text-white" />}</motion.button>
                     ))}
                   </div>
@@ -221,14 +234,14 @@ export default function App() {
                   <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Type className="w-4 h-4" />Font</label>
                   <div className="grid grid-cols-3 gap-2">
                     {fonts.map(f => (
-                      <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'surface text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
+                      <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'glass-card text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
                     ))}
                   </div>
                 </div>
-                <div className="flex items-center justify-between p-4 surface rounded-xl">
+                <div className="flex items-center justify-between p-4 glass-card rounded-xl">
                   <span className="text-[var(--text)]">Mode Gelap</span>
                   <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
-                    <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow ${dark ? 'ml-auto' : ''}`} />
+                    <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
                 </div>
               </div>
@@ -237,10 +250,14 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="fixed bottom-5 right-5 z-50">
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-14 h-14 bg-[#25d366] rounded-full flex items-center justify-center shadow-lg">
-          <MessageCircle className="w-6 h-6 text-white" />
-        </motion.div>
+      {/* Contact Support FAB */}
+      <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="fixed bottom-5 right-5 z-50 group">
+        <div className="flex items-center gap-2">
+          <span className="hidden group-hover:block px-3 py-1.5 glass-strong rounded-lg text-sm text-[var(--text)] animate-fade whitespace-nowrap">Contact Support</span>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg glass-strong border border-[var(--border)]">
+            <Headphones className="w-6 h-6 text-[var(--text)]" />
+          </motion.div>
+        </div>
       </a>
       <div className="watermark">Made by haidarsb LE86</div>
     </div>
@@ -253,29 +270,31 @@ function Login({ dark, setDark, onSuccess }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!key.trim()) return;
     setLoading(true); setError('');
-    setTimeout(() => {
-      const r = validateLicense(key);
+    try {
+      const r = await validateLicenseWithDevice(key, DB.licenseKeys);
       if (r.valid) onSuccess({ ...r.license, key });
       else setError(r.error);
-      setLoading(false);
-    }, 400);
+    } catch (err) {
+      setError('Koneksi gagal. Coba lagi.');
+    }
+    setLoading(false);
   };
 
   return (
-    <div className={`min-h-screen bg-[var(--bg)] flex items-center justify-center p-6 ${dark ? 'dark' : ''}`}>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="w-full max-w-sm">
-        <div className="surface-elevated p-8">
+    <div className={`min-h-screen flex items-center justify-center p-6 ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
+      <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="w-full max-w-sm">
+        <div className="glass-strong p-8">
           <div className="flex justify-end mb-2">
-            <button onClick={() => setDark(!dark)} className="p-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">
+            <button onClick={() => setDark(!dark)} className="p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
               {dark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-[var(--accent)]" />}
             </button>
           </div>
           <div className="text-center mb-8">
-            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={smooth} className="w-20 h-20 gradient-accent rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl">
+            <motion.div initial={{ scale: 0.8, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...smooth, delay: 0.1 }} className="w-20 h-20 gradient-accent rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl glow animate-float">
               <Lock className="w-10 h-10 text-white" />
             </motion.div>
             <h1 className="text-2xl font-bold gradient-text">UAS BM B29 Prep</h1>
@@ -291,14 +310,14 @@ function Login({ dark, setDark, onSuccess }) {
                 </button>
               </div>
             </div>
-            {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[var(--danger)] text-sm">{error}</motion.p>}
-            <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} type="submit" disabled={loading || !key.trim()} className="btn btn-primary w-full text-base">
+            {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[var(--danger)] text-sm flex items-center gap-2"><XCircle className="w-4 h-4" />{error}</motion.p>}
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={loading || !key.trim()} className="btn btn-primary w-full text-base">
               {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><span>Masuk</span><ArrowRight className="w-5 h-5" /></>}
             </motion.button>
           </form>
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[#25d366] font-medium hover:underline">
+            <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[var(--accent)] font-medium hover:underline">
               <MessageCircle className="w-4 h-4" />Hubungi Admin
             </a>
           </div>
@@ -309,10 +328,11 @@ function Login({ dark, setDark, onSuccess }) {
   );
 }
 
-function Dashboard({ session, selectedClass, overallProgress, onSelect, progress }) {
-  const name = session?.name || 'Student';
+function Dashboard({ session, selectedClass, overallProgress, onSelect, progress, onlineUsers, schedules }) {
+  const name = session?.userName || 'Student';
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Selamat Pagi' : hour < 17 ? 'Selamat Siang' : 'Selamat Malam';
+  const classSchedule = schedules[selectedClass] || schedules['Other'] || {};
 
   const getSubjectProgress = (subjectId) => {
     const content = DB.content[subjectId];
@@ -322,46 +342,86 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
     <div className="animate-fade">
-      {/* Greeting Section */}
-      <div className="surface-elevated p-8 mb-8">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <CircularProgress value={overallProgress} size={140} stroke={10} />
+      {/* Greeting */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={smooth} className="glass-strong p-6 sm:p-8 mb-6">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+          <CircularProgress value={overallProgress} size={120} stroke={10} />
           <div className="text-center md:text-left flex-1">
             <p className="text-[var(--text-secondary)] mb-1">{greeting},</p>
-            <h1 className="text-3xl font-bold text-[var(--text)] mb-2">{name}!</h1>
-            <p className="text-[var(--text-secondary)]">Kelas {selectedClass} • Progress belajar kamu sudah <span className="font-semibold text-[var(--accent)]">{Math.round(overallProgress)}%</span></p>
-            <div className="mt-4 flex flex-wrap gap-3 justify-center md:justify-start">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--surface-alt)] text-sm text-[var(--text-secondary)]">
-                <BookOpen className="w-4 h-4" />{DB.subjects.length} Mata Kuliah
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--surface-alt)] text-sm text-[var(--text-secondary)]">
-                <Target className="w-4 h-4" />Siap UAS
-              </span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2">{name}!</h1>
+            <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Progress <span className="font-bold gradient-text">{Math.round(overallProgress)}%</span></p>
+            <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+              <span className="badge badge-accent"><BookOpen className="w-3 h-3" />{DB.subjects.length} Mata Kuliah</span>
+              {onlineUsers.length > 0 && <span className="badge badge-success"><span className="online-dot mr-1" />{onlineUsers.length} Online</span>}
             </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Two Column Grid: Online Users & Schedule */}
+      <div className="grid md:grid-cols-2 gap-4 mb-6">
+        {/* Online Users */}
+        <div className="glass-card p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="online-dot" />
+            <span className="text-sm font-medium text-[var(--text)]">Sedang Belajar</span>
+          </div>
+          {onlineUsers.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {onlineUsers.map((u, i) => (
+                <motion.span key={u.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="inline-flex items-center gap-2 px-3 py-1.5 surface-flat rounded-full text-xs sm:text-sm">
+                  <div className="avatar avatar-sm text-xs">{u.userName?.charAt(0) || '?'}</div>
+                  <span className="text-[var(--text)]">{u.userName}</span>
+                </motion.span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[var(--text-muted)] text-sm">Belum ada yang online</p>
+          )}
+        </div>
+
+        {/* Exam Schedule */}
+        <div className="glass-card p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Calendar className="w-4 h-4 text-[var(--accent)]" />
+            <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
+          </div>
+          <div className="space-y-2 max-h-36 overflow-y-auto scrollbar-hide">
+            {Object.entries(classSchedule).map(([subject, date]) => (
+              <div key={subject} className="flex justify-between items-center text-xs sm:text-sm py-1">
+                <span className="text-[var(--text)] truncate flex-1 mr-2">{subject.slice(0, 20)}</span>
+                <span className="text-[var(--text-muted)] whitespace-nowrap">{formatDate(date)}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Subjects */}
-      <h2 className="text-lg font-semibold text-[var(--text)] mb-4">Mata Kuliah</h2>
-      <div className="grid sm:grid-cols-2 gap-4 stagger">
+      <h2 className="text-lg font-bold text-[var(--text)] mb-4">Mata Kuliah</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
         {DB.subjects.map((s, i) => {
           const Icon = iconMap[s.icon];
           const subjectProg = getSubjectProgress(s.id);
           return (
-            <motion.button key={s.id} whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.99 }} onClick={() => onSelect(s)} className="surface-elevated surface-interactive p-6 text-left animate-slide">
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 gradient-accent rounded-xl flex items-center justify-center shadow-md">
-                  <Icon className="w-6 h-6 text-white" />
+            <motion.button key={s.id} whileHover={{ scale: 1.02, y: -4 }} whileTap={{ scale: 0.99 }} onClick={() => onSelect(s)} className="glass-card glass-card-interactive p-5 sm:p-6 text-left animate-slide-up">
+              <div className="flex items-start justify-between mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 gradient-accent rounded-xl flex items-center justify-center shadow-lg glow">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <span className="text-sm font-medium text-[var(--accent)]">{subjectProg}%</span>
+                <span className="text-sm font-bold gradient-text">{subjectProg}%</span>
               </div>
-              <h3 className="text-lg font-semibold text-[var(--text)] mb-1">{s.name}</h3>
-              <p className="text-sm text-[var(--text-secondary)] mb-4">{s.description}</p>
+              <h3 className="text-base sm:text-lg font-semibold text-[var(--text)] mb-1">{s.name}</h3>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] mb-3 sm:mb-4 line-clamp-2">{s.description}</p>
               <div className="h-1.5 bg-[var(--border)] rounded-full overflow-hidden">
-                <motion.div initial={{ width: 0 }} animate={{ width: `${subjectProg}%` }} transition={{ duration: 0.6, delay: i * 0.1 }} className="h-full gradient-accent rounded-full" />
+                <motion.div initial={{ width: 0 }} animate={{ width: `${subjectProg}%` }} transition={{ duration: 0.8, delay: i * 0.1 }} className="h-full gradient-accent rounded-full" />
               </div>
             </motion.button>
           );
@@ -371,36 +431,85 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session }) {
   const content = DB.content[subject.id];
+  const [rangkuman, setRangkuman] = useState(() => localStorage.getItem(`rangkuman_${subject.id}`) || '');
+
   const tabs = [
     { name: 'Materi', icon: FileText },
+    { name: 'Rangkuman', icon: StickyNote },
     { name: 'Kisi-Kisi', icon: List },
     { name: 'Flashcards', icon: Layers },
     { name: 'Quiz & Essay', icon: ClipboardCheck },
+    { name: 'Forum', icon: MessageSquare },
   ];
+
+  const saveRangkuman = (text) => {
+    setRangkuman(text);
+    localStorage.setItem(`rangkuman_${subject.id}`, text);
+  };
 
   return (
     <div className="animate-fade">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[var(--text)] mb-1">{subject.name}</h2>
-        <p className="text-[var(--text-secondary)]">{subject.description}</p>
+      <div className="mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-[var(--text)] mb-1">{subject.name}</h2>
+        <p className="text-[var(--text-secondary)] text-sm sm:text-base">{subject.description}</p>
       </div>
 
-      <div className="tabs mb-6">
+      <div className="tabs mb-4 sm:mb-6 overflow-x-auto scrollbar-hide">
         {tabs.map((t, i) => (
-          <button key={t.name} onClick={() => setActiveTab(i)} className={`tab ${activeTab === i ? 'active' : ''}`}>
-            <t.icon className="w-4 h-4 inline mr-2" />{t.name}
+          <button key={t.name} onClick={() => setActiveTab(i)} className={`tab text-xs sm:text-sm ${activeTab === i ? 'active' : ''}`}>
+            <t.icon className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" /><span className="hidden sm:inline">{t.name}</span><span className="sm:hidden">{t.name.slice(0, 4)}</span>
           </button>
         ))}
       </div>
 
       <div className="animate-fade">
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 1 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 2 && <Flashcards flashcards={content.flashcards} />}
-        {activeTab === 3 && <QuizEssay quiz={content.quiz} essayExam={content.essayExam} />}
+        {activeTab === 1 && <Rangkuman text={rangkuman} onSave={saveRangkuman} />}
+        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
+        {activeTab === 3 && <Flashcards flashcards={content.flashcards} />}
+        {activeTab === 4 && <QuizEssay quiz={content.quiz} essayExam={content.essayExam} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} />}
       </div>
+    </div>
+  );
+}
+
+function Rangkuman({ text, onSave }) {
+  const [value, setValue] = useState(text);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    onSave(value);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div className="glass-card p-4 sm:p-6">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <StickyNote className="w-5 h-5 text-[var(--accent)]" />
+          <h3 className="font-bold text-[var(--text)]">Rangkuman</h3>
+        </div>
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSave} className={`btn text-sm ${saved ? 'bg-[var(--success)]/15 text-[var(--success)]' : 'btn-primary'}`}>
+          {saved ? <><Check className="w-4 h-4" />Tersimpan</> : 'Simpan'}
+        </motion.button>
+      </div>
+      <p className="text-[var(--text-muted)] text-sm mb-4">Tulis rangkuman materi di sini. Data akan tersimpan di browser Anda.</p>
+      <textarea
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Tulis rangkuman materi di sini...
+
+Contoh:
+- Definisi penting
+- Rumus/formula
+- Konsep kunci
+- Catatan pribadi"
+        className="input h-64 sm:h-80 text-sm leading-relaxed"
+      />
     </div>
   );
 }
@@ -414,9 +523,9 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
       {materi.map(m => {
         const done = completed.includes(m.id);
         return (
-          <motion.div key={m.id} className="surface p-4 flex items-center justify-between animate-slide">
+          <motion.div key={m.id} className="glass-card p-4 flex items-center justify-between animate-slide-up">
             <div className="flex items-center gap-4">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${m.type === 'PDF' ? 'bg-red-100 dark:bg-red-900/30 text-red-600' : 'bg-orange-100 dark:bg-orange-900/30 text-orange-600'}`}>
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${m.type === 'PDF' ? 'bg-red-500/15 text-red-500' : 'bg-orange-500/15 text-orange-500'}`}>
                 <FileText className="w-5 h-5" />
               </div>
               <div>
@@ -424,7 +533,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
                 <p className="text-sm text-[var(--text-muted)]">{m.type}</p>
               </div>
             </div>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => mark(m.id)} disabled={done}
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => mark(m.id)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${done ? 'bg-[var(--success)]/15 text-[var(--success)]' : 'btn-secondary'}`}>
               {done ? <><Check className="w-4 h-4 inline mr-1" />Selesai</> : 'Tandai Dibaca'}
             </motion.button>
@@ -440,15 +549,15 @@ function KisiKisi({ kisiKisi, subjectId, progress, updateProgress }) {
   const mark = (i) => updateProgress(subjectId, 'kisiKisi', i);
 
   return (
-    <div className="surface divide-y divide-[var(--border)] stagger">
+    <div className="glass-card divide-y divide-[var(--border)] stagger">
       {kisiKisi.map((k, i) => {
         const done = completed.includes(i);
         return (
-          <motion.div key={i} className="p-4 flex items-center gap-4 animate-slide">
-            <button onClick={() => mark(i)} className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${done ? 'bg-[var(--success)] border-[var(--success)]' : 'border-[var(--border-strong)]'}`}>
+          <motion.div key={i} className="p-4 flex items-center gap-4 animate-slide-in" style={{ animationDelay: `${i * 0.03}s` }}>
+            <button onClick={() => mark(i)} className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${done ? 'bg-[var(--success)] border-[var(--success)]' : 'border-[var(--border-strong)] hover:border-[var(--accent)]'}`}>
               {done && <Check className="w-4 h-4 text-white" />}
             </button>
-            <span className={`text-[var(--text)] flex-1 ${done ? 'line-through opacity-60' : ''}`}>{k}</span>
+            <span className={`text-[var(--text)] ${done ? 'line-through opacity-60' : ''}`}>{k}</span>
           </motion.div>
         );
       })}
@@ -458,21 +567,20 @@ function KisiKisi({ kisiKisi, subjectId, progress, updateProgress }) {
 
 function Flashcards({ flashcards }) {
   const [flipped, setFlipped] = useState({});
-
   const toggle = (id) => setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
-      {flashcards.map((f, i) => (
-        <motion.div key={f.id} whileHover={{ scale: 1.01 }} onClick={() => toggle(f.id)} className={`flashcard h-48 animate-slide ${flipped[f.id] ? 'flipped' : ''}`}>
+      {flashcards.map(f => (
+        <motion.div key={f.id} whileHover={{ scale: 1.02 }} onClick={() => toggle(f.id)} className={`flashcard h-52 animate-slide-up ${flipped[f.id] ? 'flipped' : ''}`}>
           <div className="flashcard-inner">
-            <div className="flashcard-front shadow-lg">
-              <span className="text-xs text-white/60 absolute top-4 left-4">TAP TO FLIP</span>
-              <h4 className="text-lg font-semibold">{f.term}</h4>
+            <div className="flashcard-front">
+              <span className="text-xs text-white/60 absolute top-4 left-4 font-medium">TAP TO FLIP</span>
+              <h4 className="text-lg font-bold">{f.term}</h4>
             </div>
-            <div className="flashcard-back shadow-lg">
-              <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-medium">DEFINISI</span>
-              <p className="text-[var(--text)] text-sm leading-relaxed">{f.definition}</p>
+            <div className="flashcard-back">
+              <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-bold">DEFINISI</span>
+              <p className="text-[var(--text)] leading-relaxed">{f.definition}</p>
             </div>
           </div>
         </motion.div>
@@ -502,18 +610,18 @@ function QuizEssay({ quiz, essayExam }) {
 
   if (!mode) return (
     <div className="grid sm:grid-cols-2 gap-4">
-      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('quiz')} className="surface-elevated surface-interactive p-8 text-center">
-        <div className="w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-          <ClipboardCheck className="w-7 h-7 text-white" />
+      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('quiz')} className="glass-card glass-card-interactive p-8 text-center">
+        <div className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg glow">
+          <ClipboardCheck className="w-8 h-8 text-white" />
         </div>
-        <h3 className="text-lg font-semibold text-[var(--text)] mb-1">Quiz</h3>
+        <h3 className="text-lg font-bold text-[var(--text)] mb-1">Quiz</h3>
         <p className="text-sm text-[var(--text-secondary)]">{quiz.length} soal pilihan ganda</p>
       </motion.button>
-      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('essay')} className="surface-elevated surface-interactive p-8 text-center">
-        <div className="w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-          <FileText className="w-7 h-7 text-white" />
+      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('essay')} className="glass-card glass-card-interactive p-8 text-center">
+        <div className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg glow">
+          <FileText className="w-8 h-8 text-white" />
         </div>
-        <h3 className="text-lg font-semibold text-[var(--text)] mb-1">Essay</h3>
+        <h3 className="text-lg font-bold text-[var(--text)] mb-1">Essay</h3>
         <p className="text-sm text-[var(--text-secondary)]">{essayExam.length} soal essay</p>
       </motion.button>
     </div>
@@ -522,19 +630,17 @@ function QuizEssay({ quiz, essayExam }) {
   if (mode === 'essay') {
     const q = essayExam[0];
     return (
-      <div className="surface p-6 space-y-5">
+      <div className="glass-card p-6 space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-[var(--text)]">Soal Essay</h3>
-          <button onClick={() => { setMode(null); setAns(''); setShowAnswer(false); }} className="text-sm text-[var(--text-muted)] hover:text-[var(--danger)]">← Kembali</button>
+          <h3 className="font-bold text-[var(--text)]">Soal Essay</h3>
+          <button onClick={() => { setMode(null); setAns(''); setShowAnswer(false); }} className="btn-ghost text-sm">← Kembali</button>
         </div>
         <p className="text-[var(--text)]">{q.question}</p>
         <textarea value={ans} onChange={(e) => setAns(e.target.value)} placeholder="Tulis jawaban Anda..." className="input h-40" />
-        <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={() => setShowAnswer(true)} disabled={ans.length < 10 || showAnswer} className="btn btn-primary w-full">
-          Lihat Model Jawaban
-        </motion.button>
+        <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={() => setShowAnswer(true)} disabled={ans.length < 10 || showAnswer} className="btn btn-primary w-full">Lihat Model Jawaban</motion.button>
         {showAnswer && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[var(--success)]/10 border border-[var(--success)]/20 rounded-xl">
-            <h4 className="font-semibold text-[var(--success)] mb-2">Model Jawaban</h4>
+            <h4 className="font-bold text-[var(--success)] mb-2">Model Jawaban</h4>
             <p className="text-[var(--text-secondary)] text-sm">{q.modelAnswer}</p>
           </motion.div>
         )}
@@ -543,13 +649,12 @@ function QuizEssay({ quiz, essayExam }) {
   }
 
   if (done) return (
-    <div className="surface p-8 text-center">
-      <div className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl">
+    <div className="glass-card p-8 text-center">
+      <div className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl glow">
         <ClipboardCheck className="w-10 h-10 text-white" />
       </div>
       <h3 className="text-2xl font-bold text-[var(--text)] mb-2">Selesai!</h3>
       <p className="text-4xl font-bold gradient-text mb-4">{score}/{quiz.length}</p>
-      <p className="text-[var(--text-secondary)] mb-6">{score === quiz.length ? 'Sempurna! 🎉' : score >= quiz.length * 0.7 ? 'Bagus! 👍' : 'Terus berlatih!'}</p>
       <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setMode(null); setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); }} className="btn btn-primary">Kembali</motion.button>
     </div>
   );
@@ -558,26 +663,186 @@ function QuizEssay({ quiz, essayExam }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={() => { setMode(null); setCur(0); setSel(null); setScore(0); setDone(false); }} className="text-sm text-[var(--text-muted)] hover:text-[var(--danger)]">← Kembali</button>
-        <span className="text-[var(--text-secondary)] text-sm">{cur + 1}/{quiz.length}</span>
-        <span className={`text-sm font-medium ${time <= 5 ? 'text-[var(--danger)]' : 'text-[var(--text-secondary)]'}`}><Timer className="w-4 h-4 inline mr-1" />{time}s</span>
+        <button onClick={() => { setMode(null); setCur(0); setSel(null); setScore(0); setDone(false); }} className="btn-ghost text-sm">← Kembali</button>
+        <span className="text-[var(--text-secondary)]">{cur + 1}/{quiz.length}</span>
+        <span className={`badge ${time <= 5 ? 'badge-warning animate-pulse' : ''}`}><Timer className="w-3 h-3 mr-1" />{time}s</span>
       </div>
       <div className="h-1 bg-[var(--border)] rounded-full overflow-hidden"><div className="timer-bar h-full rounded-full" style={{ width: `${(time / 20) * 100}%` }} /></div>
-      <div className="surface p-6">
+      <div className="glass-card p-6">
         <p className="text-[var(--text)] text-lg mb-6">{q.question}</p>
-        <div className="space-y-3">
+        <div className="space-y-3 stagger">
           {q.options.map((o, i) => {
-            let cls = 'surface hover:border-[var(--border-strong)]';
+            let cls = 'glass-card hover:border-[var(--accent)]';
             if (sel !== null) { if (i === q.answer) cls = 'bg-[var(--success)]/15 border-[var(--success)]'; else if (i === sel) cls = 'bg-[var(--danger)]/15 border-[var(--danger)]'; }
             return (
               <motion.button key={i} whileHover={sel === null ? { scale: 1.01 } : {}} onClick={() => handleAns(i)} disabled={sel !== null}
-                className={`w-full p-4 rounded-xl text-left border transition-all ${cls}`}>
+                className={`w-full p-4 rounded-xl text-left border transition-all animate-slide-up ${cls}`}>
                 <span className="text-[var(--text)]">{String.fromCharCode(65 + i)}. {o}</span>
               </motion.button>
             );
           })}
         </div>
         {sel !== null && <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={next} className="btn btn-primary w-full mt-6">{cur < quiz.length - 1 ? 'Lanjut' : 'Lihat Hasil'}</motion.button>}
+      </div>
+    </div>
+  );
+}
+
+function Forum({ subjectId, session }) {
+  const [threads, setThreads] = useState([]);
+  const [showNew, setShowNew] = useState(false);
+  const [newTitle, setNewTitle] = useState('');
+  const [newContent, setNewContent] = useState('');
+  const [selectedThread, setSelectedThread] = useState(null);
+  const [creating, setCreating] = useState(false);
+
+  useEffect(() => {
+    const unsub = subscribeToThreads(subjectId, setThreads);
+    return () => unsub();
+  }, [subjectId]);
+
+  const handleCreate = async () => {
+    if (!newTitle.trim() || !newContent.trim()) return;
+    setCreating(true);
+    await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName);
+    setNewTitle(''); setNewContent(''); setShowNew(false); setCreating(false);
+  };
+
+  const handleDelete = async (threadId) => {
+    if (confirm('Hapus thread ini?')) {
+      await deleteThread(subjectId, threadId);
+      setSelectedThread(null);
+    }
+  };
+
+  if (selectedThread) {
+    return <ThreadView subjectId={subjectId} thread={selectedThread} session={session} onBack={() => setSelectedThread(null)} onDelete={() => handleDelete(selectedThread.id)} />;
+  }
+
+  return (
+    <div className="animate-fade">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-bold text-[var(--text)]">Forum Diskusi</h3>
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setShowNew(!showNew)} className="btn btn-primary text-sm">
+          <Plus className="w-4 h-4" />Buat Thread
+        </motion.button>
+      </div>
+
+      {/* New Thread Form */}
+      <AnimatePresence>
+        {showNew && (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="glass-card p-5 mb-4 space-y-4">
+            <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Judul thread..." className="input" />
+            <textarea value={newContent} onChange={(e) => setNewContent(e.target.value)} placeholder="Isi thread..." className="input h-24" />
+            <div className="flex gap-2">
+              <button onClick={() => setShowNew(false)} className="btn btn-secondary flex-1">Batal</button>
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleCreate} disabled={creating || !newTitle.trim() || !newContent.trim()} className="btn btn-primary flex-1">
+                {creating ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'Buat Thread'}
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Thread List */}
+      {threads.length === 0 ? (
+        <div className="empty-state">
+          <MessageSquare className="w-16 h-16 mx-auto" />
+          <p>Belum ada thread. Jadilah yang pertama!</p>
+        </div>
+      ) : (
+        <div className="space-y-3 stagger">
+          {threads.map(t => (
+            <motion.div key={t.id} whileHover={{ scale: 1.01 }} onClick={() => setSelectedThread(t)} className="thread-card cursor-pointer animate-slide-up">
+              <div className="flex items-start justify-between mb-2">
+                <h4 className="font-semibold text-[var(--text)]">{t.title}</h4>
+                {t.closed && <span className="badge">Ditutup</span>}
+              </div>
+              <p className="text-[var(--text-secondary)] text-sm line-clamp-2 mb-3">{t.content}</p>
+              <div className="flex items-center gap-4 text-xs text-[var(--text-muted)]">
+                <span className="flex items-center gap-1"><User className="w-3 h-3" />{t.authorName}</span>
+                <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" />{t.commentCount || 0} komentar</span>
+                <span>{new Date(t.createdAt).toLocaleDateString('id-ID')}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ThreadView({ subjectId, thread, session, onBack, onDelete }) {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [posting, setPosting] = useState(false);
+  const isOwner = thread.authorId === getDeviceId();
+
+  useEffect(() => {
+    const unsub = subscribeToComments(subjectId, thread.id, setComments);
+    return () => unsub();
+  }, [subjectId, thread.id]);
+
+  const handlePost = async () => {
+    if (!newComment.trim()) return;
+    setPosting(true);
+    await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName);
+    setNewComment(''); setPosting(false);
+  };
+
+  return (
+    <div className="animate-fade">
+      <div className="flex items-center justify-between mb-4">
+        <button onClick={onBack} className="btn-ghost text-sm">← Kembali</button>
+        {isOwner && (
+          <button onClick={onDelete} className="btn-ghost text-[var(--danger)] text-sm"><Trash2 className="w-4 h-4 mr-1" />Hapus</button>
+        )}
+      </div>
+
+      {/* Thread Content */}
+      <div className="glass-card p-6 mb-6">
+        <h2 className="text-xl font-bold text-[var(--text)] mb-2">{thread.title}</h2>
+        <div className="flex items-center gap-3 mb-4 text-sm text-[var(--text-muted)]">
+          <div className="avatar avatar-sm">{thread.authorName?.charAt(0) || '?'}</div>
+          <span>{thread.authorName}</span>
+          <span>•</span>
+          <span>{new Date(thread.createdAt).toLocaleString('id-ID')}</span>
+        </div>
+        <p className="text-[var(--text)] whitespace-pre-wrap">{thread.content}</p>
+      </div>
+
+      {/* Comments */}
+      <h3 className="font-bold text-[var(--text)] mb-4">{comments.length} Komentar</h3>
+
+      {!thread.closed && (
+        <div className="flex gap-3 mb-6">
+          <div className="avatar flex-shrink-0">{session.userName?.charAt(0) || '?'}</div>
+          <div className="flex-1 flex gap-2">
+            <input value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Tulis komentar..." className="input flex-1" onKeyDown={(e) => e.key === 'Enter' && handlePost()} />
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePost} disabled={posting || !newComment.trim()} className="btn btn-primary">
+              {posting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
+            </motion.button>
+          </div>
+        </div>
+      )}
+
+      {thread.closed && (
+        <div className="glass-card p-4 mb-6 text-center text-[var(--text-muted)]">
+          Thread ini sudah ditutup
+        </div>
+      )}
+
+      <div className="space-y-3 stagger">
+        {comments.map(c => (
+          <motion.div key={c.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="comment-card">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
+              <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
+              <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
+            </div>
+            <p className="text-[var(--text-secondary)] text-sm">{c.content}</p>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
