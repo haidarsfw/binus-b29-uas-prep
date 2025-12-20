@@ -863,7 +863,7 @@ function Forum({ subjectId, session, selectedClass }) {
       if (newImage) {
         imageUrl = await uploadImage(newImage);
       }
-      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName, selectedClass, imageUrl);
+      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl);
       setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
     } catch (e) { alert(e.message); }
     setCreating(false);
@@ -1002,7 +1002,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     if (!newComment.trim()) return;
     setPosting(true);
     try {
-      await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName, selectedClass);
+      await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
       setNewComment('');
     } catch (e) { alert(e.message); }
     setPosting(false);
@@ -1012,7 +1012,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     if (!replyText.trim()) return;
     setPosting(true);
     try {
-      await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName, selectedClass);
+      await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
       setReplyText('');
       setReplyingTo(null);
     } catch (e) { alert(e.message); }
