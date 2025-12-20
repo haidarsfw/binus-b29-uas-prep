@@ -18,15 +18,15 @@ export const DB = {
     ],
 
     // ============================================================
-    // JADWAL UJIAN PER KELAS
+    // JADWAL UJIAN PER KELAS (12-24 Januari 2026)
     // ============================================================
     schedules: {
-        'LA86': { 'Marketing Management': '2026-01-06T08:00:00', 'Human Resources Management': '2026-01-07T10:00:00', 'Management Information Systems': '2026-01-08T13:00:00', 'Introduction to Management': '2026-01-09T08:00:00' },
-        'LB86': { 'Marketing Management': '2026-01-06T10:00:00', 'Human Resources Management': '2026-01-07T13:00:00', 'Management Information Systems': '2026-01-08T08:00:00', 'Introduction to Management': '2026-01-09T10:00:00' },
-        'LC86': { 'Marketing Management': '2026-01-06T13:00:00', 'Human Resources Management': '2026-01-07T08:00:00', 'Management Information Systems': '2026-01-08T10:00:00', 'Introduction to Management': '2026-01-09T13:00:00' },
-        'LD86': { 'Marketing Management': '2026-01-06T15:00:00', 'Human Resources Management': '2026-01-07T15:00:00', 'Management Information Systems': '2026-01-08T15:00:00', 'Introduction to Management': '2026-01-09T15:00:00' },
-        'LE86': { 'Marketing Management': '2026-01-06T17:00:00', 'Human Resources Management': '2026-01-07T17:00:00', 'Management Information Systems': '2026-01-08T17:00:00', 'Introduction to Management': '2026-01-09T17:00:00' },
-        'Other': { 'Marketing Management': '2026-01-10T08:00:00', 'Human Resources Management': '2026-01-10T10:00:00', 'Management Information Systems': '2026-01-10T13:00:00', 'Introduction to Management': '2026-01-10T15:00:00' },
+        'LA86': { 'Marketing Management': '2026-01-12T08:00:00', 'Human Resources Management': '2026-01-14T10:00:00', 'Management Information Systems': '2026-01-18T13:00:00', 'Introduction to Management': '2026-01-22T08:00:00' },
+        'LB86': { 'Marketing Management': '2026-01-12T10:00:00', 'Human Resources Management': '2026-01-15T13:00:00', 'Management Information Systems': '2026-01-19T08:00:00', 'Introduction to Management': '2026-01-22T10:00:00' },
+        'LC86': { 'Marketing Management': '2026-01-13T13:00:00', 'Human Resources Management': '2026-01-15T08:00:00', 'Management Information Systems': '2026-01-19T10:00:00', 'Introduction to Management': '2026-01-23T13:00:00' },
+        'LD86': { 'Marketing Management': '2026-01-13T15:00:00', 'Human Resources Management': '2026-01-16T15:00:00', 'Management Information Systems': '2026-01-20T15:00:00', 'Introduction to Management': '2026-01-23T15:00:00' },
+        'LE86': { 'Marketing Management': '2026-01-14T17:00:00', 'Human Resources Management': '2026-01-17T17:00:00', 'Management Information Systems': '2026-01-21T17:00:00', 'Introduction to Management': '2026-01-24T17:00:00' },
+        'Other': { 'Marketing Management': '2026-01-14T08:00:00', 'Human Resources Management': '2026-01-17T10:00:00', 'Management Information Systems': '2026-01-21T13:00:00', 'Introduction to Management': '2026-01-24T15:00:00' },
     },
 
     classes: ['LA86', 'LB86', 'LC86', 'LD86', 'LE86', 'Other'],

@@ -245,9 +245,13 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-1.5">
-            {/* Clock + Reminder Card */}
+            {/* Clock + Date + Reminder Card */}
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl glass-card">
               <Clock className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+              <span className="text-xs font-medium text-[var(--text)] tabular-nums">
+                {currentTime.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+              </span>
+              <div className="w-px h-3 bg-[var(--border)]" />
               <span className="text-xs font-medium text-[var(--text)] tabular-nums">
                 {currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
               </span>
@@ -343,23 +347,41 @@ export default function App() {
                 </div>
                 <button onClick={() => setShowReminder(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
               </div>
-              <p className="text-[var(--text-secondary)] text-sm mb-4">Set waktu untuk mengingatkan Anda belajar. Notifikasi akan muncul pada waktu yang ditentukan.</p>
+              <p className="text-[var(--text-secondary)] text-sm mb-4">Set tanggal dan waktu untuk mengingatkan Anda belajar.</p>
               <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Waktu Reminder</label>
-                  <input
-                    type="time"
-                    value={reminder}
-                    onChange={(e) => {
-                      setReminder(e.target.value);
-                      localStorage.setItem('studyReminder', e.target.value);
-                    }}
-                    className="input text-center text-lg"
-                  />
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Tanggal</label>
+                    <input
+                      type="date"
+                      value={reminder.split('T')[0] || ''}
+                      onChange={(e) => {
+                        const time = reminder.split('T')[1] || '08:00';
+                        const newReminder = e.target.value + 'T' + time;
+                        setReminder(newReminder);
+                        localStorage.setItem('studyReminder', newReminder);
+                      }}
+                      className="input text-center"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Waktu</label>
+                    <input
+                      type="time"
+                      value={reminder.split('T')[1] || '08:00'}
+                      onChange={(e) => {
+                        const date = reminder.split('T')[0] || new Date().toISOString().split('T')[0];
+                        const newReminder = date + 'T' + e.target.value;
+                        setReminder(newReminder);
+                        localStorage.setItem('studyReminder', newReminder);
+                      }}
+                      className="input text-center"
+                    />
+                  </div>
                 </div>
-                {reminder && (
+                {reminder && reminder.includes('T') && (
                   <div className="p-3 bg-[var(--accent-soft)] rounded-xl text-center">
-                    <p className="text-sm text-[var(--accent)] font-medium">🔔 Reminder aktif: {reminder}</p>
+                    <p className="text-sm text-[var(--accent)] font-medium">🔔 Reminder: {new Date(reminder).toLocaleString('id-ID', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</p>
                   </div>
                 )}
                 <div className="flex gap-2">
@@ -372,7 +394,7 @@ export default function App() {
                       }}
                       className="btn btn-secondary flex-1"
                     >
-                      Hapus Reminder
+                      Hapus
                     </button>
                   )}
                   <motion.button
@@ -552,46 +574,62 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
         </div>
       </motion.div>
 
-      {/* Three Column Grid: Online Users, Schedule, Countdown */}
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
-        {/* Online Users */}
-        <div className="glass-card p-4">
-          <div className="flex items-center gap-2 mb-3">
+      {/* Widget Grid: Online Users (auto-size), Schedule (larger), Countdown */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+        {/* Online Users - auto-size based on count */}
+        <div className={`glass-card p-4 ${onlineUsers.length <= 3 ? 'md:col-span-3' : 'md:col-span-4'}`}>
+          <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
             <span className="text-sm font-medium text-[var(--text)]">Sedang Belajar</span>
+            <span className="ml-auto text-xs px-2 py-0.5 surface-flat rounded-full text-[var(--text-muted)]">{onlineUsers.length}</span>
           </div>
           {onlineUsers.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {onlineUsers.map((u, i) => (
-                <motion.span key={u.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="inline-flex items-center gap-2 px-3 py-1.5 surface-flat rounded-full text-xs sm:text-sm">
-                  <div className="avatar avatar-sm text-xs">{u.userName?.charAt(0) || '?'}</div>
-                  <span className="text-[var(--text)]">{u.userName}</span>
+            <div className="flex flex-wrap gap-1.5">
+              {onlineUsers.slice(0, 6).map((u, i) => (
+                <motion.span key={u.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} className="inline-flex items-center gap-1.5 px-2.5 py-1 surface-flat rounded-full text-xs">
+                  <div className="avatar avatar-sm text-[10px] w-5 h-5">{u.userName?.charAt(0) || '?'}</div>
+                  <span className="text-[var(--text)] truncate max-w-[60px]">{u.userName}</span>
                 </motion.span>
               ))}
+              {onlineUsers.length > 6 && (
+                <span className="inline-flex items-center px-2.5 py-1 surface-flat rounded-full text-xs text-[var(--text-muted)]">
+                  +{onlineUsers.length - 6}
+                </span>
+              )}
             </div>
           ) : (
-            <p className="text-[var(--text-muted)] text-sm">Belum ada yang online</p>
+            <p className="text-[var(--text-muted)] text-xs">Belum ada yang online</p>
           )}
         </div>
 
-        {/* Exam Schedule */}
-        <div className="glass-card p-4">
-          <div className="flex items-center gap-2 mb-3">
+        {/* Exam Schedule - larger with full dates */}
+        <div className={`glass-card p-4 ${onlineUsers.length <= 3 ? 'md:col-span-6' : 'md:col-span-5'}`}>
+          <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[var(--accent)]" />
             <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
           </div>
-          <div className="space-y-2 max-h-36 overflow-y-auto scrollbar-hide">
-            {Object.entries(classSchedule).map(([subject, date]) => (
-              <div key={subject} className="flex justify-between items-center text-xs sm:text-sm py-1">
-                <span className="text-[var(--text)] truncate flex-1 mr-2">{subject.slice(0, 20)}</span>
-                <span className="text-[var(--text-muted)] whitespace-nowrap">{formatDate(date)}</span>
-              </div>
-            ))}
+          <div className="space-y-1.5">
+            {Object.entries(classSchedule).map(([subject, date]) => {
+              const d = new Date(date);
+              return (
+                <div key={subject} className="flex justify-between items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
+                  <span className="text-[var(--text)] truncate flex-1 mr-3">{subject.replace('Management', 'Mgmt')}</span>
+                  <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
+                    {d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
+                  </span>
+                  <span className="text-[var(--text-muted)] ml-2 whitespace-nowrap">
+                    {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* Mini Exam Countdown */}
-        <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
+        <div className="md:col-span-3">
+          <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
+        </div>
       </div>
 
       {/* Subjects */}
@@ -1407,7 +1445,8 @@ function AIAssistant({ currentSubject }) {
       const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Maaf, saya tidak bisa menjawab saat ini.';
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Error: Pastikan API key Gemini sudah benar.' }]);
+      console.error('AI Error:', error);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Error: ' + (error.message || 'Gagal menghubungi AI. Coba lagi.') }]);
     }
 
     setLoading(false);
