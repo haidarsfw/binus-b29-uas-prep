@@ -193,9 +193,9 @@ export default function App() {
       if (interval) clearInterval(interval);
 
       if (document.visibilityState === 'visible') {
-        // Tab is active - update immediately and every 30 seconds
+        // Tab is active - update immediately and every 5 minutes
         updateHeartbeat();
-        interval = setInterval(updateHeartbeat, 30 * 1000); // 30 seconds when visible
+        interval = setInterval(updateHeartbeat, 5 * 60 * 1000); // 5 minutes when visible
       } else {
         // Tab is hidden - update every 30 minutes
         interval = setInterval(updateHeartbeat, 30 * 60 * 1000); // 30 minutes when hidden
