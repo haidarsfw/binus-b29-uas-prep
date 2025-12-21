@@ -1343,25 +1343,39 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
       {/* Widget Row - Auto-resize: Sedang Belajar shrinks, Jadwal UAS expands */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         {/* Online Users - shrink to fit content */}
-        <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[200px] shrink-0">
+        <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[220px] shrink-0">
           <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
             <span className="text-sm font-medium text-[var(--text)]">Online</span>
             <span className="ml-auto text-xs px-1.5 py-0.5 surface-flat rounded-full text-[var(--text-muted)] font-medium">{onlineUsers.length}</span>
           </div>
-          {onlineUsers.length > 0 ? (
-            <div className="flex flex-col gap-1">
-              {onlineUsers.slice(0, 4).map((u, i) => (
-                <motion.div key={u.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="flex items-center gap-1.5 text-xs">
-                  <div className="avatar avatar-sm text-[10px] w-5 h-5 shrink-0">{u.userName?.charAt(0) || '?'}</div>
-                  <span className="text-[var(--text)] truncate">{u.userName}</span>
-                </motion.div>
-              ))}
-              {onlineUsers.length > 4 && (
-                <span className="text-xs text-[var(--text-muted)]">+{onlineUsers.length - 4} lainnya</span>
-              )}
-            </div>
-          ) : (
+          {onlineUsers.length > 0 ? (() => {
+            // Group users by userName and count devices
+            const grouped = onlineUsers.reduce((acc, u) => {
+              const name = u.userName || 'Unknown';
+              if (!acc[name]) acc[name] = { userName: name, count: 0 };
+              acc[name].count++;
+              return acc;
+            }, {});
+            const uniqueUsers = Object.values(grouped);
+
+            return (
+              <div className="flex flex-col gap-1">
+                {uniqueUsers.slice(0, 4).map((u, i) => (
+                  <motion.div key={u.userName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="flex items-center gap-1.5 text-xs">
+                    <div className="avatar avatar-sm text-[10px] w-5 h-5 shrink-0">{u.userName?.charAt(0) || '?'}</div>
+                    <span className="text-[var(--text)] truncate">{u.userName}</span>
+                    {u.count > 1 && (
+                      <span className="text-[var(--text-muted)] text-[10px]">({u.count}📱)</span>
+                    )}
+                  </motion.div>
+                ))}
+                {uniqueUsers.length > 4 && (
+                  <span className="text-xs text-[var(--text-muted)]">+{uniqueUsers.length - 4} lainnya</span>
+                )}
+              </div>
+            );
+          })() : (
             <p className="text-[var(--text-muted)] text-xs">-</p>
           )}
         </div>
