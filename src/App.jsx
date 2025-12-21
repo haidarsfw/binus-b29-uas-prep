@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity } from 'lucide-react';
 import DB from './db';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage } from './firebase';
-
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults } from './firebase';
+import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
 
@@ -67,6 +67,84 @@ export default function App() {
   const [notifications, setNotifications] = useState([]);
   const [confirmLogout, setConfirmLogout] = useState(false);
 
+  // New states for new features
+  const [showAdminDashboard, setShowAdminDashboard] = useState(false);
+  const [showDocViewer, setShowDocViewer] = useState(false);
+  const [docViewerUrl, setDocViewerUrl] = useState('');
+  const [docViewerTitle, setDocViewerTitle] = useState('');
+  const [lastActivity, setLastActivity] = useState(Date.now());
+  const [showTimeoutWarning, setShowTimeoutWarning] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const [referralStats, setReferralStats] = useState({ referralCode: null, referralCount: 0 });
+  const [lastTestReminder, setLastTestReminder] = useState(0);
+
+  // Toast notification state (replaces browser alert)
+  const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+
+  // Alarm state for reminder (continuous alarm until dismissed)
+  const [alarmActive, setAlarmActive] = useState(false);
+  const alarmAudioRef = useRef(null);
+
+  // Show toast function
+  const showToast = (message, type = 'info', duration = 4000) => {
+    setToast({ show: true, message, type });
+    if (duration > 0) {
+      setTimeout(() => setToast(t => ({ ...t, show: false })), duration);
+    }
+  };
+
+  // Play continuous alarm sound until stopped
+  const playAlarmSound = () => {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      let isPlaying = true;
+
+      const playBeep = () => {
+        if (!isPlaying) return;
+
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        // Alternating frequencies for alarm effect
+        oscillator.frequency.value = 800;
+        oscillator.type = 'square';
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.4);
+
+        // Schedule next beep
+        setTimeout(() => {
+          if (alarmAudioRef.current) playBeep();
+        }, 600);
+      };
+
+      alarmAudioRef.current = {
+        pause: () => {
+          isPlaying = false;
+          audioContext.close();
+        }
+      };
+
+      playBeep();
+    } catch (e) {
+      console.log('Alarm sound not supported');
+    }
+  };
+
+  // Constants
+  const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
+  const WARNING_BEFORE_TIMEOUT_MS = 5 * 60 * 1000; // Show warning 5 mins before timeout
+
+  // Initialize default license keys on first load
+  useEffect(() => {
+    initializeDefaultLicenseKeys();
+  }, []);
+
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
     document.documentElement.setAttribute('data-theme', theme);
@@ -117,33 +195,31 @@ export default function App() {
       const now = new Date();
       setCurrentTime(now);
       // Check reminder
-      if (reminder && !reminderActive) {
+      if (reminder && !reminderActive && !alarmActive) {
         const [h, m] = reminder.split(':').map(Number);
         if (now.getHours() === h && now.getMinutes() === m) {
           setReminderActive(true);
-          setShowReminderAlert(true);
 
-          // Play beep sound
-          try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
-          } catch (e) { console.log('Audio not supported'); }
+          // Activate fullscreen alarm with continuous sound
+          setAlarmActive(true);
+          playAlarmSound();
 
           // Vibrate if supported
-          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
 
           // Browser notification
           if (Notification.permission === 'granted') {
-            new Notification('🔔 Waktunya Belajar!', { body: 'Reminder belajar UAS sudah aktif!', icon: '/vite.svg' });
+            new Notification('🔔 WAKTUNYA BELAJAR!', { body: 'Reminder belajar UAS sudah aktif!', icon: '/vite.svg' });
+          }
+
+          // Send email reminder if user has email saved
+          if (userEmail && session?.userName) {
+            sendReminderEmail(userEmail, session.userName, reminder)
+              .then(result => {
+                if (result.success) console.log('Reminder email sent!');
+                else console.log('Email send failed:', result.error);
+              })
+              .catch(e => console.log('Email error:', e));
           }
         }
       }
@@ -153,7 +229,7 @@ export default function App() {
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [reminder, reminderActive]);
+  }, [reminder, reminderActive, userEmail, session, alarmActive]);
 
   // Request notification permission
   useEffect(() => {
@@ -220,6 +296,81 @@ export default function App() {
     document.addEventListener('contextmenu', prevent);
     document.addEventListener('keydown', keyH);
     return () => { document.removeEventListener('contextmenu', prevent); document.removeEventListener('keydown', keyH); };
+  }, [session]);
+
+  // Session Timeout - Track user activity
+  useEffect(() => {
+    if (!session) return;
+
+    const updateActivity = () => {
+      setLastActivity(Date.now());
+      setShowTimeoutWarning(false); // Reset warning on activity
+    };
+
+    // Track user interactions
+    const events = ['mousedown', 'keydown', 'scroll', 'touchstart', 'mousemove'];
+    events.forEach(event => window.addEventListener(event, updateActivity, { passive: true }));
+
+    return () => {
+      events.forEach(event => window.removeEventListener(event, updateActivity));
+    };
+  }, [session]);
+
+  // Session Timeout - Check for timeout
+  useEffect(() => {
+    if (!session) return;
+
+    const checkTimeout = () => {
+      const now = Date.now();
+      const timeSinceActivity = now - lastActivity;
+
+      if (timeSinceActivity >= SESSION_TIMEOUT_MS) {
+        // Auto logout
+        const userId = getDeviceId();
+        removePresence(userId);
+        localStorage.removeItem('session');
+        sessionStorage.removeItem('termsAgreedThisSession');
+        setSession(null);
+        setView('login');
+        setSelectedClass('');
+        setShowTimeoutWarning(false);
+      } else if (timeSinceActivity >= SESSION_TIMEOUT_MS - WARNING_BEFORE_TIMEOUT_MS) {
+        // Show warning
+        setShowTimeoutWarning(true);
+      }
+    };
+
+    const interval = setInterval(checkTimeout, 10000); // Check every 10 seconds
+    return () => clearInterval(interval);
+  }, [session, lastActivity, SESSION_TIMEOUT_MS, WARNING_BEFORE_TIMEOUT_MS]);
+
+  // Load user email and referral stats when session changes
+  useEffect(() => {
+    if (!session || !session.licenseKey) return;
+
+    const loadUserData = async () => {
+      try {
+        const email = await getUserEmail(session.licenseKey);
+        if (email) setUserEmail(email);
+
+        // Get referral stats
+        let stats = await getReferralStats(session.licenseKey);
+
+        // If no referral code, create one
+        if (!stats.referralCode && !session.referralCode) {
+          const newCode = await ensureReferralCode(session.licenseKey);
+          if (newCode) {
+            stats = { ...stats, referralCode: newCode };
+          }
+        }
+
+        setReferralStats(stats);
+      } catch (e) {
+        console.error('Error loading user data:', e);
+      }
+    };
+
+    loadUserData();
   }, [session]);
 
   const updateProgress = useCallback((subjectId, section, itemId) => {
@@ -292,7 +443,7 @@ export default function App() {
                 setShowTerms(true);
               }
               // Show tutorial if first time
-              if (!localStorage.getItem('tutorialCompletedV2')) {
+              if (!localStorage.getItem('tutorialCompletedV3')) {
                 setShowTutorial(true);
               }
             }}
@@ -348,6 +499,12 @@ export default function App() {
                 <RotateCcw className="w-3 h-3" />
               </button>
             </div>
+            {/* Admin Dashboard Button */}
+            {session?.isAdmin && (
+              <button onClick={() => setShowAdminDashboard(true)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all" title="Admin Dashboard">
+                <Database className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+              </button>
+            )}
             <button onClick={() => setShowSettings(true)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all"><Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--text-secondary)]" /></button>
             <button onClick={() => setDark(!dark)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
               {dark ? <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--accent)]" />}
@@ -375,7 +532,7 @@ export default function App() {
       <AnimatePresence>
         {showSettings && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" onClick={() => setShowSettings(false)}>
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="modal p-6" onClick={e => e.stopPropagation()}>
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="modal p-6 max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
                 <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
@@ -405,6 +562,142 @@ export default function App() {
                     <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
                 </div>
+
+                {/* Email for Reminder */}
+                <div className="p-4 glass-card rounded-xl space-y-3">
+                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                    <Mail className="w-4 h-4" />Email untuk Reminder
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      value={userEmail}
+                      onChange={(e) => setUserEmail(e.target.value)}
+                      placeholder="email@example.com"
+                      className="input flex-1"
+                    />
+                    <button
+                      onClick={async () => {
+                        if (!userEmail || !isValidEmail(userEmail)) {
+                          showToast('Masukkan email yang valid', 'error');
+                          return;
+                        }
+                        try {
+                          await saveUserEmail(session.licenseKey, userEmail);
+                          showToast('Email berhasil disimpan!', 'success');
+                        } catch (e) {
+                          showToast('Error: ' + e.message, 'error');
+                        }
+                      }}
+                      className="btn btn-primary px-4"
+                    >
+                      Simpan
+                    </button>
+                  </div>
+
+                  {/* Test Reminder Button */}
+                  <button
+                    onClick={async () => {
+                      // Rate limit check - 60 seconds between tests
+                      const now = Date.now();
+                      const cooldown = 60 * 1000; // 60 seconds
+                      if (now - lastTestReminder < cooldown) {
+                        const remaining = Math.ceil((cooldown - (now - lastTestReminder)) / 1000);
+                        showToast(`⏳ Tunggu ${remaining} detik lagi sebelum test ulang.`, 'warning');
+                        return;
+                      }
+                      setLastTestReminder(now);
+
+                      // Test notification
+                      if (Notification.permission === 'granted') {
+                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
+                      } else if (Notification.permission === 'default') {
+                        const perm = await Notification.requestPermission();
+                        if (perm === 'granted') {
+                          new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                        }
+                      }
+
+                      // Play sound
+                      try {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        oscillator.frequency.value = 800;
+                        oscillator.type = 'sine';
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.5);
+                      } catch (e) { }
+
+                      // Vibrate
+                      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+
+                      // Test email if configured
+                      if (userEmail && isValidEmail(userEmail)) {
+                        const result = await sendReminderEmail(userEmail, session?.userName || 'User', 'TEST');
+                        if (result.success) {
+                          showToast('✅ Test berhasil!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Terkirim ke ' + userEmail, 'success');
+                        } else {
+                          showToast('⚠️ Test selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Gagal - ' + (result.error || 'Unknown error'), 'warning');
+                        }
+                      } else {
+                        showToast('✅ Test notifikasi selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : Notification.permission) + '\n- Email: Tidak ditest (email belum diisi)', 'success');
+                      }
+                    }}
+                    className="btn btn-secondary w-full text-sm"
+                  >
+                    🔔 Test Reminder (Notifikasi + Email)
+                  </button>
+
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className={`w-2 h-2 rounded-full ${Notification.permission === 'granted' ? 'bg-green-500' : Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
+                    <span className="text-[var(--text-muted)]">
+                      Notifikasi Browser: {Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Referral Code */}
+                {(referralStats.referralCode || session?.referralCode) && (
+                  <div className="p-4 glass-card rounded-xl space-y-3">
+                    <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                      <Gift className="w-4 h-4" />Kode Referral Anda
+                    </label>
+                    <div className="flex gap-2">
+                      <code className="flex-1 p-3 bg-[var(--accent-soft)] rounded-xl text-[var(--accent)] font-mono text-center">
+                        {referralStats.referralCode || session?.referralCode}
+                      </code>
+                      <button
+                        onClick={() => {
+                          const code = referralStats.referralCode || session?.referralCode;
+                          navigator.clipboard.writeText(code);
+                          showToast('Kode referral berhasil disalin!', 'success');
+                        }}
+                        className="btn btn-secondary px-3"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          const code = referralStats.referralCode || session?.referralCode;
+                          const text = `Yuk belajar UAS bareng di BINUS B29 UAS Prep! Gunakan kode referral: ${code}`;
+                          window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                        }}
+                        className="btn btn-primary px-3"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-[var(--text-muted)]">Jumlah referral berhasil:</span>
+                      <span className="font-bold text-[var(--accent)]">{referralStats.referralCount || 0}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -531,7 +824,7 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now(), ...n }])} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} />
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -576,10 +869,171 @@ export default function App() {
         message="Yakin ingin keluar dari akun?"
       />
 
+      {/* Toast Notification (replaces browser alert) */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 50, x: '-50%' }}
+            className="fixed bottom-6 left-1/2 z-[500] max-w-md"
+          >
+            <div className={`glass-strong px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3 ${toast.type === 'success' ? 'border-l-4 border-green-500' :
+              toast.type === 'error' ? 'border-l-4 border-red-500' :
+                toast.type === 'warning' ? 'border-l-4 border-yellow-500' :
+                  'border-l-4 border-[var(--accent)]'
+              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${toast.type === 'success' ? 'bg-green-500/15' :
+                toast.type === 'error' ? 'bg-red-500/15' :
+                  toast.type === 'warning' ? 'bg-yellow-500/15' :
+                    'bg-[var(--accent-soft)]'
+                }`}>
+                {toast.type === 'success' ? <Check className="w-4 h-4 text-green-500" /> :
+                  toast.type === 'error' ? <X className="w-4 h-4 text-red-500" /> :
+                    toast.type === 'warning' ? <AlertTriangle className="w-4 h-4 text-yellow-500" /> :
+                      <Bell className="w-4 h-4 text-[var(--accent)]" />}
+              </div>
+              <p className="text-sm text-[var(--text)] whitespace-pre-line">{toast.message}</p>
+              <button onClick={() => setToast(t => ({ ...t, show: false }))} className="ml-2 p-1 rounded-lg hover:bg-[var(--surface-hover)]">
+                <X className="w-4 h-4 text-[var(--text-muted)]" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Alarm Modal (fullscreen wake-up alarm) */}
+      <AnimatePresence>
+        {alarmActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[600] flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.9)' }}
+          >
+            <motion.div
+              initial={{ scale: 0.5 }}
+              animate={{ scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 1 } }}
+              className="text-center"
+            >
+              <motion.div
+                animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 0.5 }}
+                className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl"
+              >
+                <BellRing className="w-16 h-16 text-white" />
+              </motion.div>
+              <h1 className="text-4xl font-bold text-white mb-2">🔔 WAKTUNYA BELAJAR!</h1>
+              <p className="text-xl text-white/80 mb-8">Reminder belajar UAS sudah aktif!</p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => {
+                    setAlarmActive(false);
+                    if (alarmAudioRef.current) {
+                      alarmAudioRef.current.pause();
+                      alarmAudioRef.current = null;
+                    }
+                  }}
+                  className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold text-lg shadow-lg transition-all"
+                >
+                  ✅ Berhenti
+                </button>
+                <button
+                  onClick={() => {
+                    setAlarmActive(false);
+                    if (alarmAudioRef.current) {
+                      alarmAudioRef.current.pause();
+                      alarmAudioRef.current = null;
+                    }
+                    // Snooze for 5 minutes
+                    setTimeout(() => {
+                      setAlarmActive(true);
+                      // Restart alarm sound
+                      playAlarmSound();
+                    }, 5 * 60 * 1000);
+                    showToast('⏰ Alarm di-snooze 5 menit', 'info');
+                  }}
+                  className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-bold text-lg shadow-lg transition-all"
+                >
+                  💤 Snooze 5 menit
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Interactive Tutorial */}
       <AnimatePresence>
         {showTutorial && (
           <Tutorial onComplete={() => setShowTutorial(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Session Timeout Warning Modal */}
+      <AnimatePresence>
+        {showTimeoutWarning && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" style={{ zIndex: 300 }}>
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="glass-strong p-6 max-w-sm mx-4 text-center">
+              <div className="w-16 h-16 bg-orange-500/15 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Timer className="w-8 h-8 text-orange-500" />
+              </div>
+              <h3 className="text-lg font-bold text-[var(--text)] mb-2">Sesi Akan Berakhir</h3>
+              <p className="text-[var(--text-secondary)] text-sm mb-5">
+                Anda tidak aktif selama beberapa waktu. Sesi akan otomatis logout dalam 5 menit.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => { setLastActivity(Date.now()); setShowTimeoutWarning(false); }}
+                className="btn btn-primary w-full"
+              >
+                Tetap Login
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Document Viewer Modal */}
+      <AnimatePresence>
+        {showDocViewer && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[500] bg-black/80" onClick={() => setShowDocViewer(false)}>
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="h-full flex flex-col" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between p-4 bg-[var(--surface-solid)]">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-[var(--accent)]" />
+                  <span className="font-medium text-[var(--text)] truncate max-w-xs">{docViewerTitle}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a href={docViewerUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary text-sm px-3 py-1.5">
+                    <ExternalLink className="w-4 h-4" />Buka di Tab Baru
+                  </a>
+                  <button onClick={() => setShowDocViewer(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]">
+                    <X className="w-5 h-5 text-[var(--text-secondary)]" />
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 bg-gray-900">
+                <iframe
+                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(docViewerUrl)}&embedded=true`}
+                  className="w-full h-full border-0"
+                  title="Document Viewer"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Admin Dashboard Modal */}
+      <AnimatePresence>
+        {showAdminDashboard && (
+          <AdminDashboard
+            session={session}
+            onClose={() => setShowAdminDashboard(false)}
+          />
         )}
       </AnimatePresence>
 
@@ -590,19 +1044,110 @@ export default function App() {
 
 function Login({ dark, setDark, onSuccess }) {
   const [key, setKey] = useState('');
+  const [referralCode, setReferralCode] = useState('');
+  const [showReferral, setShowReferral] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Rate limiting state
+  const [loginAttempts, setLoginAttempts] = useState(() => {
+    const stored = localStorage.getItem('loginAttempts');
+    return stored ? JSON.parse(stored) : { count: 0, lockedUntil: null };
+  });
+  const [lockoutRemaining, setLockoutRemaining] = useState(0);
+
+  // Rate limiting thresholds
+  const LOCKOUT_TIERS = [
+    { attempts: 3, duration: 60 * 1000 },      // 3 fails = 1 min
+    { attempts: 6, duration: 5 * 60 * 1000 },  // 6 fails = 5 min
+    { attempts: 9, duration: 30 * 60 * 1000 }, // 9 fails = 30 min
+  ];
+
+  // Check lockout status
+  useEffect(() => {
+    if (!loginAttempts.lockedUntil) {
+      setLockoutRemaining(0);
+      return;
+    }
+
+    const checkLockout = () => {
+      const now = Date.now();
+      if (now >= loginAttempts.lockedUntil) {
+        setLockoutRemaining(0);
+        // Don't reset count, just unlock
+        const updated = { ...loginAttempts, lockedUntil: null };
+        setLoginAttempts(updated);
+        localStorage.setItem('loginAttempts', JSON.stringify(updated));
+      } else {
+        setLockoutRemaining(Math.ceil((loginAttempts.lockedUntil - now) / 1000));
+      }
+    };
+
+    checkLockout();
+    const interval = setInterval(checkLockout, 1000);
+    return () => clearInterval(interval);
+  }, [loginAttempts]);
+
+  const isLockedOut = lockoutRemaining > 0;
+
+  const getLockoutDuration = (attempts) => {
+    for (let i = LOCKOUT_TIERS.length - 1; i >= 0; i--) {
+      if (attempts >= LOCKOUT_TIERS[i].attempts) {
+        return LOCKOUT_TIERS[i].duration;
+      }
+    }
+    return 0;
+  };
+
+  const handleFailedAttempt = () => {
+    const newCount = loginAttempts.count + 1;
+    const lockoutDuration = getLockoutDuration(newCount);
+    const updated = {
+      count: newCount,
+      lockedUntil: lockoutDuration > 0 ? Date.now() + lockoutDuration : null,
+    };
+    setLoginAttempts(updated);
+    localStorage.setItem('loginAttempts', JSON.stringify(updated));
+  };
+
+  const resetAttempts = () => {
+    const updated = { count: 0, lockedUntil: null };
+    setLoginAttempts(updated);
+    localStorage.setItem('loginAttempts', JSON.stringify(updated));
+  };
+
+  const formatLockoutTime = (seconds) => {
+    if (seconds >= 60) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}m ${secs}s`;
+    }
+    return `${seconds}s`;
+  };
+
   const submit = async (e) => {
     e.preventDefault();
-    if (!key.trim()) return;
-    setLoading(true); setError('');
+    if (!key.trim() || isLockedOut) return;
+
+    setLoading(true);
+    setError('');
+
     try {
-      const r = await validateLicenseWithDevice(key, DB.licenseKeys);
-      if (r.valid) onSuccess({ ...r.license, key });
-      else setError(r.error);
+      const r = await validateLicenseWithDevice(key, referralCode.trim() || null);
+      if (r.valid) {
+        resetAttempts(); // Reset on success
+        onSuccess({ ...r.license, key });
+      } else {
+        // Only count as failed attempt if it's an invalid key error, not timeout/network
+        const isNetworkError = r.error?.includes('timeout') || r.error?.includes('Koneksi') || r.error?.includes('server gagal');
+        if (!isNetworkError) {
+          handleFailedAttempt();
+        }
+        setError(r.error + (!isNetworkError ? ` (${3 - (loginAttempts.count % 3 + 1)} percobaan tersisa)` : ''));
+      }
     } catch (err) {
+      // Network/timeout errors should NOT count as failed attempts
       setError('Koneksi gagal. Coba lagi.');
     }
     setLoading(false);
@@ -624,21 +1169,90 @@ function Login({ dark, setDark, onSuccess }) {
             <h1 className="text-2xl font-bold gradient-text">UAS BM B29 Prep</h1>
             <p className="text-[var(--text-secondary)] mt-2">Platform Belajar Premium</p>
           </div>
-          <form onSubmit={submit} className="space-y-5">
+
+          <form onSubmit={submit} className="space-y-4">
             <div>
               <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block"><Key className="w-4 h-4 inline mr-2" />License Key</label>
               <div className="relative">
-                <input type={show ? 'text' : 'password'} value={key} onChange={(e) => setKey(e.target.value.toUpperCase())} placeholder="Masukkan license key" className="input pr-12" autoComplete="off" />
+                <input
+                  type={show ? 'text' : 'password'}
+                  value={key}
+                  onChange={(e) => setKey(e.target.value.toUpperCase())}
+                  placeholder="Masukkan license key"
+                  className="input pr-12"
+                  autoComplete="off"
+                  disabled={isLockedOut}
+                />
                 <button type="button" onClick={() => setShow(!show)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
                   {show ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
-            {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[var(--danger)] text-sm flex items-center gap-2"><XCircle className="w-4 h-4" />{error}</motion.p>}
-            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={loading || !key.trim()} className="btn btn-primary w-full text-base">
+
+            {/* Referral Code Toggle */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowReferral(!showReferral)}
+                className="text-sm text-[var(--accent)] flex items-center gap-1 hover:underline"
+              >
+                <Gift className="w-3 h-3" />
+                {showReferral ? 'Sembunyikan' : 'Punya kode referral?'}
+              </button>
+
+              <AnimatePresence>
+                {showReferral && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <input
+                      type="text"
+                      value={referralCode}
+                      onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                      placeholder="REF-XXXX-XXXX (opsional)"
+                      className="input mt-2"
+                      disabled={isLockedOut}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Lockout Warning */}
+            {isLockedOut && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-3 bg-orange-500/15 border border-orange-500/30 rounded-xl text-center"
+              >
+                <p className="text-orange-500 text-sm font-medium flex items-center justify-center gap-2">
+                  <Timer className="w-4 h-4" />
+                  Terlalu banyak percobaan. Coba lagi dalam {formatLockoutTime(lockoutRemaining)}
+                </p>
+              </motion.div>
+            )}
+
+            {error && !isLockedOut && (
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[var(--danger)] text-sm flex items-center gap-2">
+                <XCircle className="w-4 h-4" />{error}
+                {loginAttempts.count > 0 && <span className="text-xs">({3 - (loginAttempts.count % 3 || 3)} percobaan tersisa)</span>}
+              </motion.p>
+            )}
+
+            <motion.button
+              whileHover={{ scale: isLockedOut ? 1 : 1.02 }}
+              whileTap={{ scale: isLockedOut ? 1 : 0.98 }}
+              type="submit"
+              disabled={loading || !key.trim() || isLockedOut}
+              className="btn btn-primary w-full text-base"
+            >
               {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><span>Masuk</span><ArrowRight className="w-5 h-5" /></>}
             </motion.button>
           </form>
+
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
             <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[var(--accent)] font-medium hover:underline">
@@ -1045,7 +1659,7 @@ function Forum({ subjectId, session, selectedClass }) {
       }
       await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl);
       setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
-    } catch (e) { alert(e.message); }
+    } catch (e) { showToast(e.message, 'error'); }
     setCreating(false);
   };
 
@@ -1055,7 +1669,7 @@ function Forum({ subjectId, session, selectedClass }) {
       await deleteThread(subjectId, confirmDelete.id);
       setSelectedThread(null);
       setConfirmDelete(null);
-    } catch (e) { alert(e.message); }
+    } catch (e) { showToast(e.message, 'error'); }
   };
 
   if (selectedThread) {
@@ -1185,7 +1799,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     try {
       await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
       setNewComment('');
-    } catch (e) { alert(e.message); }
+    } catch (e) { showToast(e.message, 'error'); }
     setPosting(false);
   };
 
@@ -1196,7 +1810,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
       await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
       setReplyText('');
       setReplyingTo(null);
-    } catch (e) { alert(e.message); }
+    } catch (e) { showToast(e.message, 'error'); }
     setPosting(false);
   };
 
@@ -1206,7 +1820,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     try {
       await deleteComment(subjectId, thread.id, confirmDeleteComment);
       setConfirmDeleteComment(null);
-    } catch (e) { alert(e.message); }
+    } catch (e) { showToast(e.message, 'error'); }
     setDeleting(false);
   };
 
@@ -1421,32 +2035,52 @@ function Tutorial({ onComplete }) {
   const steps = [
     {
       title: 'Selamat Datang! 👋',
-      content: 'Ini adalah platform belajar UAS BM B29. Mari kita jelajahi fitur-fiturnya!',
+      content: 'Ini adalah BINUS B29 UAS Prep - platform lengkap untuk persiapan UAS. Mari kita jelajahi semua fitur yang tersedia!',
       icon: GraduationCap,
     },
     {
-      title: 'Pilih Mata Kuliah 📚',
-      content: 'Klik salah satu kartu mata kuliah untuk mulai belajar. Ada materi, flashcards, quiz, dan forum diskusi.',
+      title: 'Dashboard & Mata Kuliah 📚',
+      content: 'Di dashboard, kamu bisa lihat jadwal UAS, countdown, dan pilih mata kuliah. Setiap mata kuliah punya: Materi PDF, Kisi-Kisi, Rangkuman, Flashcards, Quiz, dan Forum.',
       icon: BookOpen,
     },
     {
-      title: 'Pantau Progress 📊',
-      content: 'Tandai materi yang sudah kamu baca. Progress akan tersimpan otomatis.',
+      title: 'Flashcards & Quiz 🎯',
+      content: 'Gunakan Flashcards untuk belajar dengan flip card interaktif. Quiz mode untuk uji pemahaman dengan timer dan skor. Essay mode untuk latihan jawaban panjang.',
       icon: Target,
     },
     {
-      title: 'Countdown UAS ⏰',
-      content: 'Widget countdown menunjukkan waktu tersisa ke UAS terdekat. Jangan sampai telat belajar!',
-      icon: Clock,
+      title: 'Pomodoro Timer ⏱️',
+      content: 'Timer Pomodoro 25 menit untuk belajar fokus. Klik Play untuk mulai, Pause untuk istirahat, Reset untuk ulang. Produktivitas naik!',
+      icon: Timer,
     },
     {
-      title: 'Live Chat 💬',
-      content: 'Klik tombol chat di pojok kanan bawah untuk ngobrol bareng teman-teman saat belajar. Bisa kirim gambar, emoji, dan voice note!',
+      title: 'Reminder Alarm 🔔',
+      content: 'Set reminder di Settings! Saat waktunya tiba, alarm FULLSCREEN akan muncul dengan suara terus-menerus sampai kamu stop. Ada snooze 5 menit juga!',
+      icon: BellRing,
+    },
+    {
+      title: 'Forum Diskusi 💡',
+      content: 'Setiap mata kuliah punya forum diskusi. Buat thread baru, reply komentar, upload gambar. Diskusi bareng teman-teman!',
+      icon: MessageCircle,
+    },
+    {
+      title: 'Live Chat Global 💬',
+      content: 'Tombol chat di pojok kanan bawah untuk ngobrol real-time. Kirim teks, emoji, gambar, voice note. Lihat siapa yang online!',
       icon: MessageSquare,
     },
     {
+      title: 'Settings & Referral ⚙️',
+      content: 'Klik gear icon untuk Settings: ubah tema, font, set email reminder. Bagikan kode referral ke teman untuk track siapa yang kamu ajak!',
+      icon: Settings,
+    },
+    {
+      title: 'Admin Panel (Jika Admin) 🛡️',
+      content: 'Admin punya akses ke dashboard khusus: kelola license keys, lihat statistik users, clear data. Fitur lengkap untuk kontrol!',
+      icon: Shield,
+    },
+    {
       title: 'Siap Belajar! 🚀',
-      content: 'Sekarang kamu siap untuk mulai belajar. Semangat dan sukses UAS!',
+      content: 'Semua fitur sudah siap! Jangan lupa set reminder harian, eksplorasi semua materi, dan sukses UAS! Semangat! 💪',
       icon: Sparkles,
     },
   ];
@@ -1458,13 +2092,13 @@ function Tutorial({ onComplete }) {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      localStorage.setItem('tutorialCompletedV2', 'true');
+      localStorage.setItem('tutorialCompletedV3', 'true');
       onComplete();
     }
   };
 
   const handleSkip = () => {
-    localStorage.setItem('tutorialCompletedV2', 'true');
+    localStorage.setItem('tutorialCompletedV3', 'true');
     onComplete();
   };
 
@@ -1843,6 +2477,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [seenMentionIds, setSeenMentionIds] = useState(() => JSON.parse(localStorage.getItem('seenMentions') || '[]'));
+  const seenMentionIdsRef = useRef(seenMentionIds); // Ref to track latest seen IDs
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const stickerInputRef = useRef(null);
@@ -1852,22 +2487,39 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   const currentUserName = session?.userName || session?.name || 'Anonymous';
   const isAdmin = session?.isAdmin === true;
 
+  // Sync ref with state
+  useEffect(() => {
+    seenMentionIdsRef.current = seenMentionIds;
+  }, [seenMentionIds]);
+
   useEffect(() => {
     if (isOpen) {
       isFirstLoad.current = true;
       const unsub = subscribeToGlobalChat((msgs) => {
+        const currentSeen = new Set(seenMentionIdsRef.current);
+        let hasNewMentions = false;
+
         // Check for new mentions that haven't been seen
         msgs.forEach(m => {
           if (m.content?.includes(`@${currentUserName}`) &&
             m.authorId !== currentDeviceId &&
-            !seenMentionIds.includes(m.id)) {
+            !currentSeen.has(m.id)) {
+
             addNotification?.({ type: 'mention', title: 'Kamu di-mention!', message: `${m.authorName}: ${m.content.slice(0, 50)}` });
-            // Mark as seen
-            const newSeen = [...seenMentionIds, m.id].slice(-100); // Keep last 100
-            setSeenMentionIds(newSeen);
-            localStorage.setItem('seenMentions', JSON.stringify(newSeen));
+
+            // Mark as seen immediately in our local Set to preventing re-triggering in this same loop
+            currentSeen.add(m.id);
+            hasNewMentions = true;
           }
         });
+
+        if (hasNewMentions) {
+          const newSeenArray = Array.from(currentSeen).slice(-100); // Keep last 100
+          setSeenMentionIds(newSeenArray);
+          localStorage.setItem('seenMentions', JSON.stringify(newSeenArray));
+          seenMentionIdsRef.current = newSeenArray; // Update ref immediately
+        }
+
         setMessages(msgs);
       });
       return () => unsub();
@@ -1961,7 +2613,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
       recorder.start();
       setMediaRecorder(recorder);
       setRecording(true);
-    } catch (e) { alert('Izinkan akses mikrofon'); }
+    } catch (e) { showToast('Izinkan akses mikrofon', 'error'); }
   };
 
   const stopRecording = () => {
@@ -2102,3 +2754,386 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
   );
 }
 
+// ============================================
+// ADMIN DASHBOARD COMPONENT
+// ============================================
+function AdminDashboard({ session, onClose }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const [licenseKeys, setLicenseKeys] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showCreateKey, setShowCreateKey] = useState(false);
+  const [editingKey, setEditingKey] = useState(null); // Key being edited
+  const [keyForm, setKeyForm] = useState({ key: '', name: '', daysActive: 30, isAdmin: false, maxDevices: 1, fixedExpiry: '' });
+  const [saving, setSaving] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [statsRefresh, setStatsRefresh] = useState(0);
+  const [dangerAction, setDangerAction] = useState(null);
+  const [actionLoading, setActionLoading] = useState(false);
+
+  const tabs = [
+    { name: 'License Keys', icon: Key },
+    { name: 'Users', icon: Users },
+    { name: 'Stats', icon: Activity },
+  ];
+
+  // Load data
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const [keys, allUsers] = await Promise.all([
+          fetchLicenseKeys(),
+          getAllUsers()
+        ]);
+        setLicenseKeys(keys);
+        setUsers(allUsers);
+      } catch (e) {
+        console.error('Error loading admin data:', e);
+      }
+      setLoading(false);
+    };
+    loadData();
+  }, [statsRefresh]);
+
+  const resetForm = () => {
+    setKeyForm({ key: '', name: '', daysActive: 30, isAdmin: false, maxDevices: 1, fixedExpiry: '' });
+    setShowCreateKey(false);
+    setEditingKey(null);
+  };
+
+  const startEdit = (k) => {
+    setEditingKey(k.key);
+    setKeyForm({
+      key: k.key,
+      name: k.name,
+      daysActive: k.daysActive || 30,
+      isAdmin: k.isAdmin || false,
+      maxDevices: k.maxDevices || (k.unlimitedDevices ? 999 : 1),
+      fixedExpiry: k.fixedExpiry ? k.fixedExpiry.split('T')[0] : ''
+    });
+    setShowCreateKey(true);
+  };
+
+  const handleSaveKey = async () => {
+    if (!keyForm.key.trim() || !keyForm.name.trim()) return;
+    setSaving(true);
+    try {
+      const dataToSave = {
+        ...keyForm,
+        fixedExpiry: keyForm.fixedExpiry ? new Date(keyForm.fixedExpiry).toISOString() : null
+      };
+
+      if (editingKey) {
+        await updateLicenseKey(editingKey, dataToSave);
+      } else {
+        await createLicenseKey(dataToSave);
+      }
+      resetForm();
+      setStatsRefresh(r => r + 1);
+    } catch (e) {
+      console.error('Error saving key:', e);
+    }
+    setSaving(false);
+  };
+
+  const handleDeleteKey = async () => {
+    if (!confirmDelete) return;
+    try {
+      await deleteLicenseKey(confirmDelete);
+      setConfirmDelete(null);
+      setStatsRefresh(r => r + 1); // Refresh data
+    } catch (e) {
+      showToast('Error deleting key: ' + e.message, 'error');
+    }
+  };
+
+  const generateRandomKey = () => {
+    const prefix = 'B29';
+    const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+    setNewKey(prev => ({ ...prev, key: `${prefix}-${random}` }));
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[600] bg-black/60" onClick={onClose}>
+      <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25 }}
+        className="absolute right-0 top-0 h-full w-full max-w-lg bg-[var(--surface-solid)] shadow-2xl flex flex-col"
+        onClick={e => e.stopPropagation()}>
+
+        {/* Header */}
+        <div className="p-4 border-b border-[var(--border)] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-red-500/15 rounded-xl flex items-center justify-center">
+              <Database className="w-5 h-5 text-red-500" />
+            </div>
+            <div>
+              <h2 className="font-bold text-[var(--text)]">Admin Dashboard</h2>
+              <p className="text-xs text-[var(--text-muted)]">{session?.userName}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]">
+            <X className="w-5 h-5 text-[var(--text-secondary)]" />
+          </button>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex border-b border-[var(--border)] shrink-0">
+          {tabs.map((tab, i) => (
+            <button key={tab.name} onClick={() => setActiveTab(i)}
+              className={`flex-1 py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors ${activeTab === i ? 'text-[var(--accent)] border-b-2 border-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+              <tab.icon className="w-4 h-4" />{tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-4">
+          {loading ? (
+            <div className="flex items-center justify-center h-32">
+              <div className="w-8 h-8 border-2 border-[var(--accent)]/30 border-t-[var(--accent)] rounded-full animate-spin" />
+            </div>
+          ) : (
+            <>
+              {/* License Keys Tab */}
+              {activeTab === 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-medium text-[var(--text)]">{licenseKeys.length} License Keys</h3>
+                    <button onClick={() => { resetForm(); setShowCreateKey(true); }} className="btn btn-primary text-sm py-2">
+                      <Plus className="w-4 h-4" />Buat Key
+                    </button>
+                  </div>
+
+                  {/* Create/Edit Key Form */}
+                  <AnimatePresence>
+                    {showCreateKey && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden glass-card p-4 space-y-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-medium text-[var(--text)]">{editingKey ? '✏️ Edit Key' : '➕ Buat Key Baru'}</h4>
+                        </div>
+                        <div className="flex gap-2">
+                          <input value={keyForm.key} onChange={e => setKeyForm(prev => ({ ...prev, key: e.target.value.toUpperCase() }))}
+                            placeholder="License Key" className="input flex-1" disabled={!!editingKey} />
+                          {!editingKey && (
+                            <button onClick={() => {
+                              const prefix = 'B29';
+                              const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+                              setKeyForm(prev => ({ ...prev, key: `${prefix}-${random}` }));
+                            }} className="btn btn-secondary p-2" title="Generate Random">
+                              <Zap className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                        <input value={keyForm.name} onChange={e => setKeyForm(prev => ({ ...prev, name: e.target.value }))}
+                          placeholder="Nama Pemilik" className="input" />
+
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="text-xs text-[var(--text-muted)] mb-1 block">Durasi (hari)</label>
+                            <input type="number" value={keyForm.daysActive} onChange={e => setKeyForm(prev => ({ ...prev, daysActive: parseInt(e.target.value) || 30 }))}
+                              className="input" min={1} />
+                          </div>
+                          <div>
+                            <label className="text-xs text-[var(--text-muted)] mb-1 block">Max Devices</label>
+                            <select value={keyForm.maxDevices} onChange={e => setKeyForm(prev => ({ ...prev, maxDevices: parseInt(e.target.value) }))}
+                              className="input">
+                              <option value={1}>1 device</option>
+                              <option value={2}>2 devices</option>
+                              <option value={3}>3 devices</option>
+                              <option value={4}>4 devices</option>
+                              <option value={999}>∞ Unlimited</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-xs text-[var(--text-muted)] mb-1 block">Tanggal Expire (opsional, override durasi)</label>
+                          <input type="date" value={keyForm.fixedExpiry} onChange={e => setKeyForm(prev => ({ ...prev, fixedExpiry: e.target.value }))}
+                            className="input" />
+                        </div>
+
+                        <label className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+                          <input type="checkbox" checked={keyForm.isAdmin} onChange={e => setKeyForm(prev => ({ ...prev, isAdmin: e.target.checked }))}
+                            className="w-4 h-4 rounded" />Admin Access
+                        </label>
+
+                        <div className="flex gap-2 pt-2">
+                          <button onClick={resetForm} className="btn btn-secondary flex-1">Batal</button>
+                          <button onClick={handleSaveKey} disabled={saving || !keyForm.key || !keyForm.name} className="btn btn-primary flex-1">
+                            {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : (editingKey ? 'Update' : 'Simpan')}
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Keys List */}
+                  <div className="space-y-2">
+                    {licenseKeys.map(k => {
+                      const user = users.find(u => u.licenseKey === k.key);
+                      const expiryDate = user?.expiry ? new Date(user.expiry) : (k.fixedExpiry ? new Date(k.fixedExpiry) : null);
+                      const isExpired = expiryDate && expiryDate < new Date();
+                      const deviceCount = user?.deviceIds?.length || (user?.deviceId ? 1 : 0);
+
+                      return (
+                        <div key={k.key} className="glass-card p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <code className="text-sm font-mono text-[var(--accent)]">{k.key}</code>
+                              {k.isAdmin && <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Admin</span>}
+                              <span className="badge text-[10px] bg-blue-500/15 text-blue-500 border-0">{(k.maxDevices || 1) >= 999 ? '∞' : k.maxDevices || 1}📱</span>
+                              {isExpired && <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>}
+                            </div>
+                            <div className="flex gap-1">
+                              <button onClick={() => startEdit(k)} className="p-2 text-[var(--accent)] hover:bg-[var(--accent)]/10 rounded-lg" title="Edit">
+                                <Settings className="w-4 h-4" />
+                              </button>
+                              <button onClick={() => setConfirmDelete(k.key)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete">
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="text-sm text-[var(--text-secondary)]">
+                            <span className="font-medium">{k.name}</span>
+                            <span className="mx-2">•</span>
+                            <span>{k.daysActive} hari</span>
+                            {deviceCount > 0 && <span className="mx-2">• {deviceCount}/{(k.maxDevices || 1) >= 999 ? '∞' : k.maxDevices || 1} device</span>}
+                          </div>
+                          {expiryDate && (
+                            <div className="text-xs text-[var(--text-muted)] mt-1">
+                              📅 Expire: {expiryDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                              {user?.activatedAt && <span className="ml-2">| Aktif: {new Date(user.activatedAt).toLocaleDateString('id-ID')}</span>}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Users Tab */}
+              {activeTab === 1 && (
+                <div className="space-y-3">
+                  <h3 className="font-medium text-[var(--text)]">{users.length} Users Terdaftar</h3>
+                  {users.map(u => {
+                    const isExpired = u.expiry && new Date(u.expiry) < new Date();
+                    return (
+                      <div key={u.licenseKey} className="glass-card p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium text-[var(--text)]">{u.userName}</span>
+                          {isExpired ? (
+                            <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>
+                          ) : (
+                            <span className="badge text-[10px] bg-green-500/15 text-green-500 border-0">Active</span>
+                          )}
+                        </div>
+                        <p className="text-xs text-[var(--text-muted)] mb-1">
+                          <code className="text-[var(--accent)]">{u.licenseKey}</code>
+                        </p>
+                        <div className="flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+                          <span>📅 {u.expiry ? new Date(u.expiry).toLocaleDateString('id-ID') : '-'}</span>
+                          {u.referralCode && <span>🎁 {u.referralCount || 0} referral</span>}
+                          {u.email && <span>✉️ {u.email}</span>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Stats Tab */}
+              {activeTab === 2 && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="glass-card p-4 text-center">
+                      <p className="text-3xl font-bold gradient-text">{licenseKeys.length}</p>
+                      <p className="text-xs text-[var(--text-muted)]">Total Keys</p>
+                    </div>
+                    <div className="glass-card p-4 text-center">
+                      <p className="text-3xl font-bold gradient-text">{users.length}</p>
+                      <p className="text-xs text-[var(--text-muted)]">Users Registered</p>
+                    </div>
+                    <div className="glass-card p-4 text-center">
+                      <p className="text-3xl font-bold text-green-500">{users.filter(u => !u.expiry || new Date(u.expiry) > new Date()).length}</p>
+                      <p className="text-xs text-[var(--text-muted)]">Valid Today</p>
+                    </div>
+                    <div className="glass-card p-4 text-center">
+                      <p className="text-3xl font-bold text-purple-500">{users.reduce((acc, u) => acc + (u.referralCount || 0), 0)}</p>
+                      <p className="text-xs text-[var(--text-muted)]">Referrals</p>
+                    </div>
+                  </div>
+
+                  <button onClick={() => setStatsRefresh(r => r + 1)} className="btn btn-secondary w-full">
+                    <RotateCcw className="w-4 h-4" />Refresh Data
+                  </button>
+
+                  {/* Danger Zone */}
+                  <div className="mt-6 pt-4 border-t border-red-500/30">
+                    <h4 className="text-sm font-medium text-red-500 mb-3 flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4" />Danger Zone
+                    </h4>
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => setDangerAction('clearUsers')}
+                        disabled={actionLoading}
+                        className="w-full py-2 px-3 bg-orange-500/15 border border-orange-500/30 rounded-xl text-orange-500 text-sm font-medium hover:bg-orange-500/25 transition-colors disabled:opacity-50"
+                      >
+                        🧹 Clear All Users Data
+                      </button>
+                      <button
+                        onClick={() => setDangerAction('resetKeys')}
+                        disabled={actionLoading}
+                        className="w-full py-2 px-3 bg-red-500/15 border border-red-500/30 rounded-xl text-red-500 text-sm font-medium hover:bg-red-500/25 transition-colors disabled:opacity-50"
+                      >
+                        🔄 Reset License Keys to Defaults
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-[var(--text-muted)] mt-2">
+                      Clear Users: Menghapus data aktivasi. Reset Keys: Menghapus semua keys dan membuat ulang ADMIN1, TESTER01, TESTER02.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Delete Key Confirmation */}
+        <ConfirmModal
+          isOpen={!!confirmDelete}
+          onClose={() => setConfirmDelete(null)}
+          onConfirm={handleDeleteKey}
+          title="Hapus License Key"
+          message={`Yakin ingin menghapus key ${confirmDelete}? User yang menggunakan key ini tidak akan bisa login lagi.`}
+        />
+
+        {/* Danger Action Confirmation */}
+        <ConfirmModal
+          isOpen={!!dangerAction}
+          onClose={() => !actionLoading && setDangerAction(null)}
+          onConfirm={async () => {
+            setActionLoading(true);
+            try {
+              if (dangerAction === 'clearUsers') {
+                await clearAllUserData();
+              } else if (dangerAction === 'resetKeys') {
+                await resetLicenseKeysToDefaults();
+              }
+              setStatsRefresh(r => r + 1);
+              setDangerAction(null);
+            } catch (e) {
+              console.error('Danger action error:', e);
+            }
+            setActionLoading(false);
+          }}
+          title={dangerAction === 'clearUsers' ? '⚠️ Hapus Semua Data User' : '⚠️ Reset License Keys'}
+          message={dangerAction === 'clearUsers'
+            ? 'PERINGATAN: Ini akan menghapus SEMUA data aktivasi user (referral, email, dll). Semua user harus login ulang. Tindakan ini tidak bisa dibatalkan!'
+            : 'PERINGATAN: Ini akan menghapus SEMUA license keys dan membuat ulang 3 key default (ADMIN1, TESTER01, TESTER02). Keys yang dibuat manual akan hilang!'}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}

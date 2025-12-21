@@ -149,59 +149,233 @@ export const getDeviceId = () => {
     return deviceId;
 };
 
-// License validation with device lock (with timeout)
-export const validateLicenseWithDevice = async (key, licenses) => {
-    const license = licenses.find(l => l.key.toUpperCase() === key.toUpperCase());
-    if (!license) return { valid: false, error: 'License key tidak valid' };
+// ============================================
+// LICENSE KEY SYSTEM (Firebase-based)
+// ============================================
 
-    // If unlimited devices, skip device validation
-    if (license.unlimitedDevices) {
-        const now = new Date();
-        const expiry = new Date(now.getTime() + license.daysActive * 86400000);
-        return {
-            valid: true,
-            license: {
-                ...license,
-                userName: license.name,
-                expiry: expiry.toISOString()
-            }
-        };
+// Fetch all license keys from Firebase (admin only)
+export const fetchLicenseKeys = async () => {
+    try {
+        const licenseKeysRef = ref(db, 'licenseKeys');
+        const snapshot = await withTimeout(get(licenseKeysRef), 110000);
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            return Object.entries(data).map(([id, value]) => ({ id, ...value }));
+        }
+        return [];
+    } catch (error) {
+        console.error('Error fetching license keys:', error);
+        throw error;
     }
+};
 
-    const deviceId = getDeviceId();
-    const licenseRef = ref(db, `licenses/${key.toUpperCase()}`);
+// Create a new license key (admin only)
+export const createLicenseKey = async (keyData) => {
+    const { key, name, daysActive, isAdmin = false, maxDevices = 1, fixedExpiry = null } = keyData;
+    const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+    const newKey = {
+        key: key.toUpperCase(),
+        name,
+        daysActive: parseInt(daysActive),
+        isAdmin,
+        maxDevices: parseInt(maxDevices) || 1, // Default to 1 device
+        fixedExpiry: fixedExpiry || null, // If set, use this instead of calculating from daysActive
+        createdAt: new Date().toISOString(),
+    };
+    try {
+        await withTimeout(set(licenseKeyRef, newKey), 110000);
+        return newKey;
+    } catch (error) {
+        console.error('Error creating license key:', error);
+        throw error;
+    }
+};
+
+// Update an existing license key (admin only)
+export const updateLicenseKey = async (originalKey, keyData) => {
+    const { key, name, daysActive, isAdmin, maxDevices, fixedExpiry } = keyData;
 
     try {
-        // Use get() with timeout instead of onValue()
-        const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('timeout')), 8000)
-        );
+        // If key changed, need to move data
+        if (originalKey.toUpperCase() !== key.toUpperCase()) {
+            // Get old data
+            const oldKeyRef = ref(db, `licenseKeys/${originalKey.toUpperCase()}`);
+            const oldActivationRef = ref(db, `licenses/${originalKey.toUpperCase()}`);
 
-        const snapshot = await Promise.race([get(licenseRef), timeoutPromise]);
-        const data = snapshot.val();
+            const [keySnapshot, activationSnapshot] = await Promise.all([
+                withTimeout(get(oldKeyRef), 110000),
+                withTimeout(get(oldActivationRef), 110000)
+            ]);
 
-        if (data) {
-            // License already activated
-            if (data.deviceId !== deviceId) {
-                return { valid: false, error: 'License sudah digunakan di device lain' };
+            // Create new data at new location
+            const newKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+            const newActivationRef = ref(db, `licenses/${key.toUpperCase()}`);
+
+            const updatedKey = {
+                key: key.toUpperCase(),
+                name,
+                daysActive: parseInt(daysActive),
+                isAdmin: isAdmin || false,
+                maxDevices: parseInt(maxDevices) || 1,
+                fixedExpiry: fixedExpiry || null,
+                createdAt: keySnapshot.exists() ? keySnapshot.val().createdAt : new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            };
+
+            await withTimeout(set(newKeyRef, updatedKey), 110000);
+
+            if (activationSnapshot.exists()) {
+                await withTimeout(set(newActivationRef, activationSnapshot.val()), 110000);
+                await withTimeout(remove(oldActivationRef), 110000);
             }
+
+            await withTimeout(remove(oldKeyRef), 110000);
+        } else {
+            // Just update existing
+            const keyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+            const snapshot = await withTimeout(get(keyRef), 110000);
+
+            const updatedKey = {
+                ...(snapshot.exists() ? snapshot.val() : {}),
+                key: key.toUpperCase(),
+                name,
+                daysActive: parseInt(daysActive),
+                isAdmin: isAdmin || false,
+                maxDevices: parseInt(maxDevices) || 1,
+                fixedExpiry: fixedExpiry || null,
+                updatedAt: new Date().toISOString(),
+            };
+
+            await withTimeout(set(keyRef, updatedKey), 110000);
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Error updating license key:', error);
+        throw error;
+    }
+};
+
+// Delete a license key (admin only)
+export const deleteLicenseKey = async (key) => {
+    const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+    const activationRef = ref(db, `licenses/${key.toUpperCase()}`);
+    try {
+        await withTimeout(remove(licenseKeyRef), 110000);
+        await withTimeout(remove(activationRef), 110000); // Also remove activation data
+        return true;
+    } catch (error) {
+        console.error('Error deleting license key:', error);
+        throw error;
+    }
+};
+
+// License validation with device lock (fetches from Firebase)
+export const validateLicenseWithDevice = async (key, referralCode = null) => {
+    try {
+        // Fetch license key from Firebase
+        const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+        const keySnapshot = await withTimeout(get(licenseKeyRef), 110000);
+
+        if (!keySnapshot.exists()) {
+            return { valid: false, error: 'License key tidak valid' };
+        }
+
+        const license = keySnapshot.val();
+
+        // If unlimited devices, skip device validation
+        if (license.unlimitedDevices) {
+            const now = new Date();
+            const expiry = new Date(now.getTime() + license.daysActive * 86400000);
+
+            // Handle referral if provided
+            if (referralCode) {
+                await applyReferralCode(referralCode, key.toUpperCase());
+            }
+
+            return {
+                valid: true,
+                license: {
+                    ...license,
+                    licenseKey: key.toUpperCase(),
+                    userName: license.name,
+                    expiry: expiry.toISOString()
+                }
+            };
+        }
+
+        const deviceId = getDeviceId();
+        const activationRef = ref(db, `licenses/${key.toUpperCase()}`);
+        const activationSnapshot = await withTimeout(get(activationRef), 110000);
+        const activationData = activationSnapshot.val();
+
+        // Determine max devices allowed
+        const maxDevices = license.maxDevices || (license.unlimitedDevices ? 999 : 1);
+
+        if (activationData) {
+            // License already activated - check if this device is allowed
+            const existingDevices = activationData.deviceIds || (activationData.deviceId ? [activationData.deviceId] : []);
+
+            // Check if current device is in the list
+            if (!existingDevices.includes(deviceId)) {
+                // Device not registered - check if we can add more
+                if (existingDevices.length >= maxDevices) {
+                    return { valid: false, error: `License sudah digunakan di ${existingDevices.length} device (max: ${maxDevices})` };
+                }
+                // Add this device
+                const updatedDevices = [...existingDevices, deviceId];
+                await update(activationRef, { deviceIds: updatedDevices });
+            }
+
             // Check expiry
-            if (data.expiry && new Date(data.expiry) < new Date()) {
+            if (activationData.expiry && new Date(activationData.expiry) < new Date()) {
                 return { valid: false, error: 'License sudah expired' };
             }
-            return { valid: true, license: { ...license, ...data } };
+
+            return {
+                valid: true,
+                license: {
+                    ...license,
+                    ...activationData,
+                    deviceIds: activationData.deviceIds || existingDevices,
+                    licenseKey: key.toUpperCase()
+                }
+            };
         } else {
             // First time activation
             const now = new Date();
-            const expiry = new Date(now.getTime() + license.daysActive * 86400000);
+            // Use fixedExpiry if set, otherwise calculate from daysActive
+            const expiry = license.fixedExpiry
+                ? new Date(license.fixedExpiry)
+                : new Date(now.getTime() + license.daysActive * 86400000);
+
+            // Generate referral code for this user
+            const userReferralCode = generateReferralCode(key);
+
             const newData = {
-                deviceId,
+                deviceIds: [deviceId], // Store as array for multi-device support
                 userName: license.name,
                 activatedAt: now.toISOString(),
                 expiry: expiry.toISOString(),
+                referralCode: userReferralCode,
+                referredBy: referralCode || null,
+                referralCount: 0,
             };
-            await set(licenseRef, newData);
-            return { valid: true, license: { ...license, ...newData } };
+            await set(activationRef, newData);
+
+            // Handle referral if provided
+            if (referralCode) {
+                await applyReferralCode(referralCode, key.toUpperCase());
+            }
+
+            return {
+                valid: true,
+                license: {
+                    ...license,
+                    ...newData,
+                    licenseKey: key.toUpperCase()
+                }
+            };
         }
     } catch (error) {
         console.error('Firebase error:', error);
@@ -209,6 +383,250 @@ export const validateLicenseWithDevice = async (key, licenses) => {
             return { valid: false, error: 'Koneksi timeout. Cek internet Anda.' };
         }
         return { valid: false, error: 'Koneksi ke server gagal: ' + error.message };
+    }
+};
+
+// ============================================
+// REFERRAL SYSTEM
+// ============================================
+
+// Generate unique referral code
+export const generateReferralCode = (licenseKey) => {
+    const base = licenseKey.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `REF-${base.slice(0, 4)}-${random}`;
+};
+
+// Ensure user has a referral code (create if missing)
+export const ensureReferralCode = async (licenseKey) => {
+    try {
+        const activationRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
+        const snapshot = await withTimeout(get(activationRef), 15000);
+
+        if (!snapshot.exists()) {
+            return null; // User not activated yet
+        }
+
+        const data = snapshot.val();
+        if (data.referralCode) {
+            return data.referralCode; // Already has one
+        }
+
+        // Generate and save new referral code
+        const newCode = generateReferralCode(licenseKey);
+        await update(activationRef, { referralCode: newCode, referralCount: data.referralCount || 0 });
+        return newCode;
+    } catch (error) {
+        console.error('Error ensuring referral code:', error);
+        return null;
+    }
+};
+
+// Apply referral code (increment referrer's count)
+export const applyReferralCode = async (referralCode, newUserKey) => {
+    try {
+        // Find who owns this referral code
+        const licensesRef = ref(db, 'licenses');
+        const snapshot = await withTimeout(get(licensesRef), 15000);
+
+        if (!snapshot.exists()) return false;
+
+        const licenses = snapshot.val();
+        let referrerId = null;
+
+        for (const [key, data] of Object.entries(licenses)) {
+            if (data.referralCode === referralCode && key !== newUserKey) {
+                referrerId = key;
+                break;
+            }
+        }
+
+        if (referrerId) {
+            const referrerRef = ref(db, `licenses/${referrerId}`);
+            const referrerSnapshot = await get(referrerRef);
+            const referrerData = referrerSnapshot.val();
+
+            // Increment referral count
+            await update(referrerRef, {
+                referralCount: (referrerData.referralCount || 0) + 1
+            });
+
+            // Record the referral
+            const referralRecordRef = ref(db, `referrals/${referrerId}/${newUserKey}`);
+            await set(referralRecordRef, {
+                referredAt: new Date().toISOString(),
+                newUserKey
+            });
+
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error applying referral:', error);
+        return false;
+    }
+};
+
+// Get referral stats for a user
+export const getReferralStats = async (licenseKey) => {
+    try {
+        const activationRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
+        const snapshot = await withTimeout(get(activationRef), 110000);
+
+        if (!snapshot.exists()) return { referralCode: null, referralCount: 0 };
+
+        const data = snapshot.val();
+        return {
+            referralCode: data.referralCode || null,
+            referralCount: data.referralCount || 0,
+            referredBy: data.referredBy || null
+        };
+    } catch (error) {
+        console.error('Error getting referral stats:', error);
+        return { referralCode: null, referralCount: 0 };
+    }
+};
+
+// Get referral leaderboard
+export const getReferralLeaderboard = async () => {
+    try {
+        const licensesRef = ref(db, 'licenses');
+        const snapshot = await withTimeout(get(licensesRef), 110000);
+
+        if (!snapshot.exists()) return [];
+
+        const licenses = snapshot.val();
+        const leaderboard = Object.entries(licenses)
+            .filter(([_, data]) => data.referralCount > 0)
+            .map(([key, data]) => ({
+                licenseKey: key,
+                userName: data.userName,
+                referralCount: data.referralCount || 0
+            }))
+            .sort((a, b) => b.referralCount - a.referralCount)
+            .slice(0, 10); // Top 10
+
+        return leaderboard;
+    } catch (error) {
+        console.error('Error getting leaderboard:', error);
+        return [];
+    }
+};
+
+// ============================================
+// EMAIL NOTIFICATION SYSTEM
+// ============================================
+
+// Save user email
+export const saveUserEmail = async (licenseKey, email) => {
+    try {
+        const userRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
+        await withTimeout(update(userRef, { email }), 110000);
+        return true;
+    } catch (error) {
+        console.error('Error saving email:', error);
+        throw error;
+    }
+};
+
+// Get user email
+export const getUserEmail = async (licenseKey) => {
+    try {
+        const userRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
+        const snapshot = await withTimeout(get(userRef), 110000);
+        if (snapshot.exists()) {
+            return snapshot.val().email || null;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error getting email:', error);
+        return null;
+    }
+};
+
+// ============================================
+// ADMIN FUNCTIONS
+// ============================================
+
+// Get all users (admin)
+export const getAllUsers = async () => {
+    try {
+        const licensesRef = ref(db, 'licenses');
+        const snapshot = await withTimeout(get(licensesRef), 110000);
+
+        if (!snapshot.exists()) return [];
+
+        const data = snapshot.val();
+        return Object.entries(data).map(([key, value]) => ({
+            licenseKey: key,
+            ...value
+        }));
+    } catch (error) {
+        console.error('Error getting all users:', error);
+        return [];
+    }
+};
+
+// Initialize default license keys if none exist
+export const initializeDefaultLicenseKeys = async () => {
+    try {
+        const licenseKeysRef = ref(db, 'licenseKeys');
+        const snapshot = await get(licenseKeysRef);
+
+        if (!snapshot.exists()) {
+            // Create default keys - using correct names
+            const defaultKeys = [
+                { key: 'ADMIN1', name: 'Admin', daysActive: 365, isAdmin: true, maxDevices: 2 },
+                { key: 'TESTER01', name: 'Tester', daysActive: 365, isAdmin: false, maxDevices: 999, fixedExpiry: '2026-01-01T00:00:00.000Z' },
+                { key: 'TESTER02', name: 'Tester2', daysActive: 365, isAdmin: false, maxDevices: 999, fixedExpiry: '2026-01-01T00:00:00.000Z' },
+            ];
+
+            for (const keyData of defaultKeys) {
+                await createLicenseKey(keyData);
+            }
+            console.log('Initialized default license keys');
+        }
+    } catch (error) {
+        console.error('Error initializing license keys:', error);
+    }
+};
+
+// Clear all user activation data (admin only) - use with caution!
+export const clearAllUserData = async () => {
+    try {
+        const licensesRef = ref(db, 'licenses');
+        await withTimeout(remove(licensesRef), 15000);
+        console.log('Cleared all user activation data');
+        return true;
+    } catch (error) {
+        console.error('Error clearing user data:', error);
+        throw error;
+    }
+};
+
+// Reset license keys to defaults (admin only) - use with caution!
+export const resetLicenseKeysToDefaults = async () => {
+    try {
+        // Remove all existing keys
+        const licenseKeysRef = ref(db, 'licenseKeys');
+        await withTimeout(remove(licenseKeysRef), 15000);
+
+        // Create default keys with correct settings
+        const defaultKeys = [
+            { key: 'ADMIN1', name: 'Admin', daysActive: 365, isAdmin: true, maxDevices: 2 },
+            { key: 'TESTER01', name: 'Tester', daysActive: 365, isAdmin: false, maxDevices: 999, fixedExpiry: '2026-01-01T00:00:00.000Z' },
+            { key: 'TESTER02', name: 'Tester2', daysActive: 365, isAdmin: false, maxDevices: 999, fixedExpiry: '2026-01-01T00:00:00.000Z' },
+        ];
+
+        for (const keyData of defaultKeys) {
+            await createLicenseKey(keyData);
+        }
+
+        console.log('Reset license keys to defaults');
+        return true;
+    } catch (error) {
+        console.error('Error resetting license keys:', error);
+        throw error;
     }
 };
 
@@ -305,7 +723,7 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
 
     try {
         const newRef = push(threadsRef);
-        await withTimeout(set(newRef, newThread), 8000);
+        await withTimeout(set(newRef, newThread), 110000);
         return newRef.key;
     } catch (error) {
         console.error('Error creating thread:', error);
@@ -347,12 +765,12 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
     };
 
     try {
-        await withTimeout(push(commentsRef, newComment), 8000);
+        await withTimeout(push(commentsRef, newComment), 110000);
 
         // Update comment count using get() with timeout
-        const snapshot = await withTimeout(get(commentsRef), 5000);
+        const snapshot = await withTimeout(get(commentsRef), 10000);
         const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
-        await withTimeout(update(threadRef, { commentCount: count }), 5000);
+        await withTimeout(update(threadRef, { commentCount: count }), 10000);
     } catch (error) {
         console.error('Error adding comment:', error);
         throw error;
@@ -365,11 +783,11 @@ export const deleteComment = async (subjectId, threadId, commentId) => {
     const commentsRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments`);
 
     try {
-        await withTimeout(remove(commentRef), 8000);
+        await withTimeout(remove(commentRef), 110000);
         // Update comment count
-        const snapshot = await withTimeout(get(commentsRef), 5000);
+        const snapshot = await withTimeout(get(commentsRef), 10000);
         const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
-        await withTimeout(update(threadRef, { commentCount: count }), 5000);
+        await withTimeout(update(threadRef, { commentCount: count }), 10000);
     } catch (error) {
         console.error('Error deleting comment:', error);
         throw error;
@@ -388,7 +806,7 @@ export const addReply = async (subjectId, threadId, commentId, content, authorId
     };
 
     try {
-        await withTimeout(push(repliesRef, newReply), 8000);
+        await withTimeout(push(repliesRef, newReply), 110000);
     } catch (error) {
         console.error('Error adding reply:', error);
         throw error;
@@ -398,7 +816,7 @@ export const addReply = async (subjectId, threadId, commentId, content, authorId
 export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
     const replyRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}/replies/${replyId}`);
     try {
-        await withTimeout(remove(replyRef), 8000);
+        await withTimeout(remove(replyRef), 110000);
     } catch (error) {
         console.error('Error deleting reply:', error);
         throw error;
@@ -440,7 +858,7 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
         ...replyData // Include replyToId, replyToName, replyToContent if present
     };
     try {
-        await withTimeout(push(chatRef, newMessage), 8000);
+        await withTimeout(push(chatRef, newMessage), 110000);
     } catch (error) {
         console.error('Error sending message:', error);
         throw error;
@@ -451,7 +869,7 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
 export const deleteGlobalMessage = async (messageId) => {
     const msgRef = ref(db, `globalChat/${messageId}`);
     try {
-        await withTimeout(update(msgRef, { deleted: true, content: '', mediaUrl: null }), 8000);
+        await withTimeout(update(msgRef, { deleted: true, content: '', mediaUrl: null }), 110000);
     } catch (error) {
         console.error('Error deleting message:', error);
         throw error;
