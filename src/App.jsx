@@ -1343,21 +1343,44 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
       {/* Widget Row - Auto-resize: Sedang Belajar shrinks, Jadwal UAS expands */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         {/* Online Users - shrink to fit content */}
-        <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[220px] shrink-0">
+        <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[240px] shrink-0">
           <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
             <span className="text-sm font-medium text-[var(--text)]">Online</span>
             <span className="ml-auto text-xs px-1.5 py-0.5 surface-flat rounded-full text-[var(--text-muted)] font-medium">{onlineUsers.length}</span>
           </div>
           {onlineUsers.length > 0 ? (() => {
-            // Group users by userName and count devices
+            // Group users by userName and collect device types
             const grouped = onlineUsers.reduce((acc, u) => {
               const name = u.userName || 'Unknown';
-              if (!acc[name]) acc[name] = { userName: name, count: 0 };
-              acc[name].count++;
+              if (!acc[name]) acc[name] = { userName: name, devices: [] };
+              acc[name].devices.push(u.deviceType || 'desktop');
               return acc;
             }, {});
             const uniqueUsers = Object.values(grouped);
+
+            // Device type to emoji mapping
+            const deviceEmoji = (type) => {
+              if (type === 'mobile') return '📱';
+              if (type === 'tablet') return '📲';
+              return '💻';
+            };
+
+            // Get emoji string for devices
+            const getDeviceEmojis = (devices) => {
+              if (devices.length === 1) return deviceEmoji(devices[0]);
+              // Count each device type
+              const counts = devices.reduce((acc, d) => {
+                acc[d] = (acc[d] || 0) + 1;
+                return acc;
+              }, {});
+              // Build emoji string
+              let str = '';
+              if (counts.desktop) str += counts.desktop > 1 ? `${counts.desktop}💻` : '💻';
+              if (counts.mobile) str += counts.mobile > 1 ? `${counts.mobile}📱` : '📱';
+              if (counts.tablet) str += counts.tablet > 1 ? `${counts.tablet}📲` : '📲';
+              return str;
+            };
 
             return (
               <div className="flex flex-col gap-1">
@@ -1365,9 +1388,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                   <motion.div key={u.userName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="flex items-center gap-1.5 text-xs">
                     <div className="avatar avatar-sm text-[10px] w-5 h-5 shrink-0">{u.userName?.charAt(0) || '?'}</div>
                     <span className="text-[var(--text)] truncate">{u.userName}</span>
-                    {u.count > 1 && (
-                      <span className="text-[var(--text-muted)] text-[10px]">({u.count}📱)</span>
-                    )}
+                    <span className="text-[10px] ml-auto">{getDeviceEmojis(u.devices)}</span>
                   </motion.div>
                 ))}
                 {uniqueUsers.length > 4 && (

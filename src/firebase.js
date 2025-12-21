@@ -630,10 +630,23 @@ export const resetLicenseKeysToDefaults = async () => {
     }
 };
 
+// Device type detection
+export const getDeviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return 'tablet';
+    }
+    if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        return 'mobile';
+    }
+    return 'desktop';
+};
+
 // Presence system
 export const setupPresence = (userId, userName, currentSubject = null) => {
     const userStatusRef = ref(db, `presence/${userId}`);
     const connectedRef = ref(db, '.info/connected');
+    const deviceType = getDeviceType();
 
     onValue(connectedRef, (snap) => {
         if (snap.val() === true) {
@@ -642,6 +655,7 @@ export const setupPresence = (userId, userName, currentSubject = null) => {
                 online: true,
                 userName,
                 currentSubject,
+                deviceType,
                 lastSeen: serverTimestamp(),
             };
             set(userStatusRef, statusData);
