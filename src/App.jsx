@@ -1655,30 +1655,42 @@ function PersonalNotes({ subjectId, subjectName }) {
   };
 
   const exportToPDF = () => {
-    // Create printable content
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
+    // Create HTML content
+    const htmlContent = `
       <!DOCTYPE html>
       <html>
       <head>
+        <meta charset="UTF-8">
         <title>Catatan - ${subjectName}</title>
         <style>
-          body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.6; }
-          h1 { color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
-          .date { color: #666; font-size: 12px; margin-bottom: 20px; }
-          .content { white-space: pre-wrap; font-size: 14px; }
-          @media print { body { padding: 20px; } }
+          body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+          h1 { color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-bottom: 20px; }
+          .date { color: #666; font-size: 12px; margin-bottom: 30px; }
+          .content { white-space: pre-wrap; font-size: 14px; color: #333; }
+          .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 11px; color: #999; }
         </style>
       </head>
       <body>
         <h1>Catatan: ${subjectName}</h1>
         <div class="date">Diekspor pada: ${new Date().toLocaleString('id-ID')}</div>
-        <div class="content">${notes.replace(/\n/g, '<br>')}</div>
-        <script>window.print(); window.close();</script>
+        <div class="content">${notes.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')}</div>
+        <div class="footer">BINUS B29 UAS Prep - Catatan Pribadi</div>
       </body>
       </html>
-    `);
-    printWindow.document.close();
+    `;
+
+    // Create blob and download
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Catatan_${subjectName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('File catatan didownload! Buka file lalu Print → Save as PDF', 'success');
   };
 
   return (
