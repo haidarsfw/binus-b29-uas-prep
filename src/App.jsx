@@ -97,42 +97,51 @@ export default function App() {
   const playAlarmSound = () => {
     try {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      let isPlaying = true;
+
+      // Store stop flag in the ref itself
+      const soundState = { isPlaying: true, audioContext };
+      alarmAudioRef.current = soundState;
 
       const playBeep = () => {
-        if (!isPlaying) return;
+        // Check if still playing using the ref
+        if (!alarmAudioRef.current || !alarmAudioRef.current.isPlaying) return;
 
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
 
-        // Alternating frequencies for alarm effect
         oscillator.frequency.value = 800;
         oscillator.type = 'square';
 
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
 
         oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.4);
+        oscillator.stop(audioContext.currentTime + 0.3);
 
-        // Schedule next beep
+        // Schedule next beep - check ref each time
         setTimeout(() => {
-          if (alarmAudioRef.current) playBeep();
-        }, 600);
-      };
-
-      alarmAudioRef.current = {
-        pause: () => {
-          isPlaying = false;
-          audioContext.close();
-        }
+          if (alarmAudioRef.current && alarmAudioRef.current.isPlaying) {
+            playBeep();
+          }
+        }, 500);
       };
 
       playBeep();
     } catch (e) {
       console.log('Alarm sound not supported');
+    }
+  };
+
+  // Stop alarm function
+  const stopAlarmSound = () => {
+    if (alarmAudioRef.current) {
+      alarmAudioRef.current.isPlaying = false;
+      if (alarmAudioRef.current.audioContext) {
+        try { alarmAudioRef.current.audioContext.close(); } catch (e) { }
+      }
+      alarmAudioRef.current = null;
     }
   };
 
@@ -916,55 +925,55 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[600] flex items-center justify-center p-4"
-            style={{ background: 'rgba(0,0,0,0.9)' }}
+            className="modal-overlay"
+            style={{ zIndex: 600 }}
           >
             <motion.div
-              initial={{ scale: 0.5 }}
-              animate={{ scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 1 } }}
-              className="text-center"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-strong p-8 max-w-md w-full mx-4 text-center"
             >
               <motion.div
-                animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 0.5 }}
-                className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="w-20 h-20 mx-auto mb-6 bg-[var(--accent-soft)] rounded-full flex items-center justify-center"
               >
-                <BellRing className="w-16 h-16 text-white" />
+                <BellRing className="w-10 h-10 text-[var(--accent)]" />
               </motion.div>
-              <h1 className="text-4xl font-bold text-white mb-2">🔔 WAKTUNYA BELAJAR!</h1>
-              <p className="text-xl text-white/80 mb-8">Reminder belajar UAS sudah aktif!</p>
-              <div className="flex gap-4 justify-center">
-                <button
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-2">Waktunya Belajar!</h2>
+              <p className="text-[var(--text-secondary)] mb-6">Reminder belajar UAS Anda sudah aktif.</p>
+              <div className="flex gap-3 justify-center">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => {
+                    stopAlarmSound();
                     setAlarmActive(false);
-                    if (alarmAudioRef.current) {
-                      alarmAudioRef.current.pause();
-                      alarmAudioRef.current = null;
-                    }
                   }}
-                  className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold text-lg shadow-lg transition-all"
+                  className="btn btn-primary px-6 py-3"
                 >
-                  ✅ Berhenti
-                </button>
-                <button
+                  <Check className="w-4 h-4 mr-2" />
+                  Berhenti
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => {
+                    stopAlarmSound();
                     setAlarmActive(false);
-                    if (alarmAudioRef.current) {
-                      alarmAudioRef.current.pause();
-                      alarmAudioRef.current = null;
-                    }
                     // Snooze for 5 minutes
                     setTimeout(() => {
                       setAlarmActive(true);
-                      // Restart alarm sound
                       playAlarmSound();
                     }, 5 * 60 * 1000);
-                    showToast('⏰ Alarm di-snooze 5 menit', 'info');
+                    showToast('Alarm di-snooze 5 menit', 'info');
                   }}
-                  className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-bold text-lg shadow-lg transition-all"
+                  className="btn btn-secondary px-6 py-3"
                 >
-                  💤 Snooze 5 menit
-                </button>
+                  <Clock className="w-4 h-4 mr-2" />
+                  Snooze 5m
+                </motion.button>
               </div>
             </motion.div>
           </motion.div>
