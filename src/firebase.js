@@ -157,7 +157,7 @@ export const getDeviceId = () => {
 export const fetchLicenseKeys = async () => {
     try {
         const licenseKeysRef = ref(db, 'licenseKeys');
-        const snapshot = await withTimeout(get(licenseKeysRef), 110000);
+        const snapshot = await withTimeout(get(licenseKeysRef), 15000);
         if (snapshot.exists()) {
             const data = snapshot.val();
             return Object.entries(data).map(([id, value]) => ({ id, ...value }));
@@ -183,7 +183,7 @@ export const createLicenseKey = async (keyData) => {
         createdAt: new Date().toISOString(),
     };
     try {
-        await withTimeout(set(licenseKeyRef, newKey), 110000);
+        await withTimeout(set(licenseKeyRef, newKey), 15000);
         return newKey;
     } catch (error) {
         console.error('Error creating license key:', error);
@@ -203,8 +203,8 @@ export const updateLicenseKey = async (originalKey, keyData) => {
             const oldActivationRef = ref(db, `licenses/${originalKey.toUpperCase()}`);
 
             const [keySnapshot, activationSnapshot] = await Promise.all([
-                withTimeout(get(oldKeyRef), 110000),
-                withTimeout(get(oldActivationRef), 110000)
+                withTimeout(get(oldKeyRef), 15000),
+                withTimeout(get(oldActivationRef), 15000)
             ]);
 
             // Create new data at new location
@@ -222,18 +222,18 @@ export const updateLicenseKey = async (originalKey, keyData) => {
                 updatedAt: new Date().toISOString(),
             };
 
-            await withTimeout(set(newKeyRef, updatedKey), 110000);
+            await withTimeout(set(newKeyRef, updatedKey), 15000);
 
             if (activationSnapshot.exists()) {
-                await withTimeout(set(newActivationRef, activationSnapshot.val()), 110000);
-                await withTimeout(remove(oldActivationRef), 110000);
+                await withTimeout(set(newActivationRef, activationSnapshot.val()), 15000);
+                await withTimeout(remove(oldActivationRef), 15000);
             }
 
-            await withTimeout(remove(oldKeyRef), 110000);
+            await withTimeout(remove(oldKeyRef), 15000);
         } else {
             // Just update existing
             const keyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
-            const snapshot = await withTimeout(get(keyRef), 110000);
+            const snapshot = await withTimeout(get(keyRef), 15000);
 
             const updatedKey = {
                 ...(snapshot.exists() ? snapshot.val() : {}),
@@ -246,7 +246,7 @@ export const updateLicenseKey = async (originalKey, keyData) => {
                 updatedAt: new Date().toISOString(),
             };
 
-            await withTimeout(set(keyRef, updatedKey), 110000);
+            await withTimeout(set(keyRef, updatedKey), 15000);
         }
 
         return true;
@@ -261,8 +261,8 @@ export const deleteLicenseKey = async (key) => {
     const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
     const activationRef = ref(db, `licenses/${key.toUpperCase()}`);
     try {
-        await withTimeout(remove(licenseKeyRef), 110000);
-        await withTimeout(remove(activationRef), 110000); // Also remove activation data
+        await withTimeout(remove(licenseKeyRef), 15000);
+        await withTimeout(remove(activationRef), 15000); // Also remove activation data
         return true;
     } catch (error) {
         console.error('Error deleting license key:', error);
@@ -275,7 +275,7 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
     try {
         // Fetch license key from Firebase
         const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
-        const keySnapshot = await withTimeout(get(licenseKeyRef), 110000);
+        const keySnapshot = await withTimeout(get(licenseKeyRef), 15000);
 
         if (!keySnapshot.exists()) {
             return { valid: false, error: 'License key tidak valid' };
@@ -306,7 +306,7 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
 
         const deviceId = getDeviceId();
         const activationRef = ref(db, `licenses/${key.toUpperCase()}`);
-        const activationSnapshot = await withTimeout(get(activationRef), 110000);
+        const activationSnapshot = await withTimeout(get(activationRef), 15000);
         const activationData = activationSnapshot.val();
 
         // Determine max devices allowed
@@ -471,7 +471,7 @@ export const applyReferralCode = async (referralCode, newUserKey) => {
 export const getReferralStats = async (licenseKey) => {
     try {
         const activationRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
-        const snapshot = await withTimeout(get(activationRef), 110000);
+        const snapshot = await withTimeout(get(activationRef), 15000);
 
         if (!snapshot.exists()) return { referralCode: null, referralCount: 0 };
 
@@ -491,7 +491,7 @@ export const getReferralStats = async (licenseKey) => {
 export const getReferralLeaderboard = async () => {
     try {
         const licensesRef = ref(db, 'licenses');
-        const snapshot = await withTimeout(get(licensesRef), 110000);
+        const snapshot = await withTimeout(get(licensesRef), 15000);
 
         if (!snapshot.exists()) return [];
 
@@ -521,7 +521,7 @@ export const getReferralLeaderboard = async () => {
 export const saveUserEmail = async (licenseKey, email) => {
     try {
         const userRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
-        await withTimeout(update(userRef, { email }), 110000);
+        await withTimeout(update(userRef, { email }), 15000);
         return true;
     } catch (error) {
         console.error('Error saving email:', error);
@@ -533,7 +533,7 @@ export const saveUserEmail = async (licenseKey, email) => {
 export const getUserEmail = async (licenseKey) => {
     try {
         const userRef = ref(db, `licenses/${licenseKey.toUpperCase()}`);
-        const snapshot = await withTimeout(get(userRef), 110000);
+        const snapshot = await withTimeout(get(userRef), 15000);
         if (snapshot.exists()) {
             return snapshot.val().email || null;
         }
@@ -552,7 +552,7 @@ export const getUserEmail = async (licenseKey) => {
 export const getAllUsers = async () => {
     try {
         const licensesRef = ref(db, 'licenses');
-        const snapshot = await withTimeout(get(licensesRef), 110000);
+        const snapshot = await withTimeout(get(licensesRef), 15000);
 
         if (!snapshot.exists()) return [];
 
@@ -723,7 +723,7 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
 
     try {
         const newRef = push(threadsRef);
-        await withTimeout(set(newRef, newThread), 110000);
+        await withTimeout(set(newRef, newThread), 15000);
         return newRef.key;
     } catch (error) {
         console.error('Error creating thread:', error);
@@ -765,7 +765,7 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
     };
 
     try {
-        await withTimeout(push(commentsRef, newComment), 110000);
+        await withTimeout(push(commentsRef, newComment), 15000);
 
         // Update comment count using get() with timeout
         const snapshot = await withTimeout(get(commentsRef), 10000);
@@ -783,7 +783,7 @@ export const deleteComment = async (subjectId, threadId, commentId) => {
     const commentsRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments`);
 
     try {
-        await withTimeout(remove(commentRef), 110000);
+        await withTimeout(remove(commentRef), 15000);
         // Update comment count
         const snapshot = await withTimeout(get(commentsRef), 10000);
         const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
@@ -806,7 +806,7 @@ export const addReply = async (subjectId, threadId, commentId, content, authorId
     };
 
     try {
-        await withTimeout(push(repliesRef, newReply), 110000);
+        await withTimeout(push(repliesRef, newReply), 15000);
     } catch (error) {
         console.error('Error adding reply:', error);
         throw error;
@@ -816,7 +816,7 @@ export const addReply = async (subjectId, threadId, commentId, content, authorId
 export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
     const replyRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}/replies/${replyId}`);
     try {
-        await withTimeout(remove(replyRef), 110000);
+        await withTimeout(remove(replyRef), 15000);
     } catch (error) {
         console.error('Error deleting reply:', error);
         throw error;
@@ -858,7 +858,7 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
         ...replyData // Include replyToId, replyToName, replyToContent if present
     };
     try {
-        await withTimeout(push(chatRef, newMessage), 110000);
+        await withTimeout(push(chatRef, newMessage), 15000);
     } catch (error) {
         console.error('Error sending message:', error);
         throw error;
@@ -869,7 +869,7 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
 export const deleteGlobalMessage = async (messageId) => {
     const msgRef = ref(db, `globalChat/${messageId}`);
     try {
-        await withTimeout(update(msgRef, { deleted: true, content: '', mediaUrl: null }), 110000);
+        await withTimeout(update(msgRef, { deleted: true, content: '', mediaUrl: null }), 15000);
     } catch (error) {
         console.error('Error deleting message:', error);
         throw error;

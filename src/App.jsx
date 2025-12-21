@@ -194,10 +194,17 @@ export default function App() {
     const interval = setInterval(() => {
       const now = new Date();
       setCurrentTime(now);
-      // Check reminder
-      if (reminder && !reminderActive && !alarmActive) {
-        const [h, m] = reminder.split(':').map(Number);
-        if (now.getHours() === h && now.getMinutes() === m) {
+      // Check reminder - format is "YYYY-MM-DDTHH:MM"
+      if (reminder && reminder.includes('T') && !reminderActive && !alarmActive) {
+        const reminderDate = new Date(reminder);
+        // Check if current time matches reminder time (same year, month, day, hour, minute)
+        if (
+          now.getFullYear() === reminderDate.getFullYear() &&
+          now.getMonth() === reminderDate.getMonth() &&
+          now.getDate() === reminderDate.getDate() &&
+          now.getHours() === reminderDate.getHours() &&
+          now.getMinutes() === reminderDate.getMinutes()
+        ) {
           setReminderActive(true);
 
           // Activate fullscreen alarm with continuous sound
