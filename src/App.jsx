@@ -609,6 +609,23 @@ export default function App() {
                     >
                       Simpan
                     </button>
+                    {userEmail && (
+                      <button
+                        onClick={async () => {
+                          try {
+                            setUserEmail('');
+                            await saveUserEmail(session.licenseKey, '');
+                            showToast('Email dihapus. Anda tidak akan menerima notifikasi email.', 'info');
+                          } catch (e) {
+                            showToast('Error: ' + e.message, 'error');
+                          }
+                        }}
+                        className="btn btn-secondary px-3"
+                        title="Hapus email"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
 
                   {/* Test Reminder Button */}
@@ -1414,8 +1431,8 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
     { name: 'Materi', icon: FileText },
     { name: 'Rangkuman', icon: StickyNote },
     { name: 'Kisi-Kisi', icon: List },
-    { name: 'Flashcards', icon: Layers },
-    { name: 'Quiz & Essay', icon: ClipboardCheck },
+    { name: 'Flashcards & Quiz', icon: Layers },
+    { name: 'Catatan', icon: StickyNote },
     { name: 'Forum', icon: MessageSquare },
   ];
 
@@ -1440,8 +1457,8 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 3 && <Flashcards flashcards={content.flashcards} />}
-        {activeTab === 4 && <QuizEssay quiz={content.quiz} essayExam={content.essayExam} />}
+        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} />}
+        {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} />}
       </div>
     </div>
@@ -1516,39 +1533,16 @@ function KisiKisi({ kisiKisi, subjectId, progress, updateProgress }) {
   );
 }
 
-function Flashcards({ flashcards }) {
+function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
+  const [mode, setMode] = useState('flashcards'); // 'flashcards' or 'quiz'
   const [flipped, setFlipped] = useState({});
-  const toggle = (id) => setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
-      {flashcards.map(f => (
-        <motion.div key={f.id} whileHover={{ scale: 1.02 }} onClick={() => toggle(f.id)} className={`flashcard h-52 animate-slide-up ${flipped[f.id] ? 'flipped' : ''}`}>
-          <div className="flashcard-inner">
-            <div className="flashcard-front">
-              <span className="text-xs text-white/60 absolute top-4 left-4 font-medium">TAP TO FLIP</span>
-              <h4 className="text-lg font-bold">{f.term}</h4>
-            </div>
-            <div className="flashcard-back">
-              <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-bold">DEFINISI</span>
-              <p className="text-[var(--text)] leading-relaxed">{f.definition}</p>
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-}
-
-function QuizEssay({ quiz, essayExam }) {
-  const [mode, setMode] = useState(null);
   const [cur, setCur] = useState(0);
   const [sel, setSel] = useState(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
   const [time, setTime] = useState(20);
-  const [ans, setAns] = useState('');
-  const [showAnswer, setShowAnswer] = useState(false);
+
+  const toggle = (id) => setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
 
   useEffect(() => {
     if (mode !== 'quiz' || done || sel !== null) return;
@@ -1556,65 +1550,71 @@ function QuizEssay({ quiz, essayExam }) {
     return () => clearInterval(t);
   }, [mode, cur, sel, done]);
 
-  const handleAns = (i) => { if (sel !== null) return; setSel(i); if (i === quiz[cur].answer) setScore(s => s + 1); };
-  const next = () => { if (cur < quiz.length - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
+  const handleAns = (i) => { if (sel !== null) return; setSel(i); if (quiz && i === quiz[cur]?.answer) setScore(s => s + 1); };
+  const next = () => { if (cur < (quiz?.length || 1) - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
+  const resetQuiz = () => { setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); };
 
-  if (!mode) return (
-    <div className="grid sm:grid-cols-2 gap-4">
-      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('quiz')} className="glass-card glass-card-interactive p-8 text-center">
-        <div className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg glow">
-          <ClipboardCheck className="w-8 h-8 text-white" />
-        </div>
-        <h3 className="text-lg font-bold text-[var(--text)] mb-1">Quiz</h3>
-        <p className="text-sm text-[var(--text-secondary)]">{quiz.length} soal pilihan ganda</p>
-      </motion.button>
-      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }} onClick={() => setMode('essay')} className="glass-card glass-card-interactive p-8 text-center">
-        <div className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg glow">
-          <FileText className="w-8 h-8 text-white" />
-        </div>
-        <h3 className="text-lg font-bold text-[var(--text)] mb-1">Essay</h3>
-        <p className="text-sm text-[var(--text-secondary)]">{essayExam.length} soal essay</p>
-      </motion.button>
-    </div>
-  );
-
-  if (mode === 'essay') {
-    const q = essayExam[0];
+  // Flashcards View
+  if (mode === 'flashcards') {
     return (
-      <div className="glass-card p-6 space-y-5">
-        <div className="flex items-center justify-between">
-          <h3 className="font-bold text-[var(--text)]">Soal Essay</h3>
-          <button onClick={() => { setMode(null); setAns(''); setShowAnswer(false); }} className="btn-ghost text-sm">← Kembali</button>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-bold text-[var(--text)]">Flashcards ({flashcards?.length || 0} kartu)</h3>
+          {quiz && quiz.length > 0 && (
+            <button onClick={() => setMode('quiz')} className="btn btn-primary text-sm">
+              Mulai Quiz →
+            </button>
+          )}
         </div>
-        <p className="text-[var(--text)]">{q.question}</p>
-        <textarea value={ans} onChange={(e) => setAns(e.target.value)} placeholder="Tulis jawaban Anda..." className="input h-40" />
-        <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={() => setShowAnswer(true)} disabled={ans.length < 10 || showAnswer} className="btn btn-primary w-full">Lihat Model Jawaban</motion.button>
-        {showAnswer && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[var(--success)]/10 border border-[var(--success)]/20 rounded-xl">
-            <h4 className="font-bold text-[var(--success)] mb-2">Model Jawaban</h4>
-            <p className="text-[var(--text-secondary)] text-sm">{q.modelAnswer}</p>
-          </motion.div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
+          {flashcards?.map(f => (
+            <motion.div key={f.id || f.term} whileHover={{ scale: 1.02 }} onClick={() => toggle(f.id || f.term)} className={`flashcard h-52 animate-slide-up ${flipped[f.id || f.term] ? 'flipped' : ''}`}>
+              <div className="flashcard-inner">
+                <div className="flashcard-front">
+                  <span className="text-xs text-white/60 absolute top-4 left-4 font-medium">TAP TO FLIP</span>
+                  <h4 className="text-lg font-bold">{f.term}</h4>
+                </div>
+                <div className="flashcard-back">
+                  <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-bold">DEFINISI</span>
+                  <p className="text-[var(--text)] leading-relaxed">{f.definition}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     );
   }
 
-  if (done) return (
-    <div className="glass-card p-8 text-center">
-      <div className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl glow">
-        <ClipboardCheck className="w-10 h-10 text-white" />
+  // Quiz Done View
+  if (done) {
+    return (
+      <div className="glass-card p-8 text-center">
+        <div className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl glow">
+          <ClipboardCheck className="w-10 h-10 text-white" />
+        </div>
+        <h3 className="text-2xl font-bold text-[var(--text)] mb-2">Quiz Selesai!</h3>
+        <p className="text-4xl font-bold gradient-text mb-4">{score}/{quiz?.length || 0}</p>
+        <div className="flex gap-3 justify-center">
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn btn-secondary">
+            ← Ke Flashcards
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={resetQuiz} className="btn btn-primary">
+            Ulangi Quiz
+          </motion.button>
+        </div>
       </div>
-      <h3 className="text-2xl font-bold text-[var(--text)] mb-2">Selesai!</h3>
-      <p className="text-4xl font-bold gradient-text mb-4">{score}/{quiz.length}</p>
-      <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setMode(null); setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); }} className="btn btn-primary">Kembali</motion.button>
-    </div>
-  );
+    );
+  }
 
-  const q = quiz[cur];
+  // Quiz View
+  const q = quiz?.[cur];
+  if (!q) return <div className="text-[var(--text-secondary)]">Quiz tidak tersedia</div>;
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={() => { setMode(null); setCur(0); setSel(null); setScore(0); setDone(false); }} className="btn-ghost text-sm">← Kembali</button>
+        <button onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn-ghost text-sm">← Ke Flashcards</button>
         <span className="text-[var(--text-secondary)]">{cur + 1}/{quiz.length}</span>
         <span className={`badge ${time <= 5 ? 'badge-warning animate-pulse' : ''}`}><Timer className="w-3 h-3 mr-1" />{time}s</span>
       </div>
@@ -1638,6 +1638,79 @@ function QuizEssay({ quiz, essayExam }) {
     </div>
   );
 }
+
+function PersonalNotes({ subjectId, subjectName }) {
+  const storageKey = `personalNotes_${subjectId}`;
+  const [notes, setNotes] = useState(() => localStorage.getItem(storageKey) || '');
+  const [saved, setSaved] = useState(true);
+
+  const handleChange = (e) => {
+    setNotes(e.target.value);
+    setSaved(false);
+  };
+
+  const saveNotes = () => {
+    localStorage.setItem(storageKey, notes);
+    setSaved(true);
+  };
+
+  const exportToPDF = () => {
+    // Create printable content
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Catatan - ${subjectName}</title>
+        <style>
+          body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.6; }
+          h1 { color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
+          .date { color: #666; font-size: 12px; margin-bottom: 20px; }
+          .content { white-space: pre-wrap; font-size: 14px; }
+          @media print { body { padding: 20px; } }
+        </style>
+      </head>
+      <body>
+        <h1>Catatan: ${subjectName}</h1>
+        <div class="date">Diekspor pada: ${new Date().toLocaleString('id-ID')}</div>
+        <div class="content">${notes.replace(/\n/g, '<br>')}</div>
+        <script>window.print(); window.close();</script>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="font-bold text-[var(--text)]">Catatan Pribadi</h3>
+        <div className="flex gap-2">
+          <button onClick={saveNotes} disabled={saved} className={`btn text-sm ${saved ? 'btn-secondary opacity-50' : 'btn-primary'}`}>
+            {saved ? '✓ Tersimpan' : 'Simpan'}
+          </button>
+          <button onClick={exportToPDF} disabled={!notes.trim()} className="btn btn-secondary text-sm">
+            📄 Export PDF
+          </button>
+        </div>
+      </div>
+      <div className="glass-card p-4">
+        <textarea
+          value={notes}
+          onChange={handleChange}
+          onBlur={saveNotes}
+          placeholder="Tulis catatan pribadi Anda untuk mata kuliah ini...&#10;&#10;Tips:&#10;- Tulis poin-poin penting&#10;- Buat ringkasan materi&#10;- Catat pertanyaan untuk dosen"
+          className="input min-h-[400px] resize-y"
+          style={{ minHeight: '400px' }}
+        />
+      </div>
+      <p className="text-xs text-[var(--text-muted)]">
+        💡 Catatan tersimpan otomatis di browser. Klik "Export PDF" untuk mendownload.
+      </p>
+    </div>
+  );
+}
+
 
 function Forum({ subjectId, session, selectedClass }) {
   const [threads, setThreads] = useState([]);
