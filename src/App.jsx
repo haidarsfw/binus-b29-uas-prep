@@ -1655,7 +1655,7 @@ function PersonalNotes({ subjectId, subjectName }) {
   };
 
   const exportToPDF = () => {
-    // Create HTML content
+    // Create HTML content for printing
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -1663,11 +1663,13 @@ function PersonalNotes({ subjectId, subjectName }) {
         <meta charset="UTF-8">
         <title>Catatan - ${subjectName}</title>
         <style>
-          body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.8; max-width: 800px; margin: 0 auto; }
-          h1 { color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-bottom: 20px; }
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.8; }
+          h1 { color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; }
           .date { color: #666; font-size: 12px; margin-bottom: 30px; }
           .content { white-space: pre-wrap; font-size: 14px; color: #333; }
-          .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 11px; color: #999; }
+          .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 11px; color: #999; }
+          @media print { body { padding: 20px; } }
         </style>
       </head>
       <body>
@@ -1679,18 +1681,31 @@ function PersonalNotes({ subjectId, subjectName }) {
       </html>
     `;
 
-    // Create blob and download
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Catatan_${subjectName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Create hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+    document.body.appendChild(iframe);
 
-    showToast('File catatan didownload! Buka file lalu Print → Save as PDF', 'success');
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(htmlContent);
+    iframe.contentWindow.document.close();
+
+    // Wait for content to load then print
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      // Remove iframe after printing
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
+    }, 300);
+
+    showToast('Print dialog dibuka. Pilih "Save as PDF" untuk menyimpan.', 'info');
   };
 
   return (
