@@ -1771,12 +1771,13 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
             {viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
               <iframe
                 key={viewFile.driveId}
-                src={`https://drive.google.com/file/d/${viewFile.driveId}/preview`}
+                src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(`https://drive.google.com/uc?export=download&id=${viewFile.driveId}`)}`}
                 style={{
                   width: '100%',
                   height: '100%',
                   border: 'none',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  backgroundColor: 'white'
                 }}
                 allow="autoplay"
                 title={viewFile.title}
