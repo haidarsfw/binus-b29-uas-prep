@@ -111,8 +111,8 @@ export const DB = {
             ],
             rangkuman: {
                 modulInti: [
-                    { title: 'Modul 1: Kepemimpinan (Leadership)', driveId: '16nZqbddJzFKNvdHdOdl2Tp4M30brMeO7t7v0JvFQZ8c', type: 'gdocs' },
-                    { title: 'Modul 2: Kewirausahaan & Manajemen Risiko', driveId: '19OZpMo8-0Y72_rdOBa8O67wijllMxNNST_xS0ParGqI', type: 'gdocs' },
+                    { title: 'Modul 1: Kepemimpinan (Leadership)', contentKey: 'modul1', type: 'native' },
+                    { title: 'Modul 2: Pengendalian (Controlling)', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Strategi & Praktik Manajemen', driveId: '1v14Gr6lJ9gtrd2P3_3aYgOROCX6yS_f9i770Z9CeVzE', type: 'gdocs' },
                 ],
                 addendum: [

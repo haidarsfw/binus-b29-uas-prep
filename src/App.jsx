@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle } from 'lucide-react';
 import DB from './db';
+import RANGKUMAN_CONTENT from './rangkumanContent';
 import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
@@ -1642,9 +1643,108 @@ function Rangkuman({ subjectId }) {
             </button>
           </div>
 
-          {/* Iframe Container with Copy Protection Overlay */}
+          {/* Content Container */}
           <div style={{ flex: 1, padding: '16px', overflow: 'hidden', position: 'relative' }}>
-            {viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
+            {/* Native Content Viewer - Copy Protected */}
+            {viewFile.type === 'native' && viewFile.contentKey ? (
+              <div
+                className="copy-protected"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  overflowY: 'auto',
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  padding: '24px',
+                  color: '#1a1a2e'
+                }}
+                onContextMenu={e => e.preventDefault()}
+                onCopy={e => e.preventDefault()}
+                onCut={e => e.preventDefault()}
+              >
+                {(() => {
+                  const moduleContent = RANGKUMAN_CONTENT[subjectId]?.[viewFile.contentKey];
+                  if (!moduleContent) return <p>Konten tidak ditemukan.</p>;
+
+                  return (
+                    <div className="space-y-6">
+                      {/* Title */}
+                      <div style={{ borderBottom: '2px solid #3b82f6', paddingBottom: '12px' }}>
+                        <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#3b82f6', marginBottom: '4px' }}>
+                          📘 {moduleContent.title}
+                        </h2>
+                        <p style={{ fontSize: '14px', color: '#6b7280' }}>{moduleContent.subtitle}</p>
+                      </div>
+
+                      {/* Intro */}
+                      {moduleContent.intro && (
+                        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.7', fontStyle: 'italic', backgroundColor: '#f3f4f6', padding: '12px', borderRadius: '8px' }}>
+                          {moduleContent.intro}
+                        </p>
+                      )}
+
+                      {/* Sections */}
+                      {moduleContent.sections?.map((section, sIdx) => (
+                        <div key={sIdx} style={{ marginTop: '24px' }}>
+                          {/* Section Title */}
+                          <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: '#1f2937', marginBottom: '16px', backgroundColor: '#e5e7eb', padding: '10px 14px', borderRadius: '6px' }}>
+                            {section.title}
+                          </h3>
+
+                          {/* Warning if exists */}
+                          {section.warning && (
+                            <div style={{ backgroundColor: '#fef3c7', borderLeft: '4px solid #f59e0b', padding: '10px 14px', marginBottom: '16px', borderRadius: '4px' }}>
+                              <span style={{ fontWeight: 'bold', color: '#92400e' }}>⚠️ {section.warning}</span>
+                            </div>
+                          )}
+
+                          {/* Content Items */}
+                          {section.content?.map((item, iIdx) => (
+                            <div key={iIdx} style={{ marginBottom: '20px' }}>
+                              {/* Heading */}
+                              <h4 style={{ fontSize: '15px', fontWeight: '600', color: '#2563eb', marginBottom: '8px' }}>
+                                {item.heading}
+                              </h4>
+
+                              {/* Main Text */}
+                              {item.text && (
+                                <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.7', marginBottom: '10px' }}>
+                                  {item.text}
+                                </p>
+                              )}
+
+                              {/* Note */}
+                              {item.note && (
+                                <p style={{ fontSize: '13px', color: '#059669', fontStyle: 'italic', backgroundColor: '#ecfdf5', padding: '8px 12px', borderRadius: '4px', marginBottom: '10px' }}>
+                                  💡 {item.note}
+                                </p>
+                              )}
+
+                              {/* SubSections */}
+                              {item.subSections?.map((sub, subIdx) => (
+                                <div key={subIdx} style={{ marginLeft: '16px', marginBottom: '12px' }}>
+                                  <p style={{ fontSize: '14px', fontWeight: '500', color: '#4b5563', marginBottom: '6px' }}>
+                                    📌 {sub.title}
+                                  </p>
+                                  <ul style={{ marginLeft: '20px' }}>
+                                    {sub.items?.map((li, liIdx) => (
+                                      <li key={liIdx} style={{ fontSize: '13px', color: '#6b7280', lineHeight: '1.6', marginBottom: '4px', listStyleType: 'disc' }}>
+                                        {li}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+            ) : viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
+              /* Iframe Viewer for Google Docs */
               <>
                 <iframe
                   key={viewFile.driveId}
