@@ -234,6 +234,234 @@ export const RANGKUMAN_CONTENT = {
                     ]
                 }
             ]
+        },
+        modul3: {
+            title: 'MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO',
+            subtitle: 'Mencakup Session 19, 20, 21, & 22',
+            intro: 'Modul ini menjawab pertanyaan fundamental: Bagaimana mengubah sebuah ide menjadi bisnis yang legal dan layak? Bagaimana mengelola risiko di dalamnya? Dan bagaimana memotivasi orang-orang yang bekerja di dalamnya?',
+            sections: [
+                {
+                    id: 'session19',
+                    title: '⚠️ Session 19: Identifying Risk (Identifikasi Risiko & Kewirausahaan)',
+                    warning: '[Keluar UAS: Entrepreneurship & Legal Forms]',
+                    content: [
+                        {
+                            heading: '1. Perbedaan Small Business vs. Entrepreneurship',
+                            text: 'Meskipun sering dianggap sama, kedua istilah ini memiliki pola pikir yang berbeda secara fundamental:',
+                            subSections: [
+                                {
+                                    title: 'Perbandingan:',
+                                    items: [
+                                        'Usaha Kecil (Small Business): Organisasi yang dimiliki dan dikelola secara independen. Pemilik cenderung melihat risiko sebagai ancaman. Tujuan utama: stabilitas pendapatan dan "menciptakan lapangan kerja untuk diri sendiri".',
+                                        'Kewirausahaan (Entrepreneurship): Melihat risiko sebagai peluang. Fokus pada inovasi dan pertumbuhan (growth). Berusaha mengubah tatanan pasar atau menciptakan nilai baru.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '2. Proses Kewirausahaan',
+                            text: 'Perjalanan seorang entrepreneur melalui tahapan sistematis:',
+                            subSections: [
+                                {
+                                    title: 'Empat Tahap Proses:',
+                                    items: [
+                                        'Eksplorasi Konteks: Memahami situasi pasar saat ini.',
+                                        'Identifikasi Peluang: Mencari celah atau masalah yang belum terselesaikan.',
+                                        'Memulai Usaha (Start the Venture): Tahap eksekusi, termasuk mengurus legalitas dan operasional.',
+                                        'Mengelola Usaha (Manage the Venture): Fase pertumbuhan dan keberlanjutan.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '3. Studi Kelayakan (Feasibility Study)',
+                            text: 'Sebelum uang diinvestasikan, ide harus diuji kelayakannya:',
+                            subSections: [
+                                {
+                                    title: 'Aspek yang Dianalisis:',
+                                    items: [
+                                        'Kompetitor: Siapa yang sudah bermain di pasar ini? Apa kelebihan dan kekurangan produk mereka? Kita harus menawarkan sesuatu yang berbeda (differentiation).',
+                                        'Pembiayaan: Dari mana modal berasal? Dana pribadi (bootstrapping), Angel Investor (individu kaya yang berinvestasi di tahap awal), atau Venture Capital (perusahaan investasi profesional).'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '4. Bentuk Kepemilikan Bisnis (Legal Forms of Organization)',
+                            text: 'Pemilihan badan hukum sangat krusial karena menentukan beban pajak dan tanggung jawab hukum pemilik.',
+                            note: '[Keluar UAS: Hafalkan Kelebihan & Kekurangan Tiap Bentuk]',
+                            subSections: [
+                                {
+                                    title: 'Perusahaan Perseorangan (Sole Proprietorship):',
+                                    items: [
+                                        'Konsep: Bisnis dimiliki satu orang.',
+                                        'Kelebihan: Paling mudah didirikan, biaya rendah, kontrol penuh di tangan satu orang.',
+                                        'Kekurangan Utama: Tanggung Jawab Tidak Terbatas (Unlimited Liability). Harta bisnis dan harta pribadi tidak terpisah.'
+                                    ]
+                                },
+                                {
+                                    title: 'Persekutuan (Partnership):',
+                                    items: [
+                                        'Konsep: Dimiliki dua orang atau lebih.',
+                                        'Kelebihan: Pengumpulan modal lebih mudah, adanya kombinasi keahlian.',
+                                        'Kekurangan: Potensi konflik antar mitra sangat tinggi. General Partnership = unlimited liability.'
+                                    ]
+                                },
+                                {
+                                    title: 'Korporasi / Perseroan Terbatas (Corporation/C-Corp):',
+                                    items: [
+                                        'Konsep: Badan hukum yang terpisah dari pemiliknya.',
+                                        'Kelebihan Utama: Tanggung Jawab Terbatas (Limited Liability). Harta pribadi aman.',
+                                        'Kekurangan: Biaya pendirian mahal, regulasi rumit, Pajak Ganda (Double Taxation).'
+                                    ]
+                                },
+                                {
+                                    title: 'Limited Liability Company (LLC):',
+                                    items: [
+                                        'Konsep: Bentuk hybrid yang mengambil kelebihan Partnership (pajak fleksibel) dan Corporation (perlindungan hukum).'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'session20',
+                    title: '⚠️ Session 20: Evaluating I (Evaluasi Ide & Risiko)',
+                    warning: '[Keluar UAS: Strategic Evaluation & Sources of Opportunity]',
+                    content: [
+                        {
+                            heading: '1. Persepsi Risiko (Risk Perception)',
+                            text: 'Dalam mengevaluasi ide bisnis, sikap pengambil keputusan terhadap risiko sangat menentukan:',
+                            subSections: [
+                                {
+                                    title: 'Tipe Pengambil Keputusan:',
+                                    items: [
+                                        'Risk Avoider (Penghindar Risiko): Fokus pada sisi negatif dan kemungkinan kegagalan. Mencari keamanan.',
+                                        'Risk Seeker (Pencari Risiko): Fokus pada potensi keuntungan positif. Melihat ketidakpastian sebagai peluang.'
+                                    ]
+                                }
+                            ],
+                            note: 'Kunci Manajemen: Bukan menghindari risiko sepenuhnya, tetapi mengelola risiko tersebut (Calculated Risk).'
+                        },
+                        {
+                            heading: '2. Sumber Peluang Bisnis (Peter Drucker)',
+                            text: 'Dari mana datangnya ide bisnis brilian? Peter Drucker merumuskan beberapa sumber utama:',
+                            subSections: [
+                                {
+                                    title: 'Sumber Peluang Menurut Drucker:',
+                                    items: [
+                                        'The Unexpected: Sukses atau gagal yang tidak diduga. Contoh: Post-it Note ditemukan karena kegagalan menciptakan lem super kuat.',
+                                        'The Incongruous: Ketidakcocokan antara "apa yang seharusnya" dengan realita. Contoh: Layanan streaming muncul karena ketidaknyamanan menyewa DVD fisik.',
+                                        'Demographics: Perubahan struktur penduduk. Contoh: Populasi menua membuka peluang bisnis kesehatan lansia.',
+                                        'Changes in Perception: Perubahan cara pandang masyarakat. Contoh: Gaya hidup sehat kini dianggap keren, memicu bisnis katering diet.'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'session21',
+                    title: '⚠️ Session 21: Risk Management (Manajemen Risiko & Politik Organisasi)',
+                    warning: '[Keluar UAS: Risk Management]',
+                    content: [
+                        {
+                            heading: '1. Realita Politik Organisasi',
+                            text: 'Banyak mahasiswa berpikir dunia kerja itu ideal: siapa yang pintar, dia yang naik jabatan. Faktanya, organisasi adalah entitas politis.',
+                            subSections: [
+                                {
+                                    title: 'Mengapa Organisasi Bersifat Politis?',
+                                    items: [
+                                        'Karena adanya Potensi Konflik atas Sumber Daya.',
+                                        'Anggaran terbatas, posisi jabatan terbatas, dan fasilitas terbatas.',
+                                        'Keputusan alokasi sumber daya seringkali ambigu dan subjektif. Di sinilah perilaku politik masuk.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '2. Strategi Bertahan dalam Politik Kantor',
+                            text: 'Untuk sukses (dan memitigasi risiko karir), seorang profesional harus cerdas berpolitik:',
+                            subSections: [
+                                {
+                                    title: 'Strategi Cerdas:',
+                                    items: [
+                                        'Networking: Bangun aliansi dengan orang-orang berpengaruh, baik atasan, rekan sejawat, maupun bawahan.',
+                                        'Hindari "Tainted Members": Jangan terlalu dekat dengan orang yang punya reputasi buruk atau kinerja rendah.',
+                                        'Dukung Atasan (Support Your Boss): Karir Anda seringkali bergantung pada rekomendasi atasan. Jika atasan sukses, biasanya timnya juga akan terbawa naik.'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'session22',
+                    title: '🧠 Session 22: Evaluating II (Teori Motivasi)',
+                    warning: '[Keluar UAS: Teori Motivasi untuk Evaluasi SDM]',
+                    content: [
+                        {
+                            heading: '1. Teori Hierarki Kebutuhan Maslow',
+                            text: 'Manusia termotivasi berdasarkan tingkatan kebutuhan. Kita tidak akan peduli pada kebutuhan tinggi jika kebutuhan dasar belum terpenuhi.',
+                            subSections: [
+                                {
+                                    title: 'Lima Tingkat Kebutuhan (dari bawah ke atas):',
+                                    items: [
+                                        'Fisiologis: Makan, minum, tempat tinggal.',
+                                        'Keamanan (Safety): Rasa aman dari PHK, asuransi kesehatan.',
+                                        'Sosial: Rasa diterima oleh rekan kerja, persahabatan.',
+                                        'Penghargaan (Esteem): Jabatan, status, pengakuan prestasi.',
+                                        'Aktualisasi Diri: Pengembangan potensi maksimal diri.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '2. Teori Dua Faktor Herzberg (Sangat Penting!)',
+                            text: 'Herzberg mematahkan anggapan bahwa "lawan dari kepuasan adalah ketidakpuasan". Menurutnya, ada dua dimensi terpisah:',
+                            subSections: [
+                                {
+                                    title: 'Dua Faktor Herzberg:',
+                                    items: [
+                                        'Faktor Higiene (Hygiene Factors): Faktor ekstrinsik (gaji, kondisi kerja, kebijakan perusahaan). Jika jelek = tidak puas. Jika bagus = hanya "tidak kecewa" (netral).',
+                                        'Faktor Motivator: Faktor intrinsik (prestasi, tanggung jawab, pekerjaan itu sendiri). Inilah yang benar-benar membuat karyawan semangat memberikan kinerja ekstra.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '3. Teori Keadilan (Equity Theory)',
+                            text: 'Karyawan selalu berhitung dan membandingkan. Rumus: (Input Saya : Output Saya) vs (Input Orang Lain : Output Orang Lain).',
+                            subSections: [
+                                {
+                                    title: 'Komponen Equity Theory:',
+                                    items: [
+                                        'Input: Kerja keras, lembur, skill.',
+                                        'Output: Gaji, bonus, pujian.',
+                                        'Jika merasa tidak adil: malas bekerja, sering absen, atau resign.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '4. Teori Harapan (Expectancy Theory)',
+                            text: 'Seorang karyawan akan termotivasi jika dia percaya pada tiga hal berturut-turut:',
+                            subSections: [
+                                {
+                                    title: 'Tiga Komponen Expectancy:',
+                                    items: [
+                                        'Expectancy: "Kalau aku berusaha keras, aku PASTI BISA mencapai target." (Keyakinan pada kemampuan diri).',
+                                        'Instrumentality: "Kalau target tercapai, perusahaan PASTI kasih bonus." (Keyakinan pada sistem reward).',
+                                        'Valence: "Bonusnya menarik buat aku." (Ketertarikan pada nilai hadiah).'
+                                    ]
+                                }
+                            ],
+                            note: 'Aplikasi: Manajer harus memastikan target realistis, janji ditepati, dan hadiahnya relevan.'
+                        }
+                    ]
+                }
+            ]
         }
     }
 };
