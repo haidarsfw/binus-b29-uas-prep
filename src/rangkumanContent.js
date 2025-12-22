@@ -236,7 +236,81 @@ Seorang karyawan akan termotivasi jika dia percaya pada tiga hal berturut-turut:
 <bullet><b>Instrumentality:</b> "Kalau target tercapai, perusahaan PASTI kasih bonus." (Keyakinan pada sistem reward).</bullet>
 <bullet><b>Valence:</b> "Bonusnya menarik buat aku." (Ketertarikan pada nilai hadiah).</bullet>
 <bullet><b>Aplikasi:</b> Manajer harus memastikan target realistis, janji ditepati, dan hadiahnya relevan.</bullet>`,
-                modul4: '',
+                modul4: `<h1>📘 MODUL 4: STRATEGI & PRAKTIK MANAJEMEN</h1>
+<subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
+
+Jika Modul 1 bicara soal "Orang" (<i>Leadership</i>) dan Modul 2 bicara soal "Risiko" (<i>Risk</i>), maka Modul 4 ini bicara soal "Arah" (<i>Strategy</i>). Bagaimana kita membawa kapal besar bernama perusahaan ini menuju tujuan di tengah badai persaingan global?
+
+<h2>🌏 Session 25: Management Practice (Isu Global & Studi Kasus)</h2>
+
+Pada sesi ini, kita melihat penerapan teori manajemen dalam dunia nyata, khususnya menghadapi tantangan ekonomi global dan standar operasional perusahaan kelas dunia.
+
+<h3>1. Dinamika Ekonomi Global: Outsourcing vs Offshoring</h3>
+Dalam upaya efisiensi, perusahaan sering memindahkan pekerjaan ke pihak lain. Mahasiswa wajib membedakan dua istilah yang sering tertukar ini:
+
+<b>Outsourcing:</b> Memindahkan aktivitas non-inti perusahaan ke pihak eksternal (pihak ketiga) yang lebih ahli.
+<bullet><b><i>Contoh:</i></b> Sebuah bank menyewa perusahaan jasa keamanan (Satpam) atau jasa kebersihan (<i>Cleaning Service</i>). Bank tidak perlu pusing mengurus gaji dan pelatihan satpam karena itu bukan bisnis inti mereka.</bullet>
+
+<b>Offshoring:</b> Memindahkan proses bisnis atau produksi ke negara lain (biasanya yang biaya tenaga kerjanya lebih murah), namun operasionalnya bisa tetap milik sendiri atau diserahkan ke pihak lain.
+<bullet><b><i>Contoh:</i></b> Perusahaan sepatu Amerika menutup pabrik di negaranya dan membuka pabrik baru di Vietnam untuk menekan biaya produksi.</bullet>
+
+<h3>2. Studi Kasus: Starbucks (Controlling the Coffee Experience)</h3>
+Materi ini menggunakan Starbucks sebagai contoh emas penerapan <b>Value Chain Management</b> (Rantai Nilai). Bagaimana Starbucks memastikan rasa kopi di New York sama persis dengan di Jakarta?
+
+<bullet><b>Kontrol Kualitas dari Hulu ke Hilir:</b> Starbucks tidak hanya membeli biji kopi sembarangan. Mereka mengontrol proses dari pemilihan biji kopi Arabika terbaik di petani (Amerika Latin, Afrika, Asia), proses pemanggangan (<i>roasting</i>) di fasilitas khusus, hingga penyeduhan oleh Barista. Inilah yang disebut <b>Integrated Value Chain</b>.</bullet>
+<bullet><b>Standar Lingkungan (CSR):</b> Praktik manajemen modern tidak bisa lepas dari isu lingkungan. Starbucks menerapkan strategi pengurangan sedotan plastik dan sertifikasi toko ramah lingkungan (<i>Greener Stores</i>). Ini bukan sekadar amal, tapi strategi bisnis untuk menjaga citra merek di mata konsumen modern yang peduli lingkungan.</bullet>
+
+<h2>⚠️ Session 26: Strategic Management (Manajemen Strategis)</h2>
+
+<warning>⚠️ [Keluar UAS: Proses Manajemen Strategis & Analisis SWOT] Berdasarkan file Rangkuman Mentor (Hal. 22), bagan proses ini ditandai "KELUAR UAS". Anda wajib menghafal urutannya.</warning>
+
+<h3>1. Apa itu Manajemen Strategis?</h3>
+<b>Manajemen strategis</b> adalah apa yang dilakukan manajer untuk mengembangkan strategi organisasi. Ini adalah "cetak biru" (<i>blueprint</i>) tentang bagaimana perusahaan akan berbisnis, bagaimana cara menang bersaing, dan bagaimana menarik serta memuaskan pelanggan untuk mencapai tujuan.
+
+<h3>2. Enam Langkah Proses Manajemen Strategis</h3>
+Proses ini harus dilakukan secara berurutan, tidak boleh melompat:
+
+<b>Langkah 1: Identifikasi Misi, Tujuan, dan Strategi Saat Ini</b>
+Kita harus tahu siapa kita.
+<bullet><b>Misi:</b> Alasan keberadaan perusahaan. <i>(Contoh: Misi Google adalah mengorganisir informasi dunia).</i></bullet>
+<bullet><b>Visi:</b> Apa yang ingin dicapai di masa depan.</bullet>
+
+<b>Langkah 2: Analisis Eksternal (Peluang & Ancaman)</b>
+Manajer harus melihat keluar jendela. Apa tren pasar? Apa yang dilakukan kompetitor? Apakah ada undang-undang baru?
+<bullet><b>Opportunities (Peluang):</b> Tren positif <i>(misal: naiknya pengguna internet).</i></bullet>
+<bullet><b>Threats (Ancaman):</b> Tren negatif <i>(misal: resesi ekonomi atau pandemi).</i></bullet>
+
+<b>Langkah 3: Analisis Internal (Kekuatan & Kelemahan)</b>
+Manajer harus bercermin.
+<bullet><b>Strengths (Kekuatan):</b> Apa yang kita miliki yang orang lain tidak punya? (Aset, paten, budaya kerja solid).</bullet>
+<bullet><b>Weaknesses (Kelemahan):</b> Apa kekurangan kita? (Teknologi jadul, utang banyak).</bullet>
+<bullet><b>Core Competencies:</b> Kekuatan unik yang menjadi senjata utama perusahaan untuk menang.</bullet>
+<bullet><b>Catatan:</b> Gabungan Langkah 2 dan 3 inilah yang disebut <b>Analisis SWOT</b> (<i>Strengths, Weaknesses, Opportunities, Threats</i>).</bullet>
+
+<b>Langkah 4: Merumuskan Strategi (<i>Formulating Strategies</i>)</b>
+Setelah tahu posisi kita (SWOT), manajer merancang strategi:
+<bullet><b>Corporate Strategy:</b> Bisnis apa yang mau kita masuki? (Tumbuh, stabil, atau perampingan).</bullet>
+<bullet><b>Competitive Strategy:</b> Bagaimana kita mengalahkan lawan di bisnis tersebut?</bullet>
+
+<b>Langkah 5: Implementasi Strategi</b>
+Rencana bagus tidak berguna tanpa eksekusi. Langkah ini melibatkan restrukturisasi organisasi, alokasi anggaran, dan memotivasi karyawan untuk menjalankan strategi baru.
+
+<b>Langkah 6: Evaluasi Hasil</b>
+Terakhir, kita cek hasilnya. Apakah strategi berhasil? Apakah perlu penyesuaian? (Di sinilah fungsi <i>Controlling</i> yang kita bahas di Modul 2 masuk kembali).
+
+<h3>3. Keunggulan Kompetitif (<i>Competitive Advantage</i>)</h3>
+Tujuan akhir strategi adalah menciptakan <b>keunggulan kompetitif</b>, yaitu sesuatu yang membedakan organisasi dari pesaingnya.
+<bullet><b>Kualitas:</b> Menjadi yang terbaik.</bullet>
+<bullet><b>Biaya Rendah:</b> Menjadi yang termurah (tanpa mengorbankan kualitas terlalu jauh).</bullet>
+<bullet><b>Teknologi/Inovasi:</b> Menjadi yang terdepan.</bullet>
+
+<h3>4. Mempertahankan Keunggulan (<i>Sustaining Advantage</i>)</h3>
+Warren Buffett mempopulerkan istilah <b>Economic Moat</b> (Parit Ekonomi). Bayangkan perusahaan adalah sebuah kastil. Agar tidak diserang musuh (kompetitor), kita perlu menggali parit yang lebar di sekelilingnya. Parit ini bisa berupa merek yang sangat kuat (seperti Coca-Cola), paten teknologi, atau biaya <i>switching</i> yang tinggi (seperti ekosistem Apple), sehingga pesaing sulit merebut pangsa pasar kita.
+
+<h3>5. Strategi First Mover</h3>
+Siapa cepat, dia dapat. Organisasi yang pertama kali membawa inovasi produk ke pasar disebut <b>First Mover</b>.
+<bullet><b>Keuntungan:</b> Menguasai pasar lebih dulu, membangun loyalitas merek, menetapkan standar industri.</bullet>
+<bullet><b>Kerugian:</b> Biaya riset mahal, risiko produk gagal tinggi, dan kompetitor bisa meniru lalu menyempurnakan produk kita dengan biaya lebih murah (<b>Second Mover Advantage</b>).</bullet>`,
                 tambahan: ''
         }
 };
