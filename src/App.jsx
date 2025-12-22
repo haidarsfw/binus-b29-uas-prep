@@ -1782,16 +1782,16 @@ function Rangkuman({ subjectId }) {
                             );
                           }
 
-                          // Empty lines = proper paragraph spacing
+                          // Empty lines = ACTUAL paragraph breaks (BIG spacing)
                           if (trimmedLine === '') {
-                            return <div key={idx} style={{ height: '16px' }} />;
+                            return <div key={idx} style={{ height: '24px' }} />;
                           }
 
-                          // Regular paragraph with more spacing
+                          // Regular paragraph - TIGHT spacing (follows original text)
                           return (
                             <p key={idx} style={{
                               fontSize: '14px',
-                              marginBottom: '12px',
+                              marginBottom: '2px',
                               color: viewerDarkMode ? '#d1d5db' : '#374151'
                             }}>
                               {trimmedLine}
