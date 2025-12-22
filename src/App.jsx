@@ -717,9 +717,9 @@ export default function App() {
                 </button>
 
                 <div className="flex items-center gap-2 text-xs">
-                  <span className={`w-2 h-2 rounded-full ${Notification.permission === 'granted' ? 'bg-green-500' : Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
+                  <span className={`w-2 h-2 rounded-full ${typeof Notification !== 'undefined' && Notification.permission === 'granted' ? 'bg-green-500' : typeof Notification !== 'undefined' && Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
                   <span className="text-[var(--text-muted)]">
-                    Notifikasi Browser: {Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
+                    Notifikasi Browser: {typeof Notification === 'undefined' ? '❌ Tidak didukung' : Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
                   </span>
                 </div>
               </div>
