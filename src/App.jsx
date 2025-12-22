@@ -1522,7 +1522,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
       <div className="animate-fade">
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} />}
-        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
+        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} subjectId={subject.id} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} />}
@@ -1668,7 +1668,12 @@ function Rangkuman({ subjectId }) {
         </div>
       )}
 
-      <div className="space-y-4">
+      <div
+        className="space-y-4 copy-protected"
+        onContextMenu={e => e.preventDefault()}
+        onCopy={e => e.preventDefault()}
+        onCut={e => e.preventDefault()}
+      >
         {/* Modul Inti */}
         {rangkuman?.modulInti?.length > 0 && (
           <div className="glass-card overflow-hidden">
@@ -1870,23 +1875,64 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
   );
 }
 
-function KisiKisi({ kisiKisi, subjectId, progress, updateProgress }) {
-  const completed = progress[subjectId]?.kisiKisi || [];
-  const mark = (i) => updateProgress(subjectId, 'kisiKisi', i);
+function KisiKisi({ kisiKisi, kisiKisiNote, subjectId }) {
+  // Check if kisiKisi is the old format (array of strings) or new format (array of objects with topic/items)
+  const isNewFormat = kisiKisi?.length > 0 && typeof kisiKisi[0] === 'object' && kisiKisi[0].topic;
 
   return (
-    <div className="glass-card divide-y divide-[var(--border)] stagger">
-      {kisiKisi.map((k, i) => {
-        const done = completed.includes(i);
-        return (
-          <motion.div key={i} className="p-4 flex items-center gap-4 animate-slide-in" style={{ animationDelay: `${i * 0.03}s` }}>
-            <button onClick={() => mark(i)} className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${done ? 'bg-[var(--success)] border-[var(--success)]' : 'border-[var(--border-strong)] hover:border-[var(--accent)]'}`}>
-              {done && <Check className="w-4 h-4 text-white" />}
-            </button>
-            <span className={`text-[var(--text)] ${done ? 'line-through opacity-60' : ''}`}>{k}</span>
-          </motion.div>
-        );
-      })}
+    <div className="space-y-4">
+      {/* Note from dosen if exists */}
+      {kisiKisiNote && (
+        <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
+          <div className="flex items-center gap-2 mb-1">
+            <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
+            <span className="font-bold text-[var(--text)] text-sm">Catatan Penting</span>
+          </div>
+          <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
+        </div>
+      )}
+
+      {/* Kisi-Kisi Content */}
+      <div className="glass-card p-4 sm:p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <List className="w-5 h-5 text-[var(--accent)]" />
+          <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Ujian</h3>
+        </div>
+
+        {isNewFormat ? (
+          // New format with topics and items
+          <div className="space-y-4">
+            {kisiKisi.map((section, idx) => (
+              <div key={idx} className="space-y-2">
+                <h4 className="font-semibold text-[var(--text)] text-sm flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[var(--accent-soft)] text-[var(--accent)] text-xs flex items-center justify-center font-bold">
+                    {idx + 1}
+                  </span>
+                  {section.topic}
+                </h4>
+                <ul className="ml-8 space-y-1">
+                  {section.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
+                      <span className="text-[var(--accent)] mt-1">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Old format - simple list of strings
+          <ul className="space-y-2">
+            {kisiKisi?.map((k, i) => (
+              <li key={i} className="text-[var(--text)] text-sm flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                <span>{k}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

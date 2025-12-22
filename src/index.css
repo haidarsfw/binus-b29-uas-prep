@@ -827,3 +827,35 @@ textarea.input {
   margin-bottom: 16px;
   opacity: 0.5;
 }
+
+/* ================================================================
+   COPY PROTECTION - For premium content (Rangkuman)
+   ================================================================ */
+.copy-protected {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+}
+
+.copy-protected * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable context menu on protected content */
+.copy-protected {
+  -webkit-touch-callout: none;
+}
+
+/* Allow clicking but not selecting text */
+.copy-protected button,
+.copy-protected a,
+.copy-protected [role="button"] {
+  pointer-events: auto;
+  cursor: pointer;
+}

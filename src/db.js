@@ -120,7 +120,15 @@ export const DB = {
                 ],
                 mentorPPT: [],
             },
-            kisiKisi: ['Definisi manajemen', 'POLC', 'Level manajemen', 'Lingkungan bisnis', 'Teori motivasi', 'Gaya kepemimpinan'],
+            kisiKisi: [
+                { topic: 'Social Media & Monitoring (Studi Kasus)', items: ['Studi kasus social media monitor performance (sosmed pengontrol dan pengawasan)'] },
+                { topic: 'Planning & Controlling', items: ['Planning controlling link (POAC)'] },
+                { topic: 'Motivation', items: ['Maslow Hierarchy (Hierarki Kebutuhan Maslow)'] },
+                { topic: 'Strategic Management (Manajemen Strategis)', items: ['Six steps strategic management process (6 langkah proses manajemen strategis)', 'Strategic Evaluation', 'Strategic Management (konsep umum)'] },
+                { topic: 'Entrepreneurship (Kewirausahaan)', items: ['Small business vs entrepreneurship - kunci perbedaan', 'Entrepreneurship (konsep umum)'] },
+                { topic: 'Risk Management (Manajemen Risiko)', items: ['Risk identification', 'Risk management'] },
+            ],
+            kisiKisiNote: 'Format Ujian: 5 soal esai semua analisis (Catatan dari Dosen LE86)',
             flashcards: [
                 { id: 1, term: 'POLC', definition: 'Planning, Organizing, Leading, Controlling' },
                 { id: 2, term: 'Stakeholder', definition: 'Pihak berkepentingan' },
