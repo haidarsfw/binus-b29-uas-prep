@@ -1540,11 +1540,7 @@ function Rangkuman({ subjectId }) {
   // Generate embed URL based on file type
   const getEmbedUrl = (file) => {
     if (!file.driveId || file.driveId === 'PASTE_FILE_ID_HERE') return null;
-    // Google Slides
-    if (file.type === 'drive-gslides') return `https://docs.google.com/presentation/d/${file.driveId}/embed?start=false&loop=false&delayms=3000`;
-    // Google Docs
-    if (file.type === 'drive-gdoc') return `https://docs.google.com/document/d/${file.driveId}/preview`;
-    // PDF/PPTX/other files
+    // Use Drive preview for all files - works for PPTX, PDF, native Slides/Docs
     return `https://drive.google.com/file/d/${file.driveId}/preview`;
   };
 
@@ -1719,8 +1715,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
   // Generate embed URL based on file type
   const getEmbedUrl = (file) => {
     if (!file.driveId || file.driveId === 'PASTE_FILE_ID_HERE') return null;
-    if (file.type === 'drive-gslides') return `https://docs.google.com/presentation/d/${file.driveId}/embed?start=false&loop=false&delayms=3000`;
-    if (file.type === 'drive-gdoc') return `https://docs.google.com/document/d/${file.driveId}/preview`;
+    // Use Drive preview for all files - works for PPTX, PDF, native Slides/Docs
     return `https://drive.google.com/file/d/${file.driveId}/preview`;
   };
 
