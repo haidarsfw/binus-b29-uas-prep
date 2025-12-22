@@ -1771,7 +1771,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
             {viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
               <iframe
                 key={viewFile.driveId}
-                src={`https://drive.google.com/file/d/${viewFile.driveId}/preview`}
+                src={`https://docs.google.com/presentation/d/${viewFile.driveId}/embed?start=false&loop=false&delayms=3000`}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -1779,7 +1779,8 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
                   borderRadius: '8px',
                   backgroundColor: 'white'
                 }}
-                allow="autoplay"
+                allow="autoplay; fullscreen"
+                allowFullScreen
                 title={viewFile.title}
               />
             ) : (
