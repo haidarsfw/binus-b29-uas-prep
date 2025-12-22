@@ -66,7 +66,66 @@ Kepercayaan adalah fondasi utama kepemimpinan. Terdapat lima dimensi kunci keper
 <bullet><b>Loyalitas:</b> Kesediaan untuk melindungi dan menyelamatkan wajah orang lain.</bullet>
 <bullet><b>Keterbukaan:</b> Kesediaan untuk berbagi ide dan informasi secara bebas.</bullet>`,
 
-                modul2: '',
+                modul2: `<h1>🛡️ MODUL 2: PENGENDALIAN (<i>CONTROLLING</i>)</h1>
+<subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
+
+Modul ini sangat krusial karena membahas bagaimana manajer memastikan bahwa rencana yang telah disusun benar-benar terlaksana dengan baik. Bagian ini memiliki banyak poin yang tercatat dalam kisi-kisi ujian.
+
+<h2>⚠️ Session 17: Monitoring and Controlling I</h2>
+
+<warning>⚠️ [Keluar UAS: Definisi & Pentingnya Controlling] Berdasarkan Rangkuman Mentor Hal. 2, poin-poin di bawah ini wajib dipahami secara mendalam.</warning>
+
+<h3>1. Definisi Pengendalian (<i>Controlling</i>)</h3>
+<b>Pengendalian</b> adalah proses manajemen yang melibatkan pemantauan (<i>monitoring</i>), perbandingan (<i>comparing</i>), dan perbaikan (<i>correcting</i>) kinerja kerja. Tanpa pengendalian, manajemen tidak dapat mengetahui apakah tujuan organisasi tercapai atau tidak. Ini adalah mata rantai terakhir dalam fungsi manajemen.
+
+<h3>2. Mengapa Pengendalian Sangat Penting?</h3>
+Terdapat tiga alasan fundamental mengapa pengendalian wajib dilakukan:
+<bullet><b>Hubungan dengan Perencanaan (<i>Planning Link</i>):</b> Rencana terbaik sekalipun tidak akan berarti tanpa pengawasan. Pengendalian memberikan umpan balik (<i>feedback</i>) kepada manajer apakah rencana tersebut realistis dan apakah strategi yang digunakan efektif.</bullet>
+<bullet><b>Pemberdayaan Karyawan (<i>Empowering Employees</i>):</b> Banyak manajer takut mendelegasikan wewenang karena takut karyawan membuat kesalahan. Dengan sistem pengendalian yang efektif, manajer dapat memberikan otonomi kepada karyawan karena mereka memiliki mekanisme untuk memantau hasil kerja tanpa harus mengawasi setiap detik.</bullet>
+<bullet><b>Melindungi Tempat Kerja (<i>Protecting the Workplace</i>):</b> Pengendalian berfungsi untuk melindungi aset organisasi dari ancaman internal maupun eksternal, seperti pencurian, pemborosan, kekerasan di tempat kerja, hingga memastikan kepatuhan terhadap standar keselamatan kerja (K3).</bullet>
+
+<h3>3. Proses Pengendalian (<i>The Control Process</i>)</h3>
+Proses ini terdiri dari tiga langkah sistematis:
+
+<b>Langkah 1: Mengukur Kinerja Aktual (<i>Measuring</i>)</b>
+Manajer harus mendapatkan data kinerja yang akurat. Metode pengukuran bisa berupa observasi langsung (<i>Management by Walking Around</i>), laporan statistik, laporan lisan, atau laporan tertulis. Yang diukur bisa berupa kepuasan pelanggan, efisiensi biaya, atau tingkat absensi.
+
+<b>Langkah 2: Membandingkan (<i>Comparing</i>)</b>
+Langkah ini membandingkan kinerja aktual dengan standar yang ditetapkan. Penting untuk menentukan <b>Kisaran Variasi (<i>Range of Variation</i>)</b> yang dapat diterima. Penyimpangan kecil mungkin wajar, namun penyimpangan signifikan memerlukan perhatian khusus.
+<bullet><b><i>Contoh:</i></b> Jika target penjualan 100 unit dan realisasi 95 unit, mungkin masih dalam batas toleransi. Namun jika realisasi hanya 60 unit, ini adalah penyimpangan serius.</bullet>
+
+<b>Langkah 3: Mengambil Tindakan Manajerial (<i>Taking Managerial Action</i>)</b>
+Ada tiga opsi tindakan:
+<bullet><b>Do Nothing:</b> Jika kinerja sesuai dengan standar.</bullet>
+<bullet><b>Correct Performance:</b> Memperbaiki kinerja. Bisa berupa tindakan korektif segera (<i>immediate</i>) untuk memadamkan masalah saat itu juga, atau tindakan korektif mendasar (<i>basic</i>) yang menganalisis akar penyebab masalah agar tidak terulang.</bullet>
+<bullet><b>Revise Standard:</b> Jika kinerja secara konsisten melampaui target, mungkin targetnya terlalu rendah. Sebaliknya, jika target tidak pernah tercapai meski usaha sudah maksimal, mungkin targetnya yang tidak realistis dan perlu diturunkan.</bullet>
+
+<h2>⚠️ Session 18: Monitoring and Controlling II</h2>
+
+<warning>⚠️ [Keluar UAS: Alat Ukur Organisasi & Studi Kasus] Bagian ini sering muncul dalam analisis kasus terkait efektivitas perusahaan.</warning>
+
+<h3>1. Kendali Keuangan (<i>Financial Controls</i>)</h3>
+Setiap bisnis bertujuan mencari keuntungan, sehingga rasio keuangan adalah alat kontrol utama.
+<bullet><b>Rasio Likuiditas (<i>Liquidity</i>):</b> Mengukur kemampuan perusahaan membayar utang jangka pendek. <i>Contoh: Current Ratio.</i></bullet>
+<bullet><b>Rasio Leverage:</b> Mengukur penggunaan utang untuk membiayai aset perusahaan. <i>Contoh: Debt to Assets Ratio.</i></bullet>
+<bullet><b>Rasio Aktivitas:</b> Mengukur efisiensi perusahaan dalam menggunakan asetnya. <i>Contoh: Inventory Turnover.</i></bullet>
+<bullet><b>Rasio Profitabilitas:</b> Mengukur seberapa efektif perusahaan menghasilkan laba. <i>Contoh: Return on Investment (ROI).</i></bullet>
+
+<h3>2. Balanced Scorecard</h3>
+Pendekatan tradisional hanya melihat kinerja keuangan. <b>Balanced Scorecard</b> memperbaiki ini dengan mengevaluasi perusahaan dari empat perspektif yang seimbang:
+<bullet><b>Keuangan:</b> Bagaimana pandangan pemegang saham terhadap kinerja kita?</bullet>
+<bullet><b>Pelanggan:</b> Bagaimana pelanggan melihat kita?</bullet>
+<bullet><b>Proses Internal:</b> Pada proses bisnis apa kita harus unggul?</bullet>
+<bullet><b>Pembelajaran & Pertumbuhan (<i>People/Innovation</i>):</b> Bisakah kita terus meningkatkan nilai dan menciptakan inovasi?</bullet>
+
+<h3>3. Tolok Ukur (<i>Benchmarking</i>)</h3>
+<b>Benchmarking</b> adalah proses pencarian praktik terbaik (<i>best practices</i>) dari pesaing atau non-pesaing yang menghasilkan kinerja unggul. Manajemen mengidentifikasi standar terbaik di industri, lalu membandingkan proses internal mereka dengan standar tersebut untuk menemukan celah perbaikan.
+
+<h3>4. Isu Pengendalian Kontemporer</h3>
+Manajer masa kini menghadapi tantangan pengendalian yang unik:
+<bullet><b>Perbedaan Lintas Budaya:</b> Metode pengendalian di perusahaan multinasional harus disesuaikan. Di beberapa negara, pengawasan langsung lebih efektif, sementara di negara maju, pengendalian berbasis teknologi lebih umum.</bullet>
+<bullet><b>Privasi Tempat Kerja:</b> Perusahaan berhak memantau aktivitas karyawan (email, internet) untuk mencegah penyalahgunaan sumber daya dan kebocoran data, namun hal ini sering memicu perdebatan mengenai privasi.</bullet>
+<bullet><b>Pencurian Karyawan (<i>Employee Theft</i>):</b> Didefinisikan sebagai pengambilan properti perusahaan tanpa izin. Ini tidak hanya berupa uang, tetapi juga barang kantor, perlengkapan, hingga "pencurian waktu" (bermain media sosial saat jam kerja). Solusinya melibatkan sistem keamanan yang lebih baik dan penanaman budaya kejujuran.</bullet>`,
                 modul3: '',
                 modul4: '',
                 tambahan: ''
