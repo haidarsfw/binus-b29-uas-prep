@@ -1726,27 +1726,73 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
     return type?.toUpperCase() || 'FILE';
   };
 
-  // File viewer modal
+  // File viewer modal - rendered outside component to prevent re-creation
   const FileViewerModal = () => {
     if (!viewFile) return null;
     const embedUrl = getEmbedUrl(viewFile);
 
+    const handleClose = (e) => {
+      e.stopPropagation();
+      setViewFile(null);
+    };
+
     return (
       <div
-        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 99999, display: 'flex', flexDirection: 'column' }}
-        onClick={() => setViewFile(null)}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.9)',
+          zIndex: 99999,
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+        onClick={handleClose}
       >
-        <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>{viewFile.title}</h3>
-          <button onClick={() => setViewFile(null)} style={{ color: 'white', padding: '8px' }}>
+        <div
+          style={{
+            padding: '16px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)'
+          }}
+          onClick={e => e.stopPropagation()}
+        >
+          <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px', margin: 0 }}>{viewFile.title}</h3>
+          <button
+            onClick={handleClose}
+            style={{
+              color: 'white',
+              padding: '8px',
+              background: 'rgba(255,255,255,0.1)',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
-        <div style={{ flex: 1, padding: '0 16px 16px' }} onClick={e => e.stopPropagation()}>
+        <div
+          style={{ flex: 1, padding: '0 16px 16px', overflow: 'hidden' }}
+          onClick={e => e.stopPropagation()}
+        >
           {embedUrl ? (
             <iframe
               src={embedUrl}
-              style={{ width: '100%', height: '100%', border: 'none', borderRadius: '12px', backgroundColor: 'white' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                borderRadius: '12px',
+                backgroundColor: '#1a1a1a'
+              }}
               allow="autoplay"
               title={viewFile.title}
             />
