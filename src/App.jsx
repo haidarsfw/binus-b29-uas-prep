@@ -545,197 +545,195 @@ export default function App() {
       </main>
 
       {/* Settings Modal */}
-      <AnimatePresence>
-        {showSettings && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" onClick={() => setShowSettings(false)}>
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="modal p-6 max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
-                <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
+      {showSettings && (
+        <div className="modal-overlay animate-fade" onClick={() => setShowSettings(false)}>
+          <div className="modal p-6 max-h-[85vh] overflow-y-auto animate-scale" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
+              <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="space-y-6">
+              <div>
+                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Palette className="w-4 h-4" />Warna Aksen</label>
+                <div className="flex gap-3">
+                  {themeColors.map(t => (
+                    <motion.button key={t.id} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(t.id)}
+                      className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-105' : 'border-transparent'}`}
+                      style={{ background: t.color }}>{theme === t.id && <Check className="w-5 h-5 text-white" />}</motion.button>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-6">
-                <div>
-                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Palette className="w-4 h-4" />Warna Aksen</label>
-                  <div className="flex gap-3">
-                    {themeColors.map(t => (
-                      <motion.button key={t.id} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(t.id)}
-                        className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-105' : 'border-transparent'}`}
-                        style={{ background: t.color }}>{theme === t.id && <Check className="w-5 h-5 text-white" />}</motion.button>
-                    ))}
-                  </div>
+              <div>
+                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Type className="w-4 h-4" />Font</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {fonts.map(f => (
+                    <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'glass-card text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
+                  ))}
                 </div>
-                <div>
-                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Type className="w-4 h-4" />Font</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {fonts.map(f => (
-                      <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'glass-card text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex items-center justify-between p-4 glass-card rounded-xl">
-                  <span className="text-[var(--text)]">Mode Gelap</span>
-                  <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
-                    <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
-                  </button>
-                </div>
+              </div>
+              <div className="flex items-center justify-between p-4 glass-card rounded-xl">
+                <span className="text-[var(--text)]">Mode Gelap</span>
+                <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
+                  <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
+                </button>
+              </div>
 
-                {/* Email for Reminder */}
-                <div className="p-4 glass-card rounded-xl space-y-3">
-                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
-                    <Mail className="w-4 h-4" />Email untuk Reminder
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="email"
-                      value={userEmail}
-                      onChange={(e) => setUserEmail(e.target.value)}
-                      placeholder="email@example.com"
-                      className="input flex-1"
-                    />
+              {/* Email for Reminder */}
+              <div className="p-4 glass-card rounded-xl space-y-3">
+                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                  <Mail className="w-4 h-4" />Email untuk Reminder
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    placeholder="email@example.com"
+                    className="input flex-1"
+                  />
+                  <button
+                    onClick={async () => {
+                      if (!userEmail || !isValidEmail(userEmail)) {
+                        showToast('Masukkan email yang valid', 'error');
+                        return;
+                      }
+                      try {
+                        await saveUserEmail(session.licenseKey, userEmail);
+                        showToast('Email berhasil disimpan!', 'success');
+                      } catch (e) {
+                        showToast('Error: ' + e.message, 'error');
+                      }
+                    }}
+                    className="btn btn-primary px-4"
+                  >
+                    Simpan
+                  </button>
+                  {userEmail && (
                     <button
                       onClick={async () => {
-                        if (!userEmail || !isValidEmail(userEmail)) {
-                          showToast('Masukkan email yang valid', 'error');
-                          return;
-                        }
                         try {
-                          await saveUserEmail(session.licenseKey, userEmail);
-                          showToast('Email berhasil disimpan!', 'success');
+                          setUserEmail('');
+                          await saveUserEmail(session.licenseKey, '');
+                          showToast('Email dihapus. Anda tidak akan menerima notifikasi email.', 'info');
                         } catch (e) {
                           showToast('Error: ' + e.message, 'error');
                         }
                       }}
-                      className="btn btn-primary px-4"
+                      className="btn btn-secondary px-3"
+                      title="Hapus email"
                     >
-                      Simpan
+                      <X className="w-4 h-4" />
                     </button>
-                    {userEmail && (
-                      <button
-                        onClick={async () => {
-                          try {
-                            setUserEmail('');
-                            await saveUserEmail(session.licenseKey, '');
-                            showToast('Email dihapus. Anda tidak akan menerima notifikasi email.', 'info');
-                          } catch (e) {
-                            showToast('Error: ' + e.message, 'error');
-                          }
-                        }}
-                        className="btn btn-secondary px-3"
-                        title="Hapus email"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Test Reminder Button */}
-                  <button
-                    onClick={async () => {
-                      // Rate limit check - 60 seconds between tests
-                      const now = Date.now();
-                      const cooldown = 60 * 1000; // 60 seconds
-                      if (now - lastTestReminder < cooldown) {
-                        const remaining = Math.ceil((cooldown - (now - lastTestReminder)) / 1000);
-                        showToast(`⏳ Tunggu ${remaining} detik lagi sebelum test ulang.`, 'warning');
-                        return;
-                      }
-                      setLastTestReminder(now);
-
-                      // Test notification
-                      if (Notification.permission === 'granted') {
-                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
-                      } else if (Notification.permission === 'default') {
-                        const perm = await Notification.requestPermission();
-                        if (perm === 'granted') {
-                          new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
-                        }
-                      }
-
-                      // Play sound
-                      try {
-                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        const oscillator = audioContext.createOscillator();
-                        const gainNode = audioContext.createGain();
-                        oscillator.connect(gainNode);
-                        gainNode.connect(audioContext.destination);
-                        oscillator.frequency.value = 800;
-                        oscillator.type = 'sine';
-                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-                        oscillator.start(audioContext.currentTime);
-                        oscillator.stop(audioContext.currentTime + 0.5);
-                      } catch (e) { }
-
-                      // Vibrate
-                      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-
-                      // Test email if configured
-                      if (userEmail && isValidEmail(userEmail)) {
-                        const result = await sendReminderEmail(userEmail, session?.userName || 'User', 'TEST');
-                        if (result.success) {
-                          showToast('✅ Test berhasil!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Terkirim ke ' + userEmail, 'success');
-                        } else {
-                          showToast('⚠️ Test selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Gagal - ' + (result.error || 'Unknown error'), 'warning');
-                        }
-                      } else {
-                        showToast('✅ Test notifikasi selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : Notification.permission) + '\n- Email: Tidak ditest (email belum diisi)', 'success');
-                      }
-                    }}
-                    className="btn btn-secondary w-full text-sm"
-                  >
-                    🔔 Test Reminder (Notifikasi + Email)
-                  </button>
-
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className={`w-2 h-2 rounded-full ${Notification.permission === 'granted' ? 'bg-green-500' : Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
-                    <span className="text-[var(--text-muted)]">
-                      Notifikasi Browser: {Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
-                    </span>
-                  </div>
+                  )}
                 </div>
 
-                {/* Referral Code */}
-                {(referralStats.referralCode || session?.referralCode) && (
-                  <div className="p-4 glass-card rounded-xl space-y-3">
-                    <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
-                      <Gift className="w-4 h-4" />Kode Referral Anda
-                    </label>
-                    <div className="flex gap-2">
-                      <code className="flex-1 p-3 bg-[var(--accent-soft)] rounded-xl text-[var(--accent)] font-mono text-center">
-                        {referralStats.referralCode || session?.referralCode}
-                      </code>
-                      <button
-                        onClick={() => {
-                          const code = referralStats.referralCode || session?.referralCode;
-                          navigator.clipboard.writeText(code);
-                          showToast('Kode referral berhasil disalin!', 'success');
-                        }}
-                        className="btn btn-secondary px-3"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => {
-                          const code = referralStats.referralCode || session?.referralCode;
-                          const text = `Yuk belajar UAS bareng di BINUS B29 UAS Prep! Gunakan kode referral: ${code}`;
-                          window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-                        }}
-                        className="btn btn-primary px-3"
-                      >
-                        <Share2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-[var(--text-muted)]">Jumlah referral berhasil:</span>
-                      <span className="font-bold text-[var(--accent)]">{referralStats.referralCount || 0}</span>
-                    </div>
-                  </div>
-                )}
+                {/* Test Reminder Button */}
+                <button
+                  onClick={async () => {
+                    // Rate limit check - 60 seconds between tests
+                    const now = Date.now();
+                    const cooldown = 60 * 1000; // 60 seconds
+                    if (now - lastTestReminder < cooldown) {
+                      const remaining = Math.ceil((cooldown - (now - lastTestReminder)) / 1000);
+                      showToast(`⏳ Tunggu ${remaining} detik lagi sebelum test ulang.`, 'warning');
+                      return;
+                    }
+                    setLastTestReminder(now);
+
+                    // Test notification
+                    if (Notification.permission === 'granted') {
+                      new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
+                    } else if (Notification.permission === 'default') {
+                      const perm = await Notification.requestPermission();
+                      if (perm === 'granted') {
+                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                      }
+                    }
+
+                    // Play sound
+                    try {
+                      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                      const oscillator = audioContext.createOscillator();
+                      const gainNode = audioContext.createGain();
+                      oscillator.connect(gainNode);
+                      gainNode.connect(audioContext.destination);
+                      oscillator.frequency.value = 800;
+                      oscillator.type = 'sine';
+                      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                      oscillator.start(audioContext.currentTime);
+                      oscillator.stop(audioContext.currentTime + 0.5);
+                    } catch (e) { }
+
+                    // Vibrate
+                    if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+
+                    // Test email if configured
+                    if (userEmail && isValidEmail(userEmail)) {
+                      const result = await sendReminderEmail(userEmail, session?.userName || 'User', 'TEST');
+                      if (result.success) {
+                        showToast('✅ Test berhasil!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Terkirim ke ' + userEmail, 'success');
+                      } else {
+                        showToast('⚠️ Test selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Gagal - ' + (result.error || 'Unknown error'), 'warning');
+                      }
+                    } else {
+                      showToast('✅ Test notifikasi selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : Notification.permission) + '\n- Email: Tidak ditest (email belum diisi)', 'success');
+                    }
+                  }}
+                  className="btn btn-secondary w-full text-sm"
+                >
+                  🔔 Test Reminder (Notifikasi + Email)
+                </button>
+
+                <div className="flex items-center gap-2 text-xs">
+                  <span className={`w-2 h-2 rounded-full ${Notification.permission === 'granted' ? 'bg-green-500' : Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
+                  <span className="text-[var(--text-muted)]">
+                    Notifikasi Browser: {Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
+                  </span>
+                </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              {/* Referral Code */}
+              {(referralStats.referralCode || session?.referralCode) && (
+                <div className="p-4 glass-card rounded-xl space-y-3">
+                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                    <Gift className="w-4 h-4" />Kode Referral Anda
+                  </label>
+                  <div className="flex gap-2">
+                    <code className="flex-1 p-3 bg-[var(--accent-soft)] rounded-xl text-[var(--accent)] font-mono text-center">
+                      {referralStats.referralCode || session?.referralCode}
+                    </code>
+                    <button
+                      onClick={() => {
+                        const code = referralStats.referralCode || session?.referralCode;
+                        navigator.clipboard.writeText(code);
+                        showToast('Kode referral berhasil disalin!', 'success');
+                      }}
+                      className="btn btn-secondary px-3"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        const code = referralStats.referralCode || session?.referralCode;
+                        const text = `Yuk belajar UAS bareng di BINUS B29 UAS Prep! Gunakan kode referral: ${code}`;
+                        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                      }}
+                      className="btn btn-primary px-3"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--text-muted)]">Jumlah referral berhasil:</span>
+                    <span className="font-bold text-[var(--accent)]">{referralStats.referralCount || 0}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Reminder Modal */}
       <AnimatePresence>
