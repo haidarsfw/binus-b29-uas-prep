@@ -224,7 +224,7 @@ export default function App() {
           if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
 
           // Browser notification
-          if (Notification.permission === 'granted') {
+          if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
             new Notification('🔔 WAKTUNYA BELAJAR!', { body: 'Reminder belajar UAS sudah aktif!', icon: '/vite.svg' });
           }
 
@@ -672,12 +672,14 @@ export default function App() {
                     setLastTestReminder(now);
 
                     // Test notification
-                    if (Notification.permission === 'granted') {
-                      new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
-                    } else if (Notification.permission === 'default') {
-                      const perm = await Notification.requestPermission();
-                      if (perm === 'granted') {
-                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                    if (typeof Notification !== 'undefined') {
+                      if (Notification.permission === 'granted') {
+                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
+                      } else if (Notification.permission === 'default') {
+                        const perm = await Notification.requestPermission();
+                        if (perm === 'granted') {
+                          new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                        }
                       }
                     }
 
