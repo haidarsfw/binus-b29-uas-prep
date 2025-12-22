@@ -1693,108 +1693,162 @@ function Rangkuman({ subjectId }) {
                   const moduleContent = RANGKUMAN_CONTENT[subjectId]?.[viewFile.contentKey];
                   if (!moduleContent) return <p>Konten tidak ditemukan.</p>;
 
-                  // If content is a string (raw text), display with proper formatting
+                  // If content is a string with HTML-like tags, parse and render
                   if (typeof moduleContent === 'string') {
-                    // Parse the content to add styling to emojis and headers
+                    // Helper function to parse inline formatting (bold, italic)
+                    const parseInline = (text) => {
+                      const parts = [];
+                      let remaining = text;
+                      let key = 0;
+
+                      while (remaining.length > 0) {
+                        // Look for <b>...</b> or <i>...</i>
+                        const boldMatch = remaining.match(/^(.*?)<b>(.*?)<\/b>/s);
+                        const italicMatch = remaining.match(/^(.*?)<i>(.*?)<\/i>/s);
+
+                        if (boldMatch && (!italicMatch || boldMatch.index <= italicMatch.index)) {
+                          if (boldMatch[1]) parts.push(<span key={key++}>{parseInline(boldMatch[1])}</span>);
+                          parts.push(<b key={key++} style={{ fontWeight: '600' }}>{parseInline(boldMatch[2])}</b>);
+                          remaining = remaining.slice(boldMatch[0].length);
+                        } else if (italicMatch) {
+                          if (italicMatch[1]) parts.push(<span key={key++}>{parseInline(italicMatch[1])}</span>);
+                          parts.push(<i key={key++} style={{ fontStyle: 'italic' }}>{parseInline(italicMatch[2])}</i>);
+                          remaining = remaining.slice(italicMatch[0].length);
+                        } else {
+                          parts.push(remaining);
+                          break;
+                        }
+                      }
+                      return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
+                    };
+
+                    // Split by lines and parse tags
                     const lines = moduleContent.split('\n');
                     return (
-                      <div style={{ lineHeight: '2' }}>
+                      <div style={{ lineHeight: '1.8' }}>
                         {lines.map((line, idx) => {
-                          const trimmedLine = line.trim();
+                          const trimmed = line.trim();
+                          if (!trimmed) {
+                            return <div key={idx} style={{ height: '20px' }} />;
+                          }
 
-                          // Module title (📘)
-                          if (trimmedLine.startsWith('📘')) {
+                          // <h1>...</h1> - Module title
+                          if (trimmed.startsWith('<h1>')) {
+                            const content = trimmed.replace(/<\/?h1>/g, '');
                             return (
                               <h1 key={idx} style={{
-                                fontSize: '20px',
+                                fontSize: '22px',
                                 fontWeight: 'bold',
-                                color: viewerDarkMode ? '#60a5fa' : '#2563eb',
-                                marginTop: idx > 0 ? '32px' : '0',
-                                marginBottom: '12px'
+                                color: viewerDarkMode ? '#60a5fa' : '#1d4ed8',
+                                marginTop: idx > 0 ? '40px' : '0',
+                                marginBottom: '8px'
                               }}>
-                                {trimmedLine}
+                                {parseInline(content)}
                               </h1>
                             );
                           }
 
-                          // Session headers (🧠, 🔥, 🌏, 🛡️) OR ⚠️ Session (NOT [Keluar)
-                          if (/^[🧠🔥🌏🛡️]/.test(trimmedLine) || (trimmedLine.startsWith('⚠️') && trimmedLine.includes('Session') && !trimmedLine.includes('[Keluar'))) {
+                          // <subtitle>...</subtitle> - Subtitle
+                          if (trimmed.startsWith('<subtitle>')) {
+                            const content = trimmed.replace(/<\/?subtitle>/g, '');
+                            return (
+                              <p key={idx} style={{
+                                fontSize: '14px',
+                                color: viewerDarkMode ? '#9ca3af' : '#6b7280',
+                                marginBottom: '16px'
+                              }}>
+                                {parseInline(content)}
+                              </p>
+                            );
+                          }
+
+                          // <h2>...</h2> - Session header
+                          if (trimmed.startsWith('<h2>')) {
+                            const content = trimmed.replace(/<\/?h2>/g, '');
                             return (
                               <h2 key={idx} style={{
                                 fontSize: '17px',
                                 fontWeight: 'bold',
-                                color: viewerDarkMode ? '#fbbf24' : '#d97706',
-                                marginTop: '28px',
-                                marginBottom: '14px',
+                                color: viewerDarkMode ? '#fbbf24' : '#b45309',
+                                marginTop: '32px',
+                                marginBottom: '16px',
                                 paddingBottom: '8px',
-                                borderBottom: `1px solid ${viewerDarkMode ? 'rgba(251,191,36,0.3)' : 'rgba(217,119,6,0.3)'}`
+                                borderBottom: `1px solid ${viewerDarkMode ? 'rgba(251,191,36,0.3)' : 'rgba(180,83,9,0.2)'}`
                               }}>
-                                {trimmedLine}
+                                {parseInline(content)}
                               </h2>
                             );
                           }
 
-                          // Warning/UAS markers - ONLY ⚠️ [Keluar UAS...] 
-                          if (trimmedLine.startsWith('⚠️') && trimmedLine.includes('[Keluar')) {
+                          // <h3>...</h3> - Numbered heading
+                          if (trimmed.startsWith('<h3>')) {
+                            const content = trimmed.replace(/<\/?h3>/g, '');
+                            return (
+                              <h3 key={idx} style={{
+                                fontSize: '15px',
+                                fontWeight: '600',
+                                color: viewerDarkMode ? '#34d399' : '#047857',
+                                marginTop: '24px',
+                                marginBottom: '10px'
+                              }}>
+                                {parseInline(content)}
+                              </h3>
+                            );
+                          }
+
+                          // <warning>...</warning> - UAS warning
+                          if (trimmed.startsWith('<warning>')) {
+                            const content = trimmed.replace(/<\/?warning>/g, '');
                             return (
                               <div key={idx} style={{
                                 fontSize: '14px',
                                 fontWeight: '600',
                                 color: viewerDarkMode ? '#f87171' : '#dc2626',
-                                backgroundColor: viewerDarkMode ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.1)',
-                                padding: '10px 14px',
+                                backgroundColor: viewerDarkMode ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.08)',
+                                padding: '12px 16px',
                                 borderRadius: '6px',
                                 marginTop: '16px',
                                 marginBottom: '16px',
                                 borderLeft: `3px solid ${viewerDarkMode ? '#f87171' : '#dc2626'}`
                               }}>
-                                {trimmedLine}
+                                {parseInline(content)}
                               </div>
                             );
                           }
 
-                          // Numbered items (1., 2., etc.)
-                          if (/^\d+\./.test(trimmedLine)) {
+                          // <bullet>...</bullet> - Bullet point
+                          if (trimmed.startsWith('<bullet>')) {
+                            const content = trimmed.replace(/<\/?bullet>/g, '');
                             return (
-                              <h3 key={idx} style={{
-                                fontSize: '15px',
-                                fontWeight: '600',
-                                color: viewerDarkMode ? '#34d399' : '#059669',
-                                marginTop: '20px',
+                              <div key={idx} style={{
+                                display: 'flex',
+                                marginLeft: '20px',
                                 marginBottom: '10px'
                               }}>
-                                {trimmedLine}
-                              </h3>
+                                <span style={{
+                                  marginRight: '12px',
+                                  color: viewerDarkMode ? '#60a5fa' : '#2563eb',
+                                  fontWeight: 'bold'
+                                }}>•</span>
+                                <span style={{
+                                  fontSize: '14px',
+                                  color: viewerDarkMode ? '#d1d5db' : '#374151',
+                                  flex: 1
+                                }}>
+                                  {parseInline(content)}
+                                </span>
+                              </div>
                             );
                           }
 
-                          // Subtitle/info in parentheses at start
-                          if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
-                            return (
-                              <p key={idx} style={{
-                                fontSize: '13px',
-                                fontStyle: 'italic',
-                                color: viewerDarkMode ? '#9ca3af' : '#6b7280',
-                                marginBottom: '16px'
-                              }}>
-                                {trimmedLine}
-                              </p>
-                            );
-                          }
-
-                          // Empty lines = ACTUAL paragraph breaks (BIG spacing)
-                          if (trimmedLine === '') {
-                            return <div key={idx} style={{ height: '28px' }} />;
-                          }
-
-                          // Regular paragraph - comfortable spacing
+                          // Regular paragraph
                           return (
                             <p key={idx} style={{
                               fontSize: '14px',
-                              marginBottom: '8px',
+                              marginBottom: '12px',
                               color: viewerDarkMode ? '#d1d5db' : '#374151'
                             }}>
-                              {trimmedLine}
+                              {parseInline(trimmed)}
                             </p>
                           );
                         })}
