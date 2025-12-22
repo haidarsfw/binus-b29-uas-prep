@@ -1784,14 +1784,14 @@ function Rangkuman({ subjectId }) {
 
                           // Empty lines = ACTUAL paragraph breaks (BIG spacing)
                           if (trimmedLine === '') {
-                            return <div key={idx} style={{ height: '24px' }} />;
+                            return <div key={idx} style={{ height: '28px' }} />;
                           }
 
-                          // Regular paragraph - TIGHT spacing (follows original text)
+                          // Regular paragraph - comfortable spacing
                           return (
                             <p key={idx} style={{
                               fontSize: '14px',
-                              marginBottom: '2px',
+                              marginBottom: '8px',
                               color: viewerDarkMode ? '#d1d5db' : '#374151'
                             }}>
                               {trimmedLine}
