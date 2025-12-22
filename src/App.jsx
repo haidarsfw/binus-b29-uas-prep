@@ -1670,20 +1670,31 @@ function Rangkuman({ subjectId }) {
           </div>
 
           {/* Content Container */}
-          <div style={{ flex: 1, padding: '16px', overflow: 'hidden', position: 'relative' }}>
+          <div style={{
+            flex: 1,
+            padding: '16px',
+            overflow: 'hidden',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
             {/* Native Content Viewer - Copy Protected */}
             {viewFile.type === 'native' && viewFile.contentKey ? (
               <div
                 className="copy-protected"
                 style={{
                   width: '100%',
+                  maxWidth: '800px',
                   height: '100%',
                   overflowY: 'auto',
                   backgroundColor: viewerDarkMode ? '#1a1a2e' : '#ffffff',
-                  borderRadius: '8px',
-                  padding: '24px 28px',
+                  borderRadius: '12px',
+                  padding: '32px 40px',
                   color: viewerDarkMode ? '#e5e7eb' : '#1a1a2e',
-                  transition: 'background-color 0.3s, color 0.3s'
+                  transition: 'background-color 0.3s, color 0.3s',
+                  boxShadow: viewerDarkMode
+                    ? '0 4px 20px rgba(0,0,0,0.5)'
+                    : '0 4px 20px rgba(0,0,0,0.15)'
                 }}
                 onContextMenu={e => e.preventDefault()}
                 onCopy={e => e.preventDefault()}
