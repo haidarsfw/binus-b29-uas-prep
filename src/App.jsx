@@ -1537,6 +1537,7 @@ function Rangkuman({ subjectId }) {
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
   const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
+  const [viewerDarkMode, setViewerDarkMode] = useState(true); // Default dark for night study
 
   // Generate embed URL based on file type
   const getEmbedUrl = (file) => {
@@ -1624,23 +1625,48 @@ function Rangkuman({ subjectId }) {
             borderBottom: '1px solid rgba(255,255,255,0.1)'
           }}>
             <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px', margin: 0 }}>{viewFile.title}</h3>
-            <button
-              type="button"
-              onClick={closeViewer}
-              style={{
-                color: 'white',
-                padding: '10px',
-                background: 'rgba(255,255,255,0.15)',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {/* Dark Mode Toggle */}
+              {viewFile.type === 'native' && (
+                <button
+                  type="button"
+                  onClick={() => setViewerDarkMode(!viewerDarkMode)}
+                  style={{
+                    color: 'white',
+                    padding: '8px 12px',
+                    background: viewerDarkMode ? 'rgba(59,130,246,0.5)' : 'rgba(255,255,255,0.15)',
+                    borderRadius: '8px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '12px'
+                  }}
+                >
+                  {viewerDarkMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                  {viewerDarkMode ? 'Dark' : 'Light'}
+                </button>
+              )}
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={closeViewer}
+                style={{
+                  color: 'white',
+                  padding: '10px',
+                  background: 'rgba(255,255,255,0.15)',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Content Container */}
@@ -1653,10 +1679,11 @@ function Rangkuman({ subjectId }) {
                   width: '100%',
                   height: '100%',
                   overflowY: 'auto',
-                  backgroundColor: 'white',
+                  backgroundColor: viewerDarkMode ? '#1a1a2e' : '#ffffff',
                   borderRadius: '8px',
-                  padding: '24px',
-                  color: '#1a1a2e'
+                  padding: '24px 28px',
+                  color: viewerDarkMode ? '#e5e7eb' : '#1a1a2e',
+                  transition: 'background-color 0.3s, color 0.3s'
                 }}
                 onContextMenu={e => e.preventDefault()}
                 onCopy={e => e.preventDefault()}
@@ -1666,6 +1693,116 @@ function Rangkuman({ subjectId }) {
                   const moduleContent = RANGKUMAN_CONTENT[subjectId]?.[viewFile.contentKey];
                   if (!moduleContent) return <p>Konten tidak ditemukan.</p>;
 
+                  // If content is a string (raw text), display with proper formatting
+                  if (typeof moduleContent === 'string') {
+                    // Parse the content to add styling to emojis and headers
+                    const lines = moduleContent.split('\n');
+                    return (
+                      <div style={{ lineHeight: '1.9' }}>
+                        {lines.map((line, idx) => {
+                          const trimmedLine = line.trim();
+
+                          // Module title (📘)
+                          if (trimmedLine.startsWith('📘')) {
+                            return (
+                              <h1 key={idx} style={{
+                                fontSize: '20px',
+                                fontWeight: 'bold',
+                                color: viewerDarkMode ? '#60a5fa' : '#2563eb',
+                                marginTop: idx > 0 ? '24px' : '0',
+                                marginBottom: '8px'
+                              }}>
+                                {trimmedLine}
+                              </h1>
+                            );
+                          }
+
+                          // Section headers (🧠, 🔥, 🌏, ⚠️, 🛡️)
+                          if (/^[🧠🔥🌏🛡️]/.test(trimmedLine)) {
+                            return (
+                              <h2 key={idx} style={{
+                                fontSize: '17px',
+                                fontWeight: 'bold',
+                                color: viewerDarkMode ? '#fbbf24' : '#d97706',
+                                marginTop: '20px',
+                                marginBottom: '10px',
+                                paddingBottom: '6px',
+                                borderBottom: `1px solid ${viewerDarkMode ? 'rgba(251,191,36,0.3)' : 'rgba(217,119,6,0.3)'}`
+                              }}>
+                                {trimmedLine}
+                              </h2>
+                            );
+                          }
+
+                          // Warning/UAS markers (⚠️)
+                          if (trimmedLine.startsWith('⚠️')) {
+                            return (
+                              <div key={idx} style={{
+                                fontSize: '14px',
+                                fontWeight: '600',
+                                color: viewerDarkMode ? '#f87171' : '#dc2626',
+                                backgroundColor: viewerDarkMode ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.1)',
+                                padding: '8px 12px',
+                                borderRadius: '6px',
+                                marginTop: '12px',
+                                marginBottom: '8px',
+                                borderLeft: `3px solid ${viewerDarkMode ? '#f87171' : '#dc2626'}`
+                              }}>
+                                {trimmedLine}
+                              </div>
+                            );
+                          }
+
+                          // Numbered items (1., 2., etc.)
+                          if (/^\d+\./.test(trimmedLine)) {
+                            return (
+                              <h3 key={idx} style={{
+                                fontSize: '15px',
+                                fontWeight: '600',
+                                color: viewerDarkMode ? '#34d399' : '#059669',
+                                marginTop: '16px',
+                                marginBottom: '6px'
+                              }}>
+                                {trimmedLine}
+                              </h3>
+                            );
+                          }
+
+                          // Subtitle/info in parentheses at start
+                          if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
+                            return (
+                              <p key={idx} style={{
+                                fontSize: '13px',
+                                fontStyle: 'italic',
+                                color: viewerDarkMode ? '#9ca3af' : '#6b7280',
+                                marginBottom: '12px'
+                              }}>
+                                {trimmedLine}
+                              </p>
+                            );
+                          }
+
+                          // Empty lines = spacing
+                          if (trimmedLine === '') {
+                            return <div key={idx} style={{ height: '12px' }} />;
+                          }
+
+                          // Regular paragraph
+                          return (
+                            <p key={idx} style={{
+                              fontSize: '14px',
+                              marginBottom: '6px',
+                              color: viewerDarkMode ? '#d1d5db' : '#374151'
+                            }}>
+                              {trimmedLine}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    );
+                  }
+
+                  // Legacy structured format support (if any old modules still use it)
                   return (
                     <div className="space-y-6">
                       {/* Title */}
