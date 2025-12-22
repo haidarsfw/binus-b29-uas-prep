@@ -311,7 +311,32 @@ Warren Buffett mempopulerkan istilah <b>Economic Moat</b> (Parit Ekonomi). Bayan
 Siapa cepat, dia dapat. Organisasi yang pertama kali membawa inovasi produk ke pasar disebut <b>First Mover</b>.
 <bullet><b>Keuntungan:</b> Menguasai pasar lebih dulu, membangun loyalitas merek, menetapkan standar industri.</bullet>
 <bullet><b>Kerugian:</b> Biaya riset mahal, risiko produk gagal tinggi, dan kompetitor bisa meniru lalu menyempurnakan produk kita dengan biaya lebih murah (<b>Second Mover Advantage</b>).</bullet>`,
-                tambahan: ''
+                tambahan: `<h1>🔍 TAMBAHAN DETAIL TEKNIS (Hafalan Slide)</h1>
+
+<h3>1. Lima Kekuatan Porter (<i>Porter's Five Forces</i>) - Session 26</h3>
+Di Bagian 3, saya membahas <b>Competitive Advantage</b>. Di slide Session 26, ada model spesifik untuk menganalisis persaingan industri yang wajib dihafal poinnya:
+<bullet><b>Threat of New Entrants:</b> Ancaman pendatang baru (seberapa mudah orang bikin bisnis saingan?).</bullet>
+<bullet><b>Threat of Substitutes:</b> Ancaman produk pengganti (misal: kopi diganti teh).</bullet>
+<bullet><b>Bargaining Power of Buyers:</b> Kekuatan tawar pembeli (kalau pembeli sensitif harga, profit kita tipis).</bullet>
+<bullet><b>Bargaining Power of Suppliers:</b> Kekuatan tawar pemasok (kalau pemasok bahan baku cuma satu, dia bisa main harga).</bullet>
+<bullet><b>Current Rivalry:</b> Persaingan sesama pemain lama.</bullet>
+
+<h3>2. Struktur Rencana Bisnis (<i>Business Plan Major Areas</i>) - Session 24</h3>
+Di Bagian 2, kita bahas Studi Kelayakan. Namun, di PPT Session 24 ada daftar isi standar <b>Business Plan</b> yang mungkin ditanya urutannya:
+<bullet><b>Executive Summary:</b> Ringkasan eksekutif (dibuat terakhir, ditaruh paling depan).</bullet>
+<bullet><b>Company Description:</b> Visi, misi, sejarah.</bullet>
+<bullet><b>Industry Analysis:</b> Analisis pasar.</bullet>
+<bullet><b>Management Team:</b> Siapa yang menjalankan bisnis.</bullet>
+<bullet><b>Service/Product Operation:</b> Detail produk.</bullet>
+<bullet><b>Marketing Strategy:</b> Cara jualan (4P).</bullet>
+<bullet><b>Financial Plan:</b> Proyeksi keuangan (Rugi/Laba).</bullet>
+
+<h3>3. Jenis Masalah Disiplin Karyawan - Session 18</h3>
+Di Bagian 1 (<i>Controlling</i>), saya sebutkan soal <b>Employee Theft</b>. Di slide Session 18, masalah disiplin dibagi jadi 4 kategori spesifik:
+<bullet><b>Attendance (Kehadiran):</b> Telat, bolos, sakit palsu.</bullet>
+<bullet><b>On-the-Job Behaviors:</b> Mabuk, main judi di kantor, gagal capai target.</bullet>
+<bullet><b>Dishonesty (Ketidakjujuran):</b> Mencuri, bohong di CV.</bullet>
+<bullet><b>Outside Activities:</b> Mogok kerja ilegal, aktivitas kriminal di luar kantor.</bullet>`
         }
 };
 
