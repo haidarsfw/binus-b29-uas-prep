@@ -126,7 +126,116 @@ Manajer masa kini menghadapi tantangan pengendalian yang unik:
 <bullet><b>Perbedaan Lintas Budaya:</b> Metode pengendalian di perusahaan multinasional harus disesuaikan. Di beberapa negara, pengawasan langsung lebih efektif, sementara di negara maju, pengendalian berbasis teknologi lebih umum.</bullet>
 <bullet><b>Privasi Tempat Kerja:</b> Perusahaan berhak memantau aktivitas karyawan (email, internet) untuk mencegah penyalahgunaan sumber daya dan kebocoran data, namun hal ini sering memicu perdebatan mengenai privasi.</bullet>
 <bullet><b>Pencurian Karyawan (<i>Employee Theft</i>):</b> Didefinisikan sebagai pengambilan properti perusahaan tanpa izin. Ini tidak hanya berupa uang, tetapi juga barang kantor, perlengkapan, hingga "pencurian waktu" (bermain media sosial saat jam kerja). Solusinya melibatkan sistem keamanan yang lebih baik dan penanaman budaya kejujuran.</bullet>`,
-                modul3: '',
+                modul3: `<h1>📘 MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO</h1>
+<subtitle><b><i>(Mencakup Session 19, 20, 21, & 22)</i></b></subtitle>
+
+Modul ini menjawab pertanyaan fundamental: Bagaimana mengubah sebuah ide menjadi bisnis yang legal dan layak? Bagaimana mengelola risiko di dalamnya? Dan bagaimana memotivasi orang-orang yang bekerja di dalamnya?
+
+<h2>⚠️ Session 19: Identifying Risk (Identifikasi Risiko & Kewirausahaan)</h2>
+
+<warning>⚠️ [Keluar UAS: Entrepreneurship & Legal Forms] Topik ini adalah pondasi utama kisi-kisi "Entrepreneurship" dan "Identification".</warning>
+
+<h3>1. Perbedaan Small Business vs. Entrepreneurship</h3>
+Meskipun sering dianggap sama, kedua istilah ini memiliki pola pikir yang berbeda secara fundamental:
+<bullet><b>Usaha Kecil (<i>Small Business</i>):</b> Organisasi yang dimiliki dan dikelola secara independen. Pemilik usaha kecil cenderung melihat risiko sebagai ancaman. Tujuan utama mereka biasanya adalah stabilitas pendapatan dan "menciptakan lapangan kerja untuk diri sendiri" (misalnya: membuka toko kelontong atau binatu keluarga).</bullet>
+<bullet><b>Kewirausahaan (<i>Entrepreneurship</i>):</b> Seorang entrepreneur melihat risiko sebagai peluang. Fokus mereka adalah inovasi dan pertumbuhan (<i>growth</i>). Mereka tidak sekadar berdagang, tetapi berusaha mengubah tatanan pasar atau menciptakan nilai baru yang belum pernah ada sebelumnya.</bullet>
+
+<h3>2. Proses Kewirausahaan</h3>
+Perjalanan seorang entrepreneur tidak terjadi secara acak, melainkan melalui tahapan sistematis:
+<bullet><b>Eksplorasi Konteks:</b> Memahami situasi pasar saat ini.</bullet>
+<bullet><b>Identifikasi Peluang:</b> Mencari celah atau masalah yang belum terselesaikan.</bullet>
+<bullet><b>Memulai Usaha (<i>Start the Venture</i>):</b> Tahap eksekusi, termasuk mengurus legalitas dan operasional.</bullet>
+<bullet><b>Mengelola Usaha (<i>Manage the Venture</i>):</b> Fase pertumbuhan dan keberlanjutan.</bullet>
+
+<h3>3. Studi Kelayakan (<i>Feasibility Study</i>)</h3>
+Sebelum uang diinvestasikan, ide harus diuji kelayakannya. Analisis ini mencakup:
+<bullet><b>Kompetitor:</b> Siapa yang sudah bermain di pasar ini? Apa kelebihan dan kekurangan produk mereka? Kita harus menawarkan sesuatu yang berbeda (<i>differentiation</i>).</bullet>
+<bullet><b>Pembiayaan:</b> Dari mana modal berasal? Apakah dari dana pribadi (<i>bootstrapping</i>), <b>Angel Investor</b> (individu kaya yang berinvestasi di tahap awal), atau <b>Venture Capital</b> (perusahaan investasi profesional).</bullet>
+
+<h3>4. Bentuk Kepemilikan Bisnis (<i>Legal Forms of Organization</i>)</h3>
+<warning>⚠️ [Keluar UAS: Hafalkan Kelebihan & Kekurangan Tiap Bentuk] Pemilihan badan hukum sangat krusial karena menentukan beban pajak dan tanggung jawab hukum pemilik.</warning>
+
+<b>Perusahaan Perseorangan (<i>Sole Proprietorship</i>):</b>
+<bullet><b>Konsep:</b> Bisnis dimiliki satu orang.</bullet>
+<bullet><b>Kelebihan:</b> Paling mudah didirikan, biaya rendah, kontrol penuh di tangan satu orang.</bullet>
+<bullet><b>Kekurangan Utama:</b> <b>Tanggung Jawab Tidak Terbatas (<i>Unlimited Liability</i>)</b>. Artinya, hukum tidak memisahkan harta bisnis dan harta pribadi. Jika bisnis bangkrut dan berutang miliaran, rumah dan mobil pribadi pemilik bisa disita bank.</bullet>
+
+<b>Persekutuan (<i>Partnership</i>):</b>
+<bullet><b>Konsep:</b> Dimiliki dua orang atau lebih.</bullet>
+<bullet><b>Kelebihan:</b> Pengumpulan modal lebih mudah dibanding perseorangan, adanya kombinasi keahlian (misal: satu jago teknis, satu jago marketing).</bullet>
+<bullet><b>Kekurangan:</b> Potensi konflik antar mitra sangat tinggi. Pada <i>General Partnership</i>, semua mitra juga menanggung <i>unlimited liability</i>.</bullet>
+
+<b>Korporasi / Perseroan Terbatas (<i>Corporation/C-Corp</i>):</b>
+<bullet><b>Konsep:</b> Badan hukum yang terpisah dari pemiliknya.</bullet>
+<bullet><b>Kelebihan Utama:</b> <b>Tanggung Jawab Terbatas (<i>Limited Liability</i>)</b>. Pemegang saham hanya bertanggung jawab sebesar modal yang disetor. Harta pribadi aman.</bullet>
+<bullet><b>Kekurangan:</b> Biaya pendirian mahal, regulasi rumit, dan terkena <b>Pajak Ganda (<i>Double Taxation</i>)</b>—perusahaan dipajaki atas laba, dan pemegang saham dipajaki lagi atas dividen yang diterima.</bullet>
+
+<b>Limited Liability Company (LLC):</b>
+<bullet><b>Konsep:</b> Bentuk hybrid yang mencoba mengambil kelebihan Partnership (pajak fleksibel) dan Corporation (perlindungan hukum).</bullet>
+
+<h2>⚠️ Session 20: Evaluating I (Evaluasi Ide & Risiko)</h2>
+
+<warning>⚠️ [Keluar UAS: Strategic Evaluation & Sources of Opportunity]</warning>
+
+<h3>1. Persepsi Risiko (<i>Risk Perception</i>)</h3>
+Dalam mengevaluasi ide bisnis, sikap pengambil keputusan terhadap risiko sangat menentukan:
+<bullet><b>Risk Avoider (Penghindar Risiko):</b> Cenderung fokus pada sisi negatif dan kemungkinan kegagalan. Mereka mencari keamanan dan meminimalkan perubahan.</bullet>
+<bullet><b>Risk Seeker (Pencari Risiko):</b> Fokus pada potensi keuntungan positif. Mereka melihat ketidakpastian sebagai ladang cuan.</bullet>
+<bullet><b>Kunci Manajemen:</b> Bukan menghindari risiko sepenuhnya, tetapi mengelola risiko tersebut (<b>Calculated Risk</b>).</bullet>
+
+<h3>2. Sumber Peluang Bisnis (Peter Drucker)</h3>
+Dari mana datangnya ide bisnis brilian? Peter Drucker merumuskan beberapa sumber utama:
+<bullet><b>The Unexpected:</b> Sukses atau gagal yang tidak diduga. <i>Contoh: Post-it Note ditemukan karena kegagalan menciptakan lem super kuat.</i></bullet>
+<bullet><b>The Incongruous:</b> Ketidakcocokan antara "apa yang seharusnya" dengan realita. <i>Contoh: Layanan streaming muncul karena ketidaknyamanan menyewa DVD fisik.</i></bullet>
+<bullet><b>Demographics:</b> Perubahan struktur penduduk. <i>Contoh: Populasi menua membuka peluang bisnis kesehatan lansia.</i></bullet>
+<bullet><b>Changes in Perception:</b> Perubahan cara pandang masyarakat. <i>Contoh: Gaya hidup sehat kini dianggap keren, memicu bisnis katering diet.</i></bullet>
+
+<h2>⚠️ Session 21: Risk Management (Manajemen Risiko & Politik Organisasi)</h2>
+
+<warning>⚠️ [Keluar UAS: Risk Management] Sesuai kisi-kisi, bagian ini membahas sisi internal manajemen risiko, yaitu konflik manusia.</warning>
+
+<h3>1. Realita Politik Organisasi</h3>
+Banyak mahasiswa berpikir dunia kerja itu ideal: siapa yang pintar, dia yang naik jabatan. Faktanya, organisasi adalah entitas politis. Mengapa? Karena adanya <b>Potensi Konflik atas Sumber Daya</b>.
+<bullet>Anggaran terbatas, posisi jabatan terbatas, dan fasilitas terbatas.</bullet>
+<bullet>Keputusan alokasi sumber daya ini seringkali ambigu dan subjektif. Di sinilah perilaku politik masuk untuk memengaruhi keputusan tersebut.</bullet>
+
+<h3>2. Strategi Bertahan dalam Politik Kantor</h3>
+Untuk sukses (dan memitigasi risiko karir), seorang profesional harus cerdas berpolitik:
+<bullet><b>Networking:</b> Bangun aliansi dengan orang-orang berpengaruh, baik atasan, rekan sejawat, maupun bawahan. Informasi seringkali mengalir lewat jalur informal ini.</bullet>
+<bullet><b>Hindari "Tainted Members":</b> Jangan terlalu dekat dengan orang yang punya reputasi buruk atau kinerja rendah. Asosiasi dengan mereka bisa merusak citra profesional Anda.</bullet>
+<bullet><b>Dukung Atasan (<i>Support Your Boss</i>):</b> Karir Anda seringkali bergantung pada rekomendasi atasan. Bantulah mereka sukses, jangan menjelekkan mereka di belakang. Jika atasan sukses, biasanya timnya juga akan terbawa naik.</bullet>
+
+<h2>🧠 Session 22: Evaluating II (Teori Motivasi)</h2>
+
+<warning>⚠️ [Keluar UAS: Teori Motivasi untuk Evaluasi SDM] Materi ini sering digunakan untuk menganalisis studi kasus: "Mengapa kinerja karyawan X menurun?"</warning>
+
+<h3>1. Teori Hierarki Kebutuhan Maslow</h3>
+Manusia termotivasi berdasarkan tingkatan kebutuhan. Kita tidak akan peduli pada kebutuhan tinggi jika kebutuhan dasar belum terpenuhi.
+<bullet><b>Fisiologis:</b> Makan, minum, tempat tinggal.</bullet>
+<bullet><b>Keamanan (<i>Safety</i>):</b> Rasa aman dari PHK, asuransi kesehatan.</bullet>
+<bullet><b>Sosial:</b> Rasa diterima oleh rekan kerja, persahabatan.</bullet>
+<bullet><b>Penghargaan (<i>Esteem</i>):</b> Jabatan, status, pengakuan prestasi.</bullet>
+<bullet><b>Aktualisasi Diri:</b> Pengembangan potensi maksimal diri.</bullet>
+
+<h3>2. Teori Dua Faktor Herzberg (Sangat Penting!)</h3>
+Herzberg mematahkan anggapan bahwa "lawan dari kepuasan adalah ketidakpuasan". Menurutnya, ada dua dimensi terpisah:
+<bullet><b>Faktor Higiene (<i>Hygiene Factors</i>):</b> Faktor ekstrinsik (gaji, kondisi kerja, kebijakan perusahaan).</bullet>
+<bullet><b>Unik:</b> Jika faktor ini jelek, karyawan tidak puas. Tapi jika faktor ini bagus, karyawan hanya "tidak kecewa" (netral), belum tentu termotivasi bekerja keras.</bullet>
+<bullet><b>Faktor Motivator:</b> Faktor intrinsik (prestasi, tanggung jawab, pekerjaan itu sendiri).</bullet>
+<bullet><b>Unik:</b> Inilah yang benar-benar membuat karyawan semangat memberikan kinerja ekstra.</bullet>
+
+<h3>3. Teori Keadilan (<i>Equity Theory</i>)</h3>
+Karyawan selalu berhitung dan membandingkan. Rumusnya: <b>(Input Saya : Output Saya) vs (Input Orang Lain : Output Orang Lain)</b>.
+<bullet><b>Input:</b> Kerja keras, lembur, skill.</bullet>
+<bullet><b>Output:</b> Gaji, bonus, pujian.</bullet>
+<bullet>Jika karyawan merasa dia bekerja lebih keras dari si A, tapi gajinya sama atau lebih kecil, dia akan merasa tidak adil. Responnya bisa bermacam-macam: malas bekerja, sering absen, atau resign.</bullet>
+
+<h3>4. Teori Harapan (<i>Expectancy Theory</i>)</h3>
+Seorang karyawan akan termotivasi jika dia percaya pada tiga hal berturut-turut:
+<bullet><b>Expectancy:</b> "Kalau aku berusaha keras, aku PASTI BISA mencapai target." (Keyakinan pada kemampuan diri).</bullet>
+<bullet><b>Instrumentality:</b> "Kalau target tercapai, perusahaan PASTI kasih bonus." (Keyakinan pada sistem reward).</bullet>
+<bullet><b>Valence:</b> "Bonusnya menarik buat aku." (Ketertarikan pada nilai hadiah).</bullet>
+<bullet><b>Aplikasi:</b> Manajer harus memastikan target realistis, janji ditepati, dan hadiahnya relevan.</bullet>`,
                 modul4: '',
                 tambahan: ''
         }
