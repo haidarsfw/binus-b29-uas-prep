@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle } from 'lucide-react';
 import DB from './db';
 import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
@@ -1533,48 +1533,275 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
 
 function Rangkuman({ subjectId }) {
   const content = DB.content[subjectId];
-  const rangkumanText = content?.rangkuman || 'Rangkuman untuk mata kuliah ini akan segera tersedia. Silakan cek kembali nanti.';
+  const rangkuman = content?.rangkuman;
+  const [viewFile, setViewFile] = useState(null);
+  const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
+
+  // Generate embed URL based on file type
+  const getEmbedUrl = (file) => {
+    if (!file.driveId || file.driveId === 'PASTE_FILE_ID_HERE') return null;
+    // Google Slides
+    if (file.type === 'drive-gslides') return `https://docs.google.com/presentation/d/${file.driveId}/embed?start=false&loop=false&delayms=3000`;
+    // Google Docs
+    if (file.type === 'drive-gdoc') return `https://docs.google.com/document/d/${file.driveId}/preview`;
+    // PDF/PPTX/other files
+    return `https://drive.google.com/file/d/${file.driveId}/preview`;
+  };
+
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  // If rangkuman is a string (old format), show as text
+  if (typeof rangkuman === 'string') {
+    return (
+      <div className="glass-card p-4 sm:p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <StickyNote className="w-5 h-5 text-[var(--accent)]" />
+          <h3 className="font-bold text-[var(--text)]">Rangkuman</h3>
+        </div>
+        <p className="text-[var(--text)] whitespace-pre-wrap leading-relaxed">{rangkuman}</p>
+      </div>
+    );
+  }
+
+  // File viewer modal
+  const FileViewerModal = () => {
+    if (!viewFile) return null;
+    const embedUrl = getEmbedUrl(viewFile);
+
+    return (
+      <div
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 99999, display: 'flex', flexDirection: 'column' }}
+        onClick={() => setViewFile(null)}
+      >
+        <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h3 style={{ color: 'white', fontWeight: 'bold' }}>{viewFile.title}</h3>
+          <button onClick={() => setViewFile(null)} style={{ color: 'white', padding: '8px' }}>
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <div style={{ flex: 1, padding: '0 16px 16px' }} onClick={e => e.stopPropagation()}>
+          {embedUrl ? (
+            <iframe
+              src={embedUrl}
+              style={{ width: '100%', height: '100%', border: 'none', borderRadius: '12px', backgroundColor: 'white' }}
+              allow="autoplay"
+              title={viewFile.title}
+            />
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
+              <p>File belum tersedia. Silakan hubungi admin.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderFileList = (files, sectionName) => {
+    if (!files || files.length === 0) return null;
+
+    return (
+      <div className="space-y-2">
+        {files.map((file, idx) => (
+          <motion.div
+            key={idx}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            onClick={() => setViewFile(file)}
+            className="glass-card p-3 flex items-center gap-3 cursor-pointer hover:border-[var(--accent)]"
+          >
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${file.type?.includes('pdf') ? 'bg-red-500/15 text-red-500' :
+              file.type?.includes('gslides') || file.type?.includes('pptx') ? 'bg-orange-500/15 text-orange-500' :
+                'bg-blue-500/15 text-blue-500'
+              }`}>
+              <FileText className="w-5 h-5" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-[var(--text)] text-sm">{file.title}</p>
+              <p className="text-xs text-[var(--text-muted)]">Tap untuk melihat</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-[var(--text-muted)]" />
+          </motion.div>
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className="glass-card p-4 sm:p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <StickyNote className="w-5 h-5 text-[var(--accent)]" />
-        <h3 className="font-bold text-[var(--text)]">Rangkuman</h3>
+    <>
+      <FileViewerModal />
+      <div className="space-y-4">
+        {/* Modul Inti */}
+        {rangkuman?.modulInti?.length > 0 && (
+          <div className="glass-card overflow-hidden">
+            <button
+              onClick={() => toggleSection('modulInti')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-[var(--accent)]" />
+                <span className="font-bold text-[var(--text)]">Modul Inti</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">{rangkuman.modulInti.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.modulInti ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.modulInti && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.modulInti)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Addendum */}
+        {rangkuman?.addendum?.length > 0 && (
+          <div className="glass-card overflow-hidden">
+            <button
+              onClick={() => toggleSection('addendum')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <PlusCircle className="w-5 h-5 text-green-500" />
+                <span className="font-bold text-[var(--text)]">Addendum / Tambahan</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/15 text-green-500">{rangkuman.addendum.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.addendum ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.addendum && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.addendum)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Mentor PPT */}
+        {rangkuman?.mentorPPT?.length > 0 && (
+          <div className="glass-card overflow-hidden">
+            <button
+              onClick={() => toggleSection('mentorPPT')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <Presentation className="w-5 h-5 text-purple-500" />
+                <span className="font-bold text-[var(--text)]">Rangkuman Mentor</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-500">{rangkuman.mentorPPT.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.mentorPPT ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.mentorPPT && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.mentorPPT)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Empty state */}
+        {(!rangkuman || ((!rangkuman.modulInti || rangkuman.modulInti.length === 0) && (!rangkuman.addendum || rangkuman.addendum.length === 0) && (!rangkuman.mentorPPT || rangkuman.mentorPPT.length === 0))) && (
+          <div className="glass-card p-8 text-center">
+            <StickyNote className="w-12 h-12 text-[var(--text-muted)] mx-auto mb-3 opacity-50" />
+            <p className="text-[var(--text-muted)]">Rangkuman akan segera tersedia.</p>
+          </div>
+        )}
       </div>
-      <div className="prose prose-sm max-w-none">
-        <p className="text-[var(--text)] whitespace-pre-wrap leading-relaxed">{rangkumanText}</p>
-      </div>
-    </div>
+    </>
   );
 }
 
 function Materi({ materi, subjectId, progress, updateProgress }) {
   const completed = progress[subjectId]?.materi || [];
-  const mark = (id) => updateProgress(subjectId, 'materi', id);
+  const mark = (idx) => updateProgress(subjectId, 'materi', idx);
+  const [viewFile, setViewFile] = useState(null);
+
+  // Generate embed URL based on file type
+  const getEmbedUrl = (file) => {
+    if (!file.driveId || file.driveId === 'PASTE_FILE_ID_HERE') return null;
+    if (file.type === 'drive-gslides') return `https://docs.google.com/presentation/d/${file.driveId}/embed?start=false&loop=false&delayms=3000`;
+    if (file.type === 'drive-gdoc') return `https://docs.google.com/document/d/${file.driveId}/preview`;
+    return `https://drive.google.com/file/d/${file.driveId}/preview`;
+  };
+
+  const getTypeLabel = (type) => {
+    if (type?.includes('pptx') || type?.includes('gslides')) return 'PPT';
+    if (type?.includes('pdf')) return 'PDF';
+    if (type?.includes('gdoc')) return 'DOC';
+    return type?.toUpperCase() || 'FILE';
+  };
+
+  // File viewer modal
+  const FileViewerModal = () => {
+    if (!viewFile) return null;
+    const embedUrl = getEmbedUrl(viewFile);
+
+    return (
+      <div
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 99999, display: 'flex', flexDirection: 'column' }}
+        onClick={() => setViewFile(null)}
+      >
+        <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>{viewFile.title}</h3>
+          <button onClick={() => setViewFile(null)} style={{ color: 'white', padding: '8px' }}>
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <div style={{ flex: 1, padding: '0 16px 16px' }} onClick={e => e.stopPropagation()}>
+          {embedUrl ? (
+            <iframe
+              src={embedUrl}
+              style={{ width: '100%', height: '100%', border: 'none', borderRadius: '12px', backgroundColor: 'white' }}
+              allow="autoplay"
+              title={viewFile.title}
+            />
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
+              <p>File belum tersedia. Silakan hubungi admin.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className="space-y-3 stagger">
-      {materi.map(m => {
-        const done = completed.includes(m.id);
-        return (
-          <motion.div key={m.id} className="glass-card p-4 flex items-center justify-between animate-slide-up">
-            <div className="flex items-center gap-4">
-              <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${m.type === 'PDF' ? 'bg-red-500/15 text-red-500' : 'bg-orange-500/15 text-orange-500'}`}>
-                <FileText className="w-5 h-5" />
+    <>
+      <FileViewerModal />
+      <div className="space-y-3 stagger">
+        {materi.map((m, idx) => {
+          const done = completed.includes(idx);
+          const typeLabel = getTypeLabel(m.type);
+          const hasFile = m.driveId && m.driveId !== 'PASTE_FILE_ID_HERE';
+
+          return (
+            <motion.div key={idx} className="glass-card p-4 flex items-center justify-between animate-slide-up">
+              <div
+                className={`flex items-center gap-4 flex-1 ${hasFile ? 'cursor-pointer' : ''}`}
+                onClick={() => hasFile && setViewFile(m)}
+              >
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${typeLabel === 'PDF' ? 'bg-red-500/15 text-red-500' :
+                  typeLabel === 'PPT' ? 'bg-orange-500/15 text-orange-500' :
+                    'bg-blue-500/15 text-blue-500'
+                  }`}>
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-medium text-[var(--text)]">{m.title}</p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    {typeLabel} {hasFile ? '• Tap untuk buka' : '• Belum tersedia'}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-medium text-[var(--text)]">{m.title}</p>
-                <p className="text-sm text-[var(--text-muted)]">{m.type}</p>
-              </div>
-            </div>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => mark(m.id)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${done ? 'bg-[var(--success)]/15 text-[var(--success)]' : 'btn-secondary'}`}>
-              {done ? <><Check className="w-4 h-4 inline mr-1" />Selesai</> : 'Tandai Dibaca'}
-            </motion.button>
-          </motion.div>
-        );
-      })}
-    </div>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => mark(idx)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all shrink-0 ${done ? 'bg-[var(--success)]/15 text-[var(--success)]' : 'btn-secondary'}`}>
+                {done ? <><Check className="w-4 h-4 inline mr-1" />Selesai</> : 'Selesai'}
+              </motion.button>
+            </motion.div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
@@ -1607,6 +1834,21 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
   const [time, setTime] = useState(20);
+  const [shuffleKey, setShuffleKey] = useState(0); // Used to trigger re-shuffle
+
+  // Fisher-Yates shuffle algorithm
+  const shuffleArray = (arr) => {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Randomize flashcards and quiz on mount or shuffle key change
+  const shuffledFlashcards = useMemo(() => shuffleArray(flashcards || []), [flashcards, shuffleKey]);
+  const shuffledQuiz = useMemo(() => shuffleArray(quiz || []), [quiz, shuffleKey]);
 
   const toggle = (id) => setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
 
@@ -1616,24 +1858,24 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
     return () => clearInterval(t);
   }, [mode, cur, sel, done]);
 
-  const handleAns = (i) => { if (sel !== null) return; setSel(i); if (quiz && i === quiz[cur]?.answer) setScore(s => s + 1); };
-  const next = () => { if (cur < (quiz?.length || 1) - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
-  const resetQuiz = () => { setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); };
+  const handleAns = (i) => { if (sel !== null) return; setSel(i); if (shuffledQuiz && i === shuffledQuiz[cur]?.answer) setScore(s => s + 1); };
+  const next = () => { if (cur < (shuffledQuiz?.length || 1) - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
+  const resetQuiz = () => { setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); setShuffleKey(k => k + 1); }; // Re-shuffle on reset
 
   // Flashcards View
   if (mode === 'flashcards') {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-[var(--text)]">Flashcards ({flashcards?.length || 0} kartu)</h3>
-          {quiz && quiz.length > 0 && (
+          <h3 className="font-bold text-[var(--text)]">Flashcards ({shuffledFlashcards?.length || 0} kartu)</h3>
+          {shuffledQuiz && shuffledQuiz.length > 0 && (
             <button onClick={() => setMode('quiz')} className="btn btn-primary text-sm">
               Mulai Quiz →
             </button>
           )}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
-          {flashcards?.map(f => (
+          {shuffledFlashcards?.map((f, idx) => (
             <motion.div key={f.id || f.term} whileHover={{ scale: 1.02 }} onClick={() => toggle(f.id || f.term)} className={`flashcard h-52 animate-slide-up ${flipped[f.id || f.term] ? 'flipped' : ''}`}>
               <div className="flashcard-inner">
                 <div className="flashcard-front">
@@ -1660,7 +1902,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
           <ClipboardCheck className="w-10 h-10 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-[var(--text)] mb-2">Quiz Selesai!</h3>
-        <p className="text-4xl font-bold gradient-text mb-4">{score}/{quiz?.length || 0}</p>
+        <p className="text-4xl font-bold gradient-text mb-4">{score}/{shuffledQuiz?.length || 0}</p>
         <div className="flex gap-3 justify-center">
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn btn-secondary">
             ← Ke Flashcards
@@ -1674,14 +1916,14 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
   }
 
   // Quiz View
-  const q = quiz?.[cur];
+  const q = shuffledQuiz?.[cur];
   if (!q) return <div className="text-[var(--text-secondary)]">Quiz tidak tersedia</div>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <button onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn-ghost text-sm">← Ke Flashcards</button>
-        <span className="text-[var(--text-secondary)]">{cur + 1}/{quiz.length}</span>
+        <span className="text-[var(--text-secondary)]">{cur + 1}/{shuffledQuiz.length}</span>
         <span className={`badge ${time <= 5 ? 'badge-warning animate-pulse' : ''}`}><Timer className="w-3 h-3 mr-1" />{time}s</span>
       </div>
       <div className="h-1 bg-[var(--border)] rounded-full overflow-hidden"><div className="timer-bar h-full rounded-full" style={{ width: `${(time / 20) * 100}%` }} /></div>
