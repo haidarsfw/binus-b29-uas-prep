@@ -114,9 +114,10 @@ export const DB = {
                     { title: 'Modul 1: Kepemimpinan (Leadership)', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Pengendalian (Controlling)', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Kewirausahaan & Manajemen Risiko', contentKey: 'modul3', type: 'native' },
+                    { title: 'Modul 4: Strategi & Praktik Manajemen', contentKey: 'modul4', type: 'native' },
                 ],
                 addendum: [
-                    { title: 'Tambahan Detail Teknis (Hafalan Slide)', driveId: '1FyQth89iLyWke7-8cALM4Ln-euCYTIBrHVSFO-Slz-U', type: 'gdocs' },
+                    { title: 'Tambahan Detail Teknis (Hafalan Slide)', contentKey: 'tambahan', type: 'native' },
                 ],
                 mentorPPT: [],
             },

@@ -462,6 +462,220 @@ export const RANGKUMAN_CONTENT = {
                     ]
                 }
             ]
+        },
+        modul4: {
+            title: 'MODUL 4: STRATEGI & PRAKTIK MANAJEMEN',
+            subtitle: 'Mencakup Session 25 & 26',
+            intro: 'Jika Modul 1 bicara soal "Orang" (Leadership) dan Modul 2 bicara soal "Risiko" (Risk), maka Modul ini bicara soal "Arah" (Strategy). Bagaimana kita membawa kapal besar bernama perusahaan ini menuju tujuan di tengah badai persaingan global?',
+            sections: [
+                {
+                    id: 'session25',
+                    title: '🌏 Session 25: Management Practice (Isu Global & Studi Kasus)',
+                    content: [
+                        {
+                            heading: '1. Dinamika Ekonomi Global: Outsourcing vs Offshoring',
+                            text: 'Dalam upaya efisiensi, perusahaan sering memindahkan pekerjaan ke pihak lain. Mahasiswa wajib membedakan dua istilah yang sering tertukar ini:',
+                            subSections: [
+                                {
+                                    title: 'Perbedaan Outsourcing vs Offshoring:',
+                                    items: [
+                                        'Outsourcing: Memindahkan aktivitas non-inti ke pihak eksternal (pihak ketiga) yang lebih ahli. Contoh: Bank menyewa perusahaan jasa keamanan atau cleaning service.',
+                                        'Offshoring: Memindahkan proses bisnis atau produksi ke negara lain yang biaya tenaga kerjanya lebih murah. Contoh: Perusahaan sepatu Amerika membuka pabrik di Vietnam.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '2. Studi Kasus: Starbucks (Controlling the Coffee Experience)',
+                            text: 'Starbucks sebagai contoh emas penerapan Value Chain Management (Rantai Nilai). Bagaimana Starbucks memastikan rasa kopi di New York sama persis dengan di Jakarta?',
+                            subSections: [
+                                {
+                                    title: 'Strategi Starbucks:',
+                                    items: [
+                                        'Kontrol Kualitas dari Hulu ke Hilir: Mengontrol proses dari pemilihan biji kopi Arabika terbaik, proses pemanggangan (roasting), hingga penyeduhan oleh Barista. Ini disebut Integrated Value Chain.',
+                                        'Standar Lingkungan (CSR): Strategi pengurangan sedotan plastik dan sertifikasi toko ramah lingkungan (Greener Stores). Ini bukan sekadar amal, tapi strategi bisnis untuk menjaga citra merek.'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'session26',
+                    title: '⚠️ Session 26: Strategic Management (Manajemen Strategis)',
+                    warning: '[Keluar UAS: Proses Manajemen Strategis & Analisis SWOT]',
+                    content: [
+                        {
+                            heading: '1. Apa itu Manajemen Strategis?',
+                            text: 'Manajemen strategis adalah apa yang dilakukan manajer untuk mengembangkan strategi organisasi. Ini adalah "cetak biru" (blueprint) tentang bagaimana perusahaan akan berbisnis, bagaimana cara menang bersaing, dan bagaimana menarik serta memuaskan pelanggan untuk mencapai tujuan.'
+                        },
+                        {
+                            heading: '2. Enam Langkah Proses Manajemen Strategis',
+                            text: 'Proses ini harus dilakukan secara berurutan, tidak boleh melompat:',
+                            note: '[WAJIB HAFAL URUTAN!]',
+                            subSections: [
+                                {
+                                    title: 'Langkah 1: Identifikasi Misi, Tujuan, dan Strategi Saat Ini',
+                                    items: [
+                                        'Misi: Alasan keberadaan perusahaan. (Contoh: Misi Google adalah mengorganisir informasi dunia).',
+                                        'Visi: Apa yang ingin dicapai di masa depan.'
+                                    ]
+                                },
+                                {
+                                    title: 'Langkah 2: Analisis Eksternal (Peluang & Ancaman)',
+                                    items: [
+                                        'Opportunities (Peluang): Tren positif (misal: naiknya pengguna internet).',
+                                        'Threats (Ancaman): Tren negatif (misal: resesi ekonomi atau pandemi).'
+                                    ]
+                                },
+                                {
+                                    title: 'Langkah 3: Analisis Internal (Kekuatan & Kelemahan)',
+                                    items: [
+                                        'Strengths (Kekuatan): Aset, paten, budaya kerja solid.',
+                                        'Weaknesses (Kelemahan): Teknologi jadul, utang banyak.',
+                                        'Core Competencies: Kekuatan unik yang menjadi senjata utama perusahaan untuk menang.'
+                                    ]
+                                },
+                                {
+                                    title: 'Langkah 4: Merumuskan Strategi (Formulating Strategies)',
+                                    items: [
+                                        'Corporate Strategy: Bisnis apa yang mau kita masuki? (Tumbuh, stabil, atau perampingan).',
+                                        'Competitive Strategy: Bagaimana kita mengalahkan lawan di bisnis tersebut?'
+                                    ]
+                                },
+                                {
+                                    title: 'Langkah 5: Implementasi Strategi',
+                                    items: [
+                                        'Eksekusi rencana: restrukturisasi organisasi, alokasi anggaran, memotivasi karyawan.'
+                                    ]
+                                },
+                                {
+                                    title: 'Langkah 6: Evaluasi Hasil',
+                                    items: [
+                                        'Cek hasilnya. Apakah strategi berhasil? Perlu penyesuaian? (Di sinilah fungsi Controlling masuk kembali).'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '3. Keunggulan Kompetitif (Competitive Advantage)',
+                            text: 'Tujuan akhir strategi adalah menciptakan keunggulan kompetitif, yaitu sesuatu yang membedakan organisasi dari pesaingnya.',
+                            subSections: [
+                                {
+                                    title: 'Tiga Jenis Keunggulan:',
+                                    items: [
+                                        'Kualitas: Menjadi yang terbaik.',
+                                        'Biaya Rendah: Menjadi yang termurah (tanpa mengorbankan kualitas terlalu jauh).',
+                                        'Teknologi/Inovasi: Menjadi yang terdepan.'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '4. Mempertahankan Keunggulan (Sustaining Advantage)',
+                            text: 'Warren Buffett mempopulerkan istilah Economic Moat (Parit Ekonomi). Bayangkan perusahaan adalah sebuah kastil. Parit ini bisa berupa:',
+                            subSections: [
+                                {
+                                    title: 'Contoh Economic Moat:',
+                                    items: [
+                                        'Merek yang sangat kuat (seperti Coca-Cola).',
+                                        'Paten teknologi.',
+                                        'Biaya switching yang tinggi (seperti ekosistem Apple).'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            heading: '5. Strategi First Mover',
+                            text: 'Siapa cepat, dia dapat. Organisasi yang pertama kali membawa inovasi produk ke pasar disebut First Mover.',
+                            subSections: [
+                                {
+                                    title: 'Keuntungan dan Kerugian:',
+                                    items: [
+                                        'Keuntungan: Menguasai pasar lebih dulu, membangun loyalitas merek, menetapkan standar industri.',
+                                        'Kerugian: Biaya riset mahal, risiko produk gagal tinggi, kompetitor bisa meniru dan menyempurnakan (Second Mover Advantage).'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        tambahan: {
+            title: 'TAMBAHAN DETAIL TEKNIS (Hafalan Slide)',
+            subtitle: 'Materi Penting dari Berbagai Sesi',
+            intro: 'Bagian ini berisi poin-poin teknis tambahan yang sering muncul di ujian dan wajib dihafal.',
+            sections: [
+                {
+                    id: 'porter',
+                    title: "1. Lima Kekuatan Porter (Porter's Five Forces) - Session 26",
+                    content: [
+                        {
+                            heading: 'Model Analisis Persaingan Industri',
+                            text: 'Model spesifik untuk menganalisis persaingan industri yang wajib dihafal:',
+                            image: '/porter-five-forces.png',
+                            subSections: [
+                                {
+                                    title: 'Lima Kekuatan Porter:',
+                                    items: [
+                                        'Threat of New Entrants (Barriers to Entry): Ancaman pendatang baru (seberapa mudah orang bikin bisnis saingan?).',
+                                        'Threat of Substitutes: Ancaman produk pengganti (misal: kopi diganti teh).',
+                                        'Bargaining Power of Buyers: Kekuatan tawar pembeli (kalau pembeli sensitif harga, profit tipis).',
+                                        'Bargaining Power of Suppliers: Kekuatan tawar pemasok (kalau pemasok cuma satu, dia bisa main harga).',
+                                        'Current Rivalry: Persaingan sesama pemain lama.'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'businessplan',
+                    title: '2. Struktur Rencana Bisnis (Business Plan Major Areas) - Session 24',
+                    content: [
+                        {
+                            heading: 'Daftar Isi Standar Business Plan',
+                            text: 'Urutan standar yang mungkin ditanya di ujian:',
+                            subSections: [
+                                {
+                                    title: 'Tujuh Bagian Business Plan:',
+                                    items: [
+                                        '1. Executive Summary: Ringkasan eksekutif (dibuat terakhir, ditaruh paling depan).',
+                                        '2. Company Description: Visi, misi, sejarah.',
+                                        '3. Industry Analysis: Analisis pasar.',
+                                        '4. Management Team: Siapa yang menjalankan bisnis.',
+                                        '5. Service/Product Operation: Detail produk.',
+                                        '6. Marketing Strategy: Cara jualan (4P).',
+                                        '7. Financial Plan: Proyeksi keuangan (Rugi/Laba).'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'discipline',
+                    title: '3. Jenis Masalah Disiplin Karyawan - Session 18',
+                    content: [
+                        {
+                            heading: 'Empat Kategori Masalah Disiplin',
+                            text: 'Di Controlling (Modul 2), Employee Theft disebutkan. Di slide Session 18, masalah disiplin dibagi 4 kategori:',
+                            subSections: [
+                                {
+                                    title: 'Empat Kategori:',
+                                    items: [
+                                        'Attendance (Kehadiran): Telat, bolos, sakit palsu.',
+                                        'On-the-Job Behaviors: Mabuk, main judi di kantor, gagal capai target.',
+                                        'Dishonesty (Ketidakjujuran): Mencuri, bohong di CV.',
+                                        'Outside Activities: Mogok kerja ilegal, aktivitas kriminal di luar kantor.'
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     }
 };

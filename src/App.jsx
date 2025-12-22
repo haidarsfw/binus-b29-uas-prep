@@ -1720,6 +1720,18 @@ function Rangkuman({ subjectId }) {
                                 </p>
                               )}
 
+                              {/* Image if exists */}
+                              {item.image && (
+                                <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+                                  <img
+                                    src={item.image}
+                                    alt="Diagram"
+                                    style={{ maxWidth: '100%', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                                    draggable={false}
+                                  />
+                                </div>
+                              )}
+
                               {/* SubSections */}
                               {item.subSections?.map((sub, subIdx) => (
                                 <div key={subIdx} style={{ marginLeft: '16px', marginBottom: '12px' }}>
