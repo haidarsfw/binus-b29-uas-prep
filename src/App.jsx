@@ -1881,17 +1881,6 @@ function KisiKisi({ kisiKisi, kisiKisiNote, subjectId }) {
 
   return (
     <div className="space-y-4">
-      {/* Note from dosen if exists */}
-      {kisiKisiNote && (
-        <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
-          <div className="flex items-center gap-2 mb-1">
-            <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
-            <span className="font-bold text-[var(--text)] text-sm">Catatan Penting</span>
-          </div>
-          <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
-        </div>
-      )}
-
       {/* Kisi-Kisi Content */}
       <div className="glass-card p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
@@ -1933,6 +1922,17 @@ function KisiKisi({ kisiKisi, kisiKisiNote, subjectId }) {
           </ul>
         )}
       </div>
+
+      {/* Note from dosen - placed BELOW kisi-kisi */}
+      {kisiKisiNote && (
+        <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
+          <div className="flex items-center gap-2 mb-1">
+            <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
+            <span className="font-bold text-[var(--text)] text-sm">Catatan Penting dari Dosen</span>
+          </div>
+          <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
+        </div>
+      )}
     </div>
   );
 }
