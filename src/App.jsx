@@ -1565,39 +1565,7 @@ function Rangkuman({ subjectId }) {
     );
   }
 
-  // File viewer modal
-  const FileViewerModal = () => {
-    if (!viewFile) return null;
-    const embedUrl = getEmbedUrl(viewFile);
-
-    return (
-      <div
-        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 99999, display: 'flex', flexDirection: 'column' }}
-        onClick={() => setViewFile(null)}
-      >
-        <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3 style={{ color: 'white', fontWeight: 'bold' }}>{viewFile.title}</h3>
-          <button onClick={() => setViewFile(null)} style={{ color: 'white', padding: '8px' }}>
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-        <div style={{ flex: 1, padding: '0 16px 16px' }} onClick={e => e.stopPropagation()}>
-          {embedUrl ? (
-            <iframe
-              src={embedUrl}
-              style={{ width: '100%', height: '100%', border: 'none', borderRadius: '12px', backgroundColor: 'white' }}
-              allow="autoplay"
-              title={viewFile.title}
-            />
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
-              <p>File belum tersedia. Silakan hubungi admin.</p>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
+  const closeViewer = () => setViewFile(null);
 
   const renderFileList = (files, sectionName) => {
     if (!files || files.length === 0) return null;
@@ -1631,7 +1599,75 @@ function Rangkuman({ subjectId }) {
 
   return (
     <>
-      <FileViewerModal />
+      {/* File Viewer Modal - Direct render to avoid flickering */}
+      {viewFile && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0,0,0,0.95)',
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+          {/* Header */}
+          <div style={{
+            padding: '12px 16px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderBottom: '1px solid rgba(255,255,255,0.1)'
+          }}>
+            <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px', margin: 0 }}>{viewFile.title}</h3>
+            <button
+              type="button"
+              onClick={closeViewer}
+              style={{
+                color: 'white',
+                padding: '10px',
+                background: 'rgba(255,255,255,0.15)',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Iframe Container */}
+          <div style={{ flex: 1, padding: '16px', overflow: 'hidden' }}>
+            {viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
+              <iframe
+                key={viewFile.driveId}
+                src={getEmbedUrl(viewFile)}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  borderRadius: '8px',
+                  backgroundColor: 'white'
+                }}
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title={viewFile.title}
+              />
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
+                <p>File belum tersedia.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-4">
         {/* Modul Inti */}
         {rangkuman?.modulInti?.length > 0 && (
