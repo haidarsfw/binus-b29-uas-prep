@@ -546,8 +546,39 @@ export default function App() {
 
       {/* Settings Modal */}
       {showSettings && (
-        <div className="modal-overlay animate-fade" onClick={() => setShowSettings(false)}>
-          <div className="modal p-6 max-h-[85vh] overflow-y-auto animate-scale" onClick={e => e.stopPropagation()}>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.6)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            padding: '60px 16px 16px 16px',
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch'
+          }}
+          onClick={() => setShowSettings(false)}
+        >
+          <div
+            style={{
+              backgroundColor: dark ? '#1a1a24' : '#ffffff',
+              borderRadius: '20px',
+              width: '100%',
+              maxWidth: '480px',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+              border: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)'
+            }}
+            className="p-6"
+            onClick={e => e.stopPropagation()}
+          >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
               <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
