@@ -1540,7 +1540,11 @@ function Rangkuman({ subjectId }) {
   // Generate embed URL based on file type
   const getEmbedUrl = (file) => {
     if (!file.driveId || file.driveId === 'PASTE_FILE_ID_HERE') return null;
-    // Use Drive preview for all files - works for PPTX, PDF, native Slides/Docs
+    // Google Docs
+    if (file.type === 'gdocs') return `https://docs.google.com/document/d/${file.driveId}/preview`;
+    // Google Slides
+    if (file.type === 'gslides') return `https://docs.google.com/presentation/d/${file.driveId}/embed?start=false&loop=false&delayms=3000`;
+    // Default to Drive preview for PDF and other files
     return `https://drive.google.com/file/d/${file.driveId}/preview`;
   };
 

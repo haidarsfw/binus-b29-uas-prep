@@ -109,6 +109,17 @@ export const DB = {
                 { id: 11, title: 'Sesi 25: Management Practice', driveId: '17uORJbantM8G3gmHxofbK60JOuNfUrtCMCGZHGgYXoc', type: 'gslides', xp: 10 },
                 { id: 12, title: 'Sesi 26: Strategic Management', driveId: '1OsUUicgtzVA9tcXWhCT29ClNIuPROxWD_vQVnI49dsA', type: 'gslides', xp: 15 },
             ],
+            rangkuman: {
+                modulInti: [
+                    { title: 'Modul 1: Kepemimpinan (Leadership)', driveId: '16nZqbddJzFKNvdHdOdl2Tp4M30brMeO7t7v0JvFQZ8c', type: 'gdocs' },
+                    { title: 'Modul 2: Kewirausahaan & Manajemen Risiko', driveId: '19OZpMo8-0Y72_rdOBa8O67wijllMxNNST_xS0ParGqI', type: 'gdocs' },
+                    { title: 'Modul 3: Strategi & Praktik Manajemen', driveId: '1v14Gr6lJ9gtrd2P3_3aYgOROCX6yS_f9i770Z9CeVzE', type: 'gdocs' },
+                ],
+                addendum: [
+                    { title: 'Tambahan Detail Teknis (Hafalan Slide)', driveId: '1FyQth89iLyWke7-8cALM4Ln-euCYTIBrHVSFO-Slz-U', type: 'gdocs' },
+                ],
+                mentorPPT: [],
+            },
             kisiKisi: ['Definisi manajemen', 'POLC', 'Level manajemen', 'Lingkungan bisnis', 'Teori motivasi', 'Gaya kepemimpinan'],
             flashcards: [
                 { id: 1, term: 'POLC', definition: 'Planning, Organizing, Leading, Controlling' },
