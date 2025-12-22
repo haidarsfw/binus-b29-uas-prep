@@ -1698,7 +1698,7 @@ function Rangkuman({ subjectId }) {
                     // Parse the content to add styling to emojis and headers
                     const lines = moduleContent.split('\n');
                     return (
-                      <div style={{ lineHeight: '1.9' }}>
+                      <div style={{ lineHeight: '2' }}>
                         {lines.map((line, idx) => {
                           const trimmedLine = line.trim();
 
@@ -1709,24 +1709,24 @@ function Rangkuman({ subjectId }) {
                                 fontSize: '20px',
                                 fontWeight: 'bold',
                                 color: viewerDarkMode ? '#60a5fa' : '#2563eb',
-                                marginTop: idx > 0 ? '24px' : '0',
-                                marginBottom: '8px'
+                                marginTop: idx > 0 ? '32px' : '0',
+                                marginBottom: '12px'
                               }}>
                                 {trimmedLine}
                               </h1>
                             );
                           }
 
-                          // Section headers (🧠, 🔥, 🌏, ⚠️, 🛡️)
-                          if (/^[🧠🔥🌏🛡️]/.test(trimmedLine)) {
+                          // Session headers (🧠, 🔥, 🌏, 🛡️) OR ⚠️ Session (NOT [Keluar)
+                          if (/^[🧠🔥🌏🛡️]/.test(trimmedLine) || (trimmedLine.startsWith('⚠️') && trimmedLine.includes('Session') && !trimmedLine.includes('[Keluar'))) {
                             return (
                               <h2 key={idx} style={{
                                 fontSize: '17px',
                                 fontWeight: 'bold',
                                 color: viewerDarkMode ? '#fbbf24' : '#d97706',
-                                marginTop: '20px',
-                                marginBottom: '10px',
-                                paddingBottom: '6px',
+                                marginTop: '28px',
+                                marginBottom: '14px',
+                                paddingBottom: '8px',
                                 borderBottom: `1px solid ${viewerDarkMode ? 'rgba(251,191,36,0.3)' : 'rgba(217,119,6,0.3)'}`
                               }}>
                                 {trimmedLine}
@@ -1734,18 +1734,18 @@ function Rangkuman({ subjectId }) {
                             );
                           }
 
-                          // Warning/UAS markers (⚠️)
-                          if (trimmedLine.startsWith('⚠️')) {
+                          // Warning/UAS markers - ONLY ⚠️ [Keluar UAS...] 
+                          if (trimmedLine.startsWith('⚠️') && trimmedLine.includes('[Keluar')) {
                             return (
                               <div key={idx} style={{
                                 fontSize: '14px',
                                 fontWeight: '600',
                                 color: viewerDarkMode ? '#f87171' : '#dc2626',
                                 backgroundColor: viewerDarkMode ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.1)',
-                                padding: '8px 12px',
+                                padding: '10px 14px',
                                 borderRadius: '6px',
-                                marginTop: '12px',
-                                marginBottom: '8px',
+                                marginTop: '16px',
+                                marginBottom: '16px',
                                 borderLeft: `3px solid ${viewerDarkMode ? '#f87171' : '#dc2626'}`
                               }}>
                                 {trimmedLine}
@@ -1760,8 +1760,8 @@ function Rangkuman({ subjectId }) {
                                 fontSize: '15px',
                                 fontWeight: '600',
                                 color: viewerDarkMode ? '#34d399' : '#059669',
-                                marginTop: '16px',
-                                marginBottom: '6px'
+                                marginTop: '20px',
+                                marginBottom: '10px'
                               }}>
                                 {trimmedLine}
                               </h3>
@@ -1775,23 +1775,23 @@ function Rangkuman({ subjectId }) {
                                 fontSize: '13px',
                                 fontStyle: 'italic',
                                 color: viewerDarkMode ? '#9ca3af' : '#6b7280',
-                                marginBottom: '12px'
+                                marginBottom: '16px'
                               }}>
                                 {trimmedLine}
                               </p>
                             );
                           }
 
-                          // Empty lines = spacing
+                          // Empty lines = proper paragraph spacing
                           if (trimmedLine === '') {
-                            return <div key={idx} style={{ height: '12px' }} />;
+                            return <div key={idx} style={{ height: '16px' }} />;
                           }
 
-                          // Regular paragraph
+                          // Regular paragraph with more spacing
                           return (
                             <p key={idx} style={{
                               fontSize: '14px',
-                              marginBottom: '6px',
+                              marginBottom: '12px',
                               color: viewerDarkMode ? '#d1d5db' : '#374151'
                             }}>
                               {trimmedLine}
