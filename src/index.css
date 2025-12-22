@@ -629,11 +629,14 @@ textarea.input {
    ================================================================ */
 .modal-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  z-index: 200;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -643,16 +646,25 @@ textarea.input {
 }
 
 .modal {
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  background: var(--surface-solid, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
   border-radius: 24px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 480px;
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  margin: auto;
+}
+
+.dark .modal {
+  background: #1a1a1f;
+  background: var(--surface-solid, #1a1a1f);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Mobile-specific modal fixes */
@@ -660,12 +672,13 @@ textarea.input {
   .modal-overlay {
     padding: 12px;
     align-items: flex-start;
-    padding-top: 40px;
+    padding-top: 60px;
   }
-  
+
   .modal {
-    max-height: 90vh;
+    max-height: 85vh;
     border-radius: 20px;
+    margin-top: 0;
   }
 }
 
