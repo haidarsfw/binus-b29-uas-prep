@@ -1642,23 +1642,44 @@ function Rangkuman({ subjectId }) {
             </button>
           </div>
 
-          {/* Iframe Container */}
-          <div style={{ flex: 1, padding: '16px', overflow: 'hidden' }}>
+          {/* Iframe Container with Copy Protection Overlay */}
+          <div style={{ flex: 1, padding: '16px', overflow: 'hidden', position: 'relative' }}>
             {viewFile.driveId && viewFile.driveId !== 'PASTE_FILE_ID_HERE' ? (
-              <iframe
-                key={viewFile.driveId}
-                src={getEmbedUrl(viewFile)}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                  borderRadius: '8px',
-                  backgroundColor: 'white'
-                }}
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                title={viewFile.title}
-              />
+              <>
+                <iframe
+                  key={viewFile.driveId}
+                  src={getEmbedUrl(viewFile)}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                    borderRadius: '8px',
+                    backgroundColor: 'white'
+                  }}
+                  allow="autoplay; fullscreen"
+                  allowFullScreen
+                  title={viewFile.title}
+                />
+                {/* Copy Protection Overlay - Blocks selection/copy on iframe */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '16px',
+                    left: '16px',
+                    right: '16px',
+                    bottom: '16px',
+                    borderRadius: '8px',
+                    background: 'transparent',
+                    zIndex: 10,
+                    cursor: 'default'
+                  }}
+                  onContextMenu={e => e.preventDefault()}
+                  onCopy={e => e.preventDefault()}
+                  onCut={e => e.preventDefault()}
+                  onSelectStart={e => e.preventDefault()}
+                  onDragStart={e => e.preventDefault()}
+                />
+              </>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
                 <p>File belum tersedia.</p>
