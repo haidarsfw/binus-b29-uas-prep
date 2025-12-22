@@ -96,10 +96,18 @@ export const DB = {
         },
         intro: {
             materi: [
-                { id: 1, title: 'Pertemuan 1: Konsep Manajemen', type: 'PDF', xp: 10 },
-                { id: 2, title: 'Pertemuan 2: Fungsi POLC', type: 'PPT', xp: 10 },
-                { id: 3, title: 'Pertemuan 3: Lingkungan Bisnis', type: 'PDF', xp: 10 },
-                { id: 4, title: 'Pertemuan 4: Kepemimpinan', type: 'PPT', xp: 15 },
+                { id: 1, title: 'Sesi 15: Leadership Theory', driveId: '1oEVEZInDyOAGwW_aVNbTytyMDxqw26n6', type: 'drive-gslides', xp: 10 },
+                { id: 2, title: 'Sesi 16: Being Effective Leader', driveId: '1JbbLQGTqAAs7Ti3uOE_mRmXvOQolkoIU', type: 'drive-gslides', xp: 10 },
+                { id: 3, title: 'Sesi 17: Monitoring and Controlling I', driveId: '1z7rBmsMF3qVgG1sxbJquesqXlbgJbMk3', type: 'drive-gslides', xp: 10 },
+                { id: 4, title: 'Sesi 18: Managing and Controlling II', driveId: '17uVHouud9lE9YxSzE0hKKdz2ygeXQAYY', type: 'drive-gslides', xp: 10 },
+                { id: 5, title: 'Sesi 19: Identifying Risk', driveId: '1lkT_2qkG1_GfK-DGjqDmThNHiClllxA4', type: 'drive-gslides', xp: 10 },
+                { id: 6, title: 'Sesi 20: Evaluating I', driveId: '1Z8gDIisxD3AxJLPN3ylmtlnBwLI6cRYb', type: 'drive-gslides', xp: 10 },
+                { id: 7, title: 'Sesi 21: Risk Management', driveId: '1RkSBEZfq5T5qK1yw3viqfCQ1SgJNOJ2I', type: 'drive-gslides', xp: 10 },
+                { id: 8, title: 'Sesi 22: Evaluating II', driveId: '1GZY6OTGh83SeOfEb2HveW9R51mqV_UQ2', type: 'drive-gslides', xp: 10 },
+                { id: 9, title: 'Sesi 23: Entrepreneurship', driveId: '1119SDRUhnEA-WD75hmeBbIEWSdYVko6O', type: 'drive-gslides', xp: 10 },
+                { id: 10, title: 'Sesi 24: Starting a Small Business', driveId: '1z6xRzBjcHIxWepq2LZ6tP10JFEINSUdM', type: 'drive-gslides', xp: 10 },
+                { id: 11, title: 'Sesi 25: Management Practice', driveId: '1GaUU2AvqXYgO4mp-EqW_aezrQyzFYcQl', type: 'drive-gslides', xp: 10 },
+                { id: 12, title: 'Sesi 26: Strategic Management', driveId: '1_lZ4uBcRQPWYZBG7Ry4-5346-tnnko2Q', type: 'drive-gslides', xp: 15 },
             ],
             kisiKisi: ['Definisi manajemen', 'POLC', 'Level manajemen', 'Lingkungan bisnis', 'Teori motivasi', 'Gaya kepemimpinan'],
             flashcards: [
