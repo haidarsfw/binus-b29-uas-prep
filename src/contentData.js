@@ -211,11 +211,18 @@ export const CONTENT_DATA = {
         // ============ INTRODUCTION TO MANAGEMENT ============
         intro: {
             materi: [
-                { title: 'Sesi 1: Konsep Dasar Manajemen', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pptx' },
-                { title: 'Sesi 2: Fungsi Manajemen', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pptx' },
-                { title: 'Sesi 3: Lingkungan Bisnis', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pptx' },
-                { title: 'Sesi 4: Pengambilan Keputusan', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pptx' },
-                { title: 'Sesi 5: Kepemimpinan & Motivasi', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pptx' },
+                { title: 'Sesi 15: Leadership Theory', driveId: '1oEVEZInDyOAGwW_aVNbTytyMDxqw26n6', type: 'drive-gslides' },
+                { title: 'Sesi 16: Being Effective Leader', driveId: '1JbbLQGTqAAs7Ti3uOE_mRmXvOQolkoIU', type: 'drive-gslides' },
+                { title: 'Sesi 17: Monitoring and Controlling I', driveId: '1z7rBmsMF3qVgG1sxbJquesqXlbgJbMk3', type: 'drive-gslides' },
+                { title: 'Sesi 18: Managing and Controlling II', driveId: '17uVHouud9lE9YxSzE0hKKdz2ygeXQAYY', type: 'drive-gslides' },
+                { title: 'Sesi 19: Identifying Risk', driveId: '1lkT_2qkG1_GfK-DGjqDmThNHiClllxA4', type: 'drive-gslides' },
+                { title: 'Sesi 20: Evaluating I', driveId: '1Z8gDIisxD3AxJLPN3ylmtlnBwLI6cRYb', type: 'drive-gslides' },
+                { title: 'Sesi 21: Risk Management', driveId: '1RkSBEZfq5T5qK1yw3viqfCQ1SgJNOJ2I', type: 'drive-gslides' },
+                { title: 'Sesi 22: Evaluating II', driveId: '1GZY6OTGh83SeOfEb2HveW9R51mqV_UQ2', type: 'drive-gslides' },
+                { title: 'Sesi 23: Entrepreneurship', driveId: '1119SDRUhnEA-WD75hmeBbIEWSdYVko6O', type: 'drive-gslides' },
+                { title: 'Sesi 24: Starting a Small Business', driveId: '1z6xRzBjcHIxWepq2LZ6tP10JFEINSUdM', type: 'drive-gslides' },
+                { title: 'Sesi 25: Management Practice', driveId: '1GaUU2AvqXYgO4mp-EqW_aezrQyzFYcQl', type: 'drive-gslides' },
+                { title: 'Sesi 26: Strategic Management', driveId: '1_lZ4uBcRQPWYZBG7Ry4-5346-tnnko2Q', type: 'drive-gslides' },
             ],
             rangkuman: {
                 modulInti: [
