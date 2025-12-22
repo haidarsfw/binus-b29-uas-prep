@@ -1827,6 +1827,39 @@ function Rangkuman({ subjectId }) {
                             );
                           }
 
+                          // <img> - Image tag
+                          if (trimmed.startsWith('<img')) {
+                            const srcMatch = trimmed.match(/src="([^"]+)"/);
+                            const altMatch = trimmed.match(/alt="([^"]+)"/);
+                            const src = srcMatch ? srcMatch[1] : '';
+                            const alt = altMatch ? altMatch[1] : 'Image';
+                            return (
+                              <div key={idx} style={{
+                                marginTop: '20px',
+                                marginBottom: '20px',
+                                textAlign: 'center'
+                              }}>
+                                <img
+                                  src={src}
+                                  alt={alt}
+                                  style={{
+                                    maxWidth: '100%',
+                                    borderRadius: '8px',
+                                    boxShadow: viewerDarkMode
+                                      ? '0 4px 12px rgba(0,0,0,0.4)'
+                                      : '0 4px 12px rgba(0,0,0,0.15)'
+                                  }}
+                                />
+                                <p style={{
+                                  fontSize: '12px',
+                                  color: viewerDarkMode ? '#9ca3af' : '#6b7280',
+                                  marginTop: '8px',
+                                  fontStyle: 'italic'
+                                }}>{alt}</p>
+                              </div>
+                            );
+                          }
+
                           // <bullet>...</bullet> - Bullet point
                           if (trimmed.startsWith('<bullet>')) {
                             const content = trimmed.replace(/<\/?bullet>/g, '');

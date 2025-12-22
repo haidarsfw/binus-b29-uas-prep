@@ -321,6 +321,7 @@ Di Bagian 3, saya membahas <b>Competitive Advantage</b>. Di slide Session 26, ad
 <bullet><b>Bargaining Power of Suppliers:</b> Kekuatan tawar pemasok (kalau pemasok bahan baku cuma satu, dia bisa main harga).</bullet>
 <bullet><b>Current Rivalry:</b> Persaingan sesama pemain lama.</bullet>
 
+<img src="/porter-five-forces.png" alt="Porter's Five Forces Diagram" />
 <h3>2. Struktur Rencana Bisnis (<i>Business Plan Major Areas</i>) - Session 24</h3>
 Di Bagian 2, kita bahas Studi Kelayakan. Namun, di PPT Session 24 ada daftar isi standar <b>Business Plan</b> yang mungkin ditanya urutannya:
 <bullet><b>Executive Summary:</b> Ringkasan eksekutif (dibuat terakhir, ditaruh paling depan).</bullet>
