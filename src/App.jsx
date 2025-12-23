@@ -490,7 +490,7 @@ export default function App() {
               <div className="w-7 h-7 sm:w-9 sm:h-9 gradient-accent rounded-xl flex items-center justify-center shadow-md">
                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="font-semibold text-sm sm:text-base text-[var(--text)]">UAS BM B29</span>
+              <span className="font-semibold text-sm sm:text-base text-[var(--text)]">UAS BM-B29</span>
             </div>
           </div>
           <div className="flex items-center gap-0.5 sm:gap-1.5">
@@ -1236,7 +1236,7 @@ function Login({ dark, setDark, onSuccess }) {
             <motion.div initial={{ scale: 0.8, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...smooth, delay: 0.1 }} className="w-20 h-20 gradient-accent rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl glow animate-float">
               <Lock className="w-10 h-10 text-white" />
             </motion.div>
-            <h1 className="text-2xl font-bold gradient-text">UAS BM B29 Prep</h1>
+            <h1 className="text-2xl font-bold gradient-text">UAS BM-B29 StudyApp</h1>
             <p className="text-[var(--text-secondary)] mt-2">Platform Belajar Premium</p>
           </div>
 
