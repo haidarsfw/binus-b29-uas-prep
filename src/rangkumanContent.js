@@ -583,7 +583,80 @@ Menyerahkan pengembangan atau pengelolaan sistem kepada vendor eksternal.
 
 <b>Analisis Keputusan (Make or Buy):</b>
 <bullet><b>Pilih Build (Buat Sendiri/In-house):</b> Jika sistem tersebut adalah Core Competency (rahasia dapur/keunggulan unik) perusahaan yang tidak boleh diketahui orang lain.</bullet>
-<bullet><b>Pilih Buy/Outsource:</b> Jika sistem tersebut adalah fungsi umum (seperti Payroll atau HR) yang bukan keunggulan kompetitif utama, atau jika perusahaan ingin memangkas biaya.</bullet>`
+<bullet><b>Pilih Buy/Outsource:</b> Jika sistem tersebut adalah fungsi umum (seperti Payroll atau HR) yang bukan keunggulan kompetitif utama, atau jika perusahaan ingin memangkas biaya.</bullet>`,
+
+                modul4: `<h1>📘 MODUL 4: KEUNGGULAN OPERASIONAL & INTIMASI PELANGGAN</h1>
+<subtitle><b><i>(Mencakup Session 23 & 24)</i></b></subtitle>
+
+Topik Utama: Bagaimana perusahaan besar mengintegrasikan ribuan proses bisnis yang terpisah-pisah menjadi satu kesatuan mesin yang efisien menggunakan Aplikasi Perusahaan (Enterprise Applications). Relevansi Ujian: Kunci jawaban untuk Soal No. 2 (Study Case) tentang efisiensi operasional.
+
+<h2>⚠️ Session 23: Enterprise Systems (ERP) & Supply Chain Management (SCM)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 2 (Study Case) - Operational Excellence] (Perhatikan baik-baik konsep Integrasi Data dan perbedaan Push vs Pull Model. Ini sering menjadi solusi utama dalam analisis kasus inefisiensi).</warning>
+
+<h3>1. Sistem Perusahaan (Enterprise Resource Planning / ERP)</h3>
+Masalah klasik perusahaan besar adalah "Silo Informasi". Departemen Keuangan punya database sendiri, Gudang punya sendiri, dan Penjualan punya sendiri. Akibatnya, data tidak sinkron.
+
+Enterprise Systems atau ERP hadir untuk menghancurkan silo tersebut. ERP adalah seperangkat modul perangkat lunak terintegrasi dan satu database pusat yang memungkinkan data dibagikan ke seluruh departemen.
+
+<b>Cara Kerja (Integrasi Proses):</b> Ketika seorang sales memasukkan pesanan pelanggan ke dalam sistem ERP:
+<bullet>Data stok di Gudang otomatis berkurang.</bullet>
+<bullet>Jadwal Produksi otomatis diperbarui untuk mengisi ulang stok.</bullet>
+<bullet>Data Keuangan otomatis mencetak faktur tagihan.</bullet>
+<bullet>Departemen SDM bisa menghitung komisi sales tersebut secara real-time.</bullet>
+
+<bullet><b>Nilai Bisnis:</b> Meningkatkan efisiensi operasional, menyediakan informasi real-time untuk pengambilan keputusan, dan menstandardisasi prosedur bisnis di seluruh cabang perusahaan.</bullet>
+
+<h3>2. Manajemen Rantai Pasok (Supply Chain Management / SCM)</h3>
+SCM mengelola hubungan perusahaan dengan pemasok (upstream) hingga distributor dan pelanggan (downstream). Tujuannya adalah mengirimkan produk yang tepat, ke tempat yang tepat, pada waktu yang tepat, dengan biaya terendah.
+
+Dalam studi kasus, sering muncul masalah Inefisiensi Stok. Anda perlu memahami dua konsep ini sebagai solusinya:
+
+<b>A. Efek Cambuk (Bullwhip Effect)</b>
+Ini adalah masalah yang sering terjadi ketika informasi permintaan tidak akurat. Perubahan kecil pada permintaan pelanggan di toko ritel bisa menyebabkan fluktuasi stok yang sangat besar di tingkat distributor dan pabrik.
+<bullet><b>Penyebab:</b> Masing-masing pihak "menimbun" stok pengaman (safety stock) karena takut kehabisan barang.</bullet>
+<bullet><b>Solusi:</b> Sistem SCM memungkinkan semua pihak (pabrik, distributor, toko) melihat data permintaan yang sama secara real-time, sehingga tidak perlu menimbun stok berlebih.</bullet>
+
+<b>B. Model Dorong vs. Tarik (Push vs Pull Model)</b>
+Ini adalah strategi produksi yang sangat krusial:
+
+<b>Push-Based Model (Build-to-Stock):</b>
+<bullet><b>Konsep:</b> Produksi didasarkan pada ramalan/prediksi permintaan. "Kita buat dulu, lalu dorong (push) ke pasar."</bullet>
+<bullet><b>Kelemahan:</b> Jika ramalan salah, gudang akan penuh dengan barang tidak laku (biaya simpan membengkak).</bullet>
+
+<b>Pull-Based Model (Demand-Driven / Build-to-Order):</b>
+<bullet><b>Konsep:</b> Produksi dipicu oleh pesanan nyata pelanggan. "Ada yang beli, baru kita buat/rakit."</bullet>
+<bullet><b>Keunggulan:</b> Stok sangat minim, biaya operasional rendah, dan responsif terhadap perubahan selera pasar.</bullet>
+<bullet><b>Contoh:</b> Dell Computer tidak merakit laptop sampai ada pesanan masuk di website mereka.</bullet>
+
+<h2>⚠️ Session 24: Customer Relationship Management (CRM)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 2 (Study Case) - Customer Intimacy] (Gunakan materi ini jika studi kasus membahas tentang pelanggan yang kabur, komplain yang tidak tertangani, atau strategi meningkatkan penjualan).</warning>
+
+<h3>1. Definisi dan Tujuan CRM</h3>
+Mendapatkan pelanggan baru biayanya 6 kali lebih mahal daripada mempertahankan pelanggan lama. Oleh karena itu, perusahaan menggunakan sistem CRM untuk mengelola hubungan dengan pelanggan guna mencapai Intimasi Pelanggan. CRM merekam setiap interaksi pelanggan dengan perusahaan di semua titik kontak (Touch Points), seperti telepon, email, web, atau kunjungan toko.
+
+<h3>2. Dua Jenis Utama CRM</h3>
+Penting membedakan CRM untuk "kerja lapangan" dan CRM untuk "analisis otak":
+
+<b>A. CRM Operasional (Operational CRM)</b>
+Alat yang berhadapan langsung dengan pelanggan (Customer-facing applications).
+<bullet><b>Sales Force Automation (SFA):</b> Membantu tenaga penjualan mengelola prospek dan kontak pelanggan.</bullet>
+<bullet><b>Customer Service:</b> Modul untuk Call Center agar agen tahu sejarah masalah pelanggan saat menjawab telepon.</bullet>
+<bullet><b>Marketing:</b> Otomatisasi kampanye email atau promosi digital.</bullet>
+
+<b>B. CRM Analitis (Analytical CRM)</b>
+Aplikasi yang menganalisis data pelanggan yang dihasilkan oleh CRM operasional. Tujuannya bukan melayani, tapi memahami perilaku pelanggan.
+<bullet><b>Customer Lifetime Value (CLV):</b> Menghitung berapa total keuntungan yang bisa didapat dari satu pelanggan selama hidupnya. (Penting untuk menentukan siapa pelanggan VIP yang harus dilayani istimewa).</bullet>
+<bullet><b>Churn Rate Analysis:</b> Menganalisis tingkat kehilangan pelanggan. Kenapa mereka pergi? Siapa yang berpotensi pergi bulan depan?</bullet>
+<bullet><b>Teknologi:</b> Menggunakan Data Mining dan OLAP untuk menemukan pola tersembunyi.</bullet>
+
+<h3>3. Tantangan Aplikasi Perusahaan</h3>
+Meskipun canggih, implementasi ERP/SCM/CRM sering gagal. Dalam studi kasus implementasi, perhatikan risiko ini:
+
+<bullet><b>Biaya Mahal:</b> Lisensi software, hardware, dan biaya konsultan bisa mencapai jutaan dolar.</bullet>
+<bullet><b>Perubahan Teknologi:</b> Membutuhkan infrastruktur TI yang kompleks.</bullet>
+<bullet><b>Perubahan Organisasi:</b> Karyawan sering menolak sistem baru (resistance to change) karena harus belajar cara kerja baru. Pelatihan dan manajemen perubahan (Change Management) sangat diperlukan agar sukses.</bullet>`
         }
 };
 
