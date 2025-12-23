@@ -2346,6 +2346,46 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
   const next = () => { if (cur < (shuffledQuiz?.length || 1) - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
   const resetQuiz = () => { setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); setShuffleKey(k => k + 1); }; // Re-shuffle on reset
 
+  // Pagination state for flashcards
+  const [flashPage, setFlashPage] = useState(0);
+
+  // Get cards per page based on screen width
+  const getCardsPerPage = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) return 4; // PC/lg
+      if (window.innerWidth >= 640) return 2; // Tablet/sm
+      return 2; // Mobile
+    }
+    return 4;
+  };
+
+  const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
+
+  // Update cards per page on resize
+  useEffect(() => {
+    const handleResize = () => setCardsPerPage(getCardsPerPage());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Calculate pagination
+  const totalFlashPages = Math.ceil((shuffledFlashcards?.length || 0) / cardsPerPage);
+  const currentFlashcards = shuffledFlashcards?.slice(flashPage * cardsPerPage, (flashPage + 1) * cardsPerPage) || [];
+
+  const nextFlashPage = () => {
+    if (flashPage < totalFlashPages - 1) {
+      setFlashPage(p => p + 1);
+      setFlipped({}); // Reset flipped state
+    }
+  };
+
+  const prevFlashPage = () => {
+    if (flashPage > 0) {
+      setFlashPage(p => p - 1);
+      setFlipped({});
+    }
+  };
+
   // Flashcards View
   if (mode === 'flashcards') {
     return (
@@ -2358,9 +2398,55 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
             </button>
           )}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
-          {shuffledFlashcards?.map((f, idx) => (
-            <motion.div key={f.id || f.term} whileHover={{ scale: 1.02 }} onClick={() => toggle(f.id || f.term)} className={`flashcard h-52 animate-slide-up ${flipped[f.id || f.term] ? 'flipped' : ''}`}>
+
+        {/* Pagination Info */}
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={prevFlashPage}
+            disabled={flashPage === 0}
+            className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-all ${flashPage === 0
+                ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
+                : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
+              }`}
+          >
+            ←
+          </motion.button>
+
+          <div className="text-center">
+            <p className="text-lg font-bold text-[var(--text)]">{flashPage + 1} / {totalFlashPages || 1}</p>
+            <p className="text-xs text-[var(--text-muted)]">
+              Kartu {flashPage * cardsPerPage + 1} - {Math.min((flashPage + 1) * cardsPerPage, shuffledFlashcards?.length || 0)}
+            </p>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={nextFlashPage}
+            disabled={flashPage >= totalFlashPages - 1}
+            className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-all ${flashPage >= totalFlashPages - 1
+                ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
+                : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
+              }`}
+          >
+            →
+          </motion.button>
+        </div>
+
+        {/* Cards Grid */}
+        <div className={`grid gap-4 ${cardsPerPage === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2'}`}>
+          {currentFlashcards.map((f, idx) => (
+            <motion.div
+              key={f.id || f.term}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => toggle(f.id || f.term)}
+              className={`flashcard h-52 ${flipped[f.id || f.term] ? 'flipped' : ''}`}
+            >
               <div className="flashcard-inner">
                 <div className="flashcard-front">
                   <span className="text-xs text-white/60 absolute top-4 left-4 font-medium">TAP TO FLIP</span>
@@ -2368,12 +2454,28 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
                 </div>
                 <div className="flashcard-back">
                   <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-bold">DEFINISI</span>
-                  <p className="text-[var(--text)] leading-relaxed">{f.definition}</p>
+                  <p className="text-[var(--text)] leading-relaxed text-sm">{f.definition}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Quick Navigation Dots */}
+        {totalFlashPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-4">
+            {Array.from({ length: totalFlashPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setFlashPage(i); setFlipped({}); }}
+                className={`w-2.5 h-2.5 rounded-full transition-all ${i === flashPage
+                    ? 'bg-[var(--accent)] w-6'
+                    : 'bg-[var(--border)] hover:bg-[var(--text-muted)]'
+                  }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   }
