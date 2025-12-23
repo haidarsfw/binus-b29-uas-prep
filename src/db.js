@@ -130,6 +130,16 @@ export const DB = {
                 { id: 26, term: 'End-User Development', definition: 'User bikin sistem sendiri (Excel/Access). Cepat, tapi risiko Shadow IT, keamanan rendah, data tidak standar.' },
                 { id: 27, term: 'Outsourcing (Make or Buy)', definition: 'Make (In-house): Jika sistem adalah Core Competency (rahasia dapur). Buy/Outsource: Jika fungsi umum (Payroll/HR) atau ingin pangkas biaya.' },
                 { id: 28, term: 'Mobile App Development', definition: '[ADDENDUM] 1. Native App: Download di Store, cepat, akses fitur HP, mahal. 2. Mobile Web: Website tampilan HP, murah, fitur terbatas. 3. Responsive Design: 1 website otomatis menyesuaikan layar (PC/HP).' },
+                // ===== MODUL 4: ENTERPRISE APPLICATIONS (Session 23-24) =====
+                { id: 29, term: 'Enterprise Systems (ERP)', definition: 'Solusi "Silo Informasi". Satu database pusat terintegrasi. Sales input order -> Gudang, Produksi, Keuangan otomatis update real-time.' },
+                { id: 30, term: 'Bullwhip Effect (SCM)', definition: 'Masalah distorsi informasi permintaan. Perubahan kecil di ritel menyebabkan fluktuasi stok besar di pabrik (penimbunan safety stock). Solusi: Berbagi data real-time.' },
+                { id: 31, term: 'Push-Based Model (Build-to-Stock)', definition: 'Produksi berdasarkan Ramalan/Prediksi. Risiko: Gudang penuh jika ramalan salah.' },
+                { id: 32, term: 'Pull-Based Model (Demand-Driven)', definition: 'Produksi dipicu Pesanan Nyata (Build-to-Order). Cth: Dell. Stok minim, efisien.' },
+                { id: 33, term: 'Upstream vs Downstream SCM', definition: '[ADDENDUM - WAJIB HAFAL] Upstream (Hulu): Hubungan dengan Supplier (Bahan baku). Downstream (Hilir): Hubungan dengan Distributor & Pelanggan (Barang jadi, pengiriman).' },
+                { id: 34, term: 'CRM Operasional', definition: 'Customer-facing. Melayani pelanggan langsung. Cth: SFA (Sales), Call Center, Marketing Automation.' },
+                { id: 35, term: 'CRM Analitis', definition: 'Analisis Data. Tidak melayani langsung, tapi cari pola (CLV, Churn Rate) pakai Data Mining.' },
+                { id: 36, term: 'Social CRM', definition: '[ADDENDUM] Menghubungkan sistem CRM dengan percakapan medsos (Twitter/FB) agar CS bisa respon komplain publik dengan cepat.' },
+                { id: 37, term: 'Customer Lifetime Value (CLV)', definition: 'Metrik CRM Analitis: Total profit yang didapat dari satu pelanggan seumur hidupnya. Menentukan siapa pelanggan VIP.' },
             ],
             essayExam: [{ question: 'Bagaimana ERP meningkatkan efisiensi UMKM?', modelAnswer: 'Integrasi data, otomatisasi, real-time reporting.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
