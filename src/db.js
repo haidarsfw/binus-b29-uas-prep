@@ -112,6 +112,15 @@ export const DB = {
                 { id: 10, term: 'Neural Networks (Jaringan Syaraf Tiruan)', definition: '[TEKNIK AI] Meniru otak biologis (neuron). Jago mengenali pola rumit/visual/non-linear. Solusi untuk Deteksi Penipuan (Fraud) dan Face ID.' },
                 { id: 11, term: 'Algoritma Genetika (Genetic Algorithms)', definition: '[TEKNIK AI] Meniru evolusi (seleksi alam, mutasi) untuk mencari Solusi Optimal dari jutaan kombinasi. Solusi untuk Optimasi Rute Logistik.' },
                 { id: 12, term: 'Agen Cerdas (Intelligent Agents)', definition: 'Software yang bekerja di background untuk tugas spesifik berulang tanpa intervensi manusia. (Cth: Chatbot, Siri, Auto-scheduler).' },
+                // ===== MODUL 2: PENGAMBILAN KEPUTUSAN (Session 19-20) =====
+                { id: 13, term: 'Keputusan Tidak Terstruktur (Unstructured)', definition: 'Level: Manajemen Senior. Masalah baru, non-rutin, butuh intuisi/penilaian. Tidak ada prosedur baku. (Cth: Investasi pabrik baru, Pindah pasar).' },
+                { id: 14, term: 'Keputusan Terstruktur (Structured)', definition: 'Level: Manajemen Operasional. Masalah rutin, berulang, ada SOP jelas. Bisa diotomatisasi. (Cth: Restock barang jika sisa 10).' },
+                { id: 15, term: 'Keputusan Semi-Terstruktur', definition: 'Level: Manajemen Menengah. Campuran prosedur standar dan penilaian manusia. (Cth: Analisis kenapa penjualan wilayah X turun).' },
+                { id: 16, term: "Simon's Model (4 Tahap Keputusan)", definition: '[WAJIB HAFAL URUTAN] 1. Intelligence: Menemukan masalah ("Apa masalahnya?"). 2. Design: Merancang opsi solusi ("Apa pilihannya?"). 3. Choice: Memilih solusi terbaik ("Eksekusi yang mana?"). 4. Implementation: Menjalankan & memantau hasil.' },
+                { id: 17, term: 'Business Intelligence (BI) Ecosystem', definition: 'Payung besar infrastruktur & alat analisis. Elemen: Data (Ops/IoT), Data Warehouse, Analytics Tools, Metode Manajerial (BSC), Platform Pengiriman (Dashboard), UI.' },
+                { id: 18, term: 'Drill-down (Kemampuan BI)', definition: 'Kemampuan melihat detail data dari umum ke khusus. (Nasional -> Provinsi -> Kota -> Toko).' },
+                { id: 19, term: 'Balanced Scorecard (BSC)', definition: '[SANGAT PENTING] Kerangka kerja strategis menyeimbangkan 4 dimensi: 1. Financial: Masa lalu (ROI, Cash). 2. Customer: Pandangan luar (Kepuasan, Retensi). 3. Internal Process: Efisiensi operasi (Produk cacat, Cycle time). 4. Learning & Growth: Masa depan (Skill karyawan, Sistem, Inovasi).' },
+                { id: 20, term: 'Group Decision Support Systems (GDSS)', definition: 'Sistem interaktif untuk memfasilitasi rapat/pemecahan masalah kelompok tak terstruktur. Fitur: Voting elektronik, kuesioner anonim (mencegah dominasi satu orang).' },
             ],
             essayExam: [{ question: 'Bagaimana ERP meningkatkan efisiensi UMKM?', modelAnswer: 'Integrasi data, otomatisasi, real-time reporting.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
