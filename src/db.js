@@ -82,7 +82,22 @@ export const DB = {
                 { id: 4, title: 'Sesi 23-24: Enterprise Applications', driveId: '1_26GBKYRlj5EXgDNvM8rxPwZ42vhzXeq9LJMtGh2phA', type: 'gslides', xp: 10 },
                 { id: 5, title: 'Sesi 25-26: Final Exam Review', driveId: '17aZk_UhptDmOjqIJaa9fNLgvrshXUFxcsX3L0b4vnB8', type: 'gslides', xp: 10 },
             ],
-            kisiKisi: ['Komponen SI', 'Jenis SI: TPS, MIS, DSS, ESS', 'Cloud: SaaS, PaaS, IaaS', 'Big Data', 'E-commerce'],
+            kisiKisi: [
+                {
+                    topic: 'A. MINI CASE (3 Soal)', items: [
+                        'Soal No. 1: E-Commerce - Business Model (E-Commerce: Digital Markets, Digital Goods)',
+                        'Soal No. 2: Knowledge Management (Managing Knowledge and Artificial Intelligence)',
+                        'Soal No. 3: Decision Making (Enhancing Decision Making)'
+                    ]
+                },
+                {
+                    topic: 'B. STUDY CASE (2 Soal)', items: [
+                        'Soal No. 1: Information Systems (Building Information Systems)',
+                        'Soal No. 2: Operational Excellence (Enterprise Applications)'
+                    ]
+                },
+            ],
+            kisiKisiNote: 'Format Ujian: Mini Case 3 Soal + Study Case 2 Soal',
             flashcards: [
                 { id: 1, term: 'ERP', definition: 'Sistem terintegrasi proses bisnis' },
                 { id: 2, term: 'Cloud Computing', definition: 'Layanan IT via internet' },
