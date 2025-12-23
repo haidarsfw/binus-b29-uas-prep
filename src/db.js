@@ -121,6 +121,15 @@ export const DB = {
                 { id: 18, term: 'Drill-down (Kemampuan BI)', definition: 'Kemampuan melihat detail data dari umum ke khusus. (Nasional -> Provinsi -> Kota -> Toko).' },
                 { id: 19, term: 'Balanced Scorecard (BSC)', definition: '[SANGAT PENTING] Kerangka kerja strategis menyeimbangkan 4 dimensi: 1. Financial: Masa lalu (ROI, Cash). 2. Customer: Pandangan luar (Kepuasan, Retensi). 3. Internal Process: Efisiensi operasi (Produk cacat, Cycle time). 4. Learning & Growth: Masa depan (Skill karyawan, Sistem, Inovasi).' },
                 { id: 20, term: 'Group Decision Support Systems (GDSS)', definition: 'Sistem interaktif untuk memfasilitasi rapat/pemecahan masalah kelompok tak terstruktur. Fitur: Voting elektronik, kuesioner anonim (mencegah dominasi satu orang).' },
+                // ===== MODUL 3: MEMBANGUN SISTEM INFORMASI (Session 21-22) =====
+                { id: 21, term: 'SDLC (Waterfall Model)', definition: 'Metode tradisional, bertahap, kaku, formal. Tahapan mengalir ke bawah seperti air terjun.' },
+                { id: 22, term: '6 Tahapan SDLC (Urutan)', definition: '[WAJIB HAFAL URUTAN] 1. Analisis: Diagnosis masalah & Kebutuhan (Feasibility Study). 2. Desain: Blueprint teknis (Logical & Physical). 3. Pemrograman: Coding. 4. Pengujian: Unit, System, & Acceptance Testing. 5. Konversi: Pindah sistem lama ke baru. 6. Produksi & Maintenance: Operasional & perbaikan rutin.' },
+                { id: 23, term: 'Strategi Konversi: Paralel', definition: 'Sistem lama & baru jalan bersamaan. Paling Aman, tapi Paling Mahal (double cost).' },
+                { id: 24, term: 'Strategi Konversi: Direct Cutover', definition: 'Langsung ganti sistem di tanggal tertentu. Paling Murah, tapi Paling Berisiko (jika gagal, lumpuh).' },
+                { id: 25, term: 'Prototyping', definition: 'Metode iteratif (berulang). Buat mockup cepat -> User coba -> Revisi. Cocok jika kebutuhan user abstrak/belum jelas. Risiko: Dokumentasi buruk ("tambal sulam").' },
+                { id: 26, term: 'End-User Development', definition: 'User bikin sistem sendiri (Excel/Access). Cepat, tapi risiko Shadow IT, keamanan rendah, data tidak standar.' },
+                { id: 27, term: 'Outsourcing (Make or Buy)', definition: 'Make (In-house): Jika sistem adalah Core Competency (rahasia dapur). Buy/Outsource: Jika fungsi umum (Payroll/HR) atau ingin pangkas biaya.' },
+                { id: 28, term: 'Mobile App Development', definition: '[ADDENDUM] 1. Native App: Download di Store, cepat, akses fitur HP, mahal. 2. Mobile Web: Website tampilan HP, murah, fitur terbatas. 3. Responsive Design: 1 website otomatis menyesuaikan layar (PC/HP).' },
             ],
             essayExam: [{ question: 'Bagaimana ERP meningkatkan efisiensi UMKM?', modelAnswer: 'Integrasi data, otomatisasi, real-time reporting.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
