@@ -164,6 +164,11 @@ export default function App() {
     localStorage.setItem('font', font);
   }, [dark, theme, font]);
 
+  // Scroll to top when navigating to a subject or back to dashboard
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentSubject]);
+
   useEffect(() => {
     const s = localStorage.getItem('session');
     if (s) {
@@ -2407,8 +2412,8 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
             onClick={prevFlashPage}
             disabled={flashPage === 0}
             className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-all ${flashPage === 0
-                ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
-                : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
+              ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
+              : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
               }`}
           >
             ←
@@ -2427,8 +2432,8 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
             onClick={nextFlashPage}
             disabled={flashPage >= totalFlashPages - 1}
             className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-all ${flashPage >= totalFlashPages - 1
-                ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
-                : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
+              ? 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed opacity-50'
+              : 'bg-[var(--accent)] text-white shadow-lg hover:shadow-xl'
               }`}
           >
             →
@@ -2469,8 +2474,8 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
                 key={i}
                 onClick={() => { setFlashPage(i); setFlipped({}); }}
                 className={`w-2.5 h-2.5 rounded-full transition-all ${i === flashPage
-                    ? 'bg-[var(--accent)] w-6'
-                    : 'bg-[var(--border)] hover:bg-[var(--text-muted)]'
+                  ? 'bg-[var(--accent)] w-6'
+                  : 'bg-[var(--border)] hover:bg-[var(--text-muted)]'
                   }`}
               />
             ))}
