@@ -465,7 +465,7 @@ export default function App() {
                 setShowTerms(true);
               }
               // Show tutorial if first time
-              if (!localStorage.getItem('tutorialCompletedV4')) {
+              if (!localStorage.getItem('tutorialCompletedV5')) {
                 setShowTutorial(true);
               }
             }}
@@ -3102,7 +3102,7 @@ function Tutorial({ onComplete }) {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      localStorage.setItem('tutorialCompletedV4', 'true');
+      localStorage.setItem('tutorialCompletedV5', 'true');
       onComplete();
     }
   };
