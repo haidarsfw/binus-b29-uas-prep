@@ -102,7 +102,9 @@ export const DB = {
                     { title: 'Modul 4: Enterprise Applications (ERP/SCM/CRM)', contentKey: 'modul4', type: 'native' },
                     { title: 'Modul 5: E-Commerce & Pasar Digital', contentKey: 'modul5', type: 'native' },
                 ],
-                addendum: [],
+                addendum: [
+                    { title: 'Addendum: Detail Teknis Hafalan Slide', contentKey: 'tambahan', type: 'native' },
+                ],
                 mentorPPT: [],
             },
         },

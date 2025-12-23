@@ -738,7 +738,70 @@ Bagaimana cara perusahaan mendapatkan uang (Monetisasi)?
 Barang yang bisa dikirim melalui jaringan (Musik, Video, Software, E-book).
 
 <bullet><b>Karakteristik Unik:</b> Biaya produksi unit pertama mahal, tapi biaya produksi unit kedua (bikin salinan/copy) hampir NOL.</bullet>
-<bullet><b>Implikasi:</b> Keuntungannya sangat besar jika volume penjualan tinggi (seperti Microsoft atau Adobe).</bullet>`
+<bullet><b>Implikasi:</b> Keuntungannya sangat besar jika volume penjualan tinggi (seperti Microsoft atau Adobe).</bullet>`,
+
+                tambahan: `<h1>💎 ADDENDUM: DETAIL TEKNIS HAFALAN SLIDE</h1>
+<subtitle><b><i>(Melengkapi Modul 1-5 untuk Study Case & Mini Case)</i></b></subtitle>
+
+Detail tambahan dari PPT yang sering terlewat, tapi bisa jadi kunci jawaban studi kasus.
+
+<h2>💎 ADDENDUM 1: DETAIL SCM (Study Case No. 2)</h2>
+<subtitle>Melengkapi Modul 4 - PPT Sesi 23-24 & PPT Review Sesi 25-26</subtitle>
+
+Di PPT Review, ada pertanyaan spesifik: "Distinguish between upstream and downstream portions of the supply chain." Ini wajib Anda hafal definisinya:
+
+<b>Rantai Pasok Hulu (Upstream Supply Chain):</b>
+<bullet><b>Fokus:</b> Hubungan perusahaan dengan Pemasok (Suppliers).</bullet>
+<bullet><b>Aktivitas:</b> Mengelola bahan baku masuk, negosiasi harga dengan vendor, dan memastikan bahan mentah tersedia.</bullet>
+<bullet><b>Contoh:</b> Pabrik Nike mengelola kiriman karet dan kain dari pemasok di Vietnam.</bullet>
+
+<b>Rantai Pasok Hilir (Downstream Supply Chain):</b>
+<bullet><b>Fokus:</b> Hubungan perusahaan dengan Distributor & Pelanggan.</bullet>
+<bullet><b>Aktivitas:</b> Mengelola barang jadi, gudang distribusi, pengiriman ke toko ritel, hingga sampai ke tangan konsumen.</bullet>
+<bullet><b>Contoh:</b> Nike mengirim sepatu jadi dari pabrik ke toko-toko olahraga di seluruh dunia.</bullet>
+
+<b>Social CRM (Tambahan Fitur CRM):</b>
+Di slide Sesi 24, ada istilah Social CRM. Ini berbeda dengan CRM biasa.
+<bullet><b>Definisi:</b> Menghubungkan data percakapan pelanggan di Media Sosial (Facebook, Twitter/X) langsung ke dalam sistem CRM perusahaan.</bullet>
+<bullet><b>Guna:</b> Agar CS bisa merespons komplain di Twitter dengan cepat dan tercatat di database pusat.</bullet>
+
+<h2>💎 ADDENDUM 2: DETAIL AI & KNOWLEDGE (Mini Case No. 2)</h2>
+<subtitle>Melengkapi Modul 1 - PPT Sesi 17-18</subtitle>
+
+Ada satu jenis sistem spesifik yang terselip di slide untuk pekerja profesional:
+
+<b>Knowledge Work Systems (KWS):</b>
+Berbeda dengan KMS (Manajemen Pengetahuan umum), KWS adalah sistem khusus untuk Pekerja Berpengetahuan (Knowledge Workers) seperti Insinyur, Arsitek, atau Ilmuwan.
+<bullet><b>Contoh Teknologi:</b>
+• CAD (Computer Aided Design): Software untuk arsitek menggambar gedung 3D.
+• VR (Virtual Reality): Untuk simulasi desain mobil atau operasi medis.</bullet>
+<bullet><b>Tips:</b> Jika studi kasusnya tentang "Biro Arsitek" atau "Lab Riset", gunakan istilah KWS ini sebagai solusi.</bullet>
+
+<b>Enterprise Content Management (ECM):</b>
+Disebutkan di slide Sesi 17. Ini adalah sistem untuk mengelola Dokumen Tak Terstruktur.
+<bullet><b>Fokus:</b> Mengarsipkan PDF, Email, Video, dan Dokumen kontrak agar mudah dicari (di-index). Vendor terkenalnya: Oracle, OpenText.</bullet>
+
+<h2>💎 ADDENDUM 3: DETAIL MEMBANGUN SISTEM (Study Case No. 1)</h2>
+<subtitle>Melengkapi Modul 3 - PPT Sesi 21-22</subtitle>
+
+Dalam membangun sistem era sekarang, slide menyinggung tentang pengembangan aplikasi Mobile:
+
+<b>Mobile Web vs. Native App:</b>
+<bullet><b>Native App:</b> Aplikasi yang di-download dari AppStore/PlayStore. Lebih cepat, bisa akses kamera/GPS, tapi mahal bikinnya.</bullet>
+<bullet><b>Mobile Web App:</b> Website yang tampilannya menyesuaikan HP. Lebih murah, tidak perlu download, tapi fitur terbatas.</bullet>
+
+<b>Responsive Web Design:</b>
+<bullet>Teknik mendesain website agar layout-nya otomatis berubah menyesuaikan ukuran layar (PC, Tablet, HP) tanpa perlu membuat dua situs berbeda. Ini solusi efisien dalam Building IS.</bullet>
+
+<h2>💎 ADDENDUM 4: DETAIL E-COMMERCE (Mini Case No. 1)</h2>
+<subtitle>Melengkapi Modul 5 - PPT Review Sesi 25-26</subtitle>
+
+Di slide Review, ada pertanyaan: "Explain the importance of micropayment systems."
+
+<b>Sistem Mikropayment (Micropayment Systems):</b>
+<bullet><b>Definisi:</b> Sistem pembayaran untuk transaksi yang nilainya sangat kecil (receh), biasanya di bawah $10 atau bahkan di bawah Rp 10.000.</bullet>
+<bullet><b>Pentingnya:</b> Tanpa sistem ini, orang malas beli barang murah digital (seperti beli 1 lagu atau 1 item game) karena biaya admin bank mahal.</bullet>
+<bullet><b>Contoh:</b> Pembayaran pakai Pulsa, GoPay, atau Apple Pay untuk beli skin di Mobile Legends.</bullet>`
         }
 };
 
