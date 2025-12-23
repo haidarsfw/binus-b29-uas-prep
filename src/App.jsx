@@ -3089,11 +3089,6 @@ function Tutorial({ onComplete }) {
       icon: Settings,
     },
     {
-      title: 'Admin Panel (Jika Admin) 🛡️',
-      content: 'Admin punya akses ke dashboard khusus: kelola license keys, lihat statistik users, clear data. Fitur lengkap untuk kontrol!',
-      icon: Shield,
-    },
-    {
       title: 'Siap Belajar! 🚀',
       content: 'Semua fitur sudah siap! Jangan lupa set reminder harian, eksplorasi semua materi, dan sukses UAS! Semangat! 💪',
       icon: Sparkles,
