@@ -1236,8 +1236,8 @@ function Login({ dark, setDark, onSuccess }) {
             <motion.div initial={{ scale: 0.8, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...smooth, delay: 0.1 }} className="w-20 h-20 gradient-accent rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl glow animate-float">
               <Lock className="w-10 h-10 text-white" />
             </motion.div>
-            <h1 className="text-2xl font-bold gradient-text">Siap Taklukkan UAS? 🚀</h1>
-            <p className="text-[var(--text-secondary)] mt-2">Platform Belajar Premium B29</p>
+            <h1 className="text-2xl font-bold gradient-text">B29 StudyApp</h1>
+            <p className="text-[var(--text-secondary)] mt-2">UAS Business & Management Ready! 🚀</p>
           </div>
 
           <form onSubmit={submit} className="space-y-4">
