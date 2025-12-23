@@ -13,12 +13,12 @@ export const DB = {
     // JADWAL UJIAN PER KELAS (12-24 Januari 2026)
     // ============================================================
     schedules: {
-        'LA86': { 'Marketing Management': '2026-01-12T08:00:00', 'Human Resources Management': '2026-01-14T10:00:00', 'Management Information Systems': '2026-01-18T13:00:00', 'Introduction to Management': '2026-01-22T08:00:00' },
-        'LB86': { 'Marketing Management': '2026-01-12T10:00:00', 'Human Resources Management': '2026-01-15T13:00:00', 'Management Information Systems': '2026-01-19T08:00:00', 'Introduction to Management': '2026-01-22T10:00:00' },
-        'LC86': { 'Marketing Management': '2026-01-13T13:00:00', 'Human Resources Management': '2026-01-15T08:00:00', 'Management Information Systems': '2026-01-19T10:00:00', 'Introduction to Management': '2026-01-23T13:00:00' },
-        'LD86': { 'Marketing Management': '2026-01-13T15:00:00', 'Human Resources Management': '2026-01-16T15:00:00', 'Management Information Systems': '2026-01-20T15:00:00', 'Introduction to Management': '2026-01-23T15:00:00' },
-        'LE86': { 'Marketing Management': '2026-01-14T17:00:00', 'Human Resources Management': '2026-01-17T17:00:00', 'Management Information Systems': '2026-01-21T17:00:00', 'Introduction to Management': '2026-01-24T17:00:00' },
-        'Other': { 'Marketing Management': '2026-01-14T08:00:00', 'Human Resources Management': '2026-01-17T10:00:00', 'Management Information Systems': '2026-01-21T13:00:00', 'Introduction to Management': '2026-01-24T15:00:00' },
+        'LA86': { 'Marketing Management': '2026-01-12T08:00:00', 'Human Resources Management': '2026-01-14T10:00:00', 'Management Information Systems for Leader': '2026-01-18T13:00:00', 'Introduction to Management and Business': '2026-01-22T08:00:00' },
+        'LB86': { 'Marketing Management': '2026-01-12T10:00:00', 'Human Resources Management': '2026-01-15T13:00:00', 'Management Information Systems for Leader': '2026-01-19T08:00:00', 'Introduction to Management and Business': '2026-01-22T10:00:00' },
+        'LC86': { 'Marketing Management': '2026-01-13T13:00:00', 'Human Resources Management': '2026-01-15T08:00:00', 'Management Information Systems for Leader': '2026-01-19T10:00:00', 'Introduction to Management and Business': '2026-01-23T13:00:00' },
+        'LD86': { 'Marketing Management': '2026-01-13T15:00:00', 'Human Resources Management': '2026-01-16T15:00:00', 'Management Information Systems for Leader': '2026-01-20T15:00:00', 'Introduction to Management and Business': '2026-01-23T15:00:00' },
+        'LE86': { 'Marketing Management': '2026-01-14T17:00:00', 'Human Resources Management': '2026-01-17T17:00:00', 'Management Information Systems for Leader': '2026-01-21T17:00:00', 'Introduction to Management and Business': '2026-01-24T17:00:00' },
+        'Other': { 'Marketing Management': '2026-01-14T08:00:00', 'Human Resources Management': '2026-01-17T10:00:00', 'Management Information Systems for Leader': '2026-01-21T13:00:00', 'Introduction to Management and Business': '2026-01-24T15:00:00' },
     },
 
     classes: ['LA86', 'LB86', 'LC86', 'LD86', 'LE86', 'Other'],
@@ -26,8 +26,8 @@ export const DB = {
     subjects: [
         { id: 'marketing', name: 'Marketing Management', icon: 'TrendingUp', description: 'Strategi pemasaran & marketing mix' },
         { id: 'hr', name: 'Human Resources Management', icon: 'Users', description: 'Rekrutmen & manajemen kinerja' },
-        { id: 'mis', name: 'Management Information Systems', icon: 'Monitor', description: 'Sistem informasi & digital' },
-        { id: 'intro', name: 'Introduction to Management', icon: 'Briefcase', description: 'Dasar-dasar manajemen' },
+        { id: 'mis', name: 'Management Information Systems for Leader', icon: 'Monitor', description: 'Sistem informasi & digital' },
+        { id: 'intro', name: 'Introduction to Management and Business', icon: 'Briefcase', description: 'Dasar-dasar manajemen' },
     ],
 
     content: {
