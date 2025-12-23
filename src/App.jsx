@@ -2007,25 +2007,27 @@ function Rangkuman({ subjectId }) {
                   allowFullScreen
                   title={viewFile.title}
                 />
-                {/* Copy Protection Overlay - Blocks selection/copy on iframe */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    right: '16px',
-                    bottom: '16px',
-                    borderRadius: '8px',
-                    background: 'transparent',
-                    zIndex: 10,
-                    cursor: 'default'
-                  }}
-                  onContextMenu={e => e.preventDefault()}
-                  onCopy={e => e.preventDefault()}
-                  onCut={e => e.preventDefault()}
-                  onSelectStart={e => e.preventDefault()}
-                  onDragStart={e => e.preventDefault()}
-                />
+                {/* Copy Protection Overlay - Only block on slides/docs, not on PDFs (need scroll) */}
+                {viewFile.type !== 'pdf' && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '16px',
+                      left: '16px',
+                      right: '16px',
+                      bottom: '16px',
+                      borderRadius: '8px',
+                      background: 'transparent',
+                      zIndex: 10,
+                      cursor: 'default'
+                    }}
+                    onContextMenu={e => e.preventDefault()}
+                    onCopy={e => e.preventDefault()}
+                    onCut={e => e.preventDefault()}
+                    onSelectStart={e => e.preventDefault()}
+                    onDragStart={e => e.preventDefault()}
+                  />
+                )}
               </>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'white' }}>
@@ -2104,7 +2106,7 @@ function Rangkuman({ subjectId }) {
               <div className="px-4 pb-4">
                 {renderFileList(rangkuman.mentorPPT)}
                 <p className="text-xs text-center text-[var(--text-muted)] mt-3 italic">
-                  ✨ Big thanks to Kak Zarnis! ✨
+                  ✨ big thanks to kak zarnis ! ✨
                 </p>
               </div>
             )}
