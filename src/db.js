@@ -99,10 +99,19 @@ export const DB = {
             ],
             kisiKisiNote: 'Format Ujian: Mini Case 3 Soal + Study Case 2 Soal',
             flashcards: [
-                { id: 1, term: 'ERP', definition: 'Sistem terintegrasi proses bisnis' },
-                { id: 2, term: 'Cloud Computing', definition: 'Layanan IT via internet' },
-                { id: 3, term: 'Big Data', definition: 'Volume, Velocity, Variety' },
-                { id: 4, term: 'SaaS', definition: 'Software as a Service' },
+                // ===== MODUL 1: MANAJEMEN PENGETAHUAN & AI (Session 17-18) =====
+                { id: 1, term: 'Hierarki Data, Informasi, Pengetahuan', definition: '1. Data: Fakta mentah (Cth: "Kopi, Rp 20rb"). 2. Informasi: Data yang diproses jadi pola (Cth: "Penjualan naik jam 10"). 3. Pengetahuan (Knowledge): Wawasan actionable untuk keputusan (Cth: "Tambah staf jam 10").' },
+                { id: 2, term: 'Tacit Knowledge (Pengetahuan Tersirat)', definition: '[PENTING KASUS] Pengetahuan yang "hidup" di kepala karyawan (intuisi, pengalaman). Sulit diformulasikan & hilang jika karyawan keluar. (Cth: Insting negosiasi salesman veteran).' },
+                { id: 3, term: 'Explicit Knowledge (Pengetahuan Tersurat)', definition: 'Pengetahuan yang sudah dikodifikasi/didokumentasikan. Mudah disimpan dan disebar. (Cth: SOP, Resep KFC, Database pelanggan). Tantangan KM: Mengubah Tacit menjadi Explicit.' },
+                { id: 4, term: 'Knowledge Management Value Chain (4 Tahap)', definition: '1. Akuisisi: Berburu pengetahuan (Data mining, riset). 2. Penyimpanan: Digitizing, CMS, Knowledge Base. 3. Penyebaran: Portal, Email, Wiki (Orang tepat dapat info tepat). 4. Penerapan: Menggunakan pengetahuan untuk ubah praktik bisnis (Profit/Efisiensi).' },
+                { id: 5, term: 'Knowledge Work Systems (KWS)', definition: '[ADDENDUM] Sistem khusus untuk "Pekerja Berpengetahuan" (Insinyur/Arsitek). Contoh: CAD (Desain 3D) dan VR (Simulasi). Solusi untuk kasus biro riset/desain.' },
+                { id: 6, term: 'Enterprise Content Management (ECM)', definition: '[ADDENDUM] Sistem untuk mengelola dokumen tak terstruktur (PDF, Email, Video) agar mudah diindeks dan dicari.' },
+                { id: 7, term: 'Artificial Intelligence (AI)', definition: 'Upaya sistem komputer meniru fungsi kognitif manusia (belajar, pola, masalah) untuk memproses data lebih cepat dan akurat, tanpa kesadaran biologis.' },
+                { id: 8, term: 'Sistem Pakar (Expert Systems)', definition: '[TEKNIK AI] AI tertua untuk masalah terstruktur. Menggunakan aturan "JIKA - MAKA" (If-Then Rules). Cocok untuk diagnosa mesin/medis.' },
+                { id: 9, term: 'Machine Learning (Pembelajaran Mesin)', definition: '[TEKNIK AI] Sistem "belajar sendiri" dari ribuan data historis untuk menemukan pola statistik tanpa aturan kaku. Semakin banyak data, semakin pintar. (Cth: Rekomendasi Netflix).' },
+                { id: 10, term: 'Neural Networks (Jaringan Syaraf Tiruan)', definition: '[TEKNIK AI] Meniru otak biologis (neuron). Jago mengenali pola rumit/visual/non-linear. Solusi untuk Deteksi Penipuan (Fraud) dan Face ID.' },
+                { id: 11, term: 'Algoritma Genetika (Genetic Algorithms)', definition: '[TEKNIK AI] Meniru evolusi (seleksi alam, mutasi) untuk mencari Solusi Optimal dari jutaan kombinasi. Solusi untuk Optimasi Rute Logistik.' },
+                { id: 12, term: 'Agen Cerdas (Intelligent Agents)', definition: 'Software yang bekerja di background untuk tugas spesifik berulang tanpa intervensi manusia. (Cth: Chatbot, Siri, Auto-scheduler).' },
             ],
             essayExam: [{ question: 'Bagaimana ERP meningkatkan efisiensi UMKM?', modelAnswer: 'Integrasi data, otomatisasi, real-time reporting.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
