@@ -98,6 +98,7 @@ export const DB = {
                 modulInti: [
                     { title: 'Modul 1: Manajemen Pengetahuan & AI', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Peningkatan Pengambilan Keputusan', contentKey: 'modul2', type: 'native' },
+                    { title: 'Modul 3: Membangun Sistem Informasi', contentKey: 'modul3', type: 'native' },
                 ],
                 addendum: [],
                 mentorPPT: [],

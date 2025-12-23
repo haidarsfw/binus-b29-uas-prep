@@ -503,7 +503,87 @@ Metode tradisional hanya menilai perusahaan dari Laporan Keuangan (Laba/Rugi, Ar
 <h3>4. Group Decision Support Systems (GDSS)</h3>
 Sistem interaktif untuk memfasilitasi pemecahan masalah tidak terstruktur oleh sekelompok pengambil keputusan yang bekerja sama.
 
-<bullet><b>Fungsi:</b> Menyediakan alat kolaborasi (ruang rapat virtual, voting elektronik, kuesioner anonim) agar rapat lebih produktif dan tidak didominasi satu orang saja.</bullet>`
+<bullet><b>Fungsi:</b> Menyediakan alat kolaborasi (ruang rapat virtual, voting elektronik, kuesioner anonim) agar rapat lebih produktif dan tidak didominasi satu orang saja.</bullet>`,
+
+                modul3: `<h1>📘 MODUL 3: MEMBANGUN SISTEM INFORMASI</h1>
+<subtitle><b><i>(Mencakup Session 21 & 22)</i></b></subtitle>
+
+Topik Utama: Metodologi penciptaan sistem baru dan keputusan strategis "Beli atau Buat" (Make or Buy Decision). Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 1 (Study Case).
+
+<h2>⚠️ Session 21: Systems Development Life Cycle (SDLC)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 1 - Building Information Systems] (Hafalkan 6 tahapan ini secara berurutan. Dalam studi kasus, Anda sering diminta merancang tahapan solusi sistem untuk masalah perusahaan).</warning>
+
+<h3>1. Definisi SDLC (Metode Waterfall)</h3>
+SDLC atau siklus hidup pengembangan sistem adalah metode tradisional untuk membangun sistem informasi. Sering disebut Model Air Terjun (Waterfall) karena tahapannya mengalir ke bawah secara berurutan dan tidak bisa kembali ke tahap sebelumnya tanpa biaya besar. Metode ini kaku, formal, namun sangat disiplin.
+
+<h3>2. Enam Tahapan SDLC</h3>
+
+<bullet><b>Analisis Sistem (Systems Analysis):</b>
+• Aktivitas: Mendiagnosis masalah. Tim IT mewawancarai pengguna bisnis untuk menentukan Kebutuhan Informasi.
+• Pertanyaan Kunci: "Apa masalahnya? Apa yang user butuhkan? Apakah sistem baru layak dibuat (Feasibility Study)?"
+• Output: Dokumen Persyaratan Sistem (System Requirements).</bullet>
+
+<bullet><b>Desain Sistem (System Design):</b>
+• Aktivitas: Menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis (Blueprint).
+• Analogi: Seperti arsitek menggambar denah rumah sebelum tukang bekerja.
+• Output: Spesifikasi Desain (Logical & Physical Design).</bullet>
+
+<bullet><b>Pemrograman (Programming):</b>
+• Aktivitas: Tahap penulisan kode (coding). Spesifikasi desain diterjemahkan ke dalam bahasa pemrograman.
+• Output: Kode Perangkat Lunak (Software Code).</bullet>
+
+<bullet><b>Pengujian (Testing):</b>
+• Aktivitas: Memastikan sistem bebas dari kesalahan (bug). Ini tahap krusial yang sering ditanyakan detailnya.
+• Unit Testing: Menguji program per modul kecil secara terpisah.
+• System Testing: Menguji fungsi sistem secara keseluruhan.
+• Acceptance Testing: Pengujian akhir oleh pengguna asli (User). Apakah mereka setuju sistem ini layak dipakai?</bullet>
+
+<bullet><b>Konversi (Conversion):</b>
+• Aktivitas: Proses memindahkan operasi dari sistem lama ke sistem baru. Ada 4 strategi (Lihat poin 3 di bawah).</bullet>
+
+<bullet><b>Produksi dan Pemeliharaan (Production & Maintenance):</b>
+• Aktivitas: Sistem sudah berjalan (Go-Live). Tim IT melakukan perbaikan rutin (patching) dan audit pasca-implementasi.</bullet>
+
+<h3>3. Empat Strategi Konversi (Conversion Strategies)</h3>
+Dalam studi kasus implementasi, Anda harus memilih strategi mana yang paling aman bagi perusahaan:
+
+<bullet><b>Strategi Paralel (Parallel Strategy):</b> Sistem lama dan baru dijalankan bersamaan untuk sementara waktu. Paling aman (jika sistem baru gagal, sistem lama masih ada), tapi paling mahal (double cost).</bullet>
+<bullet><b>Peralihan Langsung (Direct Cutover):</b> Mematikan sistem lama dan langsung menyalakan sistem baru pada tanggal tertentu. Paling murah, tapi sangat berisiko (jika sistem baru gagal, operasional lumpuh).</bullet>
+<bullet><b>Studi Percontohan (Pilot Study):</b> Sistem baru diterapkan di satu area terbatas dulu (misal: Cabang Jakarta saja). Jika sukses, baru ke seluruh cabang.</bullet>
+<bullet><b>Pendekatan Bertahap (Phased Approach):</b> Menerapkan sistem per modul. (Misal: modul Gaji dulu, bulan depan modul Absensi).</bullet>
+
+<h2>⚠️ Session 22: Alternative Systems-Building Approaches</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 1 - Prototyping & Outsourcing] (Soal kasus sering menanyakan: "Saran apa yang Anda berikan jika perusahaan butuh sistem cepat tapi tidak punya tim IT?" Jawabannya ada di sini).</warning>
+
+<h3>1. Prototyping (Pembuatan Prototipe)</h3>
+Berbeda dengan SDLC yang kaku, Prototyping bersifat iteratif (berulang-ulang) dan cepat.
+
+<bullet><b>Proses:</b> Identifikasi kebutuhan dasar -> Buat model kerja (mockup) seadanya -> User mencoba -> User memberi masukan -> Revisi model -> Ulangi sampai user puas.</bullet>
+<bullet><b>Kelebihan:</b> Sangat cocok jika kebutuhan pengguna belum jelas atau abstrak. User lebih senang karena terlibat langsung.</bullet>
+<bullet><b>Kekurangan:</b> Seringkali sistem jadi "tambal sulam" dan dokumentasinya buruk karena dibuat terburu-buru.</bullet>
+
+<h3>2. End-User Development</h3>
+Pengguna bisnis (non-IT) membuat sistem mereka sendiri menggunakan alat sederhana seperti Excel atau Microsoft Access.
+
+<bullet><b>Risiko:</b> Munculnya Shadow IT (Sistem liar yang tidak terkelola oleh departemen IT pusat), data tidak standar, dan risiko keamanan tinggi.</bullet>
+
+<h3>3. Purchasing Solutions (Membeli Paket Software)</h3>
+Perusahaan tidak harus membuat software dari nol. Mereka bisa membeli Paket Perangkat Lunak Aplikasi komersial (seperti SAP, Oracle, Microsoft Dynamics).
+
+<bullet><b>Request for Proposal (RFP):</b> Dokumen formal yang dikirim perusahaan ke vendor-vendor software, berisi daftar pertanyaan dan spesifikasi yang dibutuhkan untuk dinilai mana yang terbaik.</bullet>
+<bullet><b>Kustomisasi:</b> Seringkali software paket tidak 100% cocok. Perusahaan harus memilih: Mengubah cara kerja bisnis agar sesuai software, atau memodifikasi software (mahal & berisiko) agar sesuai bisnis.</bullet>
+
+<h3>4. Outsourcing (Alih Daya)</h3>
+Menyerahkan pengembangan atau pengelolaan sistem kepada vendor eksternal.
+
+<bullet><b>Domestic Outsourcing:</b> Vendor dari negara yang sama.</bullet>
+<bullet><b>Offshore Outsourcing:</b> Vendor dari negara lain (misal: India/Vietnam) karena biaya tenaga kerja murah.</bullet>
+
+<b>Analisis Keputusan (Make or Buy):</b>
+<bullet><b>Pilih Build (Buat Sendiri/In-house):</b> Jika sistem tersebut adalah Core Competency (rahasia dapur/keunggulan unik) perusahaan yang tidak boleh diketahui orang lain.</bullet>
+<bullet><b>Pilih Buy/Outsource:</b> Jika sistem tersebut adalah fungsi umum (seperti Payroll atau HR) yang bukan keunggulan kompetitif utama, atau jika perusahaan ingin memangkas biaya.</bullet>`
         }
 };
 
