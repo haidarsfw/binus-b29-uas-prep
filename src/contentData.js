@@ -230,7 +230,7 @@ export const CONTENT_DATA = {
                 ],
                 addendum: [],
                 mentorPPT: [
-                    { title: 'Rangkuman Mentor Intro Management', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-gslides' },
+                    { title: 'Rangkuman Mentor (by Kak Zarnis)', driveId: '1R1BjF8tTbqH7lB4WX0D2SPkPL4pbfXHd', type: 'drive-pdf' },
                 ],
             },
             kisiKisi: [

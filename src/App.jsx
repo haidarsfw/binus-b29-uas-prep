@@ -2103,6 +2103,9 @@ function Rangkuman({ subjectId }) {
             {expandedSections.mentorPPT && (
               <div className="px-4 pb-4">
                 {renderFileList(rangkuman.mentorPPT)}
+                <p className="text-xs text-center text-[var(--text-muted)] mt-3 italic">
+                  ✨ Big thanks to Kak Zarnis! ✨
+                </p>
               </div>
             )}
           </div>
