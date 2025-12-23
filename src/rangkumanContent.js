@@ -404,7 +404,106 @@ Dalam materi kuliah, terdapat beberapa cabang utama AI yang diterapkan di dunia 
 <bullet><b>Contoh Konkret:</b> Optimasi Rute Logistik. Bagaimana cara truk FedEx mengantar 100 paket ke 100 alamat berbeda dengan bensin paling hemat? Algoritma genetika akan menguji jutaan kombinasi rute sampai menemukan jalur terpendek.</bullet>
 
 <b>Agen Cerdas (Intelligent Agents):</b> Program perangkat lunak yang bekerja di latar belakang tanpa intervensi manusia langsung untuk melaksanakan tugas spesifik, berulang, dan terprediksi.
-<bullet><b>Contoh Konkret:</b> Chatbot layanan pelanggan yang otomatis menjawab pertanyaan dasar, atau fitur "Siri/Google Assistant" yang otomatis menjadwalkan rapat ketika Anda bilang "Set meeting jam 9".</bullet>`
+<bullet><b>Contoh Konkret:</b> Chatbot layanan pelanggan yang otomatis menjawab pertanyaan dasar, atau fitur "Siri/Google Assistant" yang otomatis menjadwalkan rapat ketika Anda bilang "Set meeting jam 9".</bullet>`,
+
+                modul2: `<h1>📘 MODUL 2: PENINGKATAN PENGAMBILAN KEPUTUSAN (ENHANCING DECISION MAKING)</h1>
+<subtitle><b><i>(Mencakup Session 19 & 20)</i></b></subtitle>
+
+Topik Utama: Bagaimana sistem informasi mengubah manajer dari "pengambil keputusan berdasarkan insting" menjadi "pengambil keputusan berbasis data (data-driven)". Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 3 (Mini Case).
+
+<h2>⚠️ Session 19: The Decision Making Process</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 3 - Decision Making Process] (Hafalkan klasifikasi keputusan dan 4 tahapan Simon. Soal kasus biasanya meminta Anda menganalisis masalah yang dihadapi manajer dan menentukan solusi sistem apa yang tepat).</warning>
+
+<h3>1. Tipe Keputusan dan Level Manajemen</h3>
+Dalam sebuah organisasi, tidak semua masalah memiliki bobot yang sama. Sistem informasi dirancang spesifik berdasarkan siapa yang menggunakannya dan jenis keputusan apa yang diambil:
+
+<b>Keputusan Tidak Terstruktur (Unstructured Decisions):</b>
+<bullet><b>Siapa:</b> Manajemen Senior / Eksekutif.</bullet>
+<bullet><b>Karakteristik:</b> Masalah baru, penting, dan tidak rutin. Tidak ada prosedur baku untuk menyelesaikannya. Keputusan ini membutuhkan penilaian, evaluasi, dan wawasan pribadi yang mendalam.</bullet>
+<bullet><b>Contoh Kasus:</b> "Apakah kita harus keluar dari pasar Asia dan pindah ke Afrika?" atau "Apakah kita harus investasi 1 Triliun untuk membangun pabrik mobil listrik?". Tidak ada rumus matematika pasti untuk menjawab ini.</bullet>
+
+<b>Keputusan Terstruktur (Structured Decisions):</b>
+<bullet><b>Siapa:</b> Manajemen Operasional / Supervisor.</bullet>
+<bullet><b>Karakteristik:</b> Masalah berulang dan rutin. Sudah ada prosedur standar (SOP) yang jelas. Jika A terjadi, lakukan B.</bullet>
+<bullet><b>Contoh Kasus:</b> "Stok gudang sisa 10 unit. SOP mengatakan jika sisa 10, otomatis pesan 100 unit lagi ke pemasok." Keputusan ini bisa diotomatisasi komputer.</bullet>
+
+<b>Keputusan Semi-Terstruktur (Semi-structured Decisions):</b>
+<bullet><b>Siapa:</b> Manajemen Menengah (Middle Management).</bullet>
+<bullet><b>Karakteristik:</b> Sebagian masalah ada prosedur jelasnya, tapi sebagian lagi butuh penilaian manusia.</bullet>
+<bullet><b>Contoh Kasus:</b> "Mengapa penjualan di wilayah Jakarta Barat turun bulan ini?" (Data penjualan ada, tapi alasan penurunannya butuh analisis manusia: apakah karena pesaing baru, banjir, atau promosi yang gagal?).</bullet>
+
+<h3>2. Proses Pengambilan Keputusan (Simon's Model)</h3>
+Herbert Simon, peraih Nobel, merumuskan empat tahapan yang dilalui manusia saat memecahkan masalah. Dalam ujian esai, Anda wajib menjelaskan alur ini secara berurutan:
+
+<bullet><b>Intelligence (Kecerdasan/Penelusuran):</b> Ini adalah tahap investigasi. Manajer memindai lingkungan untuk menemukan masalah.
+• Pertanyaan Kunci: "Apa masalah sebenarnya?"
+• Peran Sistem: Sistem BI memberi sinyal peringatan (misal: grafik penjualan tiba-tiba merah).</bullet>
+
+<bullet><b>Design (Perancangan):</b> Tahap menemukan, mengembangkan, dan menganalisis berbagai kemungkinan solusi.
+• Pertanyaan Kunci: "Apa saja pilihan solusi yang kita punya?"
+• Peran Sistem: Sistem DSS (Decision Support System) membantu simulasi. "Kalau kita turunkan harga, profit jadi berapa? Kalau kita tambah iklan, biaya naik berapa?"</bullet>
+
+<bullet><b>Choice (Pemilihan):</b> Tahap memilih satu alternatif solusi terbaik dari opsi yang sudah dirancang.
+• Pertanyaan Kunci: "Solusi mana yang kita eksekusi?"
+• Peran Sistem: Sistem memberikan peringkat prioritas berdasarkan data (misal: Solusi A profitnya paling tinggi dengan risiko terendah).</bullet>
+
+<bullet><b>Implementation (Implementasi):</b> Tahap menjalankan keputusan dan memantau hasilnya.
+• Pertanyaan Kunci: "Apakah solusi ini berhasil memecahkan masalah?"
+• Peran Sistem: Laporan monitoring pasca-implementasi.</bullet>
+
+<h2>⚠️ Session 20: Business Intelligence & Analytics</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 3 - Balanced Scorecard & BI] (Topik Balanced Scorecard sangat sering muncul sebagai alat analisis kinerja perusahaan dalam studi kasus).</warning>
+
+<h3>1. Ekosistem Business Intelligence (BI)</h3>
+Istilah "Business Intelligence" adalah payung besar yang mencakup infrastruktur (gudang data), alat analisis, dan aplikasi untuk membantu pengambilan keputusan. Ada enam elemen dalam lingkungan BI yang ideal:
+
+<bullet><b>Data:</b> Bersumber dari data operasional (transaksi harian), IoT, mesin, hingga data eksternal (pasar saham).</bullet>
+<bullet><b>Infrastruktur BI:</b> Basis data yang kuat untuk menyimpan data tersebut (Data Warehouse).</bullet>
+<bullet><b>Business Analytics Toolset:</b> Alat software untuk mengolah data (misal: Data Mining, OLAP).</bullet>
+<bullet><b>Metode Manajerial:</b> Cara manajer menggunakan data (misal: Balanced Scorecard).</bullet>
+<bullet><b>Platform Pengiriman:</b> Bagaimana hasil analisis ditampilkan (Dashboard, Portal Intranet).</bullet>
+<bullet><b>User Interface:</b> Tampilan visual untuk pengguna.</bullet>
+
+<h3>2. Kemampuan Analitik BI (BI Analytics Capabilities)</h3>
+Sistem BI modern menawarkan berbagai cara penyajian data sesuai kebutuhan pengguna:
+
+<bullet><b>Production Reports:</b> Laporan rutin standar (misal: Laporan penjualan harian).</bullet>
+<bullet><b>Parameterized Reports:</b> Laporan yang bisa difilter (misal: Tampilkan penjualan harian hanya untuk wilayah Bandung).</bullet>
+<bullet><b>Dashboards/Scorecards:</b> Tampilan visual satu layar penuh grafik untuk melihat kinerja sekilas.</bullet>
+<bullet><b>Drill-down:</b> Kemampuan untuk melihat detail. Dari grafik "Penjualan Nasional", diklik menjadi "Per Provinsi", diklik lagi menjadi "Per Kota", hingga "Per Toko".</bullet>
+<bullet><b>Forecasts, Scenarios, Models:</b> Kemampuan prediksi "What-if analysis". (Contoh: Apa yang terjadi pada stok jika penjualan naik 20% bulan depan?).</bullet>
+
+<h3>3. Balanced Scorecard (BSC) - (SANGAT PENTING)</h3>
+Metode tradisional hanya menilai perusahaan dari Laporan Keuangan (Laba/Rugi, Arus Kas). Ini berbahaya karena hanya melihat masa lalu. Balanced Scorecard adalah kerangka kerja strategis yang menyeimbangkan empat dimensi kinerja:
+
+<b>Financial (Keuangan):</b>
+<bullet><b>Fokus:</b> Masa lalu.</bullet>
+<bullet><b>Pertanyaan:</b> "Bagaimana penampilan kita di mata pemegang saham?"</bullet>
+<bullet><b>KPI:</b> Arus kas, ROI (Return on Investment), Pertumbuhan pendapatan.</bullet>
+
+<b>Customer (Pelanggan):</b>
+<bullet><b>Fokus:</b> Eksternal.</bullet>
+<bullet><b>Pertanyaan:</b> "Bagaimana pelanggan melihat kita?"</bullet>
+<bullet><b>KPI:</b> Skor kepuasan pelanggan, tingkat retensi pelanggan, pangsa pasar.</bullet>
+
+<b>Internal Business Process (Proses Bisnis Internal):</b>
+<bullet><b>Fokus:</b> Internal.</bullet>
+<bullet><b>Pertanyaan:</b> "Dalam proses apa kita harus unggul?"</bullet>
+<bullet><b>KPI:</b> Waktu siklus produksi, tingkat produk cacat, efisiensi biaya.</bullet>
+
+<b>Learning & Growth (Pembelajaran & Pertumbuhan):</b>
+<bullet><b>Fokus:</b> Masa depan.</bullet>
+<bullet><b>Pertanyaan:</b> "Bisakah kita terus berinovasi dan menciptakan nilai?"</bullet>
+<bullet><b>KPI:</b> Tingkat kepuasan karyawan, retensi karyawan kunci, investasi pelatihan, kemampuan sistem informasi.</bullet>
+
+<b>Analisis Kasus:</b> Jika sebuah perusahaan profitnya tinggi (Financial bagus), tapi karyawannya banyak yang stres dan keluar (Learning & Growth buruk), maka Balanced Scorecard akan memberi sinyal "MERAH". Masa depan perusahaan terancam karena tidak ada lagi karyawan ahli yang menjalankan bisnis.
+
+<h3>4. Group Decision Support Systems (GDSS)</h3>
+Sistem interaktif untuk memfasilitasi pemecahan masalah tidak terstruktur oleh sekelompok pengambil keputusan yang bekerja sama.
+
+<bullet><b>Fungsi:</b> Menyediakan alat kolaborasi (ruang rapat virtual, voting elektronik, kuesioner anonim) agar rapat lebih produktif dan tidak didominasi satu orang saja.</bullet>`
         }
 };
 

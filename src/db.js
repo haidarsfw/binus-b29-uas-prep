@@ -97,6 +97,7 @@ export const DB = {
             rangkuman: {
                 modulInti: [
                     { title: 'Modul 1: Manajemen Pengetahuan & AI', contentKey: 'modul1', type: 'native' },
+                    { title: 'Modul 2: Peningkatan Pengambilan Keputusan', contentKey: 'modul2', type: 'native' },
                 ],
                 addendum: [],
                 mentorPPT: [],
