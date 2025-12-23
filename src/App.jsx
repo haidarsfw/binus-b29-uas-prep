@@ -2357,11 +2357,11 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
   // Get cards per page based on screen width
   const getCardsPerPage = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth >= 1024) return 4; // PC/lg
-      if (window.innerWidth >= 640) return 2; // Tablet/sm
-      return 2; // Mobile
+      if (window.innerWidth >= 1024) return 8; // PC/iPad (4x2 grid)
+      if (window.innerWidth >= 640) return 8; // Tablet (4x2 grid)
+      return 4; // Mobile (2x2 grid)
     }
-    return 4;
+    return 8;
   };
 
   const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
@@ -2440,8 +2440,8 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
           </motion.button>
         </div>
 
-        {/* Cards Grid */}
-        <div className={`grid gap-4 ${cardsPerPage === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2'}`}>
+        {/* Cards Grid - 4x2 on PC/iPad, 2x2 on Mobile */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
           {currentFlashcards.map((f, idx) => (
             <motion.div
               key={f.id || f.term}
