@@ -105,7 +105,9 @@ export const DB = {
                 addendum: [
                     { title: 'Addendum: Detail Teknis Hafalan Slide', contentKey: 'tambahan', type: 'native' },
                 ],
-                mentorPPT: [],
+                mentorPPT: [
+                    { title: 'Rangkuman Mentor MIS', driveId: '1BVqxMm333yl6p2TahXa-Tdu87RVQz1Wq', type: 'pdf' },
+                ],
             },
         },
         intro: {
