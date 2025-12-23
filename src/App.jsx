@@ -1237,7 +1237,7 @@ function Login({ dark, setDark, onSuccess }) {
               <Lock className="w-10 h-10 text-white" />
             </motion.div>
             <h1 className="text-2xl font-bold gradient-text">UAS BM B29 Study App</h1>
-            <p className="text-[var(--text-secondary)] mt-2">✨ Platform Belajar Premium ✨</p>
+            <p className="text-[var(--text-secondary)] mt-2">🎓 Platform Belajar Premium</p>
           </div>
 
           <form onSubmit={submit} className="space-y-4">
