@@ -656,7 +656,89 @@ Meskipun canggih, implementasi ERP/SCM/CRM sering gagal. Dalam studi kasus imple
 
 <bullet><b>Biaya Mahal:</b> Lisensi software, hardware, dan biaya konsultan bisa mencapai jutaan dolar.</bullet>
 <bullet><b>Perubahan Teknologi:</b> Membutuhkan infrastruktur TI yang kompleks.</bullet>
-<bullet><b>Perubahan Organisasi:</b> Karyawan sering menolak sistem baru (resistance to change) karena harus belajar cara kerja baru. Pelatihan dan manajemen perubahan (Change Management) sangat diperlukan agar sukses.</bullet>`
+<bullet><b>Perubahan Organisasi:</b> Karyawan sering menolak sistem baru (resistance to change) karena harus belajar cara kerja baru. Pelatihan dan manajemen perubahan (Change Management) sangat diperlukan agar sukses.</bullet>`,
+
+                modul5: `<h1>📘 MODUL 5: E-COMMERCE & PASAR DIGITAL</h1>
+<subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
+
+Topik Utama: Transformasi bisnis dari fisik ke digital, model bisnis internet, dan karakteristik unik barang digital. Relevansi Ujian: Kunci jawaban mutlak untuk Soal No. 1 (Mini Case) tentang E-Commerce dan Business Model.
+
+<h2>⚠️ Session 25: E-Commerce (Fitur & Konsep Dasar)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 1 - 8 Fitur Unik E-Commerce] (Hafalkan 8 poin ini. Soal kasus sering bertanya: "Jelaskan karakteristik unik E-Commerce yang diterapkan oleh perusahaan X!").</warning>
+
+<h3>1. Mengapa E-Commerce Berbeda? (The 8 Unique Features)</h3>
+Perdagangan elektronik bukan sekadar memindahkan katalog kertas ke website. Ada 8 dimensi yang membuat teknologi ini revolusioner dibandingkan perdagangan tradisional:
+
+<bullet><b>Ubiquity (Ada di mana-mana):</b>
+• Konsep: Pasar tradisional terbatas fisik dan jam buka. E-Commerce membebaskan pasar dari batasan waktu dan ruang.
+• Aplikasi Kasus: Pelanggan bisa belanja dari kasur jam 2 pagi lewat HP (M-Commerce). "Pasar ada di saku Anda."</bullet>
+
+<bullet><b>Global Reach (Jangkauan Global):</b>
+• Konsep: Teknologi melintasi batas negara tanpa hambatan geografis yang berarti.
+• Aplikasi Kasus: UMKM di Bali bisa menjual kerajinan tangan langsung ke pembeli di New York tanpa harus membuka cabang di AS.</bullet>
+
+<bullet><b>Universal Standards (Standar Universal):</b>
+• Konsep: Standar teknis internet (seperti TCP/IP) sama di seluruh dunia. Ini menekan biaya masuk pasar.
+• Aplikasi Kasus: Beda dengan standar TV atau colokan listrik yang beda-beda tiap negara, website buatan Indonesia pasti bisa dibuka di browser laptop Jepang.</bullet>
+
+<bullet><b>Richness (Kekayaan Konten):</b>
+• Konsep: Kemampuan menyajikan pesan yang kompleks dan padat (teks, audio, video) secara bersamaan.
+• Aplikasi Kasus: Toko baju online tidak hanya pasang foto, tapi juga video model sedang berjalan (catwalk) dan fitur zoom serat kain.</bullet>
+
+<bullet><b>Interactivity (Interaktivitas):</b>
+• Konsep: Terjadi komunikasi dua arah antara penjual dan pembeli.
+• Aplikasi Kasus: Fitur Live Chat dengan CS atau kolom komentar di mana penjual bisa langsung membalas pertanyaan pembeli.</bullet>
+
+<bullet><b>Information Density (Kepadatan Informasi):</b>
+• Konsep: Biaya pencarian informasi menjadi sangat murah, akurat, dan berlimpah.
+• Aplikasi Kasus: Transparansi Harga. Konsumen bisa membandingkan harga iPhone di 10 toko berbeda dalam 5 detik. Penjual tidak bisa lagi mematok harga mahal sembarangan.</bullet>
+
+<bullet><b>Personalization/Customization:</b>
+• Konsep: Pedagang bisa mengubah pesan atau produk sesuai individu spesifik.
+• Aplikasi Kasus: Saat Anda buka Amazon/Tokopedia, halaman depannya beda dengan teman Anda. Isinya disesuaikan dengan sejarah belanja Anda (Personalization). Atau Anda bisa pesan sepatu Nike dengan nama Anda di solnya (Customization).</bullet>
+
+<bullet><b>Social Technology (Teknologi Sosial):</b>
+• Konsep: Pengguna bisa memproduksi konten sendiri (User Generated Content) dan membagikannya ke jejaring sosial.
+• Aplikasi Kasus: Review/Ulasan pembeli di lapak E-Commerce yang memengaruhi keputusan pembeli lain.</bullet>
+
+<h3>2. Konsep Kunci Pasar Digital</h3>
+
+<bullet><b>Information Asymmetry (Asimetri Informasi):</b> Di pasar tradisional, penjual tahu lebih banyak daripada pembeli (misal: dealer mobil bekas tahu mesin rusak, pembeli tidak). Di pasar digital, asimetri ini berkurang drastis karena informasi transparan.</bullet>
+
+<bullet><b>Disintermediation (Penghapusan Perantara):</b> E-Commerce memotong jalur distribusi. Produsen bisa jual langsung ke konsumen.
+• Dampak: Harga barang jadi lebih murah karena tidak perlu bayar distributor atau grosir.</bullet>
+
+<h2>⚠️ Session 26: Business & Revenue Models</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 1 - Business & Revenue Models] (Sangat Penting! Anda pasti diminta mengidentifikasi model bisnis perusahaan di soal studi kasus).</warning>
+
+<h3>1. Model Bisnis E-Commerce (Business Models)</h3>
+Bagaimana cara perusahaan memposisikan dirinya di internet?
+
+<bullet><b>E-tailer:</b> Toko ritel versi online. Menjual produk fisik langsung ke konsumen. (Contoh: Amazon, Lazada, JD.ID).</bullet>
+<bullet><b>Transaction Broker:</b> Memproses transaksi online dan mengambil fee, biasanya menghemat waktu/uang user. (Contoh: Traveloka, Expedia, Gojek).</bullet>
+<bullet><b>Market Creator:</b> Menyediakan platform digital tempat bertemunya penjual dan pembeli. Mereka tidak punya barang, cuma punya lapak. (Contoh: Tokopedia, Shopee, eBay).</bullet>
+<bullet><b>Content Provider:</b> Mendistribusikan konten informasi, musik, video, atau berita. (Contoh: Netflix, Spotify, Detik.com).</bullet>
+<bullet><b>Community Provider:</b> Menyediakan lingkungan online untuk orang berkumpul. (Contoh: Facebook, LinkedIn, Kaskus).</bullet>
+<bullet><b>Portal:</b> Pintu gerbang masuk ke web yang menyediakan paket layanan lengkap (berita, email, search). (Contoh: Yahoo, MSN).</bullet>
+<bullet><b>Service Provider:</b> Menjual jasa atau aplikasi secara online. (Contoh: Google Apps, Salesforce/SaaS).</bullet>
+
+<h3>2. Model Pendapatan (Revenue Models)</h3>
+Bagaimana cara perusahaan mendapatkan uang (Monetisasi)?
+
+<bullet><b>Advertising Revenue Model:</b> Memberikan konten gratis, uangnya dari pengiklan. (Contoh: Google, Facebook, Portal Berita).</bullet>
+<bullet><b>Sales Revenue Model:</b> Dapat uang dari menjual barang/jasa/konten. (Contoh: Amazon, Apple iTunes).</bullet>
+<bullet><b>Subscription Revenue Model:</b> Mengenakan biaya langganan rutin (bulanan/tahunan) untuk akses layanan. (Contoh: Netflix, Spotify Premium, Adobe CC).</bullet>
+<bullet><b>Free/Freemium Revenue Model:</b> Layanan dasar gratis, tapi fitur canggih/premium harus bayar. Tujuannya menarik massa dulu. (Contoh: Spotify Free, Game Online, LinkedIn).</bullet>
+<bullet><b>Transaction Fee Revenue Model:</b> Mengambil komisi sekian persen dari setiap transaksi yang terjadi di platform. (Contoh: eBay, Tokopedia (Power Merchant), GoFood).</bullet>
+<bullet><b>Affiliate Revenue Model:</b> Dapat komisi karena merujuk pengunjung ke situs lain (Referral). (Contoh: Blogger yang menaruh link produk Shopee).</bullet>
+
+<h3>3. Barang Digital (Digital Goods)</h3>
+Barang yang bisa dikirim melalui jaringan (Musik, Video, Software, E-book).
+
+<bullet><b>Karakteristik Unik:</b> Biaya produksi unit pertama mahal, tapi biaya produksi unit kedua (bikin salinan/copy) hampir NOL.</bullet>
+<bullet><b>Implikasi:</b> Keuntungannya sangat besar jika volume penjualan tinggi (seperti Microsoft atau Adobe).</bullet>`
         }
 };
 

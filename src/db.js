@@ -100,6 +100,7 @@ export const DB = {
                     { title: 'Modul 2: Peningkatan Pengambilan Keputusan', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Membangun Sistem Informasi', contentKey: 'modul3', type: 'native' },
                     { title: 'Modul 4: Enterprise Applications (ERP/SCM/CRM)', contentKey: 'modul4', type: 'native' },
+                    { title: 'Modul 5: E-Commerce & Pasar Digital', contentKey: 'modul5', type: 'native' },
                 ],
                 addendum: [],
                 mentorPPT: [],
