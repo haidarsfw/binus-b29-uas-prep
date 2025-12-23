@@ -94,6 +94,13 @@ export const DB = {
                 { question: 'SaaS adalah...', options: ['System', 'Software', 'Storage', 'Security'], answer: 1, xp: 5 },
                 { question: 'Velocity dalam Big Data adalah...', options: ['Volume', 'Variety', 'Kecepatan', 'Veracity'], answer: 2, xp: 5 },
             ],
+            rangkuman: {
+                modulInti: [
+                    { title: 'Modul 1: Manajemen Pengetahuan & AI', contentKey: 'modul1', type: 'native' },
+                ],
+                addendum: [],
+                mentorPPT: [],
+            },
         },
         intro: {
             materi: [
