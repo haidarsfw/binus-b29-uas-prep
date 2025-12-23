@@ -244,23 +244,184 @@ export const CONTENT_DATA = {
                 'Etika bisnis dan tanggung jawab sosial perusahaan (CSR)',
             ],
             flashcards: [
-                { term: 'POLC', definition: 'Empat fungsi manajemen: Planning (perencanaan), Organizing (pengorganisasian), Leading (kepemimpinan), Controlling (pengendalian)' },
-                { term: 'Stakeholder', definition: 'Individu atau kelompok yang memiliki kepentingan terhadap organisasi, termasuk karyawan, pelanggan, investor, dan masyarakat' },
-                { term: 'SWOT Analysis', definition: 'Alat analisis strategis: Strengths (kekuatan), Weaknesses (kelemahan), Opportunities (peluang), Threats (ancaman)' },
-                { term: 'Corporate Social Responsibility', definition: 'Komitmen perusahaan untuk berkontribusi pada pembangunan ekonomi berkelanjutan sambil memperhatikan dampak sosial dan lingkungan' },
-                { term: 'Hierarchy of Needs', definition: 'Teori Maslow tentang lima tingkat kebutuhan manusia: fisiologis, keamanan, sosial, penghargaan, dan aktualisasi diri' },
-                { term: 'Theory X & Y', definition: 'Teori McGregor: X (karyawan malas, perlu kontrol ketat) vs Y (karyawan self-motivated, suka tanggung jawab)' },
-                { term: 'Laissez-faire Leadership', definition: 'Gaya kepemimpinan yang memberikan kebebasan penuh kepada bawahan untuk mengambil keputusan' },
-                { term: 'Herzberg Two-Factor Theory', definition: 'Teori motivasi: Hygiene Factors (mencegah ketidakpuasan) dan Motivator Factors (meningkatkan kepuasan)' },
+                // ===== MODUL 1: KEPEMIMPINAN (Session 15-16) =====
+                // Definisi
+                { term: 'Pemimpin (Leader)', definition: 'Individu yang memiliki kemampuan untuk memengaruhi orang lain dan memegang otoritas manajerial' },
+                { term: 'Kepemimpinan (Leadership)', definition: 'Proses memengaruhi sekelompok orang untuk mencapai tujuan bersama' },
+
+                // Teori Sifat
+                { term: 'Trait Theories', definition: 'Teori yang berfokus pada identifikasi karakteristik fisik atau kepribadian yang membedakan pemimpin dari bukan pemimpin (era 1920-1930an)' },
+
+                // Teori Perilaku - Iowa
+                { term: 'Gaya Autokratis', definition: 'Pemimpin memusatkan wewenang, mendikte metode kerja, dan membatasi partisipasi bawahan' },
+                { term: 'Gaya Demokratis', definition: 'Pemimpin melibatkan karyawan dalam pengambilan keputusan dan mendelegasikan wewenang. Menghasilkan kepuasan kerja lebih tinggi' },
+                { term: 'Gaya Laissez-faire', definition: 'Pemimpin memberikan kebebasan total kepada kelompok untuk membuat keputusan. Seringkali tidak efektif karena kurangnya arahan' },
+
+                // Teori Perilaku - Ohio State
+                { term: 'Initiating Structure (Orientasi Tugas)', definition: 'Sejauh mana pemimpin mendefinisikan peran, menetapkan target, dan mengorganisir pekerjaan' },
+                { term: 'Consideration (Orientasi Hubungan)', definition: 'Sejauh mana pemimpin membangun hubungan kerja berdasarkan kepercayaan timbal balik dan menghargai perasaan bawahan' },
+
+                // SLT
+                { term: 'Situational Leadership Theory (SLT)', definition: 'Teori Hersey & Blanchard: kepemimpinan efektif bergantung pada penyesuaian gaya pemimpin dengan Kesiapan (Readiness) pengikut' },
+                { term: 'R1 - Telling', definition: 'Pengikut Tidak Mampu & Tidak Mau → Pemimpin memberikan instruksi spesifik dan pengawasan ketat' },
+                { term: 'R2 - Selling', definition: 'Pengikut Tidak Mampu tapi Mau → Pemimpin menjelaskan keputusan dan memberikan kesempatan bertanya' },
+                { term: 'R3 - Participating', definition: 'Pengikut Mampu tapi Tidak Mau/Ragu → Pemimpin berbagi ide dan memfasilitasi pengambilan keputusan' },
+                { term: 'R4 - Delegating', definition: 'Pengikut Mampu & Mau → Pemimpin menyerahkan tanggung jawab keputusan dan pelaksanaan sepenuhnya' },
+
+                // Path-Goal Theory
+                { term: 'Path-Goal Theory', definition: 'Teori yang menyatakan tugas pemimpin adalah membantu pengikut mencapai tujuan dengan memberikan arahan/dukungan. Pemimpin sebagai "pembuka jalan"' },
+
+                // LMX Theory
+                { term: 'In-Group (LMX)', definition: 'Kelompok yang dipercaya pemimpin, mendapat perhatian lebih, dan sering mendapat tugas istimewa' },
+                { term: 'Out-Group (LMX)', definition: 'Kelompok yang hanya menjalankan tugas sesuai deskripsi formal dengan hubungan terbatas dengan pemimpin' },
+
+                // 5 Sources of Power
+                { term: 'Legitimate Power', definition: 'Kekuasaan yang berasal dari posisi formal dalam hierarki organisasi' },
+                { term: 'Coercive Power', definition: 'Kekuasaan berdasarkan rasa takut atau kemampuan menghukum (memecat, menunda promosi)' },
+                { term: 'Reward Power', definition: 'Kekuasaan untuk memberikan penghargaan atau insentif yang bernilai bagi orang lain' },
+                { term: 'Expert Power', definition: 'Kekuasaan berdasarkan keahlian, keterampilan khusus, atau pengetahuan mendalam' },
+                { term: 'Referent Power', definition: 'Kekuasaan yang muncul karena orang lain mengagumi atau ingin meniru karakteristik pribadi pemimpin (karisma)' },
+
+                // Trust Dimensions
+                { term: '5 Dimensi Kepercayaan', definition: 'Integritas (kejujuran), Kompetensi (skill), Konsistensi (keandalan), Loyalitas (melindungi), Keterbukaan (berbagi informasi)' },
+
+                // ===== MODUL 2: PENGENDALIAN (Session 17-18) =====
+                { term: 'Controlling (Pengendalian)', definition: 'Proses manajemen yang melibatkan pemantauan (monitoring), perbandingan (comparing), dan perbaikan (correcting) kinerja kerja' },
+                { term: '3 Alasan Pentingnya Controlling', definition: 'Planning Link (feedback rencana), Empowering Employees (delegasi dgn kontrol), Protecting Workplace (lindungi aset)' },
+
+                // Control Process
+                { term: 'Langkah 1: Measuring', definition: 'Mengukur kinerja aktual melalui observasi langsung (MBWA), laporan statistik, laporan lisan, atau laporan tertulis' },
+                { term: 'Range of Variation', definition: 'Kisaran variasi yang dapat diterima saat membandingkan kinerja aktual dengan standar' },
+                { term: 'Langkah 3: Taking Managerial Action', definition: '3 opsi: Do Nothing (sesuai standar), Correct Performance (perbaiki), Revise Standard (ubah target)' },
+                { term: 'Immediate vs Basic Corrective Action', definition: 'Immediate: padamkan masalah saat itu. Basic: analisis akar penyebab agar tidak terulang' },
+
+                // Financial Controls
+                { term: 'Rasio Likuiditas', definition: 'Mengukur kemampuan perusahaan membayar utang jangka pendek. Contoh: Current Ratio' },
+                { term: 'Rasio Leverage', definition: 'Mengukur penggunaan utang untuk membiayai aset. Contoh: Debt to Assets Ratio' },
+                { term: 'Rasio Aktivitas', definition: 'Mengukur efisiensi penggunaan aset. Contoh: Inventory Turnover' },
+                { term: 'Rasio Profitabilitas', definition: 'Mengukur efektivitas menghasilkan laba. Contoh: Return on Investment (ROI)' },
+
+                // Balanced Scorecard
+                { term: 'Balanced Scorecard', definition: '4 perspektif evaluasi: Keuangan, Pelanggan, Proses Internal, Pembelajaran & Pertumbuhan (People/Innovation)' },
+                { term: 'Benchmarking', definition: 'Proses pencarian praktik terbaik (best practices) dari pesaing atau non-pesaing untuk dijadikan referensi perbaikan' },
+                { term: 'Employee Theft', definition: 'Pengambilan properti perusahaan tanpa izin: uang, barang kantor, atau "pencurian waktu" (main sosmed saat kerja)' },
+
+                // ===== MODUL 3: KEWIRAUSAHAAN (Session 19-22) =====
+                { term: 'Small Business vs Entrepreneurship', definition: 'Small Business: stabilitas, risiko sebagai ancaman. Entrepreneur: inovasi, growth, risiko sebagai peluang' },
+                { term: '4 Proses Kewirausahaan', definition: 'Eksplorasi Konteks → Identifikasi Peluang → Memulai Usaha (Start) → Mengelola Usaha (Manage)' },
+                { term: 'Feasibility Study', definition: 'Studi kelayakan sebelum investasi: analisis Kompetitor (differentiation) dan Pembiayaan (sumber modal)' },
+                { term: 'Angel Investor', definition: 'Individu kaya yang berinvestasi di tahap awal startup' },
+                { term: 'Venture Capital', definition: 'Perusahaan investasi profesional yang mendanai startup dengan potensi pertumbuhan tinggi' },
+
+                // Legal Forms
+                { term: 'Sole Proprietorship', definition: 'Bisnis dimiliki 1 orang. Kelebihan: mudah didirikan. Kekurangan: Unlimited Liability (harta pribadi ikut disita)' },
+                { term: 'Partnership', definition: 'Dimiliki 2+ orang. Kelebihan: kombinasi modal & keahlian. Kekurangan: potensi konflik, unlimited liability' },
+                { term: 'Corporation (C-Corp)', definition: 'Badan hukum terpisah. Kelebihan: Limited Liability. Kekurangan: biaya mahal, Double Taxation (pajak perusahaan + dividen)' },
+                { term: 'LLC (Limited Liability Company)', definition: 'Bentuk hybrid: pajak fleksibel seperti Partnership + perlindungan hukum seperti Corporation' },
+
+                // Risk Perception
+                { term: 'Risk Avoider vs Risk Seeker', definition: 'Avoider: fokus sisi negatif. Seeker: fokus keuntungan positif. Kunci: Calculated Risk (kelola risiko)' },
+
+                // Peter Drucker - Sources of Opportunity
+                { term: 'The Unexpected (Drucker)', definition: 'Sumber peluang dari sukses/gagal yang tidak diduga. Contoh: Post-it Note dari kegagalan lem kuat' },
+                { term: 'The Incongruous (Drucker)', definition: 'Ketidakcocokan antara "seharusnya" vs realita. Contoh: streaming muncul karena ketidaknyamanan sewa DVD' },
+                { term: 'Demographics (Drucker)', definition: 'Perubahan struktur penduduk. Contoh: populasi menua buka peluang bisnis kesehatan lansia' },
+                { term: 'Changes in Perception (Drucker)', definition: 'Perubahan cara pandang masyarakat. Contoh: gaya hidup sehat memicu bisnis katering diet' },
+
+                // Office Politics
+                { term: 'Politik Organisasi', definition: 'Realita: organisasi adalah entitas politis karena adanya Potensi Konflik atas Sumber Daya (anggaran, jabatan, fasilitas terbatas)' },
+                { term: '3 Strategi Politik Kantor', definition: 'Networking, Hindari Tainted Members, Support Your Boss (dukung atasan agar karir naik bersama)' },
+
+                // Motivation Theories
+                { term: 'Hierarki Maslow', definition: '5 tingkat: Fisiologis → Keamanan (Safety) → Sosial → Penghargaan (Esteem) → Aktualisasi Diri' },
+                { term: 'Teori Dua Faktor Herzberg', definition: 'Hygiene Factors (ekstrinsik: gaji) = cegah ketidakpuasan. Motivator Factors (intrinsik: prestasi) = tingkatkan kepuasan' },
+                { term: 'Equity Theory', definition: 'Karyawan membandingkan (Input:Output) diri vs orang lain. Ketidakadilan = malas, absen, resign' },
+                { term: 'Expectancy Theory', definition: '3 keyakinan: Expectancy (bisa capai target) → Instrumentality (pasti dapat reward) → Valence (reward menarik)' },
+
+                // ===== MODUL 4: STRATEGI (Session 25-26) =====
+                { term: 'Outsourcing', definition: 'Memindahkan aktivitas non-inti ke pihak eksternal yang lebih ahli. Contoh: bank sewa jasa keamanan' },
+                { term: 'Offshoring', definition: 'Memindahkan proses bisnis/produksi ke negara lain (biaya tenaga kerja murah). Contoh: pabrik sepatu ke Vietnam' },
+                { term: 'Value Chain Management', definition: 'Rantai Nilai: kontrol proses dari hulu ke hilir. Contoh: Starbucks kontrol dari petani kopi hingga barista' },
+                { term: 'Integrated Value Chain (Starbucks)', definition: 'Kontrol kualitas dari pemilihan biji kopi Arabika, roasting di fasilitas khusus, hingga penyeduhan barista' },
+
+                // Strategic Management
+                { term: 'Manajemen Strategis', definition: 'Cetak biru (blueprint) tentang bagaimana perusahaan berbisnis, menang bersaing, dan memuaskan pelanggan' },
+                { term: '6 Langkah Manajemen Strategis', definition: '1.Identifikasi Misi → 2.Analisis Eksternal (O/T) → 3.Analisis Internal (S/W) → 4.Rumus Strategi → 5.Implementasi → 6.Evaluasi' },
+                { term: 'Misi vs Visi', definition: 'Misi: alasan keberadaan perusahaan (sekarang). Visi: apa yang ingin dicapai (masa depan)' },
+                { term: 'Analisis SWOT', definition: 'Gabungan analisis eksternal (Opportunities, Threats) dan internal (Strengths, Weaknesses)' },
+                { term: 'Core Competencies', definition: 'Kekuatan unik yang menjadi senjata utama perusahaan untuk menang bersaing' },
+                { term: 'Corporate vs Competitive Strategy', definition: 'Corporate: bisnis apa yang dimasuki (tumbuh/stabil/ramping). Competitive: cara mengalahkan lawan' },
+
+                // Competitive Advantage
+                { term: 'Keunggulan Kompetitif', definition: 'Sesuatu yang membedakan dari pesaing: Kualitas (terbaik), Biaya Rendah (termurah), Teknologi/Inovasi (terdepan)' },
+                { term: 'Economic Moat (Warren Buffett)', definition: 'Parit ekonomi: merek kuat (Coca-Cola), paten teknologi, atau biaya switching tinggi (ekosistem Apple)' },
+                { term: 'First Mover', definition: 'Organisasi pertama yang bawa inovasi ke pasar. Untung: kuasai pasar, standar industri. Rugi: biaya riset mahal, risiko gagal' },
+                { term: 'Second Mover Advantage', definition: 'Kompetitor bisa meniru dan menyempurnakan produk first mover dengan biaya lebih murah' },
+
+                // ===== TAMBAHAN TEKNIS =====
+                { term: "Porter's Five Forces", definition: '5 kekuatan industri: Threat of New Entrants, Threat of Substitutes, Bargaining Power of Buyers, Bargaining Power of Suppliers, Current Rivalry' },
+                { term: 'Threat of New Entrants', definition: 'Ancaman pendatang baru: seberapa mudah orang bikin bisnis saingan?' },
+                { term: 'Threat of Substitutes', definition: 'Ancaman produk pengganti. Contoh: kopi diganti teh' },
+                { term: 'Bargaining Power of Buyers', definition: 'Kekuatan tawar pembeli: kalau pembeli sensitif harga, profit tipis' },
+                { term: 'Bargaining Power of Suppliers', definition: 'Kekuatan tawar pemasok: kalau pemasok bahan baku cuma satu, dia bisa main harga' },
+                { term: 'Current Rivalry', definition: 'Persaingan sesama pemain lama di industri' },
+
+                // Business Plan Structure
+                { term: '7 Bagian Business Plan', definition: 'Executive Summary, Company Description, Industry Analysis, Management Team, Service/Product, Marketing Strategy (4P), Financial Plan' },
+                { term: 'Executive Summary', definition: 'Ringkasan eksekutif: dibuat terakhir, ditaruh paling depan di Business Plan' },
+
+                // Employee Discipline
+                { term: '4 Kategori Masalah Disiplin Karyawan', definition: 'Attendance (telat/bolos), On-the-Job Behaviors (mabuk/judi), Dishonesty (mencuri/bohong CV), Outside Activities (kriminal)' },
             ],
             quiz: [
-                { question: 'POLC adalah singkatan dari...', options: ['Plan, Organize, Lead, Control', 'Planning, Organizing, Leading, Controlling', 'Process, Operation, Leadership, Command', 'Profit, Organization, Labor, Capital'], answer: 1 },
-                { question: 'Manajer yang bertanggung jawab atas keseluruhan organisasi adalah...', options: ['First-line Manager', 'Middle Manager', 'Top Manager', 'Project Manager'], answer: 2 },
-                { question: 'Teori X dan Y dikemukakan oleh...', options: ['Abraham Maslow', 'Frederick Herzberg', 'Douglas McGregor', 'Peter Drucker'], answer: 2 },
-                { question: 'Faktor yang termasuk lingkungan eksternal adalah...', options: ['Budaya organisasi', 'Struktur organisasi', 'Kondisi ekonomi', 'Karyawan'], answer: 2 },
-                { question: 'CSR adalah singkatan dari...', options: ['Customer Service Report', 'Corporate Social Responsibility', 'Company Strategic Review', 'Chief Sales Representative'], answer: 1 },
-                { question: 'Tingkat teratas dalam Hierarchy of Needs Maslow adalah...', options: ['Safety', 'Social', 'Esteem', 'Self-actualization'], answer: 3 },
-                { question: 'Gaya kepemimpinan yang melibatkan partisipasi bawahan adalah...', options: ['Autocratic', 'Democratic', 'Laissez-faire', 'Bureaucratic'], answer: 1 },
+                // ===== MODUL 1: KEPEMIMPINAN =====
+                { question: 'Apa perbedaan utama antara Pemimpin dan Kepemimpinan?', options: ['Keduanya sama saja', 'Pemimpin = individu, Kepemimpinan = proses', 'Pemimpin = proses, Kepemimpinan = individu', 'Tidak ada perbedaan dalam manajemen'], answer: 1 },
+                { question: 'Gaya kepemimpinan yang melibatkan karyawan dalam pengambilan keputusan adalah...', options: ['Autokratis', 'Demokratis', 'Laissez-faire', 'Telling'], answer: 1 },
+                { question: 'Menurut SLT, pengikut R2 (Tidak Mampu tapi Mau) membutuhkan gaya...', options: ['Telling', 'Selling', 'Participating', 'Delegating'], answer: 1 },
+                { question: 'Kekuasaan yang berasal dari keahlian atau pengetahuan mendalam disebut...', options: ['Legitimate Power', 'Coercive Power', 'Reward Power', 'Expert Power'], answer: 3 },
+                { question: 'Kelompok yang dipercaya pemimpin dan sering mendapat tugas istimewa dalam LMX Theory adalah...', options: ['Out-Group', 'In-Group', 'Work-Group', 'Control-Group'], answer: 1 },
+                { question: 'Teori yang menyatakan pemimpin sebagai "pembuka jalan" adalah...', options: ['Trait Theory', 'Path-Goal Theory', 'LMX Theory', 'SLT'], answer: 1 },
+                { question: 'Dimensi Consideration dalam Teori Perilaku berorientasi pada...', options: ['Tugas dan target', 'Hubungan dan kepercayaan', 'Hukuman dan kontrol', 'Kekuasaan dan otoritas'], answer: 1 },
+                { question: 'Kekuasaan berdasarkan kemampuan untuk menghukum disebut...', options: ['Legitimate Power', 'Coercive Power', 'Reward Power', 'Referent Power'], answer: 1 },
+
+                // ===== MODUL 2: PENGENDALIAN =====
+                { question: 'Controlling melibatkan 3 proses utama, yaitu...', options: ['Planning, Leading, Organizing', 'Monitoring, Comparing, Correcting', 'Hiring, Training, Firing', 'Budgeting, Forecasting, Auditing'], answer: 1 },
+                { question: 'Tindakan korektif yang menganalisis akar penyebab masalah disebut...', options: ['Immediate Corrective Action', 'Basic Corrective Action', 'Revise Standard', 'Do Nothing'], answer: 1 },
+                { question: 'Rasio yang mengukur kemampuan perusahaan membayar utang jangka pendek adalah...', options: ['Rasio Leverage', 'Rasio Likuiditas', 'Rasio Aktivitas', 'Rasio Profitabilitas'], answer: 1 },
+                { question: 'Balanced Scorecard mengevaluasi perusahaan dari berapa perspektif?', options: ['2', '3', '4', '5'], answer: 2 },
+                { question: 'Proses pencarian praktik terbaik dari pesaing disebut...', options: ['Controlling', 'Benchmarking', 'Auditing', 'Monitoring'], answer: 1 },
+                { question: 'ROI termasuk dalam rasio...', options: ['Likuiditas', 'Leverage', 'Aktivitas', 'Profitabilitas'], answer: 3 },
+                { question: 'Perspektif "People/Innovation" dalam Balanced Scorecard mengukur...', options: ['Keuangan', 'Pelanggan', 'Proses Internal', 'Pembelajaran & Pertumbuhan'], answer: 3 },
+
+                // ===== MODUL 3: KEWIRAUSAHAAN =====
+                { question: 'Perbedaan utama Small Business vs Entrepreneurship adalah...', options: ['Ukuran perusahaan', 'Jumlah karyawan', 'Pandangan terhadap risiko dan inovasi', 'Lokasi bisnis'], answer: 2 },
+                { question: 'Bentuk kepemilikan bisnis dengan Unlimited Liability adalah...', options: ['Corporation', 'LLC', 'Sole Proprietorship', 'S-Corp'], answer: 2 },
+                { question: 'Double Taxation terjadi pada bentuk bisnis...', options: ['Sole Proprietorship', 'Partnership', 'Corporation (C-Corp)', 'LLC'], answer: 2 },
+                { question: 'Individu kaya yang berinvestasi di tahap awal startup disebut...', options: ['Venture Capital', 'Angel Investor', 'Hedge Fund', 'Private Equity'], answer: 1 },
+                { question: 'Menurut Peter Drucker, Post-it Note adalah contoh sumber peluang...', options: ['Demographics', 'The Unexpected', 'The Incongruous', 'Changes in Perception'], answer: 1 },
+                { question: 'Teori 2 Faktor Herzberg: gaji termasuk dalam...', options: ['Motivator Factors', 'Hygiene Factors', 'Intrinsic Factors', 'Growth Factors'], answer: 1 },
+                { question: 'Menurut Equity Theory, karyawan membandingkan...', options: ['Gaji dengan target', 'Input:Output diri vs orang lain', 'Jam kerja dengan hasil', 'Skill dengan jabatan'], answer: 1 },
+                { question: 'Tingkat teratas dalam Hierarki Maslow adalah...', options: ['Keamanan', 'Sosial', 'Penghargaan', 'Aktualisasi Diri'], answer: 3 },
+                { question: 'Keyakinan "kalau target tercapai, pasti dapat bonus" dalam Expectancy Theory disebut...', options: ['Expectancy', 'Instrumentality', 'Valence', 'Motivation'], answer: 1 },
+                { question: 'LLC menggabungkan kelebihan dari...', options: ['Sole Proprietorship dan Corporation', 'Partnership dan Corporation', 'Franchise dan Partnership', 'Corporation dan S-Corp'], answer: 1 },
+
+                // ===== MODUL 4: STRATEGI =====
+                { question: 'Memindahkan aktivitas ke pihak eksternal yang lebih ahli disebut...', options: ['Offshoring', 'Outsourcing', 'Restructuring', 'Downsizing'], answer: 1 },
+                { question: 'Starbucks menggunakan konsep apa untuk menjaga konsistensi rasa kopi?', options: ['Franchise Model', 'Integrated Value Chain', 'Cost Leadership', 'Differentiation'], answer: 1 },
+                { question: 'Berapa langkah dalam Proses Manajemen Strategis?', options: ['4', '5', '6', '7'], answer: 2 },
+                { question: 'Analisis SWOT adalah gabungan langkah ke...', options: ['1 dan 2', '2 dan 3', '3 dan 4', '4 dan 5'], answer: 1 },
+                { question: 'Istilah Warren Buffett untuk "parit ekonomi" adalah...', options: ['Competitive Advantage', 'Economic Moat', 'Blue Ocean', 'First Mover'], answer: 1 },
+                { question: 'Organisasi pertama yang membawa inovasi ke pasar disebut...', options: ['Market Leader', 'First Mover', 'Pioneer', 'Innovator'], answer: 1 },
+                { question: 'Misi perusahaan menjelaskan...', options: ['Tujuan masa depan', 'Alasan keberadaan perusahaan saat ini', 'Strategi bersaing', 'Target keuangan'], answer: 1 },
+                { question: 'Corporate Strategy menjawab pertanyaan...', options: ['Bagaimana mengalahkan pesaing?', 'Bisnis apa yang akan dimasuki?', 'Siapa target pelanggan?', 'Berapa harga produk?'], answer: 1 },
+
+                // ===== TAMBAHAN TEKNIS =====
+                { question: "Berapa jumlah kekuatan dalam Porter's Five Forces?", options: ['3', '4', '5', '6'], answer: 2 },
+                { question: 'Ancaman produk pengganti dalam Porter disebut...', options: ['Threat of New Entrants', 'Threat of Substitutes', 'Bargaining Power of Buyers', 'Current Rivalry'], answer: 1 },
+                { question: 'Bagian Business Plan yang dibuat terakhir tapi ditaruh paling depan adalah...', options: ['Company Description', 'Executive Summary', 'Financial Plan', 'Industry Analysis'], answer: 1 },
+                { question: 'Bermain media sosial saat jam kerja termasuk kategori...', options: ['Attendance', 'On-the-Job Behaviors', 'Dishonesty', 'Outside Activities'], answer: 1 },
+                { question: 'Bargaining Power of Suppliers tinggi jika...', options: ['Banyak pemasok bahan baku', 'Pemasok bahan baku cuma satu', 'Harga bahan baku murah', 'Pembeli banyak pilihan'], answer: 1 },
+                { question: 'Berapa bagian standar dalam struktur Business Plan?', options: ['5', '6', '7', '8'], answer: 2 },
             ],
         },
     },
