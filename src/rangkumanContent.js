@@ -338,6 +338,73 @@ Di Bagian 1 (<i>Controlling</i>), saya sebutkan soal <b>Employee Theft</b>. Di s
 <bullet><b>On-the-Job Behaviors:</b> Mabuk, main judi di kantor, gagal capai target.</bullet>
 <bullet><b>Dishonesty (Ketidakjujuran):</b> Mencuri, bohong di CV.</bullet>
 <bullet><b>Outside Activities:</b> Mogok kerja ilegal, aktivitas kriminal di luar kantor.</bullet>`
+        },
+        mis: {
+                modul1: `<h1>📘 MODUL 1: MANAJEMEN PENGETAHUAN & KECERDASAN BUATAN</h1>
+<subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
+
+Topik Utama: Bagaimana organisasi mengubah data mentah menjadi wawasan bisnis, dan bagaimana mesin cerdas membantu proses tersebut. Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 2 (Mini Case).
+
+<h2>⚠️ Session 17: Managing Knowledge (Manajemen Pengetahuan)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 2 - Knowledge Management] (Fokus pada studi kasus: Identifikasi jenis pengetahuan yang hilang dan bagaimana proses mengelolanya).</warning>
+
+<h3>1. Lanskap Manajemen Pengetahuan</h3>
+Dalam bisnis modern, aset termahal bukanlah gedung pabrik atau inventaris gudang, melainkan Pengetahuan (Knowledge). Sistem Manajemen Pengetahuan (Knowledge Management Systems - KMS) adalah infrastruktur TI yang dirancang untuk mengumpulkan, menyimpan, dan menyebarkan pengetahuan agar organisasi tidak "lupa" ketika karyawan kunci keluar.
+
+Untuk memahami ini, kita harus membedakan hierarki nilai data:
+
+<bullet><b>Data:</b> Fakta mentah yang belum diolah. (Contoh: Catatan transaksi kasir: "Kopi, Rp 20.000, Jam 10:00"). Data ini sendiri belum punya arti strategis.</bullet>
+<bullet><b>Informasi:</b> Data yang sudah diproses menjadi pola. (Contoh: "Penjualan kopi meningkat 20% setiap jam 10 pagi"). Di sini manajer mulai melihat tren.</bullet>
+<bullet><b>Pengetahuan (Knowledge):</b> Konsep, pengalaman, dan wawasan yang bisa ditindaklanjuti (actionable). (Contoh: "Karena penjualan naik jam 10 pagi, kita harus menugaskan barista terbaik di jam tersebut agar antrean tidak panjang").</bullet>
+
+<h3>2. Dimensi Pengetahuan: Tacit vs. Explicit</h3>
+Ini adalah konsep paling krusial dalam studi kasus manajemen. Pengetahuan terbagi menjadi dua jenis:
+
+<b>Tacit Knowledge (Pengetahuan Tersirat):</b> Pengetahuan ini "hidup" di dalam kepala karyawan. Sifatnya subjektif, berbasis intuisi, dan sangat sulit diformulasikan.
+<bullet><b>Analisis:</b> Ketika seorang manajer senior pensiun, perusahaan seringkali kehilangan Tacit Knowledge ini.</bullet>
+<bullet><b>Contoh:</b> Seorang salesman veteran tahu persis kapan harus menekan harga dan kapan harus diam saat negosiasi, hanya dari membaca bahasa tubuh klien. Hal ini tidak tertulis di buku manual manapun.</bullet>
+
+<b>Explicit Knowledge (Pengetahuan Tersurat):</b> Pengetahuan yang sudah dikodifikasi atau didokumentasikan. Bentuknya bisa berupa dokumen, laporan, email, atau grafis.
+<bullet><b>Analisis:</b> Tantangan utama KM adalah mengubah Tacit menjadi Explicit.</bullet>
+<bullet><b>Contoh:</b> Resep rahasia KFC yang tertulis, SOP (Standar Operasional Prosedur) penanganan komplain, atau data demografi pelanggan di database.</bullet>
+
+<h3>3. Rantai Nilai Manajemen Pengetahuan (The Knowledge Management Value Chain)</h3>
+Manajemen pengetahuan adalah sebuah proses siklus, bukan kejadian satu kali. Ada empat mata rantai yang tidak boleh putus:
+
+<bullet><b>Akuisisi Pengetahuan (Knowledge Acquisition):</b> Langkah pertama adalah "berburu" pengetahuan. Perusahaan melakukan ini dengan cara mendokumentasikan pengetahuan internal (meminta ahli menulis modul), melakukan data mining (menggali pola dari data transaksi), atau berkolaborasi dengan pihak luar (konsultan/partner riset).</bullet>
+<bullet><b>Penyimpanan Pengetahuan (Knowledge Storage):</b> Setelah didapat, pengetahuan harus disimpan agar aman. Dokumen fisik diubah menjadi digital (digitizing), dan pengetahuan ahli disimpan dalam basis pengetahuan (knowledge base) yang terstruktur agar mudah dicari kembali. Sistem CMS (Content Management System) berperan besar di sini.</bullet>
+<bullet><b>Penyebaran Pengetahuan (Knowledge Dissemination):</b> Pengetahuan di gudang data tidak ada gunanya jika tidak sampai ke otak karyawan. Perusahaan menggunakan portal intranet, email, wiki internal, atau mesin pencari korporat untuk menyebarkan informasi ini. Tujuannya: "Orang yang tepat mendapatkan informasi yang tepat pada waktu yang tepat."</bullet>
+<bullet><b>Penerapan Pengetahuan (Knowledge Application):</b> Ini adalah tahap "cuan"-nya. Pengetahuan yang sudah disebar harus digunakan untuk mengubah praktik bisnis. Apakah pengetahuan itu menghasilkan produk baru? Apakah membuat proses kerja lebih cepat? Tanpa penerapan, tiga langkah sebelumnya sia-sia.</bullet>
+
+<h2>⚠️ Session 18: Artificial Intelligence (AI)</h2>
+
+<warning>⚠️ [KELUAR UAS: Soal No. 2 - AI Techniques] (Hafalkan teknik-teknik di bawah ini. Soal kasus biasanya meminta Anda memilih teknologi AI mana yang cocok untuk memecahkan masalah tertentu).</warning>
+
+<h3>1. Definisi Kecerdasan Buatan (AI)</h3>
+Artificial Intelligence (AI) adalah upaya sistem komputer untuk meniru fungsi kognitif manusia, seperti belajar, mengenali pola, memahami bahasa, dan memecahkan masalah. AI tidak memiliki "kesadaran" seperti manusia, tetapi ia bisa memproses data jauh lebih cepat dan akurat.
+
+<h3>2. Teknik Utama AI dalam Bisnis</h3>
+Dalam materi kuliah, terdapat beberapa cabang utama AI yang diterapkan di dunia nyata:
+
+<b>Sistem Pakar (Expert Systems):</b> Ini adalah bentuk AI tertua namun efektif untuk masalah yang terstruktur. Sistem ini meniru cara berpikir seorang ahli manusia dengan menggunakan ribuan aturan logika "JIKA - MAKA" (If-Then Rules).
+<bullet><b>Cara Kerja:</b> Pengetahuan dari banyak ahli dikumpulkan ke dalam Knowledge Base. Ketika pengguna memasukkan data, Inference Engine (mesin pelacak) akan mencocokkan data tersebut dengan aturan yang ada.</bullet>
+<bullet><b>Contoh Konkret:</b> Sistem diagnosa kerusakan mobil. "JIKA mesin tidak menyala DAN lampu indikator mati, MAKA periksa aki".</bullet>
+
+<b>Pembelajaran Mesin (Machine Learning):</b> Berbeda dengan sistem pakar yang "diajari" aturan kaku, Machine Learning "belajar sendiri" dari data. Kita memberikan ribuan contoh data masa lalu, dan algoritma akan menemukan pola statistik di dalamnya.
+<bullet><b>Cara Kerja:</b> Semakin banyak data yang dimasukkan, semakin pintar sistemnya.</bullet>
+<bullet><b>Contoh Konkret:</b> Rekomendasi Netflix. Sistem tidak diprogram "Jika nonton A, tawarkan B". Tapi sistem melihat pola jutaan pengguna: "Orang yang menonton Drama Korea A, 80% juga menonton Drama Korea B".</bullet>
+
+<b>Jaringan Syaraf Tiruan (Neural Networks):</b> Sistem ini meniru arsitektur biologis otak manusia (neuron dan sinapsis). Ia sangat jago mengenali pola yang rumit, visual, dan tidak linear yang sulit didefinisikan dengan aturan logika biasa.
+<bullet><b>Cara Kerja:</b> Lapisan-lapisan "neuron" buatan memproses input secara paralel untuk mengklasifikasikan data.</bullet>
+<bullet><b>Contoh Konkret:</b> Deteksi Penipuan Kartu Kredit. Pola transaksi penipu sangat acak. Neural Network bisa mendeteksi anomali kecil (misal: kartu kredit Jakarta tiba-tiba dipakai beli berlian di London) dalam hitungan milidetik. Contoh lain: Pengenalan Wajah (Face ID).</bullet>
+
+<b>Algoritma Genetika (Genetic Algorithms):</b> Teknik ini meniru proses evolusi biologi (seleksi alam, mutasi, reproduksi) untuk mencari solusi paling optimal dari jutaan kemungkinan kombinasi.
+<bullet><b>Cara Kerja:</b> Sistem menghasilkan ribuan solusi acak, lalu "mengawinkan" solusi-solusi terbaik untuk menghasilkan solusi yang lebih baik lagi, terus menerus sampai ketemu yang paling sempurna.</bullet>
+<bullet><b>Contoh Konkret:</b> Optimasi Rute Logistik. Bagaimana cara truk FedEx mengantar 100 paket ke 100 alamat berbeda dengan bensin paling hemat? Algoritma genetika akan menguji jutaan kombinasi rute sampai menemukan jalur terpendek.</bullet>
+
+<b>Agen Cerdas (Intelligent Agents):</b> Program perangkat lunak yang bekerja di latar belakang tanpa intervensi manusia langsung untuk melaksanakan tugas spesifik, berulang, dan terprediksi.
+<bullet><b>Contoh Konkret:</b> Chatbot layanan pelanggan yang otomatis menjawab pertanyaan dasar, atau fitur "Siri/Google Assistant" yang otomatis menjadwalkan rapat ketika Anda bilang "Set meeting jam 9".</bullet>`
         }
 };
 
