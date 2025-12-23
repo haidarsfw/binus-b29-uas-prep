@@ -227,6 +227,12 @@ export const DB = {
                 { question: 'Main sosmed saat kerja = ...', options: ['Attendance', 'On-the-Job Behaviors', 'Dishonesty', 'Outside Activities'], answer: 1, xp: 5 },
                 { question: 'Bargaining Power of Suppliers tinggi jika...', options: ['Banyak pemasok', 'Pemasok cuma satu', 'Harga murah', 'Pembeli banyak'], answer: 1, xp: 5 },
                 { question: 'Business Plan standar ada berapa bagian?', options: ['5', '6', '7', '8'], answer: 2, xp: 5 },
+                // ===== QUIZ TAMBAHAN =====
+                { question: 'Dalam Teori Hierarki Kebutuhan Maslow, kebutuhan akan pengakuan, jabatan, dan status sosial masuk dalam tingkatan?', options: ['Kebutuhan Sosial', 'Kebutuhan Keamanan', 'Kebutuhan Penghargaan (Esteem)', 'Aktualisasi Diri'], answer: 2, xp: 5 },
+                { question: 'Jika manajer memperbaiki kinerja dengan cara memadamkan masalah saat itu juga agar pekerjaan bisa lanjut (tanpa mencari akar masalah), tindakan ini disebut?', options: ['Basic Corrective Action', 'Immediate Corrective Action', 'Revise Standard', 'Preventive Maintenance'], answer: 1, xp: 5 },
+                { question: 'Karyawan yang terlibat dalam pemogokan kerja ilegal atau aktivitas kriminal di luar kantor dikategorikan dalam masalah disiplin?', options: ['On-the-Job Behaviors', 'Outside Activities', 'Dishonesty', 'Attendance'], answer: 1, xp: 5 },
+                { question: 'Dalam Analisis SWOT, faktor internal positif yang dimiliki perusahaan (aset, paten, budaya kerja) disebut?', options: ['Strengths (Kekuatan)', 'Weaknesses (Kelemahan)', 'Opportunities (Peluang)', 'Threats (Ancaman)'], answer: 0, xp: 5 },
+                { question: 'Apa hubungan antara Perencanaan (Planning) dan Pengendalian (Controlling)?', options: ['Pengendalian tidak butuh perencanaan', 'Perencanaan memberikan standar/target untuk dikendalikan; tanpa rencana, tidak ada pengendalian', 'Pengendalian dilakukan sebelum perencanaan', 'Keduanya fungsi yang terpisah total'], answer: 1, xp: 5 },
             ],
         },
     },
