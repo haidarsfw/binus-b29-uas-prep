@@ -140,6 +140,16 @@ export const DB = {
                 { id: 35, term: 'CRM Analitis', definition: 'Analisis Data. Tidak melayani langsung, tapi cari pola (CLV, Churn Rate) pakai Data Mining.' },
                 { id: 36, term: 'Social CRM', definition: '[ADDENDUM] Menghubungkan sistem CRM dengan percakapan medsos (Twitter/FB) agar CS bisa respon komplain publik dengan cepat.' },
                 { id: 37, term: 'Customer Lifetime Value (CLV)', definition: 'Metrik CRM Analitis: Total profit yang didapat dari satu pelanggan seumur hidupnya. Menentukan siapa pelanggan VIP.' },
+                // ===== MODUL 5: E-COMMERCE & PASAR DIGITAL (Session 25-26) =====
+                { id: 38, term: '8 Fitur Unik E-Commerce', definition: '[WAJIB HAFAL] 1. Ubiquity: Ada di mana saja (belanja dr kasur). 2. Global Reach: Lintas negara. 3. Universal Standards: Standar teknis sama. 4. Richness: Video/Audio/Teks kompleks. 5. Interactivity: Komunikasi 2 arah. 6. Info Density: Info murah, akurat, transparan. 7. Personalization: Konten sesuai individu. 8. Social Tech: User content & sharing.' },
+                { id: 39, term: 'Information Asymmetry', definition: 'Ketimpangan info penjual vs pembeli. Di pasar digital, asimetri ini berkurang (transparan).' },
+                { id: 40, term: 'Disintermediation', definition: 'Penghapusan perantara (Distributor/Grosir). Produsen jual langsung ke konsumen -> Harga lebih murah.' },
+                { id: 41, term: 'Model Bisnis: Market Creator', definition: 'Platform tempat bertemu penjual & pembeli. Tidak punya barang. (Cth: Tokopedia, Shopee, eBay).' },
+                { id: 42, term: 'Model Bisnis: Transaction Broker', definition: 'Proses transaksi, ambil fee, hemat waktu user. (Cth: Traveloka, Gojek).' },
+                { id: 43, term: 'Revenue Model: Freemium', definition: 'Layanan dasar gratis, fitur canggih bayar. (Cth: Spotify Free vs Premium, LinkedIn).' },
+                { id: 44, term: 'Revenue Model: Affiliate', definition: 'Komisi dari merujuk pengunjung ke situs lain (Referral link).' },
+                { id: 45, term: 'Barang Digital (Digital Goods)', definition: 'Barang dikirim via jaringan (Musik, Software). Biaya produksi unit pertama mahal, unit kedua (copy) Hampir NOL. Margin tinggi.' },
+                { id: 46, term: 'Micropayment Systems', definition: '[ADDENDUM] Pembayaran transaksi nilai sangat kecil/receh (<$10). Penting untuk jual beli konten digital eceran (lagu/item game).' },
             ],
             essayExam: [{ question: 'Bagaimana ERP meningkatkan efisiensi UMKM?', modelAnswer: 'Integrasi data, otomatisasi, real-time reporting.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
