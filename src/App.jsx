@@ -465,7 +465,7 @@ export default function App() {
                 setShowTerms(true);
               }
               // Show tutorial if first time
-              if (!localStorage.getItem('tutorialCompletedV3')) {
+              if (!localStorage.getItem('tutorialCompletedV4')) {
                 setShowTutorial(true);
               }
             }}
@@ -3107,15 +3107,11 @@ function Tutorial({ onComplete }) {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      localStorage.setItem('tutorialCompletedV3', 'true');
+      localStorage.setItem('tutorialCompletedV4', 'true');
       onComplete();
     }
   };
 
-  const handleSkip = () => {
-    localStorage.setItem('tutorialCompletedV3', 'true');
-    onComplete();
-  };
 
   return (
     <motion.div
@@ -3156,9 +3152,8 @@ function Tutorial({ onComplete }) {
           <p className="text-[var(--text-secondary)] mb-8">{currentStep.content}</p>
         </motion.div>
 
-        {/* Buttons */}
-        <div className="flex gap-3">
-          <button onClick={handleSkip} className="btn btn-secondary flex-1">Skip</button>
+        {/* Button - No Skip */}
+        <div className="flex">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

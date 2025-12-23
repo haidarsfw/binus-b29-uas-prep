@@ -76,10 +76,11 @@ export const DB = {
         },
         mis: {
             materi: [
-                { id: 1, title: 'Pertemuan 1: Pengantar SI', type: 'PDF', xp: 10 },
-                { id: 2, title: 'Pertemuan 2: IT Infrastructure', type: 'PPT', xp: 10 },
-                { id: 3, title: 'Pertemuan 3: Database & Big Data', type: 'PDF', xp: 10 },
-                { id: 4, title: 'Pertemuan 4: E-Commerce', type: 'PPT', xp: 15 },
+                { id: 1, title: 'Sesi 15: MIS PPT 1', driveId: '171mU9rgucQijqFYqrsjkYzey-KZzFFJDJqAHC4HbrSY', type: 'gslides', xp: 10 },
+                { id: 2, title: 'Sesi 16: MIS PPT 2', driveId: '17aZk_UhptDmOjqIJaa9fNLgvrshXUFxcsX3L0b4vnB8', type: 'gslides', xp: 10 },
+                { id: 3, title: 'Sesi 17: MIS PPT 3', driveId: '1Cn99eN5eYrEg2amdXoIughTI7iXBDhLEvVcIlN9mrec', type: 'gslides', xp: 10 },
+                { id: 4, title: 'Sesi 18: MIS PPT 4', driveId: '1_26GBKYRlj5EXgDNvM8rxPwZ42vhzXeq9LJMtGh2phA', type: 'gslides', xp: 10 },
+                { id: 5, title: 'Sesi 19: MIS PPT 5', driveId: '1dzai_J7FyPv6HQRqTRTcMAGr3d9JxUmz12VzxNR9WN0', type: 'gslides', xp: 10 },
             ],
             kisiKisi: ['Komponen SI', 'Jenis SI: TPS, MIS, DSS, ESS', 'Cloud: SaaS, PaaS, IaaS', 'Big Data', 'E-commerce'],
             flashcards: [
