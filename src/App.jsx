@@ -1989,6 +1989,7 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape' && viewFile) {
+        e.stopImmediatePropagation();
         setViewFile(null);
         setHighlightQuery('');
       }
@@ -2623,6 +2624,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape' && viewFile) {
+        e.stopImmediatePropagation();
         setViewFile(null);
       }
     };
@@ -3183,8 +3185,10 @@ function Forum({ subjectId, session, selectedClass }) {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
         if (selectedThread) {
+          e.stopImmediatePropagation();
           setSelectedThread(null);
         } else if (showNew) {
+          e.stopImmediatePropagation();
           setShowNew(false);
         }
       }
@@ -4035,6 +4039,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape' && isOpen) {
+        e.stopImmediatePropagation();
         setIsOpen(false);
       }
     };
