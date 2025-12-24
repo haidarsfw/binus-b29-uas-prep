@@ -198,6 +198,13 @@ export default function App() {
     }
   }, [progress, session]);
 
+  // Auto-select saved class if remember is enabled
+  useEffect(() => {
+    if (view === 'class' && rememberClass && savedClass && !selectedClass) {
+      setSelectedClass(savedClass);
+    }
+  }, [view, rememberClass, savedClass, selectedClass]);
+
   useEffect(() => {
     if (!pomo.active) return;
     const i = setInterval(() => setPomo(p => p.time <= 1 ? { time: 25 * 60, active: false } : { ...p, time: p.time - 1 }), 1000);
@@ -438,13 +445,6 @@ export default function App() {
   };
 
   if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
-
-  // Auto-select saved class if remember is enabled
-  React.useEffect(() => {
-    if (view === 'class' && rememberClass && savedClass && !selectedClass) {
-      setSelectedClass(savedClass);
-    }
-  }, [view, rememberClass, savedClass]);
 
   if (view === 'class') return (
     <div className={`min-h-screen no-select ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
