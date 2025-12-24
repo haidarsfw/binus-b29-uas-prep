@@ -67,6 +67,8 @@ export default function App() {
   const [showTerms, setShowTerms] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [confirmLogout, setConfirmLogout] = useState(false);
+  const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
+  const savedClass = localStorage.getItem('savedClass');
 
   // New states for new features
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
@@ -436,10 +438,6 @@ export default function App() {
   };
 
   if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
-
-  // State for remembering class selection
-  const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
-  const savedClass = localStorage.getItem('savedClass');
 
   // Auto-select saved class if remember is enabled
   React.useEffect(() => {
