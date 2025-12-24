@@ -1689,6 +1689,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchCategory, setSearchCategory] = useState('all');
+  const [searchTarget, setSearchTarget] = useState(null); // { type, key, index } for navigation
 
   // Helper function to get context around keyword
   const getKeywordContext = (text, query, contextLen = 60) => {
@@ -1868,7 +1869,8 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
                       key={i}
                       className="p-3 bg-[var(--surface)] rounded-xl hover:bg-[var(--surface-hover)] cursor-pointer transition-colors"
                       onClick={() => {
-                        // Navigate to the appropriate tab
+                        // Navigate to the appropriate tab with target
+                        setSearchTarget({ type: r.type, key: r.key, index: r.index, query: searchQuery });
                         if (r.type === 'kisi') setActiveTab(2);
                         else if (r.type === 'flashcard') setActiveTab(3);
                         else if (r.type === 'rangkuman') setActiveTab(1);
@@ -1905,7 +1907,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
 
       <div className="animate-fade">
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 1 && <Rangkuman subjectId={subject.id} />}
+        {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} />}
@@ -1915,12 +1917,32 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   );
 }
 
-function Rangkuman({ subjectId }) {
+function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
   const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
   const [viewerDarkMode, setViewerDarkMode] = useState(true); // Default dark for night study
+  const [activeModulIndex, setActiveModulIndex] = useState(0);
+
+  // Handle search target navigation
+  useEffect(() => {
+    if (searchTarget && searchTarget.type === 'rangkuman' && searchTarget.key) {
+      // Find which modul/section matches the key
+      const key = searchTarget.key;
+      if (key.startsWith('modul')) {
+        const modulNum = parseInt(key.replace('modul', '')) - 1;
+        if (modulNum >= 0 && rangkuman?.modulInti?.length > modulNum) {
+          setActiveModulIndex(modulNum);
+          setExpandedSections(prev => ({ ...prev, modulInti: true }));
+        }
+      } else if (key.includes('tambahan') || key.includes('addendum')) {
+        setExpandedSections(prev => ({ ...prev, addendum: true }));
+      }
+      // Clear search target after navigation
+      if (onClearSearch) onClearSearch();
+    }
+  }, [searchTarget, rangkuman, onClearSearch]);
 
   // Generate embed URL based on file type
   const getEmbedUrl = (file) => {
