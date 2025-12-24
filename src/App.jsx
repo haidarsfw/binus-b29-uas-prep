@@ -236,7 +236,7 @@ export default function App() {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
-        // Priority order: close modals first, then go back
+        // Priority order: close modals first, then go back (but NOT from subject to dashboard)
         if (imagePreview) {
           setImagePreview(null);
         } else if (showAnnouncementPopup) {
@@ -244,20 +244,19 @@ export default function App() {
           localStorage.setItem('lastDismissedAnnouncement', new Date().toISOString());
         } else if (subjectSearch.show) {
           setSubjectSearch(s => ({ ...s, show: false, query: '' }));
+        } else if (showDocViewer) {
+          setShowDocViewer(false);
         } else if (showSettings) {
           setShowSettings(false);
         } else if (showAdminDashboard) {
           setShowAdminDashboard(false);
-        } else if (showDocViewer) {
-          setShowDocViewer(false);
-        } else if (currentSubject) {
-          setCurrentSubject(null);
         }
+        // Note: ESC from subject view to dashboard is removed - user should click back button
       }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [imagePreview, showAnnouncementPopup, subjectSearch.show, showSettings, showAdminDashboard, showDocViewer, currentSubject]);
+  }, [imagePreview, showAnnouncementPopup, subjectSearch.show, showSettings, showAdminDashboard, showDocViewer]);
 
   // Realtime clock & reminder check
   const [showReminderAlert, setShowReminderAlert] = useState(false);
@@ -3869,6 +3868,17 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   useEffect(() => {
     seenMentionIdsRef.current = seenMentionIds;
   }, [seenMentionIds]);
+
+  // ESC key to close chat
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
