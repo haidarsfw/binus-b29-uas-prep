@@ -1690,6 +1690,21 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   const [searchQuery, setSearchQuery] = useState('');
   const [searchCategory, setSearchCategory] = useState('all');
 
+  // Helper function to get context around keyword
+  const getKeywordContext = (text, query, contextLen = 60) => {
+    const cleanText = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    const lowerText = cleanText.toLowerCase();
+    const idx = lowerText.indexOf(query.toLowerCase());
+    if (idx === -1) return cleanText.slice(0, 120) + '...';
+
+    const start = Math.max(0, idx - contextLen);
+    const end = Math.min(cleanText.length, idx + query.length + contextLen);
+    let context = cleanText.slice(start, end);
+    if (start > 0) context = '...' + context;
+    if (end < cleanText.length) context = context + '...';
+    return context;
+  };
+
   // Search function
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
@@ -1703,15 +1718,15 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         kisiKisi.forEach((item, idx) => {
           if (typeof item === 'string') {
             if (item.toLowerCase().includes(q)) {
-              results.push({ type: 'kisi', content: item, index: idx });
+              results.push({ type: 'kisi', content: item, index: idx, title: 'Kisi-Kisi' });
             }
           } else if (item.topic && item.items) {
             if (item.topic.toLowerCase().includes(q)) {
-              results.push({ type: 'kisi', content: item.topic, index: idx });
+              results.push({ type: 'kisi', content: item.topic, index: idx, title: item.topic });
             }
             item.items.forEach((subItem, subIdx) => {
               if (subItem.toLowerCase().includes(q)) {
-                results.push({ type: 'kisi', content: `${item.topic}: ${subItem}`, index: idx });
+                results.push({ type: 'kisi', content: subItem, index: idx, title: item.topic });
               }
             });
           }
@@ -1723,8 +1738,10 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
     if (searchCategory === 'all' || searchCategory === 'flashcard') {
       const flashcards = content.flashcards || [];
       flashcards.forEach((fc, idx) => {
-        if (fc.term?.toLowerCase().includes(q) || fc.definition?.toLowerCase().includes(q)) {
-          results.push({ type: 'flashcard', content: `${fc.term}: ${fc.definition}`, index: idx });
+        if (fc.term?.toLowerCase().includes(q)) {
+          results.push({ type: 'flashcard', content: fc.term, index: idx, title: fc.term, definition: fc.definition });
+        } else if (fc.definition?.toLowerCase().includes(q)) {
+          results.push({ type: 'flashcard', content: getKeywordContext(fc.definition, searchQuery), index: idx, title: fc.term, definition: fc.definition });
         }
       });
     }
@@ -1737,9 +1754,11 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
       if (rangkumanKey && RANGKUMAN_CONTENT[rangkumanKey]) {
         Object.entries(RANGKUMAN_CONTENT[rangkumanKey]).forEach(([key, val]) => {
           if (typeof val === 'string' && val.toLowerCase().includes(q)) {
-            // Strip HTML tags for clean text display
-            const cleanText = val.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-            results.push({ type: 'rangkuman', content: cleanText.slice(0, 200) + '...', key });
+            // Get context around keyword
+            const context = getKeywordContext(val, searchQuery);
+            // Get module title from key
+            const moduleTitle = key.replace('modul', 'Modul ').replace('tambahan', 'Addendum');
+            results.push({ type: 'rangkuman', content: context, key, title: moduleTitle });
           }
         });
       }
@@ -1832,28 +1851,44 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
                 {searchQuery.trim() && searchResults.length === 0 && (
                   <p className="text-center text-[var(--text-muted)] py-8">Tidak ditemukan</p>
                 )}
-                {searchResults.map((r, i) => (
-                  <div
-                    key={i}
-                    className="p-3 bg-[var(--surface)] rounded-xl hover:bg-[var(--surface-hover)] cursor-pointer transition-colors"
-                    onClick={() => {
-                      // Navigate to the appropriate tab
-                      if (r.type === 'kisi') setActiveTab(2);
-                      else if (r.type === 'flashcard') setActiveTab(3);
-                      else if (r.type === 'rangkuman') setActiveTab(1);
-                      setShowSearch(false);
-                      setSearchQuery('');
-                    }}
-                  >
-                    <span className={`text-xs px-2 py-0.5 rounded ${r.type === 'kisi' ? 'bg-blue-500/20 text-blue-500' :
-                      r.type === 'flashcard' ? 'bg-green-500/20 text-green-500' :
-                        'bg-purple-500/20 text-purple-500'
-                      }`}>
-                      {r.type === 'kisi' ? 'Kisi-Kisi' : r.type === 'flashcard' ? 'Flashcard' : 'Rangkuman'}
-                    </span>
-                    <p className="text-sm text-[var(--text)] mt-1 line-clamp-2">{r.content}</p>
-                  </div>
-                ))}
+                {searchResults.map((r, i) => {
+                  // Highlight keyword in content
+                  const highlightKeyword = (text) => {
+                    const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                    const parts = text.split(regex);
+                    return parts.map((part, idx) =>
+                      part.toLowerCase() === searchQuery.toLowerCase()
+                        ? <mark key={idx} className="bg-yellow-500/50 text-[var(--text)] px-0.5 rounded">{part}</mark>
+                        : part
+                    );
+                  };
+
+                  return (
+                    <div
+                      key={i}
+                      className="p-3 bg-[var(--surface)] rounded-xl hover:bg-[var(--surface-hover)] cursor-pointer transition-colors"
+                      onClick={() => {
+                        // Navigate to the appropriate tab
+                        if (r.type === 'kisi') setActiveTab(2);
+                        else if (r.type === 'flashcard') setActiveTab(3);
+                        else if (r.type === 'rangkuman') setActiveTab(1);
+                        setShowSearch(false);
+                        setSearchQuery('');
+                      }}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`text-xs px-2 py-0.5 rounded ${r.type === 'kisi' ? 'bg-blue-500/20 text-blue-500' :
+                          r.type === 'flashcard' ? 'bg-green-500/20 text-green-500' :
+                            'bg-purple-500/20 text-purple-500'
+                          }`}>
+                          {r.type === 'kisi' ? 'Kisi-Kisi' : r.type === 'flashcard' ? 'Flashcard' : 'Rangkuman'}
+                        </span>
+                        {r.title && <span className="text-xs text-[var(--text-muted)] font-medium">{r.title}</span>}
+                      </div>
+                      <p className="text-sm text-[var(--text)] line-clamp-2">{highlightKeyword(r.content)}</p>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           </motion.div>
