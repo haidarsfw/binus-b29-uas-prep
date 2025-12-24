@@ -437,6 +437,17 @@ export default function App() {
 
   if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
 
+  // State for remembering class selection
+  const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
+  const savedClass = localStorage.getItem('savedClass');
+
+  // Auto-select saved class if remember is enabled
+  React.useEffect(() => {
+    if (view === 'class' && rememberClass && savedClass && !selectedClass) {
+      setSelectedClass(savedClass);
+    }
+  }, [view, rememberClass, savedClass]);
+
   if (view === 'class') return (
     <div className={`min-h-screen no-select ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
       <div className="min-h-screen flex items-center justify-center p-6">
@@ -446,19 +457,41 @@ export default function App() {
               <Users className="w-8 h-8 text-white" />
             </motion.div>
             <h2 className="text-xl font-bold text-[var(--text)]">Pilih Kelas Anda</h2>
-            <p className="text-[var(--text-secondary)] text-sm mt-2">Jadwal ujian akan menyesuaikan</p>
+            <p className="text-[var(--text-secondary)] text-sm mt-2">Pilihlah kelas yang sesuai</p>
           </div>
-          <div className="grid grid-cols-2 gap-3 mb-6 stagger">
+          <div className="grid grid-cols-2 gap-3 mb-4 stagger">
             {DB.classes.map(c => (
               <motion.button key={c} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => setSelectedClass(c)}
                 className={`p-4 rounded-xl text-sm font-medium transition-all animate-slide-up ${selectedClass === c ? 'gradient-accent text-white shadow-lg glow' : 'glass-card text-[var(--text)]'}`}>{c}</motion.button>
             ))}
           </div>
+
+          {/* Remember class checkbox */}
+          <label className="flex items-center gap-2 mb-6 cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={rememberClass}
+              onChange={(e) => {
+                setRememberClass(e.target.checked);
+                localStorage.setItem('rememberClass', e.target.checked);
+                if (!e.target.checked) {
+                  localStorage.removeItem('savedClass');
+                }
+              }}
+              className="w-4 h-4 accent-[var(--accent)] rounded"
+            />
+            <span className="text-[var(--text-secondary)] text-sm group-hover:text-[var(--text)] transition-colors">Ingat pilihan saya</span>
+          </label>
+
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={!selectedClass}
             onClick={() => {
               const u = { ...session, selectedClass };
               setSession(u);
               localStorage.setItem('session', JSON.stringify(u));
+              // Save class if remember is enabled
+              if (rememberClass) {
+                localStorage.setItem('savedClass', selectedClass);
+              }
               setView('dashboard');
               // Show terms agreement on every fresh login
               if (!sessionStorage.getItem('termsAgreedThisSession')) {
@@ -469,7 +502,10 @@ export default function App() {
                 setShowTutorial(true);
               }
             }}
-            className="btn btn-primary w-full text-base disabled:opacity-40"><span>Lanjutkan</span><ArrowRight className="w-5 h-5" /></motion.button>
+            className="btn btn-primary w-full text-base disabled:opacity-40">
+            <span>{rememberClass && savedClass === selectedClass ? 'Lanjutkan' : 'Pilih & Lanjutkan'}</span>
+            <ArrowRight className="w-5 h-5" />
+          </motion.button>
         </motion.div>
       </div>
       <div className="watermark">Made by haidarsb LE86</div>
