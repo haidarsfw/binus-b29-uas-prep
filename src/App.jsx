@@ -1994,8 +1994,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
         setHighlightQuery('');
       }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
   }, [viewFile]);
 
   const closeViewer = () => setViewFile(null);
@@ -2628,8 +2628,8 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
         setViewFile(null);
       }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
   }, [viewFile]);
 
   const closeViewer = () => setViewFile(null);
@@ -3193,8 +3193,8 @@ function Forum({ subjectId, session, selectedClass }) {
         }
       }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
   }, [selectedThread, showNew]);
 
   useEffect(() => {
@@ -4043,8 +4043,8 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
         setIsOpen(false);
       }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
   }, [isOpen]);
 
   useEffect(() => {
