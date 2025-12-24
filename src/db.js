@@ -63,10 +63,14 @@ export const DB = {
         },
         hr: {
             materi: [
-                { id: 1, title: 'Pertemuan 1: Pengantar HRM', type: 'PDF', xp: 10 },
-                { id: 2, title: 'Pertemuan 2: Rekrutmen & Seleksi', type: 'PPT', xp: 10 },
-                { id: 3, title: 'Pertemuan 3: Pelatihan', type: 'PDF', xp: 10 },
-                { id: 4, title: 'Pertemuan 4: Kompensasi', type: 'PPT', xp: 15 },
+                { id: 1, title: 'Session 17-18: Establishing Strategic Pay Plans I & II', driveId: '1eg-iGY5h6VNadewjcVqkWmQYyVfVw-bUgjg6ARfm8nM', type: 'slides', xp: 10 },
+                { id: 2, title: 'Session 19-20: Pay for Performance I & II', driveId: '1RD1zOr0mgI66sjCGFro-dfgOhguFVhvYqYVw-tdzA3I', type: 'slides', xp: 10 },
+                { id: 3, title: 'Session 21: Safety, Health and Risk Management', driveId: '14bLMwTUKcuG0hu-LXQtL2NSDeXqgtHJCr-WSUySuWYg', type: 'slides', xp: 10 },
+                { id: 4, title: 'Session 22: Labor Relations and Collective Bargain', driveId: '1ElmwxZZh2eLj_T74c73VlbotgLI-YQfsnkrdEG4DntE', type: 'slides', xp: 10 },
+                { id: 5, title: 'Session 23: HR Analytics', driveId: '15jkleBjDeXK1z4P68dUZmdhqsh4Ey_biFjenZ0AJVVU', type: 'slides', xp: 10 },
+                { id: 6, title: "Session 24: David Ulrich's HR Model", driveId: '1kPfIyjSEFHj5jAPtG-PyG3F1PKtOTj4NkmLDsRjCNhA', type: 'slides', xp: 10 },
+                { id: 7, title: 'Session 25: Managing Global HR', driveId: '13FudOLqKTggQHxM6dPFEgvGhQx8R8KbzhqoL75jVe68', type: 'slides', xp: 10 },
+                { id: 8, title: 'Session 26: Managing HR in SME', driveId: '1ZVRcU56KB3Jg5ZVHQHgwxrzDA9xXw-shv0quXTq_teQ', type: 'slides', xp: 10 },
             ],
             kisiKisi: ['Fungsi HRM', 'Rekrutmen: job analysis, description', 'Metode seleksi', 'Training Need Analysis', 'Kompensasi', 'Performance appraisal'],
             flashcards: [
