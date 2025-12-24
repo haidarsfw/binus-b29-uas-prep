@@ -1737,7 +1737,9 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
       if (rangkumanKey && RANGKUMAN_CONTENT[rangkumanKey]) {
         Object.entries(RANGKUMAN_CONTENT[rangkumanKey]).forEach(([key, val]) => {
           if (typeof val === 'string' && val.toLowerCase().includes(q)) {
-            results.push({ type: 'rangkuman', content: val.slice(0, 200) + '...', key });
+            // Strip HTML tags for clean text display
+            const cleanText = val.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+            results.push({ type: 'rangkuman', content: cleanText.slice(0, 200) + '...', key });
           }
         });
       }
