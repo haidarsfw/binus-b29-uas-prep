@@ -1528,7 +1528,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
       <div className="animate-fade">
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} />}
-        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} subjectId={subject.id} />}
+        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} />}
@@ -2253,7 +2253,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
   );
 }
 
-function KisiKisi({ kisiKisi, kisiKisiNote, subjectId }) {
+function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNote, subjectId }) {
   // Check if kisiKisi is the old format (array of strings) or new format (array of objects with topic/items)
   const isNewFormat = kisiKisi?.length > 0 && typeof kisiKisi[0] === 'object' && kisiKisi[0].topic;
 
@@ -2309,6 +2309,37 @@ function KisiKisi({ kisiKisi, kisiKisiNote, subjectId }) {
             <span className="font-bold text-[var(--text)] text-sm">Catatan Penting dari Dosen</span>
           </div>
           <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
+        </div>
+      )}
+
+      {/* Kisi-Kisi Tambahan - Separate section */}
+      {kisiKisiTambahan && kisiKisiTambahan.length > 0 && (
+        <div className="glass-card p-4 sm:p-6 border-l-4 border-[var(--info)]">
+          <div className="flex items-center gap-2 mb-4">
+            <List className="w-5 h-5 text-[var(--info)]" />
+            <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Tambahan</h3>
+            {kisiKisiTambahanNote && <span className="text-xs text-[var(--text-secondary)] italic">{kisiKisiTambahanNote}</span>}
+          </div>
+          <div className="space-y-4">
+            {kisiKisiTambahan.map((section, idx) => (
+              <div key={idx} className="space-y-2">
+                <h4 className="font-semibold text-[var(--text)] text-sm">
+                  {section.topic}
+                </h4>
+                {section.subtitle && (
+                  <p className="text-xs text-[var(--accent)] italic ml-2">{section.subtitle}</p>
+                )}
+                <ul className="ml-4 space-y-1">
+                  {section.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
+                      <span className="text-[var(--info)] mt-1">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
