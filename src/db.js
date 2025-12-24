@@ -268,6 +268,34 @@ export const DB = {
                 { topic: 'Risk Management (Manajemen Risiko)', items: ['Risk identification', 'Risk management'] },
             ],
             kisiKisiNote: 'Format Ujian: 5 soal esai semua analisis (Catatan dari Dosen LE86)',
+            kisiKisiTambahan: [
+                {
+                    topic: 'A. CASE STUDY 1: STARBUCKS (COMPANY SBX)', subtitle: 'Topik: Risk Management & Strategy Building', items: [
+                        'Strategy Building: Bagaimana strategi Starbucks dalam membangun bisnisnya.',
+                        'Risk Framework: Kerangka kerja risiko.',
+                        'Risk Identification: Identifikasi risiko.',
+                        'Risk Management: Manajemen risiko secara umum.',
+                        'Risk Mitigation: Mitigasi (pengurangan) risiko.',
+                        'Fail-Safe Protocols: Protokol keamanan/kegagalan (fail-safe).'
+                    ]
+                },
+                {
+                    topic: 'B. CASE STUDY 2: MIXUE', subtitle: 'Topik: Strategic Evaluation', items: [
+                        'Induk Bisnis Mixue: Analisis terkait induk perusahaan.',
+                        'Strategic Evaluation 1 & 2: Tahapan evaluasi strategis (1 dan 2).',
+                        'Performance Gap: Analisis performance gap between strategy (celah kinerja antara strategi dan realisasi).',
+                        'Digital: Aspek digital dalam strategi Mixue.'
+                    ]
+                },
+                {
+                    topic: 'C. TOPIK ESAI (KONSEP UMUM)', items: [
+                        'Entrepreneurship & MSME: Konsep kewirausahaan dan kaitannya dengan UMKM (Micro, Small, and Medium Enterprises).',
+                        'Strategic Management: Manajemen strategis.',
+                        'Corporate Global Strategy: Strategi global korporasi (Global/Corporate Global Strategy).'
+                    ]
+                },
+            ],
+            kisiKisiTambahanNote: '*dari Kemanggisan, LE21',
             flashcards: [
                 // ===== MODUL 1: KEPEMIMPINAN (Session 15-16) - 14 Flashcards =====
                 { id: 1, term: 'Definisi Pemimpin (Leader)', definition: 'Individu yang memiliki kemampuan untuk memengaruhi orang lain dan memegang otoritas manajerial.' },
