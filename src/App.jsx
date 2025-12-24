@@ -1924,12 +1924,17 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
   const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
   const [viewerDarkMode, setViewerDarkMode] = useState(true); // Default dark for night study
   const [activeModulIndex, setActiveModulIndex] = useState(0);
+  const [highlightQuery, setHighlightQuery] = useState(''); // For search keyword highlighting
 
   // Handle search target navigation
   useEffect(() => {
     if (searchTarget && searchTarget.type === 'rangkuman' && searchTarget.key) {
       // Find which modul/section matches the key
       const key = searchTarget.key;
+      // Store the search query for highlighting
+      if (searchTarget.query) {
+        setHighlightQuery(searchTarget.query);
+      }
       if (key.startsWith('modul') && rangkuman?.modulInti) {
         const modulNum = parseInt(key.replace('modul', '')) - 1;
         if (modulNum >= 0 && rangkuman.modulInti.length > modulNum) {
@@ -2037,7 +2042,38 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
             alignItems: 'center',
             borderBottom: '1px solid rgba(255,255,255,0.1)'
           }}>
-            <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px', margin: 0 }}>{viewFile.title}</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <h3 style={{ color: 'white', fontWeight: 'bold', fontSize: '14px', margin: 0 }}>{viewFile.title}</h3>
+              {/* Highlight indicator */}
+              {highlightQuery && (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  background: 'rgba(250,204,21,0.3)',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  fontSize: '11px',
+                  color: '#fcd34d'
+                }}>
+                  <span>"{highlightQuery}"</span>
+                  <button
+                    onClick={() => setHighlightQuery('')}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#fcd34d',
+                      cursor: 'pointer',
+                      padding: '0',
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               {/* Dark Mode Toggle */}
               {viewFile.type === 'native' && (
@@ -2119,6 +2155,19 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
 
                   // If content is a string with HTML-like tags, parse and render
                   if (typeof moduleContent === 'string') {
+                    // Helper function to highlight search keyword
+                    const highlightKeyword = (text) => {
+                      if (!highlightQuery || typeof text !== 'string') return text;
+                      const regex = new RegExp(`(${highlightQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                      const parts = text.split(regex);
+                      if (parts.length === 1) return text;
+                      return parts.map((part, idx) =>
+                        part.toLowerCase() === highlightQuery.toLowerCase()
+                          ? <mark key={idx} id={idx === 1 ? 'search-highlight-first' : undefined} style={{ backgroundColor: '#fcd34d', color: '#1a1a2e', padding: '0 2px', borderRadius: '2px' }}>{part}</mark>
+                          : part
+                      );
+                    };
+
                     // Helper function to parse inline formatting (bold, italic)
                     const parseInline = (text) => {
                       const parts = [];
@@ -2131,20 +2180,28 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
                         const italicMatch = remaining.match(/^(.*?)<i>(.*?)<\/i>/s);
 
                         if (boldMatch && (!italicMatch || boldMatch.index <= italicMatch.index)) {
-                          if (boldMatch[1]) parts.push(<span key={key++}>{parseInline(boldMatch[1])}</span>);
-                          parts.push(<b key={key++} style={{ fontWeight: '600' }}>{parseInline(boldMatch[2])}</b>);
+                          if (boldMatch[1]) parts.push(<span key={key++}>{highlightKeyword(boldMatch[1])}</span>);
+                          parts.push(<b key={key++} style={{ fontWeight: '600' }}>{highlightKeyword(boldMatch[2])}</b>);
                           remaining = remaining.slice(boldMatch[0].length);
                         } else if (italicMatch) {
-                          if (italicMatch[1]) parts.push(<span key={key++}>{parseInline(italicMatch[1])}</span>);
-                          parts.push(<i key={key++} style={{ fontStyle: 'italic' }}>{parseInline(italicMatch[2])}</i>);
+                          if (italicMatch[1]) parts.push(<span key={key++}>{highlightKeyword(italicMatch[1])}</span>);
+                          parts.push(<i key={key++} style={{ fontStyle: 'italic' }}>{highlightKeyword(italicMatch[2])}</i>);
                           remaining = remaining.slice(italicMatch[0].length);
                         } else {
-                          parts.push(remaining);
+                          parts.push(highlightKeyword(remaining));
                           break;
                         }
                       }
                       return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
                     };
+
+                    // Auto-scroll to first highlight after render
+                    setTimeout(() => {
+                      const firstHighlight = document.getElementById('search-highlight-first');
+                      if (firstHighlight) {
+                        firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }, 100);
 
                     // Split by lines and parse tags
                     const lines = moduleContent.split('\n');
