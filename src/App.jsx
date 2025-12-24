@@ -454,32 +454,47 @@ export default function App() {
             <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={smooth} className="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg glow">
               <Users className="w-8 h-8 text-white" />
             </motion.div>
-            <h2 className="text-xl font-bold text-[var(--text)]">Pilih Kelas Anda</h2>
-            <p className="text-[var(--text-secondary)] text-sm mt-2">Pilihlah kelas yang sesuai</p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 mb-4 stagger">
-            {DB.classes.map(c => (
-              <motion.button key={c} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => setSelectedClass(c)}
-                className={`p-4 rounded-xl text-sm font-medium transition-all animate-slide-up ${selectedClass === c ? 'gradient-accent text-white shadow-lg glow' : 'glass-card text-[var(--text)]'}`}>{c}</motion.button>
-            ))}
+            {rememberClass && savedClass ? (
+              <>
+                <h2 className="text-xl font-bold text-[var(--text)]">Selamat Datang Kembali!</h2>
+                <p className="text-[var(--text-secondary)] text-sm mt-2">Kelas Anda: <span className="font-bold text-[var(--accent)]">{savedClass}</span></p>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-[var(--text)]">Pilih Kelas Anda</h2>
+                <p className="text-[var(--text-secondary)] text-sm mt-2">Pilihlah kelas yang sesuai</p>
+              </>
+            )}
           </div>
 
-          {/* Remember class checkbox */}
-          <label className="flex items-center gap-2 mb-6 cursor-pointer group">
-            <input
-              type="checkbox"
-              checked={rememberClass}
-              onChange={(e) => {
-                setRememberClass(e.target.checked);
-                localStorage.setItem('rememberClass', e.target.checked);
-                if (!e.target.checked) {
-                  localStorage.removeItem('savedClass');
-                }
-              }}
-              className="w-4 h-4 accent-[var(--accent)] rounded"
-            />
-            <span className="text-[var(--text-secondary)] text-sm group-hover:text-[var(--text)] transition-colors">Ingat pilihan saya</span>
-          </label>
+          {/* Show class grid only if not remembered */}
+          {!(rememberClass && savedClass) && (
+            <>
+              <div className="grid grid-cols-2 gap-3 mb-4 stagger">
+                {DB.classes.map(c => (
+                  <motion.button key={c} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => setSelectedClass(c)}
+                    className={`p-4 rounded-xl text-sm font-medium transition-all animate-slide-up ${selectedClass === c ? 'gradient-accent text-white shadow-lg glow' : 'glass-card text-[var(--text)]'}`}>{c}</motion.button>
+                ))}
+              </div>
+
+              {/* Remember class checkbox */}
+              <label className="flex items-center gap-2 mb-6 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={rememberClass}
+                  onChange={(e) => {
+                    setRememberClass(e.target.checked);
+                    localStorage.setItem('rememberClass', e.target.checked);
+                    if (!e.target.checked) {
+                      localStorage.removeItem('savedClass');
+                    }
+                  }}
+                  className="w-4 h-4 accent-[var(--accent)] rounded"
+                />
+                <span className="text-[var(--text-secondary)] text-sm group-hover:text-[var(--text)] transition-colors">Ingat pilihan saya</span>
+              </label>
+            </>
+          )}
 
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={!selectedClass}
             onClick={() => {
@@ -501,9 +516,27 @@ export default function App() {
               }
             }}
             className="btn btn-primary w-full text-base disabled:opacity-40">
-            <span>{rememberClass && savedClass === selectedClass ? 'Lanjutkan' : 'Pilih & Lanjutkan'}</span>
+            <span>Lanjutkan</span>
             <ArrowRight className="w-5 h-5" />
           </motion.button>
+
+          {/* Ganti Kelas button - only show when class is remembered */}
+          {rememberClass && savedClass && (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setRememberClass(false);
+                localStorage.setItem('rememberClass', 'false');
+                localStorage.removeItem('savedClass');
+                setSelectedClass('');
+              }}
+              className="btn btn-secondary w-full text-base mt-3"
+            >
+              <RefreshCw className="w-4 h-4" />
+              <span>Ganti Kelas</span>
+            </motion.button>
+          )}
         </motion.div>
       </div>
       <div className="watermark">Made by haidarsb LE86</div>
