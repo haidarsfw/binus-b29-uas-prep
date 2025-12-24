@@ -33,11 +33,11 @@ export const DB = {
     content: {
         marketing: {
             materi: [
-                { id: 1, title: 'MM Materi 1: Week 9', driveId: '1iHavus9po50lLBAk0FDwCCAHRYVMt3UL7LSA77zbDuI', type: 'slides', xp: 10 },
-                { id: 2, title: 'MM Materi 2: Week 10', driveId: '1e6FeM9DmYF-CNLKA45MYbdy67LwRWaShHTc2CDErSKc', type: 'slides', xp: 10 },
-                { id: 3, title: 'MM Materi 3: Week 11', driveId: '199uY5bAsXjuhancjXsREKngHjbl9cwhGwbkpt982NCM', type: 'slides', xp: 10 },
-                { id: 4, title: 'MM Materi 4: Week 12', driveId: '1gKZH42cgwMT_QJHOBanaUtfN2VT54D1C6A1oj-baES8', type: 'slides', xp: 10 },
-                { id: 5, title: 'MM Materi 5: Week 13', driveId: '1pxfTiAYLtrqG9M6xAvRWsXyZCoLypoz6JKBeOhvVCz0', type: 'slides', xp: 10 },
+                { id: 1, title: 'Week 9: Marketing Channels: Delivering Customer Value (Ch.12)', driveId: '1iHavus9po50lLBAk0FDwCCAHRYVMt3UL7LSA77zbDuI', type: 'slides', xp: 10 },
+                { id: 2, title: 'Week 10: Integrated Marketing Communication Strategy (Ch.14)', driveId: '1e6FeM9DmYF-CNLKA45MYbdy67LwRWaShHTc2CDErSKc', type: 'slides', xp: 10 },
+                { id: 3, title: 'Week 11: Creating Competitive Advantage (Ch.18)', driveId: '199uY5bAsXjuhancjXsREKngHjbl9cwhGwbkpt982NCM', type: 'slides', xp: 10 },
+                { id: 4, title: 'Week 12: The Global Marketplace (Ch.19)', driveId: '1gKZH42cgwMT_QJHOBanaUtfN2VT54D1C6A1oj-baES8', type: 'slides', xp: 10 },
+                { id: 5, title: 'Week 13: Sustainable Marketing: Social Responsibility & Ethics (Ch.20)', driveId: '1pxfTiAYLtrqG9M6xAvRWsXyZCoLypoz6JKBeOhvVCz0', type: 'slides', xp: 10 },
             ],
             kisiKisi: ['Konsep dasar marketing', 'Segmentasi: geografis, demografis, psikografis', 'Strategi targeting', 'Positioning & differentiation', 'Marketing Mix: 4P', 'Digital marketing', 'CRM', 'Marketing analytics'],
             flashcards: [
