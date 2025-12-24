@@ -533,7 +533,7 @@ export default function App() {
               }}
               className="btn btn-secondary w-full text-base mt-3"
             >
-              <RefreshCw className="w-4 h-4" />
+              <RotateCcw className="w-4 h-4" />
               <span>Ganti Kelas</span>
             </motion.button>
           )}
