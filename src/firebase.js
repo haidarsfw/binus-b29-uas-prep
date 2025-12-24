@@ -897,4 +897,49 @@ export const compressAudio = async (blob) => {
     return blob;
 };
 
+// ============================================
+// ANNOUNCEMENT SYSTEM (Admin broadcasts)
+// ============================================
+
+// Subscribe to announcements (realtime)
+export const subscribeToAnnouncements = (callback) => {
+    const announcementRef = ref(db, 'announcement');
+    return onValue(announcementRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data && data.active) {
+            callback(data);
+        } else {
+            callback(null);
+        }
+    });
+};
+
+// Send announcement (admin only)
+export const sendAnnouncement = async (message, type = 'info') => {
+    const announcementRef = ref(db, 'announcement');
+    const newAnnouncement = {
+        message,
+        type, // 'info', 'warning', 'maintenance'
+        active: true,
+        createdAt: new Date().toISOString(),
+    };
+    try {
+        await withTimeout(set(announcementRef, newAnnouncement), 15000);
+    } catch (error) {
+        console.error('Error sending announcement:', error);
+        throw error;
+    }
+};
+
+// Clear announcement (admin only)
+export const clearAnnouncement = async () => {
+    const announcementRef = ref(db, 'announcement');
+    try {
+        await withTimeout(set(announcementRef, { active: false }), 15000);
+    } catch (error) {
+        console.error('Error clearing announcement:', error);
+        throw error;
+    }
+};
+
 export { db, ref, onValue };

@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -80,6 +80,12 @@ export default function App() {
   const [userEmail, setUserEmail] = useState('');
   const [referralStats, setReferralStats] = useState({ referralCode: null, referralCount: 0 });
   const [lastTestReminder, setLastTestReminder] = useState(0);
+
+  // New states for 4 new features
+  const [imagePreview, setImagePreview] = useState(null); // { url: string } for lightbox
+  const [announcement, setAnnouncement] = useState(null); // { message, type, active }
+  const [showAnnouncementPopup, setShowAnnouncementPopup] = useState(false);
+  const [subjectSearch, setSubjectSearch] = useState({ show: false, query: '', category: 'all' });
 
   // Toast notification state (replaces browser alert)
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
@@ -210,6 +216,48 @@ export default function App() {
     const i = setInterval(() => setPomo(p => p.time <= 1 ? { time: 25 * 60, active: false } : { ...p, time: p.time - 1 }), 1000);
     return () => clearInterval(i);
   }, [pomo.active]);
+
+  // Subscribe to announcements (realtime)
+  useEffect(() => {
+    const unsubscribe = subscribeToAnnouncements((data) => {
+      setAnnouncement(data);
+      if (data && data.active) {
+        // Check if user already dismissed this announcement
+        const dismissedAt = localStorage.getItem('lastDismissedAnnouncement');
+        if (!dismissedAt || new Date(dismissedAt) < new Date(data.createdAt)) {
+          setShowAnnouncementPopup(true);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // ESC key handler - close modals/popups or go back
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        // Priority order: close modals first, then go back
+        if (imagePreview) {
+          setImagePreview(null);
+        } else if (showAnnouncementPopup) {
+          setShowAnnouncementPopup(false);
+          localStorage.setItem('lastDismissedAnnouncement', new Date().toISOString());
+        } else if (subjectSearch.show) {
+          setSubjectSearch(s => ({ ...s, show: false, query: '' }));
+        } else if (showSettings) {
+          setShowSettings(false);
+        } else if (showAdminDashboard) {
+          setShowAdminDashboard(false);
+        } else if (showDocViewer) {
+          setShowDocViewer(false);
+        } else if (currentSubject) {
+          setCurrentSubject(null);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [imagePreview, showAnnouncementPopup, subjectSearch.show, showSettings, showAdminDashboard, showDocViewer, currentSubject]);
 
   // Realtime clock & reminder check
   const [showReminderAlert, setShowReminderAlert] = useState(false);
@@ -961,7 +1009,7 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} />
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -1171,6 +1219,81 @@ export default function App() {
             session={session}
             onClose={() => setShowAdminDashboard(false)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Image Lightbox/Preview */}
+      <AnimatePresence>
+        {imagePreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[700] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setImagePreview(null)}
+          >
+            <button
+              onClick={() => setImagePreview(null)}
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={imagePreview}
+              alt="Preview"
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Announcement Popup */}
+      <AnimatePresence>
+        {showAnnouncementPopup && announcement && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[800] bg-black/60 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-strong p-6 max-w-md w-full"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${announcement.type === 'warning' ? 'bg-yellow-500/20' :
+                  announcement.type === 'maintenance' ? 'bg-red-500/20' : 'bg-[var(--accent-soft)]'
+                  }`}>
+                  <Megaphone className={`w-6 h-6 ${announcement.type === 'warning' ? 'text-yellow-500' :
+                    announcement.type === 'maintenance' ? 'text-red-500' : 'text-[var(--accent)]'
+                    }`} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-[var(--text)]">Pengumuman</h3>
+                  <p className="text-xs text-[var(--text-muted)]">
+                    {new Date(announcement.createdAt).toLocaleString('id-ID')}
+                  </p>
+                </div>
+              </div>
+              <p className="text-[var(--text)] mb-6 whitespace-pre-wrap">{announcement.message}</p>
+              <button
+                onClick={() => {
+                  setShowAnnouncementPopup(false);
+                  localStorage.setItem('lastDismissedAnnouncement', new Date().toISOString());
+                }}
+                className="btn btn-primary w-full"
+              >
+                <Check className="w-4 h-4" />
+                <span>Mengerti</span>
+              </button>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -1564,7 +1687,65 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
 
 function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass }) {
   const content = DB.content[subject.id];
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchCategory, setSearchCategory] = useState('all');
 
+  // Search function
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase();
+    const results = [];
+
+    // Search in Kisi-Kisi
+    if (searchCategory === 'all' || searchCategory === 'kisi') {
+      const kisiKisi = content.kisiKisi || [];
+      if (Array.isArray(kisiKisi)) {
+        kisiKisi.forEach((item, idx) => {
+          if (typeof item === 'string') {
+            if (item.toLowerCase().includes(q)) {
+              results.push({ type: 'kisi', content: item, index: idx });
+            }
+          } else if (item.topic && item.items) {
+            if (item.topic.toLowerCase().includes(q)) {
+              results.push({ type: 'kisi', content: item.topic, index: idx });
+            }
+            item.items.forEach((subItem, subIdx) => {
+              if (subItem.toLowerCase().includes(q)) {
+                results.push({ type: 'kisi', content: `${item.topic}: ${subItem}`, index: idx });
+              }
+            });
+          }
+        });
+      }
+    }
+
+    // Search in Flashcards
+    if (searchCategory === 'all' || searchCategory === 'flashcard') {
+      const flashcards = content.flashcards || [];
+      flashcards.forEach((fc, idx) => {
+        if (fc.term?.toLowerCase().includes(q) || fc.definition?.toLowerCase().includes(q)) {
+          results.push({ type: 'flashcard', content: `${fc.term}: ${fc.definition}`, index: idx });
+        }
+      });
+    }
+
+    // Search in Rangkuman
+    if (searchCategory === 'all' || searchCategory === 'rangkuman') {
+      const rangkumanKey = subject.id === 'mis' ? 'mis' :
+        subject.id === 'intro' ? 'intro' :
+          subject.id === 'marketing' ? 'marketing' : null;
+      if (rangkumanKey && RANGKUMAN_CONTENT[rangkumanKey]) {
+        Object.entries(RANGKUMAN_CONTENT[rangkumanKey]).forEach(([key, val]) => {
+          if (typeof val === 'string' && val.toLowerCase().includes(q)) {
+            results.push({ type: 'rangkuman', content: val.slice(0, 200) + '...', key });
+          }
+        });
+      }
+    }
+
+    return results.slice(0, 20); // Limit to 20 results
+  }, [searchQuery, searchCategory, content, subject.id]);
 
   const tabs = [
     { name: 'Materi', icon: FileText },
@@ -1579,10 +1760,104 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
 
   return (
     <div className="animate-fade">
-      <div className="mb-4 sm:mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-[var(--text)] mb-1">{subject.name}</h2>
-        <p className="text-[var(--text-secondary)] text-sm sm:text-base">{subject.description}</p>
+      <div className="mb-4 sm:mb-6 flex items-start justify-between">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--text)] mb-1">{subject.name}</h2>
+          <p className="text-[var(--text-secondary)] text-sm sm:text-base">{subject.description}</p>
+        </div>
+        <button
+          onClick={() => setShowSearch(true)}
+          className="p-2 rounded-xl hover:bg-[var(--surface-hover)] text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors shrink-0"
+          title="Cari di mata kuliah ini"
+        >
+          <Search className="w-5 h-5" />
+        </button>
       </div>
+
+      {/* Search Modal */}
+      <AnimatePresence>
+        {showSearch && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[500] bg-black/60 flex items-start justify-center pt-20 p-4"
+            onClick={() => setShowSearch(false)}
+          >
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              className="glass-strong p-4 w-full max-w-lg max-h-[70vh] flex flex-col"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Search className="w-5 h-5 text-[var(--text-muted)]" />
+                <input
+                  autoFocus
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Cari di mata kuliah ini..."
+                  className="flex-1 bg-transparent text-[var(--text)] outline-none"
+                />
+                <button onClick={() => setShowSearch(false)} className="p-1 hover:bg-[var(--surface-hover)] rounded-lg">
+                  <X className="w-4 h-4 text-[var(--text-muted)]" />
+                </button>
+              </div>
+
+              {/* Category tabs */}
+              <div className="flex gap-1 mb-3 overflow-x-auto">
+                {[
+                  { id: 'all', label: 'Semua' },
+                  { id: 'rangkuman', label: 'Rangkuman' },
+                  { id: 'kisi', label: 'Kisi-Kisi' },
+                  { id: 'flashcard', label: 'Flashcard' }
+                ].map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSearchCategory(cat.id)}
+                    className={`px-3 py-1 text-xs rounded-lg whitespace-nowrap transition-colors ${searchCategory === cat.id
+                      ? 'bg-[var(--accent)] text-white'
+                      : 'bg-[var(--surface-hover)] text-[var(--text-muted)]'
+                      }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Results */}
+              <div className="flex-1 overflow-y-auto space-y-2">
+                {searchQuery.trim() && searchResults.length === 0 && (
+                  <p className="text-center text-[var(--text-muted)] py-8">Tidak ditemukan</p>
+                )}
+                {searchResults.map((r, i) => (
+                  <div
+                    key={i}
+                    className="p-3 bg-[var(--surface)] rounded-xl hover:bg-[var(--surface-hover)] cursor-pointer transition-colors"
+                    onClick={() => {
+                      // Navigate to the appropriate tab
+                      if (r.type === 'kisi') setActiveTab(2);
+                      else if (r.type === 'flashcard') setActiveTab(3);
+                      else if (r.type === 'rangkuman') setActiveTab(1);
+                      setShowSearch(false);
+                      setSearchQuery('');
+                    }}
+                  >
+                    <span className={`text-xs px-2 py-0.5 rounded ${r.type === 'kisi' ? 'bg-blue-500/20 text-blue-500' :
+                      r.type === 'flashcard' ? 'bg-green-500/20 text-green-500' :
+                        'bg-purple-500/20 text-purple-500'
+                      }`}>
+                      {r.type === 'kisi' ? 'Kisi-Kisi' : r.type === 'flashcard' ? 'Flashcard' : 'Rangkuman'}
+                    </span>
+                    <p className="text-sm text-[var(--text)] mt-1 line-clamp-2">{r.content}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="tabs mb-4 sm:mb-6 overflow-x-auto scrollbar-hide">
         {tabs.map((t, i) => (
@@ -3566,7 +3841,7 @@ const DEFAULT_STICKERS = [
   { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -3793,8 +4068,8 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification 
                               <p className="opacity-70 truncate">{msg.replyToContent}</p>
                             </div>
                           )}
-                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40" />}
-                          {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain" />}
+                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40 cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
+                          {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
                           {msg.type === 'audio' && msg.mediaUrl && <VoiceNotePlayer src={msg.mediaUrl} isMine={isMine} />}
                           {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
                           {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
@@ -3873,11 +4148,45 @@ function AdminDashboard({ session, onClose }) {
   const [statsRefresh, setStatsRefresh] = useState(0);
   const [dangerAction, setDangerAction] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [announcementText, setAnnouncementText] = useState('');
+  const [announcementType, setAnnouncementType] = useState('info');
+  const [sendingAnnouncement, setSendingAnnouncement] = useState(false);
+
+  // Announcement templates
+  const announcementTemplates = [
+    { label: '🔄 Server Reboot', text: 'Server akan di-reboot sebentar lagi. Mohon tunggu sekitar 1 menit dan refresh halaman.', type: 'maintenance' },
+    { label: '⚡ Update', text: 'Sedang ada update sistem. Mohon tunggu sebentar dan refresh halaman setelah selesai.', type: 'info' },
+    { label: '🛠️ Maintenance', text: 'Sistem sedang dalam maintenance. Mohon maaf atas ketidaknyamanan ini.', type: 'maintenance' },
+    { label: '📢 Info', text: 'Info: Selamat belajar! Semoga sukses UAS-nya! 💪', type: 'info' },
+  ];
+
+  const handleSendAnnouncement = async () => {
+    if (!announcementText.trim()) return;
+    setSendingAnnouncement(true);
+    try {
+      await sendAnnouncement(announcementText, announcementType);
+      setAnnouncementText('');
+    } catch (e) {
+      console.error('Error sending announcement:', e);
+    }
+    setSendingAnnouncement(false);
+  };
+
+  const handleClearAnnouncement = async () => {
+    setSendingAnnouncement(true);
+    try {
+      await clearAnnouncement();
+    } catch (e) {
+      console.error('Error clearing announcement:', e);
+    }
+    setSendingAnnouncement(false);
+  };
 
   const tabs = [
     { name: 'License Keys', icon: Key },
     { name: 'Users', icon: Users },
     { name: 'Stats', icon: Activity },
+    { name: 'Announce', icon: Megaphone },
   ];
 
   // Load data
@@ -4197,6 +4506,88 @@ function AdminDashboard({ session, onClose }) {
                       Clear Users: Menghapus data aktivasi. Reset Keys: Menghapus semua keys dan membuat ulang ADMIN1, TESTER01, TESTER02.
                     </p>
                   </div>
+                </div>
+              )}
+
+              {/* Announce Tab */}
+              {activeTab === 3 && (
+                <div className="space-y-4">
+                  <div className="glass-card p-4">
+                    <h4 className="font-medium text-[var(--text)] mb-3 flex items-center gap-2">
+                      <Megaphone className="w-4 h-4 text-[var(--accent)]" />
+                      Kirim Pengumuman
+                    </h4>
+
+                    {/* Templates */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {announcementTemplates.map((t, i) => (
+                        <button
+                          key={i}
+                          onClick={() => {
+                            setAnnouncementText(t.text);
+                            setAnnouncementType(t.type);
+                          }}
+                          className="px-2 py-1 text-xs bg-[var(--surface-hover)] hover:bg-[var(--accent-soft)] text-[var(--text-secondary)] hover:text-[var(--accent)] rounded-lg transition-colors"
+                        >
+                          {t.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Type selector */}
+                    <div className="flex gap-2 mb-3">
+                      {['info', 'warning', 'maintenance'].map(t => (
+                        <button
+                          key={t}
+                          onClick={() => setAnnouncementType(t)}
+                          className={`px-3 py-1 text-xs rounded-lg transition-colors ${announcementType === t
+                            ? t === 'info' ? 'bg-blue-500/20 text-blue-500' :
+                              t === 'warning' ? 'bg-yellow-500/20 text-yellow-500' :
+                                'bg-red-500/20 text-red-500'
+                            : 'bg-[var(--surface-hover)] text-[var(--text-muted)]'
+                            }`}
+                        >
+                          {t.charAt(0).toUpperCase() + t.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Text input */}
+                    <textarea
+                      value={announcementText}
+                      onChange={(e) => setAnnouncementText(e.target.value)}
+                      placeholder="Ketik pesan pengumuman..."
+                      className="w-full p-3 bg-[var(--surface)] border border-[var(--border)] rounded-xl text-sm text-[var(--text)] resize-none outline-none focus:border-[var(--accent)]"
+                      rows={4}
+                    />
+
+                    <div className="flex gap-2 mt-3">
+                      <button
+                        onClick={handleSendAnnouncement}
+                        disabled={sendingAnnouncement || !announcementText.trim()}
+                        className="btn btn-primary flex-1 disabled:opacity-50"
+                      >
+                        {sendingAnnouncement ? (
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ) : (
+                          <Send className="w-4 h-4" />
+                        )}
+                        <span>Kirim</span>
+                      </button>
+                      <button
+                        onClick={handleClearAnnouncement}
+                        disabled={sendingAnnouncement}
+                        className="btn btn-secondary disabled:opacity-50"
+                      >
+                        <X className="w-4 h-4" />
+                        <span>Clear</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-[var(--text-muted)] text-center">
+                    Pengumuman akan muncul sebagai popup di semua user yang sedang online.
+                  </p>
                 </div>
               )}
             </>
