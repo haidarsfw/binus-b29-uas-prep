@@ -236,12 +236,9 @@ export default function App() {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
-        // Priority order: close modals first, then go back (but NOT from subject to dashboard)
+        // Priority order: close modals first, then go back
         if (imagePreview) {
           setImagePreview(null);
-        } else if (showAnnouncementPopup) {
-          setShowAnnouncementPopup(false);
-          localStorage.setItem('lastDismissedAnnouncement', new Date().toISOString());
         } else if (subjectSearch.show) {
           setSubjectSearch(s => ({ ...s, show: false, query: '' }));
         } else if (showDocViewer) {
@@ -250,13 +247,16 @@ export default function App() {
           setShowSettings(false);
         } else if (showAdminDashboard) {
           setShowAdminDashboard(false);
+        } else if (currentSubject) {
+          // ESC from subject view to dashboard
+          setCurrentSubject(null);
         }
-        // Note: ESC from subject view to dashboard is removed - user should click back button
+        // Note: showAnnouncementPopup intentionally NOT closed by ESC
       }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [imagePreview, showAnnouncementPopup, subjectSearch.show, showSettings, showAdminDashboard, showDocViewer]);
+  }, [imagePreview, subjectSearch.show, showSettings, showAdminDashboard, showDocViewer, currentSubject]);
 
   // Realtime clock & reminder check
   const [showReminderAlert, setShowReminderAlert] = useState(false);
