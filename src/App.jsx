@@ -1985,6 +1985,18 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
     );
   }
 
+  // ESC to close content viewer
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && viewFile) {
+        setViewFile(null);
+        setHighlightQuery('');
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [viewFile]);
+
   const closeViewer = () => setViewFile(null);
 
   const renderFileList = (files, sectionName) => {
@@ -2607,6 +2619,17 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
     return type?.toUpperCase() || 'FILE';
   };
 
+  // ESC to close viewer
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && viewFile) {
+        setViewFile(null);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [viewFile]);
+
   const closeViewer = () => setViewFile(null);
 
   return (
@@ -3154,6 +3177,21 @@ function Forum({ subjectId, session, selectedClass }) {
       reader.readAsDataURL(file);
     }
   };
+
+  // ESC to close thread view or new thread form
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        if (selectedThread) {
+          setSelectedThread(null);
+        } else if (showNew) {
+          setShowNew(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [selectedThread, showNew]);
 
   useEffect(() => {
     const unsub = subscribeToThreads(subjectId, setThreads);
