@@ -1930,14 +1930,22 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
     if (searchTarget && searchTarget.type === 'rangkuman' && searchTarget.key) {
       // Find which modul/section matches the key
       const key = searchTarget.key;
-      if (key.startsWith('modul')) {
+      if (key.startsWith('modul') && rangkuman?.modulInti) {
         const modulNum = parseInt(key.replace('modul', '')) - 1;
-        if (modulNum >= 0 && rangkuman?.modulInti?.length > modulNum) {
-          setActiveModulIndex(modulNum);
+        if (modulNum >= 0 && rangkuman.modulInti.length > modulNum) {
+          const modulFile = rangkuman.modulInti[modulNum];
           setExpandedSections(prev => ({ ...prev, modulInti: true }));
+          // Auto-open the content viewer
+          if (modulFile) {
+            setViewFile(modulFile);
+          }
         }
-      } else if (key.includes('tambahan') || key.includes('addendum')) {
+      } else if ((key.includes('tambahan') || key.includes('addendum')) && rangkuman?.addendum) {
         setExpandedSections(prev => ({ ...prev, addendum: true }));
+        // Auto-open addendum if available
+        if (rangkuman.addendum.length > 0) {
+          setViewFile(rangkuman.addendum[0]);
+        }
       }
       // Clear search target after navigation
       if (onClearSearch) onClearSearch();
