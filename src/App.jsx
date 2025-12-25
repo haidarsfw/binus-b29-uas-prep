@@ -163,7 +163,27 @@ function ContentLockOverlay({ message = "Dapatkan License Key untuk membuka Full
       <p style={{ color: '#fff', fontSize: '14px', textAlign: 'center', maxWidth: '280px', fontWeight: '500' }}>
         {message}
       </p>
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+        <a
+          href="https://forms.gle/C1XFvjqhSzo8bBT1A"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            padding: '10px 16px',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontSize: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px'
+          }}
+        >
+          📝 Dapatkan Lisensi
+        </a>
+        <span style={{ color: 'rgba(255,255,255,0.4)' }}>|</span>
         <a
           href="https://wa.me/6287839256171"
           target="_blank"
@@ -182,25 +202,6 @@ function ContentLockOverlay({ message = "Dapatkan License Key untuk membuka Full
           }}
         >
           💬 Chat Admin
-        </a>
-        <a
-          href="https://forms.gle/C1XFvjqhSzo8bBT1A"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            padding: '10px 16px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            color: '#fff',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            fontSize: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px'
-          }}
-        >
-          📝 Beli via Form
         </a>
       </div>
     </div>
@@ -1717,13 +1718,13 @@ function Login({ dark, setDark, onSuccess }) {
 
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            <div className="flex items-center justify-center gap-3 flex-wrap">
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[var(--accent)] font-medium hover:underline text-sm">
-                <MessageCircle className="w-4 h-4" />Chat Admin
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-purple-400 font-medium hover:underline text-sm">
+                <FileText className="w-4 h-4" />Dapatkan Lisensi
               </a>
-              <span className="text-[var(--text-muted)]">atau</span>
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-purple-400 font-medium hover:underline text-sm">
-                <FileText className="w-4 h-4" />Beli via Form
+              <span className="text-[var(--text-muted)]">|</span>
+              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline text-sm">
+                <MessageCircle className="w-4 h-4" />Chat Admin
               </a>
             </div>
           </div>
