@@ -702,8 +702,8 @@ export default function App() {
               if (!sessionStorage.getItem('termsAgreedThisSession')) {
                 setShowTerms(true);
               }
-              // Show tutorial if first time
-              if (!localStorage.getItem('tutorialCompletedV5')) {
+              // Show tutorial if first time OR if preview mode (always show for preview)
+              if (!localStorage.getItem('tutorialCompletedV5') || s.licenseKey?.toLowerCase() === 'preview01') {
                 setShowTutorial(true);
               }
             }}
