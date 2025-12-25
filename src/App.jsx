@@ -46,6 +46,143 @@ function CircularProgress({ value, size = 140, stroke = 10 }) {
   );
 }
 
+// ============================================
+// PREVIEW MODE WATERMARK - Diagonal repeating semi-transparent
+// ============================================
+function PreviewWatermark() {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 99998,
+        overflow: 'hidden',
+        background: 'transparent'
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: '-50%',
+          left: '-50%',
+          width: '200%',
+          height: '200%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '80px',
+          transform: 'rotate(-30deg)',
+          opacity: 0.15
+        }}
+      >
+        {Array.from({ length: 20 }).map((_, rowIdx) => (
+          <div key={rowIdx} style={{ display: 'flex', gap: '100px', whiteSpace: 'nowrap' }}>
+            {Array.from({ length: 10 }).map((_, colIdx) => (
+              <div
+                key={colIdx}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '4px',
+                  color: '#ff4444',
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  textTransform: 'uppercase',
+                  userSelect: 'none'
+                }}
+              >
+                <span style={{ fontSize: '24px' }}>⚠️ PREVIEW MODE</span>
+                <span style={{ fontSize: '12px' }}>Dapatkan License Key untuk Full Access</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// USER WATERMARK - Small username in corner for tracking
+// ============================================
+function UserWatermark({ username }) {
+  if (!username) return null;
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        bottom: '8px',
+        right: '8px',
+        padding: '4px 10px',
+        background: 'rgba(0,0,0,0.3)',
+        borderRadius: '6px',
+        fontSize: '10px',
+        color: 'rgba(255,255,255,0.5)',
+        pointerEvents: 'none',
+        zIndex: 99997,
+        userSelect: 'none',
+        fontFamily: 'monospace'
+      }}
+    >
+      Licensed to: {username}
+    </div>
+  );
+}
+
+// ============================================
+// CONTENT LOCK OVERLAY - For preview mode locked content
+// ============================================
+function ContentLockOverlay({ message = "Dapatkan License Key untuk membuka Full Access" }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0,0,0,0.8)',
+        backdropFilter: 'blur(8px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '16px',
+        zIndex: 100,
+        borderRadius: 'inherit'
+      }}
+    >
+      <div style={{ fontSize: '48px' }}>🔒</div>
+      <p style={{ color: '#fff', fontSize: '14px', textAlign: 'center', maxWidth: '280px', fontWeight: '500' }}>
+        {message}
+      </p>
+      <a
+        href="https://wa.me/6287839256171"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          padding: '10px 20px',
+          background: 'linear-gradient(135deg, #25D366, #128C7E)',
+          color: '#fff',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          fontSize: '13px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}
+      >
+        💬 Beli License Key
+      </a>
+    </div>
+  );
+}
+
 export default function App() {
   const [dark, setDark] = useState(() => localStorage.getItem('dark') !== 'false');
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'blue');
@@ -93,6 +230,11 @@ export default function App() {
   // Alarm state for reminder (continuous alarm until dismissed)
   const [alarmActive, setAlarmActive] = useState(false);
   const alarmAudioRef = useRef(null);
+
+  // Preview Mode Detection - License key "Preview" or "PREVIEW" triggers preview mode
+  const isPreviewMode = useMemo(() => {
+    return session?.licenseKey?.toLowerCase() === 'preview';
+  }, [session]);
 
   // Show toast function
   const showToast = (message, type = 'info', duration = 4000) => {
@@ -658,7 +800,7 @@ export default function App() {
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} />
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -1008,7 +1150,7 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} />
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -1295,6 +1437,12 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Preview Mode Watermark - Full screen diagonal */}
+      {isPreviewMode && <PreviewWatermark />}
+
+      {/* User Watermark - Username tracking (only for non-preview users) */}
+      {session && !isPreviewMode && <UserWatermark username={session.name || session.licenseKey} />}
 
       <div className="watermark">Made by haidarsb LE86</div>
     </div>
@@ -1684,7 +1832,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode }) {
   const content = DB.content[subject.id];
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -1905,19 +2053,22 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         ))}
       </div>
 
-      <div className="animate-fade">
-        {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} />}
-        {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} />}
-        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} />}
-        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} />}
-        {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} />}
-        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} />}
+      <div className="animate-fade" style={{ position: 'relative', minHeight: '300px' }}>
+        {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} isPreviewMode={isPreviewMode} />}
+        {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} isPreviewMode={isPreviewMode} />}
+        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
+        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
+        {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} />}
+
+        {/* Content Lock Overlay for Preview Mode */}
+        {isPreviewMode && <ContentLockOverlay />}
       </div>
     </div>
   );
 }
 
-function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
+function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
@@ -2608,7 +2759,7 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
   );
 }
 
-function Materi({ materi, subjectId, progress, updateProgress }) {
+function Materi({ materi, subjectId, progress, updateProgress, isPreviewMode }) {
   const completed = progress[subjectId]?.materi || [];
   const mark = (idx) => updateProgress(subjectId, 'materi', idx);
   const [viewFile, setViewFile] = useState(null);
@@ -2743,7 +2894,7 @@ function Materi({ materi, subjectId, progress, updateProgress }) {
   );
 }
 
-function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNote, subjectId }) {
+function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNote, subjectId, isPreviewMode }) {
   // Check if kisiKisi is the old format (array of strings) or new format (array of objects with topic/items)
   const isNewFormat = kisiKisi?.length > 0 && typeof kisiKisi[0] === 'object' && kisiKisi[0].topic;
 
@@ -2836,7 +2987,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
   );
 }
 
-function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
+function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
   const [mode, setMode] = useState('flashcards'); // 'flashcards' or 'quiz'
   const [flipped, setFlipped] = useState({});
   const [cur, setCur] = useState(0);
@@ -3059,7 +3210,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId }) {
   );
 }
 
-function PersonalNotes({ subjectId, subjectName }) {
+function PersonalNotes({ subjectId, subjectName, isPreviewMode }) {
   const storageKey = `personalNotes_${subjectId}`;
   const [notes, setNotes] = useState(() => localStorage.getItem(storageKey) || '');
   const [saved, setSaved] = useState(true);
@@ -3159,7 +3310,7 @@ function PersonalNotes({ subjectId, subjectName }) {
 }
 
 
-function Forum({ subjectId, session, selectedClass }) {
+function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
   const [threads, setThreads] = useState([]);
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -4006,7 +4157,7 @@ const DEFAULT_STICKERS = [
   { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
