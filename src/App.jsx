@@ -116,16 +116,19 @@ function UserWatermark({ username }) {
       style={{
         position: 'fixed',
         bottom: '8px',
-        right: '8px',
+        left: '8px',
         padding: '4px 10px',
-        background: 'rgba(0,0,0,0.3)',
+        background: 'rgba(0,0,0,0.4)',
         borderRadius: '6px',
         fontSize: '10px',
-        color: 'rgba(255,255,255,0.5)',
+        color: 'rgba(255,255,255,0.6)',
         pointerEvents: 'none',
-        zIndex: 99997,
+        zIndex: 2147483647, // Maximum z-index - cannot be covered
         userSelect: 'none',
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none'
       }}
     >
       Licensed to: {username}
@@ -231,9 +234,9 @@ export default function App() {
   const [alarmActive, setAlarmActive] = useState(false);
   const alarmAudioRef = useRef(null);
 
-  // Preview Mode Detection - License key "Preview" or "PREVIEW" triggers preview mode
+  // Preview Mode Detection - License key "Preview01" triggers preview mode
   const isPreviewMode = useMemo(() => {
-    return session?.licenseKey?.toLowerCase() === 'preview';
+    return session?.licenseKey?.toLowerCase() === 'preview01';
   }, [session]);
 
   // Show toast function
@@ -845,187 +848,195 @@ export default function App() {
               <h3 className="text-lg font-bold text-[var(--text)]">Pengaturan</h3>
               <button onClick={() => setShowSettings(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
             </div>
-            <div className="space-y-6">
-              <div>
-                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Palette className="w-4 h-4" />Warna Aksen</label>
-                <div className="flex gap-3">
-                  {themeColors.map(t => (
-                    <motion.button key={t.id} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(t.id)}
-                      className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-105' : 'border-transparent'}`}
-                      style={{ background: t.color }}>{theme === t.id && <Check className="w-5 h-5 text-white" />}</motion.button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Type className="w-4 h-4" />Font</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {fonts.map(f => (
-                    <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'glass-card text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center justify-between p-4 glass-card rounded-xl">
-                <span className="text-[var(--text)]">Mode Gelap</span>
-                <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
-                  <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
-                </button>
-              </div>
 
-              {/* Email for Reminder */}
-              <div className="p-4 glass-card rounded-xl space-y-3">
-                <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
-                  <Mail className="w-4 h-4" />Email untuk Reminder
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="email"
-                    value={userEmail}
-                    onChange={(e) => setUserEmail(e.target.value)}
-                    placeholder="email@example.com"
-                    className="input flex-1"
-                  />
-                  <button
-                    onClick={async () => {
-                      if (!userEmail || !isValidEmail(userEmail)) {
-                        showToast('Masukkan email yang valid', 'error');
-                        return;
-                      }
-                      try {
-                        await saveUserEmail(session.licenseKey, userEmail);
-                        showToast('Email berhasil disimpan!', 'success');
-                      } catch (e) {
-                        showToast('Error: ' + e.message, 'error');
-                      }
-                    }}
-                    className="btn btn-primary px-4"
-                  >
-                    Simpan
+            {/* Lock overlay for preview mode */}
+            {isPreviewMode ? (
+              <div style={{ position: 'relative', minHeight: '200px' }}>
+                <ContentLockOverlay message="Pengaturan tidak tersedia di Preview Mode" />
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Palette className="w-4 h-4" />Warna Aksen</label>
+                  <div className="flex gap-3">
+                    {themeColors.map(t => (
+                      <motion.button key={t.id} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(t.id)}
+                        className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${theme === t.id ? 'border-[var(--text)] scale-105' : 'border-transparent'}`}
+                        style={{ background: t.color }}>{theme === t.id && <Check className="w-5 h-5 text-white" />}</motion.button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-3"><Type className="w-4 h-4" />Font</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {fonts.map(f => (
+                      <button key={f.id} onClick={() => setFont(f.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${font === f.id ? 'gradient-accent text-white' : 'glass-card text-[var(--text)]'}`} style={{ fontFamily: f.name }}>{f.name}</button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex items-center justify-between p-4 glass-card rounded-xl">
+                  <span className="text-[var(--text)]">Mode Gelap</span>
+                  <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
+                    <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
-                  {userEmail && (
+                </div>
+
+                {/* Email for Reminder */}
+                <div className="p-4 glass-card rounded-xl space-y-3">
+                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                    <Mail className="w-4 h-4" />Email untuk Reminder
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      value={userEmail}
+                      onChange={(e) => setUserEmail(e.target.value)}
+                      placeholder="email@example.com"
+                      className="input flex-1"
+                    />
                     <button
                       onClick={async () => {
+                        if (!userEmail || !isValidEmail(userEmail)) {
+                          showToast('Masukkan email yang valid', 'error');
+                          return;
+                        }
                         try {
-                          setUserEmail('');
-                          await saveUserEmail(session.licenseKey, '');
-                          showToast('Email dihapus. Anda tidak akan menerima notifikasi email.', 'info');
+                          await saveUserEmail(session.licenseKey, userEmail);
+                          showToast('Email berhasil disimpan!', 'success');
                         } catch (e) {
                           showToast('Error: ' + e.message, 'error');
                         }
                       }}
-                      className="btn btn-secondary px-3"
-                      title="Hapus email"
+                      className="btn btn-primary px-4"
                     >
-                      <X className="w-4 h-4" />
+                      Simpan
                     </button>
-                  )}
-                </div>
+                    {userEmail && (
+                      <button
+                        onClick={async () => {
+                          try {
+                            setUserEmail('');
+                            await saveUserEmail(session.licenseKey, '');
+                            showToast('Email dihapus. Anda tidak akan menerima notifikasi email.', 'info');
+                          } catch (e) {
+                            showToast('Error: ' + e.message, 'error');
+                          }
+                        }}
+                        className="btn btn-secondary px-3"
+                        title="Hapus email"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
 
-                {/* Test Reminder Button */}
-                <button
-                  onClick={async () => {
-                    // Rate limit check - 60 seconds between tests
-                    const now = Date.now();
-                    const cooldown = 60 * 1000; // 60 seconds
-                    if (now - lastTestReminder < cooldown) {
-                      const remaining = Math.ceil((cooldown - (now - lastTestReminder)) / 1000);
-                      showToast(`⏳ Tunggu ${remaining} detik lagi sebelum test ulang.`, 'warning');
-                      return;
-                    }
-                    setLastTestReminder(now);
+                  {/* Test Reminder Button */}
+                  <button
+                    onClick={async () => {
+                      // Rate limit check - 60 seconds between tests
+                      const now = Date.now();
+                      const cooldown = 60 * 1000; // 60 seconds
+                      if (now - lastTestReminder < cooldown) {
+                        const remaining = Math.ceil((cooldown - (now - lastTestReminder)) / 1000);
+                        showToast(`⏳ Tunggu ${remaining} detik lagi sebelum test ulang.`, 'warning');
+                        return;
+                      }
+                      setLastTestReminder(now);
 
-                    // Test notification
-                    if (typeof Notification !== 'undefined') {
-                      if (Notification.permission === 'granted') {
-                        new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
-                      } else if (Notification.permission === 'default') {
-                        const perm = await Notification.requestPermission();
-                        if (perm === 'granted') {
-                          new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                      // Test notification
+                      if (typeof Notification !== 'undefined') {
+                        if (Notification.permission === 'granted') {
+                          new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser berfungsi!', icon: '/vite.svg' });
+                        } else if (Notification.permission === 'default') {
+                          const perm = await Notification.requestPermission();
+                          if (perm === 'granted') {
+                            new Notification('🔔 Test Reminder!', { body: 'Notifikasi browser aktif!', icon: '/vite.svg' });
+                          }
                         }
                       }
-                    }
 
-                    // Play sound
-                    try {
-                      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                      const oscillator = audioContext.createOscillator();
-                      const gainNode = audioContext.createGain();
-                      oscillator.connect(gainNode);
-                      gainNode.connect(audioContext.destination);
-                      oscillator.frequency.value = 800;
-                      oscillator.type = 'sine';
-                      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-                      oscillator.start(audioContext.currentTime);
-                      oscillator.stop(audioContext.currentTime + 0.5);
-                    } catch (e) { }
+                      // Play sound
+                      try {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        oscillator.frequency.value = 800;
+                        oscillator.type = 'sine';
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.5);
+                      } catch (e) { }
 
-                    // Vibrate
-                    if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                      // Vibrate
+                      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
 
-                    // Test email if configured
-                    if (userEmail && isValidEmail(userEmail)) {
-                      const result = await sendReminderEmail(userEmail, session?.userName || 'User', 'TEST');
-                      if (result.success) {
-                        showToast('✅ Test berhasil!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Terkirim ke ' + userEmail, 'success');
+                      // Test email if configured
+                      if (userEmail && isValidEmail(userEmail)) {
+                        const result = await sendReminderEmail(userEmail, session?.userName || 'User', 'TEST');
+                        if (result.success) {
+                          showToast('✅ Test berhasil!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Terkirim ke ' + userEmail, 'success');
+                        } else {
+                          showToast('⚠️ Test selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Gagal - ' + (result.error || 'Unknown error'), 'warning');
+                        }
                       } else {
-                        showToast('⚠️ Test selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : 'Tidak aktif') + '\n- Email: Gagal - ' + (result.error || 'Unknown error'), 'warning');
+                        showToast('✅ Test notifikasi selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : Notification.permission) + '\n- Email: Tidak ditest (email belum diisi)', 'success');
                       }
-                    } else {
-                      showToast('✅ Test notifikasi selesai!\n- Notifikasi: ' + (Notification.permission === 'granted' ? 'Aktif' : Notification.permission) + '\n- Email: Tidak ditest (email belum diisi)', 'success');
-                    }
-                  }}
-                  className="btn btn-secondary w-full text-sm"
-                >
-                  🔔 Test Reminder (Notifikasi + Email)
-                </button>
+                    }}
+                    className="btn btn-secondary w-full text-sm"
+                  >
+                    🔔 Test Reminder (Notifikasi + Email)
+                  </button>
 
-                <div className="flex items-center gap-2 text-xs">
-                  <span className={`w-2 h-2 rounded-full ${typeof Notification !== 'undefined' && Notification.permission === 'granted' ? 'bg-green-500' : typeof Notification !== 'undefined' && Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
-                  <span className="text-[var(--text-muted)]">
-                    Notifikasi Browser: {typeof Notification === 'undefined' ? '❌ Tidak didukung' : Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
-                  </span>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className={`w-2 h-2 rounded-full ${typeof Notification !== 'undefined' && Notification.permission === 'granted' ? 'bg-green-500' : typeof Notification !== 'undefined' && Notification.permission === 'denied' ? 'bg-red-500' : 'bg-yellow-500'}`} />
+                    <span className="text-[var(--text-muted)]">
+                      Notifikasi Browser: {typeof Notification === 'undefined' ? '❌ Tidak didukung' : Notification.permission === 'granted' ? '✅ Aktif' : Notification.permission === 'denied' ? '❌ Diblokir' : '⚠️ Belum diizinkan'}
+                    </span>
+                  </div>
                 </div>
+
+                {/* Referral Code */}
+                {(referralStats.referralCode || session?.referralCode) && (
+                  <div className="p-4 glass-card rounded-xl space-y-3">
+                    <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                      <Gift className="w-4 h-4" />Kode Referral Anda
+                    </label>
+                    <div className="flex gap-2">
+                      <code className="flex-1 p-3 bg-[var(--accent-soft)] rounded-xl text-[var(--accent)] font-mono text-center">
+                        {referralStats.referralCode || session?.referralCode}
+                      </code>
+                      <button
+                        onClick={() => {
+                          const code = referralStats.referralCode || session?.referralCode;
+                          navigator.clipboard.writeText(code);
+                          showToast('Kode referral berhasil disalin!', 'success');
+                        }}
+                        className="btn btn-secondary px-3"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          const code = referralStats.referralCode || session?.referralCode;
+                          const text = `Yuk belajar UAS bareng di BINUS B29 UAS Prep! Gunakan kode referral: ${code}`;
+                          window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                        }}
+                        className="btn btn-primary px-3"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-[var(--text-muted)]">Jumlah referral berhasil:</span>
+                      <span className="font-bold text-[var(--accent)]">{referralStats.referralCount || 0}</span>
+                    </div>
+                  </div>
+                )}
               </div>
-
-              {/* Referral Code */}
-              {(referralStats.referralCode || session?.referralCode) && (
-                <div className="p-4 glass-card rounded-xl space-y-3">
-                  <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
-                    <Gift className="w-4 h-4" />Kode Referral Anda
-                  </label>
-                  <div className="flex gap-2">
-                    <code className="flex-1 p-3 bg-[var(--accent-soft)] rounded-xl text-[var(--accent)] font-mono text-center">
-                      {referralStats.referralCode || session?.referralCode}
-                    </code>
-                    <button
-                      onClick={() => {
-                        const code = referralStats.referralCode || session?.referralCode;
-                        navigator.clipboard.writeText(code);
-                        showToast('Kode referral berhasil disalin!', 'success');
-                      }}
-                      className="btn btn-secondary px-3"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        const code = referralStats.referralCode || session?.referralCode;
-                        const text = `Yuk belajar UAS bareng di BINUS B29 UAS Prep! Gunakan kode referral: ${code}`;
-                        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-                      }}
-                      className="btn btn-primary px-3"
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-[var(--text-muted)]">Jumlah referral berhasil:</span>
-                    <span className="font-bold text-[var(--accent)]">{referralStats.referralCount || 0}</span>
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       )}
@@ -1042,66 +1053,76 @@ export default function App() {
                 </div>
                 <button onClick={() => setShowReminder(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5" /></button>
               </div>
-              <p className="text-[var(--text-secondary)] text-sm mb-4">Set tanggal dan waktu untuk mengingatkan Anda belajar.</p>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Tanggal</label>
-                    <input
-                      type="date"
-                      value={reminder.split('T')[0] || ''}
-                      onChange={(e) => {
-                        const time = reminder.split('T')[1] || '08:00';
-                        const newReminder = e.target.value + 'T' + time;
-                        setReminder(newReminder);
-                        localStorage.setItem('studyReminder', newReminder);
-                      }}
-                      className="input text-center"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Waktu</label>
-                    <input
-                      type="time"
-                      value={reminder.split('T')[1] || '08:00'}
-                      onChange={(e) => {
-                        const date = reminder.split('T')[0] || new Date().toISOString().split('T')[0];
-                        const newReminder = date + 'T' + e.target.value;
-                        setReminder(newReminder);
-                        localStorage.setItem('studyReminder', newReminder);
-                      }}
-                      className="input text-center"
-                    />
-                  </div>
+
+              {/* Lock overlay for preview mode */}
+              {isPreviewMode ? (
+                <div style={{ position: 'relative', minHeight: '150px' }}>
+                  <ContentLockOverlay message="Reminder tidak tersedia di Preview Mode" />
                 </div>
-                {reminder && reminder.includes('T') && (
-                  <div className="p-3 bg-[var(--accent-soft)] rounded-xl text-center">
-                    <p className="text-sm text-[var(--accent)] font-medium">🔔 Reminder: {new Date(reminder).toLocaleString('id-ID', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</p>
+              ) : (
+                <>
+                  <p className="text-[var(--text-secondary)] text-sm mb-4">Set tanggal dan waktu untuk mengingatkan Anda belajar.</p>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Tanggal</label>
+                        <input
+                          type="date"
+                          value={reminder.split('T')[0] || ''}
+                          onChange={(e) => {
+                            const time = reminder.split('T')[1] || '08:00';
+                            const newReminder = e.target.value + 'T' + time;
+                            setReminder(newReminder);
+                            localStorage.setItem('studyReminder', newReminder);
+                          }}
+                          className="input text-center"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Waktu</label>
+                        <input
+                          type="time"
+                          value={reminder.split('T')[1] || '08:00'}
+                          onChange={(e) => {
+                            const date = reminder.split('T')[0] || new Date().toISOString().split('T')[0];
+                            const newReminder = date + 'T' + e.target.value;
+                            setReminder(newReminder);
+                            localStorage.setItem('studyReminder', newReminder);
+                          }}
+                          className="input text-center"
+                        />
+                      </div>
+                    </div>
+                    {reminder && reminder.includes('T') && (
+                      <div className="p-3 bg-[var(--accent-soft)] rounded-xl text-center">
+                        <p className="text-sm text-[var(--accent)] font-medium">🔔 Reminder: {new Date(reminder).toLocaleString('id-ID', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</p>
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      {reminder && (
+                        <button
+                          onClick={() => {
+                            setReminder('');
+                            localStorage.removeItem('studyReminder');
+                            setShowReminder(false);
+                          }}
+                          className="btn btn-secondary flex-1"
+                        >
+                          Hapus
+                        </button>
+                      )}
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setShowReminder(false)}
+                        className="btn btn-primary flex-1"
+                      >
+                        Simpan
+                      </motion.button>
+                    </div>
                   </div>
-                )}
-                <div className="flex gap-2">
-                  {reminder && (
-                    <button
-                      onClick={() => {
-                        setReminder('');
-                        localStorage.removeItem('studyReminder');
-                        setShowReminder(false);
-                      }}
-                      className="btn btn-secondary flex-1"
-                    >
-                      Hapus
-                    </button>
-                  )}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setShowReminder(false)}
-                    className="btn btn-primary flex-1"
-                  >
-                    Simpan
-                  </motion.button>
-                </div>
-              </div>
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}
@@ -1541,6 +1562,19 @@ function Login({ dark, setDark, onSuccess }) {
     setError('');
 
     try {
+      // Bypass validation for Preview01 - special preview mode key
+      if (key.toLowerCase() === 'preview01') {
+        resetAttempts();
+        onSuccess({
+          licenseKey: key,
+          name: 'Preview User',
+          type: 'preview',
+          expiry: null
+        });
+        setLoading(false);
+        return;
+      }
+
       const r = await validateLicenseWithDevice(key, referralCode.trim() || null);
       if (r.valid) {
         resetAttempts(); // Reset on success
@@ -4365,55 +4399,61 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                 <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5 text-[var(--text-secondary)]" /></button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
-                {messages.map((msg) => {
-                  const isMine = msg.authorId === currentDeviceId;
-                  const isMedia = msg.type === 'image' || msg.type === 'customSticker' || msg.type === 'audio';
-                  const isDeleted = msg.deleted === true;
+              {/* Lock overlay for preview mode */}
+              {isPreviewMode ? (
+                <div style={{ position: 'relative', flex: 1, minHeight: '200px' }}>
+                  <ContentLockOverlay message="Live Chat tidak tersedia di Preview Mode" />
+                </div>
+              ) : (
+                <div className="flex-1 overflow-y-auto p-3 space-y-2">
+                  {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
+                  {messages.map((msg) => {
+                    const isMine = msg.authorId === currentDeviceId;
+                    const isMedia = msg.type === 'image' || msg.type === 'customSticker' || msg.type === 'audio';
+                    const isDeleted = msg.deleted === true;
 
-                  // Deleted message
-                  if (isDeleted) {
+                    // Deleted message
+                    if (isDeleted) {
+                      return (
+                        <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                          <div className="px-3 py-1.5 rounded-2xl surface-flat text-[var(--text-muted)] text-sm italic flex items-center gap-1.5">
+                            <XCircle className="w-3 h-3" />
+                            <span>Pesan telah dihapus</span>
+                          </div>
+                        </motion.div>
+                      );
+                    }
+
                     return (
                       <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
-                        <div className="px-3 py-1.5 rounded-2xl surface-flat text-[var(--text-muted)] text-sm italic flex items-center gap-1.5">
-                          <XCircle className="w-3 h-3" />
-                          <span>Pesan telah dihapus</span>
+                        <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
+                          {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
+                          <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
+                            {/* WhatsApp-style Reply Quote */}
+                            {msg.replyToName && (
+                              <div className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}>
+                                <span className="font-medium">{msg.replyToName}</span>
+                                <p className="opacity-70 truncate">{msg.replyToContent}</p>
+                              </div>
+                            )}
+                            {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40 cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
+                            {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
+                            {msg.type === 'audio' && msg.mediaUrl && <VoiceNotePlayer src={msg.mediaUrl} isMine={isMine} />}
+                            {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
+                            {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
+                            <div className={`absolute ${isMine ? '-left-12' : '-right-12'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
+                              <button onClick={() => setReplyTo(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px]"><Reply className="w-3 h-3" /></button>
+                              {canDelete(msg) && <button onClick={() => deleteMessage(msg.id)} className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">×</button>}
+                            </div>
+                          </div>
+                          <span className="text-[8px] text-[var(--text-muted)] mt-0.5 ml-1">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
                       </motion.div>
                     );
-                  }
-
-                  return (
-                    <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
-                        {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
-                        <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
-                          {/* WhatsApp-style Reply Quote */}
-                          {msg.replyToName && (
-                            <div className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}>
-                              <span className="font-medium">{msg.replyToName}</span>
-                              <p className="opacity-70 truncate">{msg.replyToContent}</p>
-                            </div>
-                          )}
-                          {msg.type === 'image' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="rounded-xl max-w-full max-h-40 cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
-                          {msg.type === 'customSticker' && msg.mediaUrl && <img src={msg.mediaUrl} alt="" className="w-20 h-20 object-contain cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(msg.mediaUrl)} />}
-                          {msg.type === 'audio' && msg.mediaUrl && <VoiceNotePlayer src={msg.mediaUrl} isMine={isMine} />}
-                          {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
-                          {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
-                          <div className={`absolute ${isMine ? '-left-12' : '-right-12'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
-                            <button onClick={() => setReplyTo(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px]"><Reply className="w-3 h-3" /></button>
-                            {canDelete(msg) && <button onClick={() => deleteMessage(msg.id)} className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">×</button>}
-                          </div>
-                        </div>
-                        <span className="text-[8px] text-[var(--text-muted)] mt-0.5 ml-1">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-                <div ref={messagesEndRef} />
-              </div>
-
+                  })}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
               {replyTo && <div className="px-3 py-1.5 border-t border-[var(--border)] flex items-center gap-2 text-xs"><Reply className="w-3 h-3 text-[var(--accent)]" /><span className="flex-1 truncate text-[var(--text-muted)]">Balas {replyTo.authorName}</span><button onClick={() => setReplyTo(null)}><X className="w-3 h-3" /></button></div>}
 
               <AnimatePresence>
