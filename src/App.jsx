@@ -181,7 +181,7 @@ function ContentLockOverlay({ message = "Dapatkan License Key untuk membuka Full
             gap: '6px'
           }}
         >
-          📝 Dapatkan Lisensi
+          📝 Dapatkan License
         </a>
         <span style={{ color: 'rgba(255,255,255,0.4)' }}>|</span>
         <a
@@ -1720,7 +1720,7 @@ function Login({ dark, setDark, onSuccess }) {
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
             <div className="flex items-center justify-center gap-2 flex-wrap">
               <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-purple-400 font-medium hover:underline text-sm">
-                <FileText className="w-4 h-4" />Dapatkan Lisensi
+                <FileText className="w-4 h-4" />Dapatkan License
               </a>
               <span className="text-[var(--text-muted)]">|</span>
               <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline text-sm">
