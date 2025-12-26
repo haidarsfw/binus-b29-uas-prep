@@ -39,7 +39,8 @@ export const DB = {
                 { id: 4, title: 'Week 12: The Global Marketplace (Ch.19)', driveId: '1gKZH42cgwMT_QJHOBanaUtfN2VT54D1C6A1oj-baES8', type: 'slides', xp: 10 },
                 { id: 5, title: 'Week 13: Sustainable Marketing: Social Responsibility & Ethics (Ch.20)', driveId: '1pxfTiAYLtrqG9M6xAvRWsXyZCoLypoz6JKBeOhvVCz0', type: 'slides', xp: 10 },
             ],
-            kisiKisi: ['Konsep dasar marketing', 'Segmentasi: geografis, demografis, psikografis', 'Strategi targeting', 'Positioning & differentiation', 'Marketing Mix: 4P', 'Digital marketing', 'CRM', 'Marketing analytics'],
+            kisiKisi: [],
+            kisiKisiNote: '⚠️ Kisi-kisi untuk Marketing Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 sebagai panduan belajar.',
             flashcards: [
                 { id: 1, term: 'Marketing Mix', definition: 'Kombinasi 4P: Product, Price, Place, Promotion' },
                 { id: 2, term: 'Segmentasi Pasar', definition: 'Membagi pasar berdasarkan karakteristik' },
@@ -80,7 +81,8 @@ export const DB = {
                 { id: 7, title: 'Session 25: Managing Global HR', driveId: '13FudOLqKTggQHxM6dPFEgvGhQx8R8KbzhqoL75jVe68', type: 'slides', xp: 10 },
                 { id: 8, title: 'Session 26: Managing HR in SME', driveId: '1ZVRcU56KB3Jg5ZVHQHgwxrzDA9xXw-shv0quXTq_teQ', type: 'slides', xp: 10 },
             ],
-            kisiKisi: ['Fungsi HRM', 'Rekrutmen: job analysis, description', 'Metode seleksi', 'Training Need Analysis', 'Kompensasi', 'Performance appraisal'],
+            kisiKisi: [],
+            kisiKisiNote: '⚠️ Kisi-kisi untuk Human Resources Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan materi PPT Session 17-26 sebagai panduan belajar.',
             flashcards: [
                 { id: 1, term: 'Job Analysis', definition: 'Mengumpulkan info tugas & kualifikasi' },
                 { id: 2, term: 'Onboarding', definition: 'Orientasi karyawan baru' },

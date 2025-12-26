@@ -2991,7 +2991,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
               </div>
             ))}
           </div>
-        ) : (
+        ) : kisiKisi?.length > 0 ? (
           // Old format - simple list of strings
           <ul className="space-y-2">
             {kisiKisi?.map((k, i) => (
@@ -3001,15 +3001,21 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
               </li>
             ))}
           </ul>
+        ) : (
+          // Empty state - no kisi-kisi available
+          <div className="text-center py-6">
+            <AlertTriangle className="w-12 h-12 text-[var(--warning)] mx-auto mb-3 opacity-60" />
+            <p className="text-[var(--text-muted)] text-sm">Kisi-kisi belum tersedia untuk mata kuliah ini.</p>
+          </div>
         )}
       </div>
 
-      {/* Note from dosen - placed BELOW kisi-kisi */}
+      {/* Note - context-aware label */}
       {kisiKisiNote && (
         <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
           <div className="flex items-center gap-2 mb-1">
             <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
-            <span className="font-bold text-[var(--text)] text-sm">Catatan Penting dari Dosen</span>
+            <span className="font-bold text-[var(--text)] text-sm">{kisiKisi?.length > 0 ? 'Catatan Penting dari Dosen' : 'Informasi'}</span>
           </div>
           <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
         </div>
