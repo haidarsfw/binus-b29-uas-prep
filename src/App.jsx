@@ -1826,7 +1826,7 @@ function Login({ dark, setDark, onSuccess }) {
             <motion.div initial={{ scale: 0.8, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...smooth, delay: 0.1 }} className="w-20 h-20 gradient-accent rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl glow animate-float">
               <Lock className="w-10 h-10 text-white" />
             </motion.div>
-            <h1 className="text-2xl font-bold gradient-text">UAS BM B29 Study App</h1>
+            <h1 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "'Inter', sans-serif" }}>UAS BM B29 Study App</h1>
             <p className="text-[var(--text-secondary)] mt-2">🎓 Platform Belajar Premium</p>
           </div>
 
@@ -1850,7 +1850,7 @@ function Login({ dark, setDark, onSuccess }) {
                   className="absolute right-12 top-1/2 -translate-y-1/2 text-violet-400 hover:text-violet-300 transition-colors group"
                   title="Coba Preview Mode tanpa license"
                 >
-                  <Sparkles className="w-4 h-4" />
+                  <Play className="w-4 h-4" />
                   <span className="absolute -top-8 right-0 bg-[var(--surface-solid)] text-[var(--text)] text-xs px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-[var(--border)]">
                     Preview Mode
                   </span>
