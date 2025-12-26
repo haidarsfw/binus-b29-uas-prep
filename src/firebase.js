@@ -583,6 +583,39 @@ export const getReferralLeaderboard = async () => {
 };
 
 // ============================================
+// USER SETTINGS SYNC
+// ============================================
+
+// Save user settings to Firebase (syncs across devices)
+export const saveUserSettings = async (licenseKey, settings) => {
+    try {
+        const settingsRef = ref(db, `userSettings/${licenseKey.toUpperCase()}`);
+        await withTimeout(update(settingsRef, {
+            ...settings,
+            updatedAt: new Date().toISOString()
+        }), 15000);
+        return true;
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        return false;
+    }
+};
+
+// Get user settings from Firebase
+export const getUserSettings = async (licenseKey) => {
+    try {
+        const settingsRef = ref(db, `userSettings/${licenseKey.toUpperCase()}`);
+        const snapshot = await withTimeout(get(settingsRef), 15000);
+
+        if (!snapshot.exists()) return null;
+        return snapshot.val();
+    } catch (error) {
+        console.error('Error getting settings:', error);
+        return null;
+    }
+};
+
+// ============================================
 // EMAIL NOTIFICATION SYSTEM
 // ============================================
 

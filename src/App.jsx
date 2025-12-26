@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -337,7 +337,27 @@ export default function App() {
     localStorage.setItem('dark', dark);
     localStorage.setItem('theme', theme);
     localStorage.setItem('font', font);
-  }, [dark, theme, font]);
+
+    // Sync settings to Firebase (only if logged in)
+    if (session?.licenseKey) {
+      saveUserSettings(session.licenseKey, { dark, theme, font });
+    }
+  }, [dark, theme, font, session?.licenseKey]);
+
+  // Sync selected class to Firebase
+  useEffect(() => {
+    if (session?.licenseKey && selectedClass) {
+      saveUserSettings(session.licenseKey, { selectedClass });
+      localStorage.setItem('savedClass', selectedClass);
+    }
+  }, [selectedClass, session?.licenseKey]);
+
+  // Sync reminder to Firebase
+  useEffect(() => {
+    if (session?.licenseKey && reminder) {
+      saveUserSettings(session.licenseKey, { reminder });
+    }
+  }, [reminder, session?.licenseKey]);
 
   // Scroll to top when navigating to a subject or back to dashboard
   useEffect(() => {
@@ -589,7 +609,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [session, lastActivity, SESSION_TIMEOUT_MS, WARNING_BEFORE_TIMEOUT_MS]);
 
-  // Load user email and referral stats when session changes
+  // Load user email, settings, and referral stats when session changes
   useEffect(() => {
     if (!session || !session.licenseKey) return;
 
@@ -601,7 +621,7 @@ export default function App() {
           const now = new Date();
           if (expiryDate < now) {
             // License expired - logout
-            showToast('⏰ License Anda sudah expired. Silakan hubungi admin untuk perpanjangan.', 'error', 8000);
+            showToast('License Anda sudah expired. Silakan hubungi admin untuk perpanjangan.', 'error', 8000);
             localStorage.removeItem('session');
             setSession(null);
             setView('login');
@@ -611,6 +631,32 @@ export default function App() {
 
         const email = await getUserEmail(session.licenseKey);
         if (email) setUserEmail(email);
+
+        // Load synced settings from Firebase
+        const cloudSettings = await getUserSettings(session.licenseKey);
+        if (cloudSettings) {
+          // Apply cloud settings to local state
+          if (cloudSettings.selectedClass) {
+            setSelectedClass(cloudSettings.selectedClass);
+            localStorage.setItem('savedClass', cloudSettings.selectedClass);
+          }
+          if (cloudSettings.dark !== undefined) {
+            setDark(cloudSettings.dark);
+            localStorage.setItem('dark', cloudSettings.dark);
+          }
+          if (cloudSettings.theme) {
+            setTheme(cloudSettings.theme);
+            localStorage.setItem('theme', cloudSettings.theme);
+          }
+          if (cloudSettings.font) {
+            setFont(cloudSettings.font);
+            localStorage.setItem('font', cloudSettings.font);
+          }
+          if (cloudSettings.reminder) {
+            setReminder(cloudSettings.reminder);
+            localStorage.setItem('studyReminder', cloudSettings.reminder);
+          }
+        }
 
         // Get referral stats
         let stats = await getReferralStats(session.licenseKey);
@@ -1702,7 +1748,7 @@ function Login({ dark, setDark, onSuccess }) {
                 className="text-sm text-[var(--accent)] flex items-center gap-1.5 hover:opacity-80 transition-opacity font-medium"
               >
                 <Gift className="w-3.5 h-3.5" />
-                {showReferral ? 'Sembunyikan' : 'Punya kode referral? :)'}
+                {showReferral ? 'Sembunyikan' : 'Punya kode referral?'}
               </button>
 
               <AnimatePresence>
@@ -1778,7 +1824,7 @@ function Login({ dark, setDark, onSuccess }) {
           <div className="mt-4 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
             <div className="flex items-center justify-center gap-2 flex-wrap">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-purple-400 font-medium hover:underline text-sm">
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--accent)] opacity-80 font-medium hover:opacity-100 hover:underline text-sm">
                 <FileText className="w-4 h-4" />Dapatkan License
               </a>
               <span className="text-[var(--text-muted)]">|</span>
