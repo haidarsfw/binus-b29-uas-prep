@@ -62,8 +62,7 @@ export const CONTENT_DATA = {
             // Rangkuman - dikategorikan
             rangkuman: {
                 modulInti: [
-                    { title: 'Modul 1: Marketing Fundamentals', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pdf' },
-                    { title: 'Modul 2: STP Strategy', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-pdf' },
+                    { title: 'Modul 1: Marketing Channels & Logistics', driveId: '1PEHKsMdAJ6R32gh7K1KRG6cGuQ4QFifm4pJHSI9Sm0w', type: 'drive-gdoc' },
                 ],
                 addendum: [
                     { title: 'Addendum: Case Studies', driveId: 'PASTE_FILE_ID_HERE', type: 'drive-gdoc' },
