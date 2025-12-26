@@ -1694,15 +1694,15 @@ function Login({ dark, setDark, onSuccess }) {
               </div>
             </div>
 
-            {/* Referral Code Toggle */}
+            {/* Referral Code Toggle - More prominent */}
             <div>
               <button
                 type="button"
                 onClick={() => setShowReferral(!showReferral)}
-                className="text-sm text-[var(--accent)] flex items-center gap-1 hover:underline"
+                className="text-sm font-medium px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-purple-400 flex items-center gap-1.5 hover:border-purple-500/40 transition-all"
               >
-                <Gift className="w-3 h-3" />
-                {showReferral ? 'Sembunyikan' : 'Punya kode referral?'}
+                <Gift className="w-4 h-4" />
+                {showReferral ? 'Sembunyikan' : '🎁 Punya kode referral?'}
               </button>
 
               <AnimatePresence>
@@ -1713,12 +1713,15 @@ function Login({ dark, setDark, onSuccess }) {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
+                    <p className="text-xs text-[var(--text-muted)] mt-2 mb-1">
+                      💡 Jika teman Anda sudah punya akun, minta kode referral-nya (ada di <b>Settings</b> dashboard mereka).
+                    </p>
                     <input
                       type="text"
                       value={referralCode}
                       onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                       placeholder="REF-XXXX-XXXX (opsional)"
-                      className="input mt-2"
+                      className="input mt-1"
                       disabled={isLockedOut}
                     />
                   </motion.div>
@@ -1758,7 +1761,21 @@ function Login({ dark, setDark, onSuccess }) {
             </motion.button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
+          {/* Preview Hint */}
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                setKey('PREVIEW01');
+              }}
+              className="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors inline-flex items-center gap-1"
+            >
+              <Eye className="w-3 h-3" />
+              Lihat preview konten dulu?
+            </button>
+          </div>
+
+          <div className="mt-4 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
             <div className="flex items-center justify-center gap-2 flex-wrap">
               <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-purple-400 font-medium hover:underline text-sm">
