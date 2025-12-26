@@ -1807,27 +1807,16 @@ function Login({ dark, setDark, onSuccess }) {
             </motion.button>
           </form>
 
-          <div className="mt-5 pt-5 border-t border-[var(--border)]">
-            <p className="text-[var(--text-muted)] text-sm mb-3 text-center">Belum punya license?</p>
-            <div className="flex flex-col gap-2">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full text-sm">
+          <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
+            <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--text)] font-semibold hover:text-[var(--accent)] transition-colors text-sm">
                 <FileText className="w-4 h-4" />Dapatkan License
               </a>
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="btn btn-secondary w-full text-sm">
+              <span className="text-[var(--text-muted)]">|</span>
+              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--text-muted)] font-medium hover:text-[var(--text-secondary)] transition-colors text-sm">
                 <MessageCircle className="w-4 h-4" />Chat Admin
               </a>
-            </div>
-
-            {/* Preview hint - small button */}
-            <div className="mt-4 text-center">
-              <button
-                type="button"
-                onClick={() => setKey('PREVIEW01')}
-                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-                title="Gunakan PREVIEW01 untuk melihat konten sebelum membeli"
-              >
-                Coba preview dulu?
-              </button>
             </div>
           </div>
         </div>
