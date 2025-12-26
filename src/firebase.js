@@ -283,11 +283,21 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
 
         const license = keySnapshot.val();
         let referralResult = null;
+        const now = new Date();
+
+        // Check fixedExpiry FIRST (before any other validation)
+        if (license.fixedExpiry) {
+            const fixedExpiryDate = new Date(license.fixedExpiry);
+            if (fixedExpiryDate < now) {
+                return { valid: false, error: 'License sudah expired' };
+            }
+        }
 
         // If unlimited devices, skip device validation
         if (license.unlimitedDevices) {
-            const now = new Date();
-            const expiry = new Date(now.getTime() + license.daysActive * 86400000);
+            const expiry = license.fixedExpiry
+                ? new Date(license.fixedExpiry)
+                : new Date(now.getTime() + license.daysActive * 86400000);
 
             // Handle referral if provided
             if (referralCode) {
@@ -329,8 +339,8 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
                 await update(activationRef, { deviceIds: updatedDevices });
             }
 
-            // Check expiry
-            if (activationData.expiry && new Date(activationData.expiry) < new Date()) {
+            // Check expiry from activation data
+            if (activationData.expiry && new Date(activationData.expiry) < now) {
                 return { valid: false, error: 'License sudah expired' };
             }
 
@@ -351,11 +361,15 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
             };
         } else {
             // First time activation
-            const now = new Date();
             // Use fixedExpiry if set, otherwise calculate from daysActive
             const expiry = license.fixedExpiry
                 ? new Date(license.fixedExpiry)
                 : new Date(now.getTime() + license.daysActive * 86400000);
+
+            // Double-check expiry for first activation
+            if (expiry < now) {
+                return { valid: false, error: 'License sudah expired' };
+            }
 
             // Generate referral code for this user
             const userReferralCode = generateReferralCode(key);
