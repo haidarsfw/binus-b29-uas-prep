@@ -1916,24 +1916,26 @@ function Login({ dark, setDark, onSuccess }) {
           </form>
 
           <div className="mt-6 pt-5 border-t border-[var(--border)]">
-            <p className="text-[var(--text-muted)] text-sm mb-4 text-center">Belum punya license?</p>
-            <div className="flex justify-center items-start gap-8">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
-                <FileText className="w-5 h-5 text-sky-400" />
-                <span className="font-bold text-xs glowing-text">Dapatkan License</span>
-              </a>
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
-                <MessageCircle className="w-5 h-5 text-emerald-400" />
-                <span className="font-bold text-xs glowing-text-green">Chat Admin</span>
-              </a>
-              <button
-                type="button"
-                onClick={() => setKey('PREVIEW01')}
-                className="flex flex-col items-center gap-1"
-              >
-                <Eye className="w-5 h-5 text-violet-400" />
-                <span className="font-bold text-xs glowing-text-violet">Preview</span>
-              </button>
+            <p className="text-[var(--text-muted)] text-sm mb-4 text-center w-full">Belum punya license?</p>
+            <div className="w-full flex justify-center">
+              <div className="flex items-start gap-8">
+                <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
+                  <FileText className="w-5 h-5 text-sky-400" />
+                  <span className="font-bold text-xs glowing-text">Dapatkan License</span>
+                </a>
+                <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
+                  <MessageCircle className="w-5 h-5 text-emerald-400" />
+                  <span className="font-bold text-xs glowing-text-green">Chat Admin</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setKey('PREVIEW01')}
+                  className="flex flex-col items-center gap-1"
+                >
+                  <Eye className="w-5 h-5 text-violet-400" />
+                  <span className="font-bold text-xs glowing-text-violet">Preview</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
