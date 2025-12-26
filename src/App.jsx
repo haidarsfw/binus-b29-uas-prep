@@ -595,6 +595,20 @@ export default function App() {
 
     const loadUserData = async () => {
       try {
+        // Check if license is expired (for cached sessions)
+        if (session.expiry) {
+          const expiryDate = new Date(session.expiry);
+          const now = new Date();
+          if (expiryDate < now) {
+            // License expired - logout
+            showToast('⏰ License Anda sudah expired. Silakan hubungi admin untuk perpanjangan.', 'error', 8000);
+            localStorage.removeItem('session');
+            setSession(null);
+            setView('login');
+            return;
+          }
+        }
+
         const email = await getUserEmail(session.licenseKey);
         if (email) setUserEmail(email);
 
