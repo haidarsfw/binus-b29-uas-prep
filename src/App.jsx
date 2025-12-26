@@ -1839,10 +1839,22 @@ function Login({ dark, setDark, onSuccess }) {
                   value={key}
                   onChange={(e) => setKey(e.target.value.toUpperCase())}
                   placeholder="Masukkan license key"
-                  className="input pr-12"
+                  className="input pr-20"
                   autoComplete="off"
                   disabled={isLockedOut}
                 />
+                {/* Preview icon with tooltip */}
+                <button
+                  type="button"
+                  onClick={() => setKey('PREVIEW01')}
+                  className="absolute right-12 top-1/2 -translate-y-1/2 text-violet-400 hover:text-violet-300 transition-colors group"
+                  title="Coba Preview Mode tanpa license"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span className="absolute -top-8 right-0 bg-[var(--surface-solid)] text-[var(--text)] text-xs px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-[var(--border)]">
+                    Preview Mode
+                  </span>
+                </button>
                 <button type="button" onClick={() => setShow(!show)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
                   {show ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -1918,17 +1930,7 @@ function Login({ dark, setDark, onSuccess }) {
 
           <div className="mt-6 pt-5 border-t border-[var(--border)]">
             <p className="text-[var(--text-muted)] text-sm mb-3 text-center">Belum punya license?</p>
-            {/* Preview on top - perfectly centered */}
-            <div className="w-full flex justify-center mb-3">
-              <button
-                type="button"
-                onClick={() => setKey('PREVIEW01')}
-                className="inline-flex items-center gap-1.5 text-violet-400 font-semibold text-sm hover:text-violet-300 transition-colors"
-              >
-                <Eye className="w-4 h-4" />Preview
-              </button>
-            </div>
-            {/* Get License | Chat Admin below - grid for perfect centering */}
+            {/* Get License | Chat Admin - grid for perfect centering */}
             <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-end text-sky-400 font-semibold text-sm hover:text-sky-300 transition-colors">
                 <FileText className="w-4 h-4" />Get License
