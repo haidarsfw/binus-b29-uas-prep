@@ -1166,7 +1166,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-            style={{ zIndex: 9999 }}
+            style={{ zIndex: 999999 }}
             onClick={() => setShowLegalPopup(null)}
           >
             <motion.div
