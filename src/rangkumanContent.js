@@ -961,7 +961,146 @@ Sociolla menerapkan strategi <b>Omnichannel Retailing</b>, mengintegrasikan peng
 
 <bullet>Konsumen bisa menggunakan aplikasi <b>SOCO</b> di dalam toko fisik untuk scan barcode dan melihat review produk.</bullet>
 <bullet>Sistem terintegrasi menghubungkan data perilaku belanja online dan offline.</bullet>
-<bullet>Contoh nyata bagaimana <i>multichannel distribution</i> berkembang menjadi <i>omnichannel experience</i>.</bullet>`
+<bullet>Contoh nyata bagaimana <i>multichannel distribution</i> berkembang menjadi <i>omnichannel experience</i>.</bullet>`,
+                modul2: `<h1>📘 MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
+<subtitle><b><i>(Referensi: PPT Week 10 & Chapter 14)</i></b></subtitle>
+
+Modul ini membahas bagaimana perusahaan mengintegrasikan seluruh alat komunikasi pemasaran untuk menyampaikan pesan yang jelas, konsisten, dan menarik.
+
+<h2>🍔 1. STUDI KASUS PEMBUKA: BURGER KING</h2>
+
+<h3>"Anything but Traditional"</h3>
+Materi ini dibuka dengan analisis mendalam mengenai strategi komunikasi Burger King. Kampanye pemasaran Burger King seringkali terlihat impulsif, aneh (<i>wacky</i>), atau bahkan nekat di mata pengamat. Namun, di balik eksekusi yang terlihat kacau tersebut, terdapat strategi komunikasi yang sangat disiplin dan terintegrasi.
+
+<bullet><b>Posisi Merek:</b> Semua kampanye mereka—baik di media sosial, iklan TV, maupun promosi toko—disatukan di bawah satu posisi merek yang konsisten selama puluhan tahun, yaitu <b>"Home of the Whopper"</b>.</bullet>
+<bullet><b>Diferensiasi:</b> Fokus komunikasi mereka selalu menekankan pada keunggulan produk daging sapi yang dipanggang dengan api (<i>flame-grilled</i>), yang membedakan mereka secara tajam dari kompetitor utama yang menggoreng dagingnya.</bullet>
+<bullet><b>Pelajaran Utama:</b> Kreativitas dalam eksekusi boleh saja liar dan tidak tradisional, asalkan pesan intinya tetap terintegrasi dan konsisten dengan identitas merek yang sudah dibangun.</bullet>
+
+<h2>📣 2. BAURAN PROMOSI (THE PROMOTION MIX)</h2>
+
+<b>Bauran promosi</b> adalah perpaduan spesifik dari alat-alat promosi yang digunakan perusahaan untuk mengomunikasikan nilai pelanggan secara persuasif dan membangun hubungan pelanggan. Terdapat <b>lima alat utama</b> yang harus dipahami secara mendalam:
+
+<h3>A. Advertising (Periklanan)</h3>
+Segala bentuk presentasi dan promosi non-personal yang berbayar mengenai ide, barang, atau jasa oleh sponsor yang teridentifikasi.
+<bullet><b>Karakteristik:</b> Memiliki jangkauan yang sangat luas (media massa/internet) dan memungkinkan pengulangan pesan berkali-kali.</bullet>
+<bullet>Namun, sifatnya satu arah (monolog) dan biayanya bisa sangat tinggi.</bullet>
+
+<h3>B. Sales Promotion (Promosi Penjualan)</h3>
+Insentif jangka pendek untuk mendorong pembelian atau penjualan produk atau jasa.
+<bullet><b>Karakteristik:</b> Mengundang reaksi cepat dan kuat dari konsumen ("Beli sekarang!").</bullet>
+<bullet><b>Contoh:</b> Diskon, kupon, pameran, dan demonstrasi.</bullet>
+<bullet>Sifatnya taktis untuk mendongkrak penjualan sesaat.</bullet>
+
+<h3>C. Personal Selling (Penjualan Personal)</h3>
+Presentasi pribadi oleh tenaga penjualan perusahaan dengan tujuan menghasilkan penjualan dan membangun hubungan pelanggan.
+<bullet><b>Karakteristik:</b> Alat yang paling efektif pada tahap akhir proses pembelian (membangun preferensi dan keyakinan).</bullet>
+<bullet>Memungkinkan interaksi dua arah dan penyesuaian pesan.</bullet>
+<bullet><b>Namun:</b> Ini adalah alat promosi <b>termahal</b> per kontak.</bullet>
+
+<h3>D. Public Relations (Hubungan Masyarakat)</h3>
+Kegiatan membangun hubungan baik dengan berbagai publik perusahaan dengan memperoleh publisitas yang menguntungkan, membangun citra perusahaan yang baik, dan menangani atau meluruskan rumor, cerita, dan peristiwa yang tidak menguntungkan.
+<bullet><b>Karakteristik:</b> Seringkali dianggap lebih kredibel dan "jujur" oleh konsumen dibandingkan iklan.</bullet>
+<bullet>Pesannya tidak terasa seperti jualan langsung (berupa berita atau cerita fitur).</bullet>
+
+<h3>E. Direct and Digital Marketing</h3>
+Berhubungan langsung dengan konsumen individu yang ditargetkan secara hati-hati untuk mendapatkan respons segera dan memupuk hubungan pelanggan yang langgeng.
+<bullet><b>Karakteristik:</b> Sifatnya segera, terpersonalisasi (disesuaikan untuk individu tertentu), dan interaktif.</bullet>
+<bullet><b>Mencakup:</b> Surat langsung, katalog, telemarketing, dan pemasaran media sosial.</bullet>
+
+<h2>🔗 3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
+
+Lanskap komunikasi pemasaran telah berubah drastis akibat <b>fragmentasi media</b> dan teknologi digital. Konsumen kini dibombardir oleh ribuan pesan komersial setiap hari.
+
+<bullet><b>Masalah:</b> Muncul ketika pesan dari iklan TV berbeda dengan pesan di website atau promosi di toko, yang menciptakan kebingungan citra merek.</bullet>
+
+<h3>Definisi IMC:</h3>
+Konsep di mana perusahaan mengintegrasikan dan mengoordinasikan banyak saluran komunikasinya secara hati-hati untuk menyampaikan pesan yang:
+<bullet><b>Clear (Jelas)</b></bullet>
+<bullet><b>Consistent (Konsisten)</b></bullet>
+<bullet><b>Compelling (Menarik)</b></bullet>
+tentang organisasi dan produknya. Semua <b>titik kontak (touchpoints)</b> merek harus menyuarakan pesan yang sama.
+
+<h2>🎯 4. MENGEMBANGKAN KOMUNIKASI PEMASARAN YANG EFEKTIF</h2>
+
+Proses komunikasi melibatkan sembilan elemen kunci (Pengirim, Penyandian, Pesan, Media, Penguraian, Penerima, Respons, Umpan Balik, dan Kebisingan). Untuk mencapai komunikasi efektif, pemasar harus mengikuti langkah-langkah berikut:
+
+<h3>Langkah 1: Mengidentifikasi Target Audiens</h3>
+<bullet>Menentukan siapa penerima pesan.</bullet>
+<bullet>Audiens bisa berupa: pembeli potensial, pengguna saat ini, penentu keputusan, atau masyarakat umum.</bullet>
+<bullet>Karakter audiens akan mendikte: <i>apa yang akan dikatakan, bagaimana mengatakannya, kapan mengatakannya, di mana mengatakannya, dan siapa yang akan mengatakannya</i>.</bullet>
+
+<h3>Langkah 2: Menentukan Tujuan Komunikasi</h3>
+Pemasar harus mengetahui di tahap mana audiens berada dalam <b>Tahap Kesiapan Pembeli (Buyer-Readiness Stages)</b> dan menggerakkan mereka ke tahap berikutnya:
+<bullet><b>Awareness (Kesadaran)</b></bullet>
+<bullet><b>Knowledge (Pengetahuan)</b></bullet>
+<bullet><b>Liking (Rasa Suka)</b></bullet>
+<bullet><b>Preference (Preferensi/Memilih dibanding yang lain)</b></bullet>
+<bullet><b>Conviction (Keyakinan)</b></bullet>
+<bullet><b>Purchase (Pembelian)</b></bullet>
+
+<h3>Langkah 3: Merancang Pesan</h3>
+Pesan yang ideal harus mengikuti model <b>AIDA</b>:
+<bullet><b>A</b>ttention - Menarik Perhatian</bullet>
+<bullet><b>I</b>nterest - Mempertahankan Minat</bullet>
+<bullet><b>D</b>esire - Membangkitkan Keinginan</bullet>
+<bullet><b>A</b>ction - Memperoleh Tindakan</bullet>
+
+<b>Isi pesan dapat menggunakan tiga jenis daya tarik:</b>
+<bullet><b>Rational Appeal:</b> Menunjukkan bahwa produk akan menghasilkan manfaat yang diinginkan (kualitas, ekonomi, nilai, kinerja).</bullet>
+<bullet><b>Emotional Appeal:</b> Membangkitkan emosi positif atau negatif yang memotivasi pembelian (rasa takut, rasa bersalah, rasa malu, cinta, humor, kebanggaan).</bullet>
+<bullet><b>Moral Appeal:</b> Ditujukan pada perasaan audiens tentang apa yang "benar" dan "salah" (isu sosial).</bullet>
+
+<h3>Langkah 4: Memilih Media</h3>
+<bullet><b>Personal Communication Channels:</b> Dua orang atau lebih berkomunikasi langsung (tatap muka, telepon, chat). Efektif karena memungkinkan umpan balik pribadi. Termasuk <i>Word-of-Mouth</i> dan <i>Buzz Marketing</i>.</bullet>
+<bullet><b>Nonpersonal Communication Channels:</b> Media yang membawa pesan tanpa kontak pribadi (Media utama, Suasana/Atmosfer, Acara/Events).</bullet>
+
+<h3>Langkah 5: Memilih Sumber Pesan</h3>
+<bullet>Dampak pesan bergantung pada bagaimana audiens memandang komunikatornya.</bullet>
+<bullet>Sumber yang sangat kredibel (seperti dokter, selebriti, atau profesional) lebih persuasif.</bullet>
+
+<h2>💰 5. MENETAPKAN ANGGARAN PROMOSI</h2>
+
+Terdapat <b>empat metode umum</b> yang digunakan perusahaan untuk menetapkan total anggaran iklan:
+
+<bullet><b>Affordable Method:</b> Menetapkan anggaran pada tingkat yang menurut manajemen mampu dibayar perusahaan. Metode ini mengabaikan dampak promosi terhadap penjualan dan membuat perencanaan jangka panjang menjadi sulit.</bullet>
+<bullet><b>Percentage-of-Sales Method:</b> Menetapkan anggaran sebesar persentase tertentu dari penjualan saat ini atau perkiraan penjualan. Metode ini <i>salah memandang penjualan sebagai penyebab promosi, bukan hasil dari promosi</i>.</bullet>
+<bullet><b>Competitive-Parity Method:</b> Menetapkan anggaran promosi untuk menyamai pengeluaran pesaing. Asumsinya adalah pengeluaran pesaing mewakili kebijaksanaan kolektif industri.</bullet>
+<bullet><b>Objective-and-Task Method:</b> <b>Metode yang paling logis.</b> Perusahaan menetapkan anggaran berdasarkan: (1) Mendefinisikan tujuan promosi spesifik, (2) Menentukan tugas-tugas yang harus dilakukan untuk mencapai tujuan tersebut, dan (3) Memperkirakan biaya dari pelaksanaan tugas-tugas tersebut.</bullet>
+
+<h2>🔄 6. STRATEGI BAURAN PROMOSI: PUSH VS PULL</h2>
+
+<h3>Push Strategy (Strategi Dorong)</h3>
+<bullet>Perusahaan "mendorong" produk melalui saluran pemasaran.</bullet>
+<bullet>Produsen mengarahkan kegiatan pemasarannya (terutama <b>penjualan personal</b> dan <b>promosi perdagangan</b>) kepada anggota saluran (grosir/ritel) untuk membujuk mereka memesan dan membawa produk tersebut serta mempromosikannya kepada konsumen akhir.</bullet>
+
+<h3>Pull Strategy (Strategi Tarik)</h3>
+<bullet>Perusahaan mengarahkan kegiatan pemasarannya (terutama <b>iklan</b> dan <b>promosi konsumen</b>) langsung kepada konsumen akhir untuk membujuk mereka membeli produk.</bullet>
+<bullet>Jika efektif, konsumen akan <b>meminta</b> produk tersebut kepada perantara, yang kemudian akan memintanya kepada produsen.</bullet>
+
+<h2>⚖️ 7. KOMUNIKASI PEMASARAN YANG BERTANGGUNG JAWAB SOSIAL</h2>
+
+Pemasar harus menyadari masalah hukum dan etika yang melingkupi komunikasi pemasaran.
+
+<h3>A. Iklan dan Promosi Penjualan:</h3>
+<bullet>Perusahaan harus berkomunikasi secara <b>terbuka dan jujur</b>.</bullet>
+<bullet><b>Dilarang:</b> Melakukan iklan palsu atau menipu (<i>deceptive advertising</i>).</bullet>
+<bullet><b>Dilarang:</b> Melakukan iklan <i>bait-and-switch</i> (memancing konsumen dengan harga murah lalu mengatakan barang habis dan memaksa membeli barang mahal).</bullet>
+<bullet>Harus mematuhi semua peraturan federal, negara bagian, dan lokal.</bullet>
+
+<h3>B. Penjualan Personal (Sales):</h3>
+<bullet>Tenaga penjual harus mengikuti aturan "persaingan sehat".</bullet>
+<bullet><b>Dilarang:</b> Menawarkan suap (<i>bribes</i>) kepada agen pembelian perusahaan lain untuk mendapatkan bisnis.</bullet>
+<bullet><b>Dilarang:</b> Berusaha mendapatkan rahasia dagang pesaing.</bullet>
+<bullet><b>Dilarang:</b> Menjelek-jelekkan (<i>disparage</i>) pesaing atau produk mereka dengan memberikan informasi palsu.</bullet>
+
+<h2>🛒 8. STUDI KASUS PENUTUP: TOKOPEDIA</h2>
+
+<h3>"Impactful Marketing Campaign – Case of Tokopedia"</h3>
+Modul ditutup dengan pembahasan mengenai kampanye pemasaran Tokopedia, khususnya kampanye <b>"Mulai Aja Dulu"</b>.
+
+<bullet><b>Tujuan:</b> Tokopedia ingin mengatasi hambatan psikologis masyarakat Indonesia (terutama anak muda) yang sering ragu untuk memulai bisnis atau mengejar mimpi.</bullet>
+<bullet><b>Strategi:</b> Menggunakan pendekatan emosional dan inspiratif melalui iklan TV dan media digital yang menampilkan cerita-cerita keberhasilan sederhana.</bullet>
+<bullet><b>Hasil:</b> Kampanye ini berhasil memposisikan Tokopedia bukan sekadar sebagai tempat belanja, tetapi sebagai mitra yang memberdayakan (<i>enabler</i>). Hal ini berdampak signifikan pada peningkatan jumlah penjual (merchant/UMKM) baru yang bergabung di platform Tokopedia, membuktikan bahwa kampanye pemasaran yang dirancang dengan baik dapat mencapai tujuan strategis perusahaan.</bullet>`
         }
 };
 

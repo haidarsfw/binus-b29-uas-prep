@@ -56,6 +56,7 @@ export const DB = {
             rangkuman: {
                 modulInti: [
                     { title: 'Modul 1: Marketing Channels & Logistics', contentKey: 'modul1', type: 'native' },
+                    { title: 'Modul 2: Integrated Marketing Communication Strategy', contentKey: 'modul2', type: 'native' },
                 ],
                 addendum: [],
                 mentorPPT: [
