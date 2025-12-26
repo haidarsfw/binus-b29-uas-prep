@@ -1976,9 +1976,10 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           <CircularProgress value={overallProgress} size={120} stroke={10} />
           <div className="text-center md:text-left flex-1">
             <p className="text-[var(--text-secondary)] mb-1">{greeting},</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2 flex items-center gap-2 justify-center md:justify-start">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2 flex items-center gap-2 justify-center md:justify-start flex-wrap">
               {name}!
               {session?.isAdmin && <span className="text-xs px-2 py-0.5 bg-red-500/15 text-red-500 rounded-md font-semibold">Admin</span>}
+              {session?.isTester && <span className="text-xs px-2 py-0.5 bg-amber-500/15 text-amber-500 rounded-md font-semibold">Tester</span>}
             </h1>
             <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Progress <span className="font-bold gradient-text">{Math.round(overallProgress)}%</span></p>
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
@@ -3846,6 +3847,8 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
         <div className="flex items-center gap-3 mb-4 text-sm text-[var(--text-muted)]">
           <div className="avatar avatar-sm">{thread.authorName?.charAt(0) || '?'}</div>
           <span>{thread.authorName}</span>
+          {thread.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-500 rounded font-medium">Admin</span>}
+          {thread.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded font-medium">Tester</span>}
           {thread.authorClass && <span className="class-badge">{thread.authorClass}</span>}
           <span>•</span>
           <span>{new Date(thread.createdAt).toLocaleString('id-ID')}</span>
@@ -3888,6 +3891,8 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
                 <div className="flex items-center gap-2">
                   <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
                   <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
+                  {c.isAdmin && <span className="text-[8px] px-1 bg-red-500/15 text-red-400 rounded font-medium">Admin</span>}
+                  {c.isTester && <span className="text-[8px] px-1 bg-amber-500/15 text-amber-400 rounded font-medium">Tester</span>}
                   {c.authorClass && <span className="class-badge text-xs">{c.authorClass}</span>}
                   <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
                 </div>
@@ -4483,6 +4488,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const currentDeviceId = getDeviceId();
   const currentUserName = session?.userName || session?.name || 'Anonymous';
   const isAdmin = session?.isAdmin === true;
+  const isTester = session?.isTester === true;
 
   // Sync ref with state
   useEffect(() => {
@@ -4559,7 +4565,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     try {
       // Store reply info as separate fields (for WhatsApp-style display)
       const replyData = replyTo ? { replyToId: replyTo.id, replyToName: replyTo.authorName, replyToContent: replyTo.content?.slice(0, 40) || '...' } : {};
-      await sendGlobalMessage(input.trim(), currentDeviceId, currentUserName, selectedClass, 'text', null, replyData);
+      await sendGlobalMessage(input.trim(), currentDeviceId, currentUserName, selectedClass, 'text', null, replyData, { isAdmin, isTester });
       setInput('');
       setReplyTo(null);
     } catch (e) { console.error(e); }
@@ -4572,7 +4578,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     setSending(true);
     try {
       const url = await uploadImage(file);
-      await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'image', url);
+      await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'image', url, {}, { isAdmin, isTester });
     } catch (e) { console.error(e); }
     setSending(false);
   };
@@ -4581,9 +4587,9 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     setSending(true);
     try {
       if (sticker.isEmoji) {
-        await sendGlobalMessage(sticker.url, currentDeviceId, currentUserName, selectedClass, 'sticker');
+        await sendGlobalMessage(sticker.url, currentDeviceId, currentUserName, selectedClass, 'sticker', null, {}, { isAdmin, isTester });
       } else {
-        await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'customSticker', sticker.url);
+        await sendGlobalMessage('', currentDeviceId, currentUserName, selectedClass, 'customSticker', sticker.url, {}, { isAdmin, isTester });
       }
     } catch (e) { console.error(e); }
     setSending(false);
@@ -4615,7 +4621,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
         try {
           const file = new File([blob], `voice.${mimeType === 'audio/webm' ? 'webm' : 'm4a'}`, { type: mimeType });
           const url = await uploadAudio(file);
-          await sendGlobalMessage('🎤', currentDeviceId, currentUserName, selectedClass, 'audio', url);
+          await sendGlobalMessage('🎤', currentDeviceId, currentUserName, selectedClass, 'audio', url, {}, { isAdmin, isTester });
         } catch (e) { console.error(e); }
         setSending(false);
       };
@@ -4696,7 +4702,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     return (
                       <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                         <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
-                          {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
+                          {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.isAdmin && <span className="text-[8px] px-1 bg-red-500/20 text-red-400 rounded mr-0.5">Admin</span>}{msg.isTester && <span className="text-[8px] px-1 bg-amber-500/20 text-amber-400 rounded mr-0.5">Tester</span>}{msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
                           <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
                             {/* WhatsApp-style Reply Quote */}
                             {msg.replyToName && (
@@ -4779,7 +4785,7 @@ function AdminDashboard({ session, onClose }) {
   const [loading, setLoading] = useState(true);
   const [showCreateKey, setShowCreateKey] = useState(false);
   const [editingKey, setEditingKey] = useState(null); // Key being edited
-  const [keyForm, setKeyForm] = useState({ key: '', name: '', daysActive: 30, isAdmin: false, maxDevices: 1, fixedExpiry: '' });
+  const [keyForm, setKeyForm] = useState({ key: '', name: '', daysActive: 30, isAdmin: false, isTester: false, maxDevices: 1, fixedExpiry: '' });
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [statsRefresh, setStatsRefresh] = useState(0);
@@ -4846,7 +4852,7 @@ function AdminDashboard({ session, onClose }) {
   }, [statsRefresh]);
 
   const resetForm = () => {
-    setKeyForm({ key: '', name: '', daysActive: 30, isAdmin: false, maxDevices: 1, fixedExpiry: '' });
+    setKeyForm({ key: '', name: '', daysActive: 30, isAdmin: false, isTester: false, maxDevices: 1, fixedExpiry: '' });
     setShowCreateKey(false);
     setEditingKey(null);
   };
@@ -4858,6 +4864,7 @@ function AdminDashboard({ session, onClose }) {
       name: k.name,
       daysActive: k.daysActive || 30,
       isAdmin: k.isAdmin || false,
+      isTester: k.isTester || false,
       maxDevices: k.maxDevices || (k.unlimitedDevices ? 999 : 1),
       fixedExpiry: k.fixedExpiry ? k.fixedExpiry.split('T')[0] : ''
     });
@@ -5005,6 +5012,10 @@ function AdminDashboard({ session, onClose }) {
                         <label className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
                           <input type="checkbox" checked={keyForm.isAdmin} onChange={e => setKeyForm(prev => ({ ...prev, isAdmin: e.target.checked }))}
                             className="w-4 h-4 rounded" />Admin Access
+                        </label>
+                        <label className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+                          <input type="checkbox" checked={keyForm.isTester} onChange={e => setKeyForm(prev => ({ ...prev, isTester: e.target.checked }))}
+                            className="w-4 h-4 rounded" />Tester Badge
                         </label>
 
                         <div className="flex gap-2 pt-2">

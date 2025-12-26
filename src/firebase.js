@@ -166,13 +166,14 @@ export const fetchLicenseKeys = async () => {
 
 // Create a new license key (admin only)
 export const createLicenseKey = async (keyData) => {
-    const { key, name, daysActive, isAdmin = false, maxDevices = 1, fixedExpiry = null } = keyData;
+    const { key, name, daysActive, isAdmin = false, isTester = false, maxDevices = 1, fixedExpiry = null } = keyData;
     const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
     const newKey = {
         key: key.toUpperCase(),
         name,
         daysActive: parseInt(daysActive),
         isAdmin,
+        isTester,
         maxDevices: parseInt(maxDevices) || 1, // Default to 1 device
         fixedExpiry: fixedExpiry || null, // If set, use this instead of calculating from daysActive
         createdAt: new Date().toISOString(),
@@ -211,6 +212,7 @@ export const updateLicenseKey = async (originalKey, keyData) => {
                 name,
                 daysActive: parseInt(daysActive),
                 isAdmin: isAdmin || false,
+                isTester: keyData.isTester || false,
                 maxDevices: parseInt(maxDevices) || 1,
                 fixedExpiry: fixedExpiry || null,
                 createdAt: keySnapshot.exists() ? keySnapshot.val().createdAt : new Date().toISOString(),
@@ -236,6 +238,7 @@ export const updateLicenseKey = async (originalKey, keyData) => {
                 name,
                 daysActive: parseInt(daysActive),
                 isAdmin: isAdmin || false,
+                isTester: keyData.isTester || false,
                 maxDevices: parseInt(maxDevices) || 1,
                 fixedExpiry: fixedExpiry || null,
                 updatedAt: new Date().toISOString(),
@@ -1030,7 +1033,7 @@ export const subscribeToGlobalChat = (callback) => {
 };
 
 // Send global chat message
-export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null, replyData = {}) => {
+export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null, replyData = {}, badges = {}) => {
     const chatRef = ref(db, 'globalChat');
     const newMessage = {
         content,
@@ -1039,6 +1042,8 @@ export const sendGlobalMessage = async (content, authorId, authorName, authorCla
         authorId,
         authorName,
         authorClass,
+        isAdmin: badges.isAdmin || false,
+        isTester: badges.isTester || false,
         createdAt: new Date().toISOString(),
         ...replyData // Include replyToId, replyToName, replyToContent if present
     };
