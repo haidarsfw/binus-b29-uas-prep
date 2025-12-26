@@ -78,10 +78,7 @@ export const uploadImage = async (file) => {
         }
 
         const data = await response.json();
-        console.log('Cloudinary response:', data); // Debug log
-
         if (data.secure_url) {
-            console.log('Image URL:', data.secure_url);
             return data.secure_url;
         } else {
             throw new Error(data.error?.message || 'Upload gagal');
@@ -115,8 +112,6 @@ export const uploadAudio = async (file) => {
         }
 
         const data = await response.json();
-        console.log('Cloudinary audio response:', data);
-
         if (data.secure_url) {
             return data.secure_url;
         } else {
@@ -686,7 +681,7 @@ export const initializeDefaultLicenseKeys = async () => {
             for (const keyData of defaultKeys) {
                 await createLicenseKey(keyData);
             }
-            console.log('Initialized default license keys');
+            // License keys initialized
         }
     } catch (error) {
         console.error('Error initializing license keys:', error);
@@ -698,7 +693,7 @@ export const clearAllUserData = async () => {
     try {
         const licensesRef = ref(db, 'licenses');
         await withTimeout(remove(licensesRef), 15000);
-        console.log('Cleared all user activation data');
+        // User data cleared
         return true;
     } catch (error) {
         console.error('Error clearing user data:', error);
@@ -729,7 +724,7 @@ export const resetAllReferralData = async () => {
             }
         }
 
-        console.log('Reset all referral data');
+        // Referral data reset
         return true;
     } catch (error) {
         console.error('Error resetting referral data:', error);
@@ -755,7 +750,7 @@ export const resetLicenseKeysToDefaults = async () => {
             await createLicenseKey(keyData);
         }
 
-        console.log('Reset license keys to defaults');
+        // License keys reset to defaults
         return true;
     } catch (error) {
         console.error('Error resetting license keys:', error);

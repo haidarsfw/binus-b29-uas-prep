@@ -306,7 +306,7 @@ export default function App() {
 
       playBeep();
     } catch (e) {
-      console.log('Alarm sound not supported');
+      // Alarm sound not supported
     }
   };
 
@@ -480,11 +480,8 @@ export default function App() {
           // Send email reminder if user has email saved
           if (userEmail && session?.userName) {
             sendReminderEmail(userEmail, session.userName, reminder)
-              .then(result => {
-                if (result.success) console.log('Reminder email sent!');
-                else console.log('Email send failed:', result.error);
-              })
-              .catch(e => console.log('Email error:', e));
+              .then(() => { })
+              .catch(() => { });
           }
         }
       }
@@ -1809,11 +1806,19 @@ function Login({ dark, setDark, onSuccess }) {
 
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            <div className="flex items-center justify-center gap-2 flex-wrap">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--text)] font-semibold hover:text-[var(--accent)] transition-colors text-sm">
-                <FileText className="w-4 h-4" />Dapatkan License
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-sm gradient-text hover:opacity-80 transition-opacity">
+                <FileText className="w-4 h-4 text-[var(--accent)]" />Dapatkan License
               </a>
-              <span className="text-[var(--text-muted)]">|</span>
+              <span className="text-[var(--border-strong)]">•</span>
+              <button
+                type="button"
+                onClick={() => setKey('PREVIEW01')}
+                className="inline-flex items-center gap-1.5 text-[var(--text-secondary)] font-medium hover:text-[var(--text)] transition-colors text-sm"
+              >
+                <Eye className="w-4 h-4" />Preview
+              </button>
+              <span className="text-[var(--border-strong)]">•</span>
               <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--text-muted)] font-medium hover:text-[var(--text-secondary)] transition-colors text-sm">
                 <MessageCircle className="w-4 h-4" />Chat Admin
               </a>
@@ -4064,7 +4069,21 @@ function TermsAgreement({ onAgree }) {
           </div>
 
           <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl mt-4">
-            <p className="text-red-500 font-bold text-center">⚠️ Pelanggaran = Akses DICABUT. NO REFUND!</p>
+            <p className="text-red-500 font-bold text-center">Pelanggaran = Akses DICABUT. NO REFUND!</p>
+          </div>
+        </div>
+
+        {/* Privacy Policy Section */}
+        <div className="mb-6 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)]">
+          <h3 className="font-bold text-[var(--text)] mb-2 flex items-center gap-2">
+            <Shield className="w-4 h-4 text-[var(--accent)]" />
+            Kebijakan Privasi
+          </h3>
+          <div className="text-xs text-[var(--text-muted)] space-y-2">
+            <p><strong>Data yang dikumpulkan:</strong> Nama, email (opsional), license key, device ID, progress belajar, aktivitas forum.</p>
+            <p><strong>Penggunaan data:</strong> Autentikasi, sinkronisasi progress, notifikasi pengingat, dan peningkatan layanan.</p>
+            <p><strong>Keamanan:</strong> Data disimpan di Firebase dengan enkripsi. Kami tidak menjual data ke pihak ketiga.</p>
+            <p><strong>Hak pengguna:</strong> Anda dapat meminta penghapusan data dengan menghubungi admin.</p>
           </div>
         </div>
 

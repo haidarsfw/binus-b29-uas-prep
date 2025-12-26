@@ -49,7 +49,6 @@ export const sendReminderEmail = async (toEmail, userName, reminderTime) => {
             templateParams
         );
 
-        console.log('Email sent successfully:', response);
         return { success: true, response };
     } catch (error) {
         console.error('Failed to send email:', error);
