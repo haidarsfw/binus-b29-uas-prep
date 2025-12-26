@@ -1807,10 +1807,10 @@ function Login({ dark, setDark, onSuccess }) {
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-sm gradient-text hover:opacity-80 transition-opacity">
-                <FileText className="w-4 h-4 text-[var(--accent)]" />Dapatkan License
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-sm text-emerald-500 hover:text-emerald-400 transition-colors">
+                <FileText className="w-4 h-4" />Dapatkan License
               </a>
-              <span className="text-[var(--border-strong)]">•</span>
+              <span className="text-[var(--border-strong)]">|</span>
               <button
                 type="button"
                 onClick={() => setKey('PREVIEW01')}
@@ -1818,7 +1818,7 @@ function Login({ dark, setDark, onSuccess }) {
               >
                 <Eye className="w-4 h-4" />Preview
               </button>
-              <span className="text-[var(--border-strong)]">•</span>
+              <span className="text-[var(--border-strong)]">|</span>
               <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--text-muted)] font-medium hover:text-[var(--text-secondary)] transition-colors text-sm">
                 <MessageCircle className="w-4 h-4" />Chat Admin
               </a>
