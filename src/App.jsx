@@ -1600,7 +1600,23 @@ function Login({ dark, setDark, onSuccess }) {
       const r = await validateLicenseWithDevice(key, referralCode.trim() || null);
       if (r.valid) {
         resetAttempts(); // Reset on success
-        onSuccess({ ...r.license, key });
+
+        // Handle referral result notification
+        if (r.referralResult) {
+          if (r.referralResult.success) {
+            // Success notification - show who referred who
+            setTimeout(() => {
+              alert(`🎉 Referral Berhasil!\n\nAnda telah direferensikan oleh: ${r.referralResult.referrerName}\n\nTerima kasih sudah bergabung!`);
+            }, 500);
+          } else if (r.referralResult.error) {
+            // Error notification
+            setTimeout(() => {
+              alert(`⚠️ Referral Gagal\n\n${r.referralResult.error}`);
+            }, 500);
+          }
+        }
+
+        onSuccess({ ...r.license, key, referralResult: r.referralResult });
       } else {
         // Only count as failed attempt if it's an invalid key error, not timeout/network
         const isNetworkError = r.error?.includes('timeout') || r.error?.includes('Koneksi') || r.error?.includes('server gagal');

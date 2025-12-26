@@ -282,6 +282,7 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
         }
 
         const license = keySnapshot.val();
+        let referralResult = null;
 
         // If unlimited devices, skip device validation
         if (license.unlimitedDevices) {
@@ -290,11 +291,12 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
 
             // Handle referral if provided
             if (referralCode) {
-                await applyReferralCode(referralCode, key.toUpperCase());
+                referralResult = await applyReferralCode(referralCode, key.toUpperCase());
             }
 
             return {
                 valid: true,
+                referralResult,
                 license: {
                     ...license,
                     licenseKey: key.toUpperCase(),
@@ -332,8 +334,14 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
                 return { valid: false, error: 'License sudah expired' };
             }
 
+            // Handle referral if provided (even on re-login, will be rejected if already used)
+            if (referralCode) {
+                referralResult = await applyReferralCode(referralCode, key.toUpperCase());
+            }
+
             return {
                 valid: true,
+                referralResult,
                 license: {
                     ...license,
                     ...activationData,
@@ -358,21 +366,29 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
                 activatedAt: now.toISOString(),
                 expiry: expiry.toISOString(),
                 referralCode: userReferralCode,
-                referredBy: referralCode || null,
                 referralCount: 0,
             };
             await set(activationRef, newData);
 
             // Handle referral if provided
             if (referralCode) {
-                await applyReferralCode(referralCode, key.toUpperCase());
+                referralResult = await applyReferralCode(referralCode, key.toUpperCase());
+                // Update referredBy based on result
+                if (referralResult?.success) {
+                    await update(activationRef, {
+                        referredBy: referralCode,
+                        referredByUser: referralResult.referrerName
+                    });
+                }
             }
 
             return {
                 valid: true,
+                referralResult,
                 license: {
                     ...license,
                     ...newData,
+                    referredBy: referralResult?.success ? referralCode : null,
                     licenseKey: key.toUpperCase()
                 }
             };
@@ -423,47 +439,86 @@ export const ensureReferralCode = async (licenseKey) => {
 };
 
 // Apply referral code (increment referrer's count)
+// Returns: { success, error?, referrerName?, referredName? }
 export const applyReferralCode = async (referralCode, newUserKey) => {
     try {
+        if (!referralCode || !newUserKey) {
+            return { success: false, error: 'Kode referral tidak valid' };
+        }
+
+        // First check if this user has already used a referral
+        const newUserRef = ref(db, `licenses/${newUserKey.toUpperCase()}`);
+        const newUserSnapshot = await withTimeout(get(newUserRef), 15000);
+
+        if (newUserSnapshot.exists()) {
+            const newUserData = newUserSnapshot.val();
+            // Check if already used a referral
+            if (newUserData.referredBy) {
+                return { success: false, error: 'Anda sudah pernah menggunakan kode referral' };
+            }
+        }
+
         // Find who owns this referral code
         const licensesRef = ref(db, 'licenses');
         const snapshot = await withTimeout(get(licensesRef), 15000);
 
-        if (!snapshot.exists()) return false;
+        if (!snapshot.exists()) {
+            return { success: false, error: 'Kode referral tidak ditemukan' };
+        }
 
         const licenses = snapshot.val();
         let referrerId = null;
+        let referrerData = null;
 
         for (const [key, data] of Object.entries(licenses)) {
-            if (data.referralCode === referralCode && key !== newUserKey) {
+            if (data.referralCode === referralCode && key.toUpperCase() !== newUserKey.toUpperCase()) {
                 referrerId = key;
+                referrerData = data;
                 break;
             }
         }
 
-        if (referrerId) {
-            const referrerRef = ref(db, `licenses/${referrerId}`);
-            const referrerSnapshot = await get(referrerRef);
-            const referrerData = referrerSnapshot.val();
-
-            // Increment referral count
-            await update(referrerRef, {
-                referralCount: (referrerData.referralCount || 0) + 1
-            });
-
-            // Record the referral
-            const referralRecordRef = ref(db, `referrals/${referrerId}/${newUserKey}`);
-            await set(referralRecordRef, {
-                referredAt: new Date().toISOString(),
-                newUserKey
-            });
-
-            return true;
+        // Check if trying to use own referral code
+        for (const [key, data] of Object.entries(licenses)) {
+            if (data.referralCode === referralCode && key.toUpperCase() === newUserKey.toUpperCase()) {
+                return { success: false, error: 'Tidak bisa menggunakan kode referral sendiri' };
+            }
         }
-        return false;
+
+        if (!referrerId) {
+            return { success: false, error: 'Kode referral tidak ditemukan' };
+        }
+
+        const referrerRef = ref(db, `licenses/${referrerId}`);
+        const newUserData = newUserSnapshot.exists() ? newUserSnapshot.val() : {};
+
+        // Increment referral count for referrer
+        await update(referrerRef, {
+            referralCount: (referrerData.referralCount || 0) + 1
+        });
+
+        // Mark the new user as referred
+        await update(newUserRef, {
+            referredBy: referralCode,
+            referredByUser: referrerData.userName || referrerId
+        });
+
+        // Record the referral for history
+        const referralRecordRef = ref(db, `referrals/${referrerId}/${newUserKey.toUpperCase()}`);
+        await set(referralRecordRef, {
+            referredAt: new Date().toISOString(),
+            newUserKey: newUserKey.toUpperCase(),
+            newUserName: newUserData.userName || newUserKey
+        });
+
+        return {
+            success: true,
+            referrerName: referrerData.userName || referrerId,
+            referredName: newUserData.userName || newUserKey
+        };
     } catch (error) {
         console.error('Error applying referral:', error);
-        return false;
+        return { success: false, error: 'Gagal menerapkan kode referral' };
     }
 };
 
