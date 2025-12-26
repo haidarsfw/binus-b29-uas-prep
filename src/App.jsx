@@ -658,7 +658,25 @@ export default function App() {
     setConfirmLogout(false);
   };
 
-  if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => { setSession(d); localStorage.setItem('session', JSON.stringify(d)); setView('class'); }} />;
+  if (view === 'login') return <Login dark={dark} setDark={setDark} onSuccess={(d) => {
+    setSession(d);
+    localStorage.setItem('session', JSON.stringify(d));
+
+    // Handle referral notification in App (where showToast exists)
+    if (d.referralResult) {
+      if (d.referralResult.success) {
+        setTimeout(() => {
+          showToast(`🎉 Referral Berhasil! Anda diundang oleh: ${d.referralResult.referrerName}`, 'success', 6000);
+        }, 800);
+      } else if (d.referralResult.error) {
+        setTimeout(() => {
+          showToast(`⚠️ ${d.referralResult.error}`, 'warning', 5000);
+        }, 800);
+      }
+    }
+
+    setView('class');
+  }} />;
 
   if (view === 'class') return (
     <div className={`min-h-screen no-select ${dark ? 'dark' : ''}`} style={{ background: 'var(--bg)' }}>
@@ -1600,22 +1618,7 @@ function Login({ dark, setDark, onSuccess }) {
       const r = await validateLicenseWithDevice(key, referralCode.trim() || null);
       if (r.valid) {
         resetAttempts(); // Reset on success
-
-        // Handle referral result notification
-        if (r.referralResult) {
-          if (r.referralResult.success) {
-            // Success notification - show who referred who
-            setTimeout(() => {
-              alert(`🎉 Referral Berhasil!\n\nAnda telah direferensikan oleh: ${r.referralResult.referrerName}\n\nTerima kasih sudah bergabung!`);
-            }, 500);
-          } else if (r.referralResult.error) {
-            // Error notification
-            setTimeout(() => {
-              alert(`⚠️ Referral Gagal\n\n${r.referralResult.error}`);
-            }, 500);
-          }
-        }
-
+        // Referral notifications handled in App component's onSuccess callback
         onSuccess({ ...r.license, key, referralResult: r.referralResult });
       } else {
         // Check if it's an expired license (don't count as failed attempt)

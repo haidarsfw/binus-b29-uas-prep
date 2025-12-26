@@ -659,6 +659,37 @@ export const clearAllUserData = async () => {
     }
 };
 
+// Reset all referral data (admin only) - clears referral records and resets counts
+export const resetAllReferralData = async () => {
+    try {
+        // Clear referral records
+        const referralsRef = ref(db, 'referrals');
+        await withTimeout(remove(referralsRef), 15000);
+
+        // Clear referral fields from all licenses
+        const licensesRef = ref(db, 'licenses');
+        const snapshot = await withTimeout(get(licensesRef), 15000);
+
+        if (snapshot.exists()) {
+            const licenses = snapshot.val();
+            for (const [key, data] of Object.entries(licenses)) {
+                const userRef = ref(db, `licenses/${key}`);
+                await update(userRef, {
+                    referredBy: null,
+                    referredByUser: null,
+                    referralCount: 0
+                });
+            }
+        }
+
+        console.log('Reset all referral data');
+        return true;
+    } catch (error) {
+        console.error('Error resetting referral data:', error);
+        throw error;
+    }
+};
+
 // Reset license keys to defaults (admin only) - use with caution!
 export const resetLicenseKeysToDefaults = async () => {
     try {
