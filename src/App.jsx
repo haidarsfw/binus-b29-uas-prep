@@ -1915,19 +1915,19 @@ function Login({ dark, setDark, onSuccess }) {
             </motion.button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
-            <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="mt-6 pt-5 border-t border-[var(--border)]">
+            <p className="text-[var(--text-muted)] text-sm mb-3 text-center">Belum punya license?</p>
+            <div className="flex justify-center items-center gap-6">
               <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-sm glowing-text">
                 <FileText className="w-4 h-4 text-sky-400" />Dapatkan License
               </a>
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-green-500 font-semibold hover:text-green-400 transition-colors text-sm">
-                <MessageCircle className="w-4 h-4" />Chat Admin
+              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-bold text-sm glowing-text-green">
+                <MessageCircle className="w-4 h-4 text-emerald-400" />Chat Admin
               </a>
               <button
                 type="button"
                 onClick={() => setKey('PREVIEW01')}
-                className="inline-flex items-center gap-1.5 text-[var(--text-secondary)] font-medium hover:text-[var(--text)] transition-colors text-sm"
+                className="inline-flex items-center gap-1.5 text-violet-400 font-semibold hover:text-violet-300 transition-colors text-sm"
               >
                 <Eye className="w-4 h-4" />Preview
               </button>
