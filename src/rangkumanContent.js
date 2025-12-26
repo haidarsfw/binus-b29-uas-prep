@@ -1100,7 +1100,106 @@ Modul ditutup dengan pembahasan mengenai kampanye pemasaran Tokopedia, khususnya
 
 <bullet><b>Tujuan:</b> Tokopedia ingin mengatasi hambatan psikologis masyarakat Indonesia (terutama anak muda) yang sering ragu untuk memulai bisnis atau mengejar mimpi.</bullet>
 <bullet><b>Strategi:</b> Menggunakan pendekatan emosional dan inspiratif melalui iklan TV dan media digital yang menampilkan cerita-cerita keberhasilan sederhana.</bullet>
-<bullet><b>Hasil:</b> Kampanye ini berhasil memposisikan Tokopedia bukan sekadar sebagai tempat belanja, tetapi sebagai mitra yang memberdayakan (<i>enabler</i>). Hal ini berdampak signifikan pada peningkatan jumlah penjual (merchant/UMKM) baru yang bergabung di platform Tokopedia, membuktikan bahwa kampanye pemasaran yang dirancang dengan baik dapat mencapai tujuan strategis perusahaan.</bullet>`
+<bullet><b>Hasil:</b> Kampanye ini berhasil memposisikan Tokopedia bukan sekadar sebagai tempat belanja, tetapi sebagai mitra yang memberdayakan (<i>enabler</i>). Hal ini berdampak signifikan pada peningkatan jumlah penjual (merchant/UMKM) baru yang bergabung di platform Tokopedia, membuktikan bahwa kampanye pemasaran yang dirancang dengan baik dapat mencapai tujuan strategis perusahaan.</bullet>`,
+                modul3: `<h1>📘 MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
+<subtitle><b><i>(Referensi: PPT Week 11 & Chapter 18)</i></b></subtitle>
+
+Modul ini membahas bagaimana perusahaan menciptakan dan mempertahankan keunggulan kompetitif untuk memenangkan persaingan pasar.
+
+<h2>🏬 1. STUDI KASUS PEMBUKA: NORDSTROM</h2>
+
+<h3>"From Shoes to a Retail Powerhouse"</h3>
+Modul ini dibuka dengan sejarah Nordstrom yang bermula dari toko sepatu sederhana di Seattle (1901) hingga menjadi raksasa ritel mode. Kunci sukses mereka bukan harga murah, melainkan <b>strategi diferensiasi pelayanan yang ekstrem</b>.
+
+<bullet><b>Filosofi Inti:</b> "Taking care of customers no matter what it takes" (Melayani pelanggan tidak peduli apa pun yang diperlukan).</bullet>
+<bullet><b>Aturan Tunggal:</b> Nordstrom terkenal hanya memiliki satu aturan dalam buku pegangan karyawannya: <b>"Use good judgment in all situations"</b> (Gunakan penilaian yang baik dalam semua situasi). Tidak ada aturan birokrasi lain yang mengekang karyawan.</bullet>
+<bullet><b>Bukti Nyata:</b> Kisah karyawan yang menghangatkan mobil pelanggan saat salju, atau menerima pengembalian produk yang bahkan tidak mereka jual, membuktikan bahwa mereka fokus pada <b>Lifetime Value</b> pelanggan, bukan transaksi sesaat.</bullet>
+
+<h2>🔍 2. ANALISIS KOMPETITOR (COMPETITOR ANALYSIS)</h2>
+
+Untuk merancang strategi yang mematikan, perusahaan harus melalui <b>tiga tahap</b> analisis pesaing:
+
+<h3>Tahap 1: Mengidentifikasi Pesaing (Identifying)</h3>
+<bullet><b>Sudut Pandang Industri:</b> Pesaing adalah perusahaan yang membuat produk atau kelas produk yang sama. <i>(Contoh: Pepsi adalah pesaing Coca-Cola)</i>.</bullet>
+<bullet><b>Sudut Pandang Pasar:</b> Pesaing adalah semua perusahaan yang berusaha memuaskan kebutuhan pelanggan yang sama. <i>(Contoh: Pesaing Coca-Cola bukan cuma Pepsi, tapi juga teh botol, jus buah, atau air mineral, karena sama-sama penghilang dahaga)</i>. Sudut pandang ini lebih luas dan mencegah <b>"Marketing Myopia"</b>.</bullet>
+
+<h3>Tahap 2: Menilai Pesaing (Assessing)</h3>
+<bullet><b>Menentukan Tujuan:</b> Apa yang dicari pesaing? Profit saat ini, pangsa pasar, atau kepemimpinan teknologi?</bullet>
+<bullet><b>Mengidentifikasi Strategi:</b> Bagaimana cara mereka bersaing?</bullet>
+<bullet><b>Menilai Kekuatan & Kelemahan:</b> Melakukan Benchmarking (tolok ukur) untuk membandingkan produk dan proses kita dengan pesaing.</bullet>
+<bullet><b>Memperkirakan Reaksi:</b> Bagaimana pesaing akan bereaksi jika kita menyerang (menurunkan harga/promo)? Ada pesaing yang santai ("Tiger Sleep"), ada yang reaktif dan ganas.</bullet>
+
+<h3>Tahap 3: Memilih Pesaing (Selecting)</h3>
+<bullet><b>Strong vs Weak:</b> Menyerang pesaing lemah memang mudah dan murah, tapi hasilnya sedikit. Bersaing dengan pesaing kuat (Strong) justru melajamkan kemampuan perusahaan.</bullet>
+<bullet><b>Close vs Distant:</b> Pesaing "Close" adalah yang paling mirip dengan kita.</bullet>
+<bullet><b>Warning:</b> Menghancurkan pesaing dekat bisa berbahaya karena bisa memaksa mereka menjual perusahaan ke raksasa yang lebih besar, atau membuat pelanggan mereka lari ke pesaing lain.</bullet>
+<bullet><b>Blue Ocean Strategy:</b> Strategi mencari ruang pasar yang tidak memiliki pesaing (<i>uncontested market space</i>). Daripada berdarah-darah di "Red Ocean" (pasar padat persaingan), perusahaan menciptakan permintaan baru. <i>(Contoh: Cirque du Soleil)</i>.</bullet>
+
+<h2>🏆 3. STRATEGI PEMASARAN KOMPETITIF (MICHAEL PORTER)</h2>
+
+Michael Porter merumuskan <b>tiga strategi dasar (Winning Strategies)</b> dan satu strategi gagal.
+
+<h3>A. Overall Cost Leadership (Kepemimpinan Biaya)</h3>
+<bullet>Perusahaan bekerja keras menekan biaya produksi dan distribusi ke titik terendah.</bullet>
+<bullet><b>Tujuannya:</b> Menetapkan harga lebih rendah dari pesaing untuk merebut pangsa pasar besar.</bullet>
+<bullet><b>Contoh:</b> Walmart dan AirAsia.</bullet>
+
+<h3>B. Differentiation (Diferensiasi)</h3>
+<bullet>Perusahaan menciptakan lini produk dan program pemasaran yang sangat unik/berbeda, sehingga dianggap superior di kelasnya.</bullet>
+<bullet><b>Tujuannya:</b> Pelanggan menjadi tidak sensitif terhadap harga (rela bayar mahal).</bullet>
+<bullet><b>Contoh:</b> Apple (Desain/Teknologi), Nordstrom (Pelayanan).</bullet>
+
+<h3>C. Focus (Fokus)</h3>
+<bullet>Perusahaan memusatkan usaha pada segmen pasar yang sempit (niche), baik itu kelompok pembeli tertentu atau wilayah geografis tertentu, dan melayaninya dengan sangat baik.</bullet>
+<bullet><b>Contoh:</b> Ritz-Carlton (Fokus pada pelancong mewah).</bullet>
+
+<h3>❌ Strategi Gagal: Middle-of-the-Roaders</h3>
+<bullet>Perusahaan yang mencoba menjadi segalanya (ingin murah tapi ingin bagus juga) biasanya gagal.</bullet>
+<bullet>Mereka tidak punya struktur biaya terendah, tapi juga tidak punya keunikan produk.</bullet>
+<bullet>Mereka akan "dimakan" oleh Cost Leader dari bawah dan Differentiator dari atas.</bullet>
+<bullet><b>Contoh:</b> Sears, Holiday Inn di masa lalu.</bullet>
+
+<h2>📊 4. POSISI KOMPETITIF (COMPETITIVE POSITIONS)</h2>
+
+Pasar biasanya terbagi dalam proporsi <b>40-30-20-10</b>. Masing-masing punya strategi spesifik:
+
+<h3>A. Market Leader (Pemimpin Pasar - 40%)</h3>
+Perusahaan dengan pangsa pasar terbesar.
+<bullet><b>Strategi 1: Memperluas Total Pasar.</b> Mencari pengguna baru (<i>New Users</i>), kegunaan baru (<i>New Uses</i>), atau penggunaan yang lebih sering (<i>More Usage</i>) dari produknya.</bullet>
+<bullet><b>Strategi 2: Melindungi Pangsa Pasar.</b> Melakukan inovasi berkelanjutan (<i>continuous innovation</i>) agar tidak diserang pesaing. Pertahanan terbaik adalah serangan yang baik.</bullet>
+<bullet><b>Strategi 3: Memperluas Pangsa Pasar.</b> Mengambil porsi pesaing. <i>(Catatan: Harus hati-hati agar biaya merebut pasar tidak melebihi keuntungannya)</i>.</bullet>
+
+<h3>B. Market Challenger (Penantang Pasar - 30%)</h3>
+Perusahaan runner-up yang agresif.
+<bullet><b>Strategi:</b> Menyerang pemimpin pasar. Bisa dengan <b>Serangan Frontal</b> (menandingi produk, iklan, dan harga pemimpin) atau <b>Serangan Tidak Langsung</b> (menyerang titik lemah pemimpin atau menyerang pesaing kecil lainnya).</bullet>
+
+<h3>C. Market Follower (Pengikut Pasar - 20%)</h3>
+Perusahaan runner-up yang main aman.
+<bullet><b>Strategi:</b> Meniru pemimpin pasar. Mereka mendapatkan keuntungan dari pasar tanpa menanggung beban biaya inovasi atau edukasi pasar yang mahal.</bullet>
+<bullet>Tujuannya adalah profitabilitas stabil, bukan menjadi nomor satu.</bullet>
+
+<h3>D. Market Nicher (Pencari Celah - 10%)</h3>
+Perusahaan kecil yang melayani segmen yang diabaikan.
+<bullet><b>Strategi:</b> Spesialisasi. Kunci suksesnya adalah mengenal target pelanggan mereka dengan sangat dalam sehingga bisa menetapkan harga tinggi (<i>high margin</i>).</bullet>
+<bullet>Nichers fokus pada <b>profit tinggi</b>, bukan volume besar.</bullet>
+
+<h2>⚖️ 5. MENYEIMBANGKAN ORIENTASI: MARKET-CENTERED</h2>
+
+Perusahaan berevolusi dalam orientasinya:
+
+<bullet><b>Product-Oriented:</b> Hanya fokus bikin barang bagus (lupa pasar).</bullet>
+<bullet><b>Customer-Centered:</b> Fokus total pada pelanggan. <i>(Bagus untuk identifikasi peluang, tapi bisa lengah terhadap serangan pesaing)</i>.</bullet>
+<bullet><b>Competitor-Centered:</b> Fokus total mengawasi gerak-gerik pesaing. <i>(Bagus sebagai petarung, tapi terlalu reaktif dan kehilangan visi sendiri)</i>.</bullet>
+<bullet><b>Market-Centered (Goal Utama):</b> Menyeimbangkan fokus pada <b>Pelanggan DAN Pesaing</b> secara bersamaan.</bullet>
+
+<h2>✈️ 6. STUDI KASUS PENUTUP: AIRASIA</h2>
+
+<h3>"Cost Leadership Strategy"</h3>
+Modul ditutup dengan pembahasan AirAsia sebagai implementasi nyata strategi <b>Overall Cost Leadership</b>.
+
+<bullet><b>Efisiensi Ekstrem:</b> AirAsia memangkas semua fitur non-esensial (<i>no frills</i>). Tidak ada makanan gratis, bagasi berbayar, dan distribusi tiket dimaksimalkan lewat online untuk memotong biaya agen/admin.</bullet>
+<bullet><b>Operasional:</b> Penggunaan satu jenis pesawat (<i>single aircraft type</i>) mengurangi biaya pelatihan kru dan stok suku cadang secara signifikan. Waktu <i>turnaround</i> (pesawat parkir) yang cepat memaksimalkan penggunaan aset.</bullet>
+<bullet><b>Hasil:</b> Strategi biaya rendah ini memungkinkan AirAsia menawarkan harga tiket yang jauh di bawah rata-rata pasar, mendisrupsi industri penerbangan Asia, dan mewujudkan slogan <b>"Now Everyone Can Fly"</b>.</bullet>`
         }
 };
 
