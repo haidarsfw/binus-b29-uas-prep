@@ -1926,14 +1926,14 @@ function Login({ dark, setDark, onSuccess }) {
               <Eye className="w-4 h-4 text-violet-400" />
               <span className="font-bold text-sm glowing-text-violet">Preview</span>
             </button>
-            {/* Dapatkan License | Chat Admin below */}
-            <div className="flex items-center justify-center gap-3">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5">
+            {/* Get License | Chat Admin below - grid for perfect centering */}
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-end">
                 <FileText className="w-4 h-4 text-sky-400" />
-                <span className="font-bold text-sm glowing-text">Dapatkan License</span>
+                <span className="font-bold text-sm glowing-text">Get License</span>
               </a>
               <span className="text-[var(--text-muted)]">|</span>
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5">
+              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-start">
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
                 <span className="font-bold text-sm glowing-text-green">Chat Admin</span>
               </a>
