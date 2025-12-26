@@ -58,6 +58,7 @@ export const DB = {
                     { title: 'Modul 1: Marketing Channels & Logistics', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Integrated Marketing Communication Strategy', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Creating Competitive Advantage', contentKey: 'modul3', type: 'native' },
+                    { title: 'Modul 4: The Global Marketplace', contentKey: 'modul4', type: 'native' },
                 ],
                 addendum: [],
                 mentorPPT: [

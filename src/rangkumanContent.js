@@ -1199,7 +1199,123 @@ Modul ditutup dengan pembahasan AirAsia sebagai implementasi nyata strategi <b>O
 
 <bullet><b>Efisiensi Ekstrem:</b> AirAsia memangkas semua fitur non-esensial (<i>no frills</i>). Tidak ada makanan gratis, bagasi berbayar, dan distribusi tiket dimaksimalkan lewat online untuk memotong biaya agen/admin.</bullet>
 <bullet><b>Operasional:</b> Penggunaan satu jenis pesawat (<i>single aircraft type</i>) mengurangi biaya pelatihan kru dan stok suku cadang secara signifikan. Waktu <i>turnaround</i> (pesawat parkir) yang cepat memaksimalkan penggunaan aset.</bullet>
-<bullet><b>Hasil:</b> Strategi biaya rendah ini memungkinkan AirAsia menawarkan harga tiket yang jauh di bawah rata-rata pasar, mendisrupsi industri penerbangan Asia, dan mewujudkan slogan <b>"Now Everyone Can Fly"</b>.</bullet>`
+<bullet><b>Hasil:</b> Strategi biaya rendah ini memungkinkan AirAsia menawarkan harga tiket yang jauh di bawah rata-rata pasar, mendisrupsi industri penerbangan Asia, dan mewujudkan slogan <b>"Now Everyone Can Fly"</b>.</bullet>`,
+                modul4: `<h1>📘 MODUL 4: THE GLOBAL MARKETPLACE</h1>
+<subtitle><b><i>(Referensi: PPT Week 12 & Chapter 19)</i></b></subtitle>
+
+Modul ini membahas strategi memasuki pasar global dan keputusan-keputusan penting yang harus diambil perusahaan.
+
+<h2>💄 1. STUDI KASUS PEMBUKA: L'ORÉAL</h2>
+
+<h3>"Beauty for All. Beauty for Each Individual."</h3>
+L'Oréal adalah pemimpin dunia yang tak terbantahkan dalam industri kosmetik. Kunci sukses global mereka adalah strategi <b>Universalisation</b>, yang menyeimbangkan dua hal:
+
+<bullet><b>Global Brand Impact:</b> Kekuatan merek global yang konsisten.</bullet>
+<bullet><b>Local Brand Responsiveness:</b> Adaptasi terhadap kebutuhan lokal.</bullet>
+
+<h3>Strategi L'Oréal di berbagai negara:</h3>
+<bullet><b>Amerika Serikat:</b> Masuk lewat <i>Joint Venture</i> dengan Nestlé (1954) untuk berbagi risiko.</bullet>
+<bullet><b>Brazil:</b> Membuat anak perusahaan (<i>subsidiary</i>) sendiri (1959) agar bisa masuk cepat, lalu mengakuisisi merek lokal.</bullet>
+<bullet><b>China:</b> Awalnya hanya ekspor lewat agen lokal, tapi gagal karena kurang kontrol.</bullet>
+
+<h2>🌍 2. LINGKUNGAN PEMASARAN GLOBAL</h2>
+
+Sebelum masuk ke pasar global, perusahaan harus membedah <b>3 lingkungan utama</b>:
+
+<h3>A. Sistem Perdagangan Internasional (Trade System)</h3>
+Pemerintah negara tujuan mungkin memberlakukan:
+<bullet><b>Tariffs (Tarif):</b> Pajak untuk barang impor (untuk melindungi industri lokal).</bullet>
+<bullet><b>Quotas (Kuota):</b> Batasan jumlah barang yang boleh masuk.</bullet>
+<bullet><b>Exchange Controls:</b> Pembatasan penukaran mata uang asing.</bullet>
+<bullet><b>Nontariff Barriers:</b> Hambatan non-pajak, seperti standar produk yang bias atau birokrasi yang dipersulit. <i>(Contoh: Amazon kesulitan di India karena aturan baru e-commerce)</i>.</bullet>
+<bullet><b>Fasilitator:</b> Ada WTO (World Trade Organization) dan Zona Perdagangan Bebas seperti Uni Eropa (EU), NAFTA (Amerika Utara), dan ASEAN (AFTA) yang mempermudah dagang antar-anggota.</bullet>
+
+<h3>B. Lingkungan Ekonomi (Economic Environment)</h3>
+Daya tarik pasar tergantung pada struktur industrinya:
+<bullet><b>Subsistence Economies:</b> Mayoritas penduduk bertani sederhana, sedikit peluang pasar. <i>(Contoh: Banyak negara Afrika)</i>.</bullet>
+<bullet><b>Raw Material Exporting Economies:</b> Kaya sumber daya alam (timah, tembaga) tapi miskin di sektor lain. Pasar bagus untuk alat berat/truk. <i>(Contoh: Chile, Kongo)</i>.</bullet>
+<bullet><b>Emerging Economies (Industrializing):</b> Pertumbuhan manufaktur cepat, kelas menengah baru muncul. Pasar bagus untuk bahan mentah tekstil/baja. <i>(Contoh: BRIC - Brazil, Russia, India, China)</i>.</bullet>
+<bullet><b>Industrial Economies:</b> Pengekspor barang jadi. Kelas menengahnya besar dan kaya. Pasar untuk segala jenis barang. <i>(Contoh: AS, Jepang, Norwegia)</i>.</bullet>
+
+<h3>C. Lingkungan Politik-Hukum & Budaya</h3>
+<bullet><b>Politik:</b> Stabilitas negara dan birokrasi pemerintah. <i>(Contoh: Venezuela pasarnya menarik tapi politiknya tidak stabil)</i>.</bullet>
+<bullet><b>Budaya:</b> Norma bisnis dan perilaku konsumen.</bullet>
+<bullet><b>Kegagalan:</b> Marriott pernah diblokir di China karena mencantumkan Tibet dan Taiwan sebagai "negara" di website-nya.</bullet>
+<bullet><b>Sukses:</b> IKEA sukses di China karena paham konsumen sana butuh lebih dari sekadar desain Skandinavia.</bullet>
+
+<h2>🤔 3. KEPUTUSAN UTAMA: APAKAH AKAN GO GLOBAL?</h2>
+
+Tidak semua perusahaan harus global. Tapi jika pesaing menyerang pasar domestik atau pasar domestik jenuh, perusahaan harus mempertimbangkan:
+
+<bullet>Bisakah kita memahami konsumen asing?</bullet>
+<bullet>Bisakah produk kita bersaing?</bullet>
+<bullet>Bisakah kita beradaptasi dengan budaya lokal?</bullet>
+<bullet>Punyakah manajer kita pengalaman internasional?</bullet>
+
+<h2>🎯 4. KEPUTUSAN UTAMA: PASAR MANA YANG DITUJU?</h2>
+
+Sebelum masuk, perusahaan harus menilai <b>Potensi Pasar</b> berdasarkan indikator:
+
+<bullet><b>Demografi:</b> Pendidikan, ukuran populasi, usia.</bullet>
+<bullet><b>Geografis:</b> Iklim, ukuran negara, kepadatan (kota/desa).</bullet>
+<bullet><b>Faktor Ekonomi:</b> GDP, distribusi pendapatan, infrastruktur.</bullet>
+<bullet><b>Faktor Sosiokultural:</b> Gaya hidup, norma, bahasa.</bullet>
+<bullet><b>Faktor Politik-Hukum:</b> Prioritas nasional, stabilitas politik.</bullet>
+
+<h2>🚪 5. KEPUTUSAN UTAMA: CARA MASUK PASAR (ENTRY STRATEGIES)</h2>
+
+Ada tiga strategi utama, dari risiko terendah hingga tertinggi:
+
+<h3>A. Exporting (Ekspor)</h3>
+<bullet><b>Indirect Exporting:</b> Lewat perantara independen. Investasi & risiko paling kecil.</bullet>
+<bullet><b>Direct Exporting:</b> Mengurus ekspor sendiri. Risiko lebih besar, potensi untung lebih besar.</bullet>
+
+<h3>B. Joint Venturing (Usaha Patungan)</h3>
+Bergabung dengan partner di negara tujuan.
+<bullet><b>Licensing:</b> Menjual hak pakai merek/resep dengan bayaran royalti. <i>(Contoh: Coca-Cola melisensikan pembotolan)</i>.</bullet>
+<bullet><b>Contract Manufacturing:</b> Mengontrak pabrik lokal untuk memproduksi barang kita. <i>(Lebih cepat mulai, risiko kecil)</i>.</bullet>
+<bullet><b>Management Contracting:</b> Kita jual "jasa manajemen", partner sediakan modal/hotel. <i>(Contoh: Hilton mengelola hotel milik investor lokal)</i>.</bullet>
+<bullet><b>Joint Ownership:</b> Bikin PT baru bareng investor lokal. Seringkali karena aturan pemerintah setempat mewajibkan saham lokal. <i>(Contoh: Disney Shanghai dimiliki 43% Disney, 57% grup lokal)</i>.</bullet>
+
+<h3>C. Direct Investment (Investasi Langsung)</h3>
+<bullet>Membangun pabrik atau cabang sendiri 100%.</bullet>
+<bullet>Kontrol penuh, biaya buruh/bahan mungkin lebih murah, tapi risiko paling tinggi jika ada gejolak politik/ekonomi.</bullet>
+
+<h2>📦 6. KEPUTUSAN UTAMA: PROGRAM PEMASARAN (MARKETING MIX)</h2>
+
+Perusahaan bisa memilih <b>Standardized</b> (sama semua) atau <b>Adapted</b> (disesuaikan).
+
+<h3>A. Lima Strategi Produk & Promosi:</h3>
+<bullet><b>Straight Extension:</b> Produk GAK berubah, Promosi GAK berubah. <i>(Jual apa adanya)</i>.</bullet>
+<bullet><b>Product Adaptation:</b> Produk DIUBAH sesuai selera lokal, Promosi TETAP. <i>(Contoh: Oreo rasa Green Tea di China, rasa Mangga di Asia)</i>.</bullet>
+<bullet><b>Communication Adaptation:</b> Produk TETAP, Promosi DIUBAH (beda iklan/pesan).</bullet>
+<bullet><b>Dual Adaptation:</b> Produk DIUBAH, Promosi DIUBAH. <i>(Total adaptasi)</i>.</bullet>
+<bullet><b>Product Invention:</b> Menciptakan produk BARU khusus untuk pasar itu. <i>(Contoh: Mobil murah sederhana untuk negara berkembang)</i>.</bullet>
+
+<h3>B. Strategi Harga (Price):</h3>
+<bullet>Hati-hati dengan <b>Price Escalation</b> (Kenaikan Harga). Produk di luar negeri bisa 2-5x lebih mahal karena ongkos kirim, tarif, dan margin perantara. <i>(Contoh: iPad di Inggris jauh lebih mahal daripada di AS)</i>.</bullet>
+<bullet><b>Solusi:</b> Bikin versi lebih murah/sederhana <i>(Contoh: Samsung Galaxy J series untuk pasar negara berkembang)</i>.</bullet>
+
+<h3>C. Strategi Distribusi (Whole-Channel View):</h3>
+Distribusi internasional itu rumit. Kita harus mengelola rantai utuh:
+<bullet><b>Seller (Pusat)</b> → <b>Channels between nations</b> (Antar negara) → <b>Channels within nations</b> (Di dalam negara tujuan) → <b>Final Buyer</b>.</bullet>
+
+<h2>🏢 7. KEPUTUSAN UTAMA: ORGANISASI PEMASARAN</h2>
+
+Evolusi perusahaan dalam mengelola bisnis internasional:
+
+<bullet><b>Export Department:</b> Cuma kirim barang, diurus manajer penjualan.</bullet>
+<bullet><b>International Division:</b> Punya divisi khusus (bisa berdasarkan geografi atau grup produk).</bullet>
+<bullet><b>Global Organization:</b> Tidak lagi membedakan "domestik vs asing". Seluruh dunia dianggap satu pasar tanpa batas. Logistik dan keuangan direncanakan global.</bullet>
+
+<h2>🏍️ 8. STUDI KASUS PENUTUP: GOJEK</h2>
+
+<h3>"Go Global"</h3>
+Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi <b>Adapted Marketing</b> yang kuat (bukan sekadar copy-paste).
+
+<bullet><b>Adaptasi Merek:</b> Awalnya pakai nama lokal (Go-Viet di Vietnam, GET di Thailand) dan seragam beda warna untuk memenangkan hati lokal.</bullet>
+<bullet><b>Adaptasi Layanan:</b> Di Singapura fokus ke mobil (karena transportasi publik bagus), di Vietnam fokus ke motor (mirip Indonesia).</bullet>
+<bullet><b>Kesimpulan:</b> Strategi Gojek membuktikan pentingnya <b>"Think Globally, Act Locally"</b>.</bullet>`
         }
 };
 
