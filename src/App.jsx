@@ -639,8 +639,9 @@ export default function App() {
             localStorage.setItem('savedClass', cloudSettings.selectedClass);
           }
           if (cloudSettings.dark !== undefined) {
-            setDark(cloudSettings.dark);
-            localStorage.setItem('dark', cloudSettings.dark);
+            const darkValue = cloudSettings.dark === true || cloudSettings.dark === 'true';
+            setDark(darkValue);
+            localStorage.setItem('dark', darkValue);
           }
           if (cloudSettings.theme) {
             setTheme(cloudSettings.theme);
@@ -1917,15 +1918,17 @@ function Login({ dark, setDark, onSuccess }) {
 
           <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
             <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            {/* Preview on top */}
-            <button
-              type="button"
-              onClick={() => setKey('PREVIEW01')}
-              className="inline-flex items-center gap-1.5 mb-3"
-            >
-              <Eye className="w-4 h-4 text-violet-400" />
-              <span className="font-bold text-sm glowing-text-violet">Preview</span>
-            </button>
+            {/* Preview on top - centered */}
+            <div className="flex justify-center mb-3">
+              <button
+                type="button"
+                onClick={() => setKey('PREVIEW01')}
+                className="inline-flex items-center gap-1.5"
+              >
+                <Eye className="w-4 h-4 text-violet-400" />
+                <span className="font-bold text-sm glowing-text-violet">Preview</span>
+              </button>
+            </div>
             {/* Get License | Chat Admin below - grid for perfect centering */}
             <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-end">
