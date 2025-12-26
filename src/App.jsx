@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -1916,29 +1916,26 @@ function Login({ dark, setDark, onSuccess }) {
             </motion.button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[var(--border)] text-center">
-            <p className="text-[var(--text-muted)] text-sm mb-3">Belum punya license?</p>
-            {/* Preview on top - centered */}
-            <div className="flex justify-center mb-3">
+          <div className="mt-6 pt-5 border-t border-[var(--border)]">
+            <p className="text-[var(--text-muted)] text-sm mb-3 text-center">Belum punya license?</p>
+            {/* Preview on top - perfectly centered */}
+            <div className="w-full flex justify-center mb-3">
               <button
                 type="button"
                 onClick={() => setKey('PREVIEW01')}
-                className="inline-flex items-center gap-1.5"
+                className="inline-flex items-center gap-1.5 text-violet-400 font-semibold text-sm hover:text-violet-300 transition-colors"
               >
-                <Eye className="w-4 h-4 text-violet-400" />
-                <span className="font-bold text-sm glowing-text-violet">Preview</span>
+                <Eye className="w-4 h-4" />Preview
               </button>
             </div>
             {/* Get License | Chat Admin below - grid for perfect centering */}
             <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-end">
-                <FileText className="w-4 h-4 text-sky-400" />
-                <span className="font-bold text-sm glowing-text">Get License</span>
+              <a href="https://forms.gle/C1XFvjqhSzo8bBT1A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-end text-sky-400 font-semibold text-sm hover:text-sky-300 transition-colors">
+                <FileText className="w-4 h-4" />Get License
               </a>
               <span className="text-[var(--text-muted)]">|</span>
-              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-start">
-                <MessageCircle className="w-4 h-4 text-emerald-400" />
-                <span className="font-bold text-sm glowing-text-green">Chat Admin</span>
+              <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 justify-start text-emerald-400 font-semibold text-sm hover:text-emerald-300 transition-colors">
+                <MessageCircle className="w-4 h-4" />Chat Admin
               </a>
             </div>
           </div>
@@ -2334,7 +2331,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} isPreviewMode={isPreviewMode} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
-        {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} />}
+        {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} />}
 
         {/* Content Lock Overlay for Preview Mode */}
@@ -3492,18 +3489,40 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
   );
 }
 
-function PersonalNotes({ subjectId, subjectName, isPreviewMode }) {
+function PersonalNotes({ subjectId, subjectName, isPreviewMode, licenseKey }) {
   const storageKey = `personalNotes_${subjectId}`;
   const [notes, setNotes] = useState(() => localStorage.getItem(storageKey) || '');
   const [saved, setSaved] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+
+  // Load notes from Firebase on mount
+  useEffect(() => {
+    if (!licenseKey || isPreviewMode) return;
+
+    const loadCloudNotes = async () => {
+      const cloudNotes = await getUserNotes(licenseKey, subjectId);
+      if (cloudNotes && cloudNotes !== notes) {
+        setNotes(cloudNotes);
+        localStorage.setItem(storageKey, cloudNotes);
+      }
+    };
+    loadCloudNotes();
+  }, [licenseKey, subjectId, isPreviewMode]);
 
   const handleChange = (e) => {
     setNotes(e.target.value);
     setSaved(false);
   };
 
-  const saveNotes = () => {
+  const saveNotes = async () => {
     localStorage.setItem(storageKey, notes);
+
+    // Sync to Firebase if logged in
+    if (licenseKey && !isPreviewMode) {
+      setSyncing(true);
+      await saveUserNotes(licenseKey, subjectId, notes);
+      setSyncing(false);
+    }
     setSaved(true);
   };
 

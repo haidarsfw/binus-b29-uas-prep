@@ -610,6 +610,49 @@ export const getUserSettings = async (licenseKey) => {
     }
 };
 
+// Save user personal notes to Firebase
+export const saveUserNotes = async (licenseKey, subjectId, notes) => {
+    try {
+        const notesRef = ref(db, `userNotes/${licenseKey.toUpperCase()}/${subjectId}`);
+        await withTimeout(set(notesRef, {
+            content: notes,
+            updatedAt: new Date().toISOString()
+        }), 15000);
+        return true;
+    } catch (error) {
+        console.error('Error saving notes:', error);
+        return false;
+    }
+};
+
+// Get user personal notes from Firebase
+export const getUserNotes = async (licenseKey, subjectId) => {
+    try {
+        const notesRef = ref(db, `userNotes/${licenseKey.toUpperCase()}/${subjectId}`);
+        const snapshot = await withTimeout(get(notesRef), 15000);
+
+        if (!snapshot.exists()) return null;
+        return snapshot.val()?.content || '';
+    } catch (error) {
+        console.error('Error getting notes:', error);
+        return null;
+    }
+};
+
+// Get all user notes from Firebase
+export const getAllUserNotes = async (licenseKey) => {
+    try {
+        const notesRef = ref(db, `userNotes/${licenseKey.toUpperCase()}`);
+        const snapshot = await withTimeout(get(notesRef), 15000);
+
+        if (!snapshot.exists()) return {};
+        return snapshot.val();
+    } catch (error) {
+        console.error('Error getting all notes:', error);
+        return {};
+    }
+};
+
 // ============================================
 // EMAIL NOTIFICATION SYSTEM
 // ============================================
