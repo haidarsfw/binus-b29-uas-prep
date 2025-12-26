@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -3665,7 +3665,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
       if (newImage) {
         imageUrl = await uploadImage(newImage);
       }
-      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl);
+      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl, { isAdmin: session?.isAdmin, isTester: session?.isTester });
       setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
     } catch (e) { showToast(e.message, 'error'); }
     setCreating(false);
@@ -3805,7 +3805,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     if (!newComment.trim()) return;
     setPosting(true);
     try {
-      await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
+      await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, { isAdmin: session?.isAdmin, isTester: session?.isTester });
       setNewComment('');
     } catch (e) { showToast(e.message, 'error'); }
     setPosting(false);
@@ -3815,7 +3815,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     if (!replyText.trim()) return;
     setPosting(true);
     try {
-      await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass);
+      await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, { isAdmin: session?.isAdmin, isTester: session?.isTester });
       setReplyText('');
       setReplyingTo(null);
     } catch (e) { showToast(e.message, 'error'); }
@@ -4998,6 +4998,12 @@ function AdminDashboard({ session, onClose }) {
                               <option value={2}>2 devices</option>
                               <option value={3}>3 devices</option>
                               <option value={4}>4 devices</option>
+                              <option value={5}>5 devices</option>
+                              <option value={6}>6 devices</option>
+                              <option value={7}>7 devices</option>
+                              <option value={8}>8 devices</option>
+                              <option value={9}>9 devices</option>
+                              <option value={10}>10 devices</option>
                               <option value={999}>∞ Unlimited</option>
                             </select>
                           </div>
@@ -5049,6 +5055,9 @@ function AdminDashboard({ session, onClose }) {
                               <button onClick={() => startEdit(k)} className="p-2 text-[var(--accent)] hover:bg-[var(--accent)]/10 rounded-lg" title="Edit">
                                 <Settings className="w-4 h-4" />
                               </button>
+                              <button onClick={async () => { if (confirm('Reset semua devices untuk key ini?')) { await resetLicenseDevices(k.key); setStatsRefresh(p => p + 1); alert('Devices reset!'); } }} className="p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg" title="Reset Devices">
+                                <RotateCcw className="w-4 h-4" />
+                              </button>
                               <button onClick={() => setConfirmDelete(k.key)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete">
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -5058,6 +5067,7 @@ function AdminDashboard({ session, onClose }) {
                             <span className="font-medium">{k.name}</span>
                             <span className="mx-2">•</span>
                             <span>{k.daysActive} hari</span>
+                            {k.isTester && <span className="mx-2 text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded">Tester</span>}
                             {deviceCount > 0 && <span className="mx-2">• {deviceCount}/{(k.maxDevices || 1) >= 999 ? '∞' : k.maxDevices || 1} device</span>}
                           </div>
                           {expiryDate && (

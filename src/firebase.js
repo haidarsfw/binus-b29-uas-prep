@@ -268,6 +268,26 @@ export const deleteLicenseKey = async (key) => {
     }
 };
 
+// Reset device registrations for a license key (admin only)
+export const resetLicenseDevices = async (key) => {
+    const activationRef = ref(db, `licenses/${key.toUpperCase()}`);
+    try {
+        const snapshot = await withTimeout(get(activationRef), 15000);
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            // Keep other data but reset deviceIds
+            await withTimeout(update(activationRef, {
+                deviceIds: [],
+                deviceId: null // Legacy field
+            }), 15000);
+        }
+        return true;
+    } catch (error) {
+        console.error('Error resetting devices:', error);
+        throw error;
+    }
+};
+
 // License validation with device lock (fetches from Firebase)
 export const validateLicenseWithDevice = async (key, referralCode = null) => {
     try {
@@ -895,7 +915,7 @@ const withTimeout = (promise, ms) => {
     return Promise.race([promise, timeout]);
 };
 
-export const createThread = async (subjectId, title, content, authorId, authorName, authorClass, imageUrl = null) => {
+export const createThread = async (subjectId, title, content, authorId, authorName, authorClass, imageUrl = null, badges = {}) => {
     const threadsRef = ref(db, `forums/${subjectId}/threads`);
     const newThread = {
         title,
@@ -903,6 +923,8 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
         authorId,
         authorName,
         authorClass: authorClass || 'Other',
+        isAdmin: badges.isAdmin || false,
+        isTester: badges.isTester || false,
         imageUrl,
         createdAt: new Date().toISOString(),
         closed: false,
@@ -940,7 +962,7 @@ export const subscribeToComments = (subjectId, threadId, callback) => {
     });
 };
 
-export const addComment = async (subjectId, threadId, content, authorId, authorName, authorClass) => {
+export const addComment = async (subjectId, threadId, content, authorId, authorName, authorClass, badges = {}) => {
     const commentsRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments`);
     const threadRef = ref(db, `forums/${subjectId}/threads/${threadId}`);
 
@@ -949,6 +971,8 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
         authorId,
         authorName,
         authorClass: authorClass || 'Other',
+        isAdmin: badges.isAdmin || false,
+        isTester: badges.isTester || false,
         createdAt: new Date().toISOString(),
     };
 
@@ -982,7 +1006,7 @@ export const deleteComment = async (subjectId, threadId, commentId) => {
     }
 };
 
-export const addReply = async (subjectId, threadId, commentId, content, authorId, authorName, authorClass) => {
+export const addReply = async (subjectId, threadId, commentId, content, authorId, authorName, authorClass, badges = {}) => {
     const repliesRef = ref(db, `forums/${subjectId}/threads/${threadId}/comments/${commentId}/replies`);
 
     const newReply = {
@@ -990,6 +1014,8 @@ export const addReply = async (subjectId, threadId, commentId, content, authorId
         authorId,
         authorName,
         authorClass: authorClass || 'Other',
+        isAdmin: badges.isAdmin || false,
+        isTester: badges.isTester || false,
         createdAt: new Date().toISOString(),
     };
 
