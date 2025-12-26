@@ -115,23 +115,24 @@ function UserWatermark({ username }) {
     <div
       style={{
         position: 'fixed',
-        bottom: '8px',
-        left: '8px',
-        padding: '4px 10px',
-        background: 'rgba(0,0,0,0.4)',
+        top: '8px',
+        right: '8px',
+        padding: '3px 8px',
+        background: 'rgba(0,0,0,0.3)',
         borderRadius: '6px',
-        fontSize: '10px',
-        color: 'rgba(255,255,255,0.6)',
+        fontSize: '9px',
+        color: 'rgba(255,255,255,0.5)',
         pointerEvents: 'none',
         zIndex: 2147483647, // Maximum z-index - cannot be covered
         userSelect: 'none',
         fontFamily: 'monospace',
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',
-        msUserSelect: 'none'
+        msUserSelect: 'none',
+        letterSpacing: '0.3px'
       }}
     >
-      Licensed to: {username}
+      {username}
     </div>
   );
 }
