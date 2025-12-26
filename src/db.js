@@ -54,7 +54,9 @@ export const DB = {
                 { question: 'Harga tinggi produk baru disebut...', options: ['Penetration', 'Skimming', 'Competitive', 'Bundle'], answer: 1, xp: 5 },
             ],
             rangkuman: {
-                modulInti: [],
+                modulInti: [
+                    { title: 'Modul 1: Marketing Channels & Logistics', contentKey: 'modul1', type: 'native' },
+                ],
                 addendum: [],
                 mentorPPT: [
                     { title: 'Rangkuman Mentor (by Kak Zarnis)', driveId: '1W2s-4M2XUsdYSkTVNc4aOqyberNikqKS', type: 'pdf' },
