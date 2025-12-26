@@ -1618,12 +1618,21 @@ function Login({ dark, setDark, onSuccess }) {
 
         onSuccess({ ...r.license, key, referralResult: r.referralResult });
       } else {
-        // Only count as failed attempt if it's an invalid key error, not timeout/network
+        // Check if it's an expired license (don't count as failed attempt)
+        const isExpiredError = r.error?.includes('expired') || r.error?.includes('Expired');
+        // Check if it's a network error (don't count as failed attempt)
         const isNetworkError = r.error?.includes('timeout') || r.error?.includes('Koneksi') || r.error?.includes('server gagal');
-        if (!isNetworkError) {
+
+        // Only count as failed attempt if it's an invalid key error
+        if (!isNetworkError && !isExpiredError) {
           handleFailedAttempt();
+          setError(r.error + ` (${3 - (loginAttempts.count % 3 + 1)} percobaan tersisa)`);
+        } else if (isExpiredError) {
+          // Special styling for expired license
+          setError('⏰ ' + r.error + '\n\nHubungi admin untuk perpanjangan.');
+        } else {
+          setError(r.error);
         }
-        setError(r.error + (!isNetworkError ? ` (${3 - (loginAttempts.count % 3 + 1)} percobaan tersisa)` : ''));
       }
     } catch (err) {
       // Network/timeout errors should NOT count as failed attempts
