@@ -1134,6 +1134,25 @@ export default function App() {
                 )}
               </div>
             )}
+
+            {/* Legal Section */}
+            <div className="mt-6 pt-4 border-t border-[var(--border)]">
+              <div className="flex items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
+                <button
+                  onClick={() => setShowTerms(true)}
+                  className="hover:text-[var(--text-secondary)] transition-colors"
+                >
+                  Syarat & Ketentuan
+                </button>
+                <span>|</span>
+                <button
+                  onClick={() => alert('Kebijakan Privasi\n\n• Data yang dikumpulkan: Nama, email (opsional), license key, device ID, progress belajar, aktivitas forum.\n\n• Penggunaan data: Autentikasi, sinkronisasi progress, notifikasi pengingat, dan peningkatan layanan.\n\n• Keamanan: Data disimpan di Firebase dengan enkripsi. Kami tidak menjual data ke pihak ketiga.\n\n• Hak pengguna: Anda dapat meminta penghapusan data dengan menghubungi admin.')}
+                  className="hover:text-[var(--text-secondary)] transition-colors"
+                >
+                  Kebijakan Privasi
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
