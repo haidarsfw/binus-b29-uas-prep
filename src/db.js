@@ -59,8 +59,11 @@ export const DB = {
                     { title: 'Modul 2: Integrated Marketing Communication Strategy', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Creating Competitive Advantage', contentKey: 'modul3', type: 'native' },
                     { title: 'Modul 4: The Global Marketplace', contentKey: 'modul4', type: 'native' },
+                    { title: 'Modul 5: Sustainable Marketing', contentKey: 'modul5', type: 'native' },
                 ],
-                addendum: [],
+                addendum: [
+                    { title: 'Addendum: Materi Pelengkap & Detail Teknis', contentKey: 'tambahan', type: 'native' },
+                ],
                 mentorPPT: [
                     { title: 'Rangkuman Mentor (by Kak Zarnis)', driveId: '1W2s-4M2XUsdYSkTVNc4aOqyberNikqKS', type: 'pdf' },
                 ],

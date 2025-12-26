@@ -1315,7 +1315,204 @@ Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi <b>Adapted
 
 <bullet><b>Adaptasi Merek:</b> Awalnya pakai nama lokal (Go-Viet di Vietnam, GET di Thailand) dan seragam beda warna untuk memenangkan hati lokal.</bullet>
 <bullet><b>Adaptasi Layanan:</b> Di Singapura fokus ke mobil (karena transportasi publik bagus), di Vietnam fokus ke motor (mirip Indonesia).</bullet>
-<bullet><b>Kesimpulan:</b> Strategi Gojek membuktikan pentingnya <b>"Think Globally, Act Locally"</b>.</bullet>`
+<bullet><b>Kesimpulan:</b> Strategi Gojek membuktikan pentingnya <b>"Think Globally, Act Locally"</b>.</bullet>`,
+                modul5: `<h1>📘 MODUL 5: SUSTAINABLE MARKETING</h1>
+<subtitle><b><i>(Referensi: PPT Week 13 & Chapter 20)</i></b></subtitle>
+
+Modul terakhir ini membahas pemasaran yang bertanggung jawab secara sosial dan lingkungan untuk keberlanjutan bisnis dan bumi.
+
+<h2>🧴 1. STUDI KASUS PEMBUKA: UNILEVER</h2>
+
+<h3>"Small Actions. Big Difference."</h3>
+Modul terakhir ini dibuka dengan visi besar dari Unilever melalui program <b>Unilever Sustainable Living Plan</b>. Unilever ingin membuktikan bahwa perusahaan tidak harus memilih antara "cari untung" atau "menyelamatkan bumi". Mereka bisa melakukan keduanya.
+
+<bullet><b>Misi:</b> Unilever menargetkan pertumbuhan bisnis dua kali lipat, namun secara bersamaan berkomitmen mengurangi separuh dampak lingkungan dari produknya dan meningkatkan dampak sosial positif bagi 1 miliar orang.</bullet>
+<bullet><b>Implementasi:</b> Mereka tidak hanya menjual produk, tetapi juga mengedukasi. Contohnya kampanye cuci tangan Lifebuoy untuk mencegah penyakit, atau memastikan rantai pasok bahan baku mereka (seperti kelapa sawit) diperoleh secara lestari.</bullet>
+<bullet><b>Pelajaran:</b> Kepedulian terhadap masa depan (Sustainability) bukan beban biaya, melainkan strategi inti untuk pertumbuhan jangka panjang.</bullet>
+
+<h2>📖 2. DEFINISI SUSTAINABLE MARKETING</h2>
+
+Untuk memahami Pemasaran Berkelanjutan, kita harus melihat perbandingannya dengan konsep lain dalam matriks <b>"Kebutuhan Konsumen vs Kebutuhan Bisnis"</b>:
+
+<h3>Marketing Concept (Konsep Pemasaran Biasa)</h3>
+<bullet><b>Fokus:</b> Memenuhi kebutuhan konsumen saat ini untuk keuntungan bisnis saat ini.</bullet>
+<bullet><b>Orientasi:</b> Jangka pendek (Sales & Profit).</bullet>
+
+<h3>Strategic Planning (Perencanaan Strategis)</h3>
+<bullet><b>Fokus:</b> Memenuhi kebutuhan konsumen saat ini, tetapi mempertimbangkan kelangsungan bisnis di masa depan.</bullet>
+<bullet><b>Contoh:</b> Perusahaan berinvestasi pada teknologi baru agar tidak bangkrut 10 tahun lagi.</bullet>
+
+<h3>Societal Marketing (Pemasaran Berwawasan Sosial)</h3>
+<bullet><b>Fokus:</b> Mencari keuntungan bisnis saat ini, tetapi peduli pada kesejahteraan konsumen di masa depan.</bullet>
+<bullet><b>Contoh:</b> Perusahaan menjual makanan yang tidak hanya enak (saat ini) tapi juga sehat (masa depan), menghindari bahan berbahaya.</bullet>
+
+<h3>Sustainable Marketing (Pemasaran Berkelanjutan) ⭐</h3>
+<bullet><b>Tingkatan tertinggi.</b> Ini adalah pemasaran yang bertanggung jawab secara sosial dan lingkungan.</bullet>
+<bullet><b>Definisi:</b> Memenuhi kebutuhan konsumen dan bisnis saat ini, sambil melestarikan atau meningkatkan kemampuan generasi mendatang untuk memenuhi kebutuhan mereka sendiri.</bullet>
+
+<h2>⚠️ 3. KRITIK SOSIAL TERHADAP PEMASARAN</h2>
+
+Pemasaran sering mendapat serangan kritik dari pengamat sosial. Kritik ini dibagi menjadi <b>tiga dampak</b>:
+
+<h3>A. Dampak pada Konsumen Individu</h3>
+
+<bullet><b>High Prices (Harga Tinggi):</b> Kritikus menuduh harga mahal karena: Biaya Distribusi Tinggi (terlalu banyak perantara), Biaya Iklan & Promosi Tinggi, dan Markup Berlebihan.</bullet>
+<bullet><b>Deceptive Practices (Praktik Menipu):</b>
+  - <i>Deceptive Pricing:</i> Harga dinaikkan dulu baru didiskon.
+  - <i>Deceptive Promotion:</i> Melebih-lebihkan khasiat produk.
+  - <i>Deceptive Packaging:</i> Kemasan besar tapi isi sedikit (<i>slack filling</i>).</bullet>
+<bullet><b>High-Pressure Selling:</b> Sales yang memaksa konsumen membeli barang yang tidak mereka butuhkan.</bullet>
+<bullet><b>Shoddy, Harmful, or Unsafe Products:</b> Produk berkualitas buruk atau tidak aman.</bullet>
+<bullet><b>Planned Obsolescence (Keusangan Terencana):</b> Produsen sengaja membuat produk usang sebelum waktunya agar konsumen beli baru (komponen cepat rusak, perubahan model/gaya).</bullet>
+<bullet><b>Poor Service to Disadvantaged Consumers:</b> Redlining - menghindari buka toko di daerah miskin.</bullet>
+
+<h3>B. Dampak pada Masyarakat Luas</h3>
+<bullet><b>False Wants and Too Much Materialism:</b> Pemasaran menciptakan keinginan palsu dan budaya materialisme.</bullet>
+<bullet><b>Too Few Social Goods:</b> Bisnis menjual barang pribadi (mobil) tanpa memikirkan beban sosial (jalan, polusi, kemacetan).</bullet>
+<bullet><b>Cultural Pollution (Polusi Budaya):</b> Iklan ada di mana-mana, mengganggu ketenangan dan privasi.</bullet>
+
+<h3>C. Dampak pada Bisnis Lain</h3>
+<bullet><b>Acquisition of Competitors:</b> Mengakuisisi pesaing untuk mematikan persaingan.</bullet>
+<bullet><b>Barriers to Entry:</b> Anggaran iklan raksasa mempersulit pemain baru.</bullet>
+<bullet><b>Predatory Competition:</b> Harga di bawah modal untuk mematikan pesaing kecil.</bullet>
+
+<h2>✊ 4. RESPON KONSUMEN DAN PUBLIK</h2>
+
+Sebagai reaksi terhadap kritik di atas, muncul <b>dua gerakan besar</b>:
+
+<h3>Consumerism (Konsumerisme)</h3>
+Gerakan terorganisir untuk memperkuat hak dan kekuatan pembeli dalam hubungannya dengan penjual.
+<bullet><b>Hak Penjual Tradisional:</b> Bebas menjual apa saja, menetapkan harga, dan berpromosi (selama legal).</bullet>
+<bullet><b>Hak Pembeli:</b> Hak untuk tahu (informasi produk), hak untuk didengar, hak keamanan, dan hak memilih.</bullet>
+
+<h3>Environmentalism (Lingkungan Hidup)</h3>
+Gerakan terorganisir untuk melindungi dan meningkatkan lingkungan hidup.
+<bullet>Fokus pada <b>Environmental Sustainability:</b> Menghasilkan laba sambil menyelamatkan planet.</bullet>
+<bullet>Mencakup praktik <b>Pollution Prevention</b> (mencegah limbah) dan <b>Product Stewardship</b> (bertanggung jawab atas produk sepanjang siklus hidupnya).</bullet>
+
+<h2>🌟 5. LIMA PRINSIP PEMASARAN BERKELANJUTAN</h2>
+
+Agar perusahaan dapat bertahan jangka panjang dan etis, mereka harus mengadopsi <b>lima prinsip ini</b>:
+
+<bullet><b>1. Consumer-Oriented Marketing:</b> Perusahaan harus memandang dan mengatur kegiatan pemasarannya dari sudut pandang konsumen. Ciptakan solusi bagi masalah mereka.</bullet>
+<bullet><b>2. Customer-Value Marketing:</b> Menempatkan sumber daya pada investasi yang membangun nilai bagi pelanggan (kualitas, kenyamanan), bukan sekadar gimik promosi jangka pendek.</bullet>
+<bullet><b>3. Innovative Marketing:</b> Terus mencari perbaikan produk dan pemasaran yang nyata. Perusahaan yang berhenti berinovasi akan kehilangan pelanggan.</bullet>
+<bullet><b>4. Sense-of-Mission Marketing:</b> Mendefinisikan misi dalam istilah sosial yang luas, bukan produk sempit. <i>(Contoh: Dove bukan sekadar jual sabun, tapi membangun kepercayaan diri wanita)</i>.</bullet>
+<bullet><b>5. Societal Marketing:</b> Membuat keputusan dengan mempertimbangkan: (1) Keinginan Konsumen, (2) Persyaratan Perusahaan (Profit), dan (3) Kesejahteraan Jangka Panjang Masyarakat.</bullet>
+
+<h2>⚖️ 6. ETIKA PEMASARAN</h2>
+
+Siapa yang harus memandu etika perusahaan? Apakah pasar bebas atau sistem hukum?
+
+<bullet><b>Jawabannya:</b> Perusahaan dan Manajer Individu. Hukum seringkali tidak cukup atau tertinggal.</bullet>
+<bullet>Perusahaan harus memiliki <b>Corporate Marketing Ethics Policies</b> yang kuat.</bullet>
+<bullet><b>Integritas dan karakter manajer adalah kuncinya.</b></bullet>
+<bullet>Prinsip "Sustainable Company" adalah melampaui kepedulian pada pelanggan hari ini, menuju kepedulian pada dunia masa depan.</bullet>
+
+<h2>🍜 7. STUDI KASUS PENUTUP: LEMONILO</h2>
+
+<h3>"Societal Marketing Case"</h3>
+Modul ditutup dengan pembahasan Lemonilo sebagai contoh penerapan <b>Societal Marketing</b>.
+
+<bullet><b>Konteks:</b> Di Indonesia, mie instan adalah makanan favorit namun sering dianggap tidak sehat (pengawet, MSG, pewarna). Ini menciptakan dilema antara "keinginan makan enak" vs "kesehatan".</bullet>
+<bullet><b>Solusi Lemonilo:</b> Mereka menciptakan produk mie instan yang dipanggang (bukan digoreng), tanpa pengawet, dan tanpa pewarna buatan.</bullet>
+
+<h3>Analisis: Lemonilo berhasil menyeimbangkan tiga elemen Societal Marketing:</h3>
+<bullet><b>Consumer:</b> Tetap bisa makan mie yang enak dan praktis.</bullet>
+<bullet><b>Company:</b> Bisnis tumbuh pesat dan menguntungkan.</bullet>
+<bullet><b>Society:</b> Berkontribusi pada kesehatan masyarakat jangka panjang dengan menyediakan alternatif makanan yang lebih aman.</bullet>
+<bullet><b>Aksi Sosial:</b> Lemonilo juga aktif dalam kegiatan sosial (membagi sembako sehat dan hand sanitizer), memperkuat citra mereka sebagai brand yang peduli pada ekosistem kesehatan (<i>Healthy Lifestyle Ecosystem</i>).</bullet>`,
+                tambahan: `<h1>📚 ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
+<subtitle><b><i>(Wajib dibaca sebagai satu kesatuan dengan Modul 1-5)</i></b></subtitle>
+
+Addendum ini berisi detail teknis tambahan dari masing-masing modul yang penting untuk pemahaman mendalam.
+
+<h2>🔍 PELENGKAP MODUL SATU (Week 9 - Chapter 12)</h2>
+
+<h3>1. Tiga Strategi Distribusi (Intensitas)</h3>
+Di Modul 1 disebutkan sekilas, tapi berikut definisi teknisnya:
+
+<bullet><b>Intensive Distribution:</b> Menyetok produk di sebanyak mungkin gerai. Wajib untuk <i>convenience products</i> (sabun, permen, koran) karena konsumen ingin beli di mana saja.</bullet>
+<bullet><b>Exclusive Distribution:</b> Memberikan hak eksklusif kepada jumlah dealer yang sangat terbatas di wilayah tertentu. Wajib untuk <i>luxury goods</i> (mobil Bentley, jam Rolex) untuk menjaga citra eksklusif.</bullet>
+<bullet><b>Selective Distribution:</b> Di tengah-tengah. Menggunakan lebih dari satu tapi lebih sedikit dari semua perantara. Cocok untuk <i>shopping goods</i> (TV, furnitur, sepatu Nike).</bullet>
+
+<h3>2. Kebijakan Publik & Hukum Distribusi</h3>
+Hati-hati, tidak semua strategi distribusi legal:
+
+<bullet><b>Exclusive Dealing:</b> Penjual menuntut dealer hanya boleh menjual produknya dan dilarang menjual produk pesaing. <i>(Legal jika tidak mengurangi persaingan secara substansial)</i>.</bullet>
+<bullet><b>Exclusive Territorial Agreements:</b> Produsen membatasi wilayah jualan dealer.</bullet>
+<bullet><b>Tying Agreements:</b> Produsen menjual merek kuat hanya jika dealer mau mengambil merek lain yang kurang laku (Beli A wajib beli B). <b>Ini sering dianggap ilegal</b> (<i>full-line forcing</i>).</bullet>
+
+<h3>3. Sistem Pemasaran Horizontal</h3>
+Selain VMS (Vertikal), ada <b>Horizontal Marketing Systems</b>:
+
+<bullet><b>Definisi:</b> Dua atau lebih perusahaan di satu level bergabung untuk mengejar peluang pemasaran baru.</bullet>
+<bullet><b>Contoh:</b> Starbucks buka di dalam Target. Target punya lokasi, Starbucks punya kopi. Keduanya untung.</bullet>
+
+<h2>🔍 PELENGKAP MODUL DUA (Week 10 - Chapter 14)</h2>
+
+<h3>1. Model Komunikasi Pemasaran Baru</h3>
+Selain IMC, ada pergeseran peran pemasar menjadi <b>Content Marketing Managers</b>.
+
+<bullet><b>Tugasnya:</b> Bukan lagi sekadar bikin iklan TV, tapi: Menciptakan, Menginspirasi, dan Membagikan pesan merek (<i>shareable brand messages</i>) di berbagai saluran.</bullet>
+
+<h3>2. Checklist Mengintegrasikan Bauran Promosi</h3>
+Untuk memastikan IMC berjalan, manajemen harus melakukan:
+
+<bullet>Menganalisis tren (internal & eksternal) yang bisa mempengaruhi kemampuan perusahaan berbisnis.</bullet>
+<bullet>Mengaudit kantong pengeluaran komunikasi di seluruh organisasi (biar gak boros).</bullet>
+<bullet>Mengidentifikasi semua titik kontak (<i>touchpoints</i>) merek.</bullet>
+<bullet>Merencanakan komunikasi dalam tim (jangan kerja sendiri-sendiri).</bullet>
+<bullet>Menciptakan tema, nada, dan kualitas yang kompatibel di semua media.</bullet>
+<bullet>Menunjuk direktur marcomm yang bertanggung jawab atas semua komunikasi persuasi perusahaan.</bullet>
+
+<h2>🔍 PELENGKAP MODUL TIGA (Week 11 - Chapter 18)</h2>
+
+<h3>1. Analisis Nilai Pelanggan (Customer Value Analysis)</h3>
+Dalam tahap menilai pesaing, ada alat spesifik bernama <b>Customer Value Analysis</b>:
+
+<bullet><b>Tujuannya:</b> Menentukan manfaat apa yang dihargai target pelanggan dan bagaimana mereka memeringkat nilai penawaran kita vs pesaing.</bullet>
+<bullet><b>Langkahnya:</b> Survei pelanggan → Tanya fitur apa yang penting → Tanya performa kita dan pesaing di fitur itu → Perbaiki yang kurang.</bullet>
+
+<h3>2. Strategi Ekspansi Pemimpin Pasar (Market Leader)</h3>
+Untuk strategi "Memperluas Total Pasar", ada 3 cara detail:
+
+<bullet><b>New Users:</b> Cari orang yang belum pernah pakai produk. <i>(Misal: Parfum pria dipasarkan ke wanita)</i>.</bullet>
+<bullet><b>New Uses:</b> Cari kegunaan baru. <i>(Misal: Baking soda awalnya buat kue, dipromosikan buat pembersih kulkas)</i>.</bullet>
+<bullet><b>More Usage:</b> Bikin orang pakai lebih sering. <i>(Misal: Kampanye "Sikat gigi pagi dan malam" atau sampo "Bilas, ulangi")</i>.</bullet>
+
+<h2>🔍 PELENGKAP MODUL EMPAT (Week 12 - Chapter 19)</h2>
+
+<h3>1. Empat Tipe Struktur Industri</h3>
+Faktor ekonomi negara tujuan dibagi menjadi 4 tipe spesifik:
+
+<bullet><b>Subsistence Economies:</b> Mayoritas bertani sederhana, barter. Sedikit peluang pasar. <i>(Contoh: Sebagian Afrika)</i>.</bullet>
+<bullet><b>Raw Material Exporting Economies:</b> Kaya SDA (minyak/karet) tapi miskin industri. Pasar bagus untuk alat berat, truk, logistik. <i>(Contoh: Arab Saudi, Chile)</i>.</bullet>
+<bullet><b>Emerging Economies (Industrializing):</b> Manufaktur tumbuh cepat (10-20% GDP). Butuh bahan baku tekstil, baja, mesin. Muncul kelas menengah baru. <i>(Contoh: BRIC - Brazil, Russia, India, China)</i>.</bullet>
+<bullet><b>Industrial Economies:</b> Eksportir barang jadi/jasa. Kelas menengah besar dan kaya. Pasar untuk segala jenis barang konsumen. <i>(Contoh: Jepang, AS, Jerman)</i>.</bullet>
+
+<h3>2. Masalah Harga Global</h3>
+Masalah spesifik harga di pasar global:
+
+<bullet><b>Dumping:</b> Menjual produk di luar negeri dengan harga lebih murah dari modal atau lebih murah dari harga di negara asal (untuk mematikan pasar lokal). <b>Ini sering kena sanksi WTO</b>.</bullet>
+<bullet><b>Transfer Pricing:</b> Harga yang dibebankan antar cabang perusahaan di beda negara (sering dimainkan untuk hindari pajak).</bullet>
+
+<h2>🔍 PELENGKAP MODUL LIMA (Week 13 - Chapter 20)</h2>
+
+<h3>1. Portofolio Kelestarian Lingkungan (Environmental Sustainability Portfolio)</h3>
+Ada matriks strategi lingkungan yang membagi fokus perusahaan:
+
+<bullet><b>Pollution Prevention (Internal/Hari Ini):</b> Menghilangkan/mengurangi limbah sebelum diciptakan. <i>(Contoh: Pabrik zero-waste)</i>.</bullet>
+<bullet><b>Product Stewardship (Eksternal/Hari Ini):</b> Meminimalkan dampak lingkungan sepanjang siklus hidup produk (desain → pakai → buang). <i>(Contoh: Desain BMW yang mudah dibongkar untuk didaur ulang)</i>.</bullet>
+<bullet><b>New Clean Technology (Internal/Masa Depan):</b> Mengembangkan kemampuan baru untuk masa depan. <i>(Contoh: Coca-Cola bikin botol dari tanaman)</i>.</bullet>
+<bullet><b>Sustainability Vision (Eksternal/Masa Depan):</b> Panduan strategis masa depan. <i>(Contoh: Visi Unilever Sustainable Living Plan)</i>.</bullet>
+
+<h3>2. Daftar Lengkap Kritik High Prices</h3>
+Penyebab harga mahal menurut kritik sosial:
+
+<bullet><b>High Costs of Distribution:</b> Perantara serakah, layanan tidak efisien.</bullet>
+<bullet><b>High Advertising and Promotion Costs:</b> Kemasan mahal, iklan mahal yang cuma nambah dampak psikologis bukan fungsional.</bullet>
+<bullet><b>Excessive Markups:</b> Obat-obatan sering dituduh markup tinggi padahal biaya pilnya murah <i>(alasan: untuk bayar Riset & Development)</i>.</bullet>`
         }
 };
 
