@@ -1694,15 +1694,15 @@ function Login({ dark, setDark, onSuccess }) {
               </div>
             </div>
 
-            {/* Referral Code Toggle - More prominent */}
+            {/* Referral Code Toggle */}
             <div>
               <button
                 type="button"
                 onClick={() => setShowReferral(!showReferral)}
-                className="text-sm font-medium px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-purple-400 flex items-center gap-1.5 hover:border-purple-500/40 transition-all"
+                className="text-sm text-[var(--accent)] flex items-center gap-1.5 hover:opacity-80 transition-opacity font-medium"
               >
-                <Gift className="w-4 h-4" />
-                {showReferral ? 'Sembunyikan' : '🎁 Punya kode referral?'}
+                <Gift className="w-3.5 h-3.5" />
+                {showReferral ? 'Sembunyikan' : 'Punya kode referral? :)'}
               </button>
 
               <AnimatePresence>
@@ -1714,7 +1714,7 @@ function Login({ dark, setDark, onSuccess }) {
                     className="overflow-hidden"
                   >
                     <p className="text-xs text-[var(--text-muted)] mt-2 mb-1">
-                      💡 Jika teman Anda sudah punya akun, minta kode referral-nya (ada di <b>Settings</b> dashboard mereka).
+                      Tip: Minta kode referral dari teman (ada di Settings dashboard mereka).
                     </p>
                     <input
                       type="text"
