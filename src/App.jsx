@@ -227,6 +227,7 @@ export default function App() {
   const [reminderActive, setReminderActive] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+  const [showLegalPopup, setShowLegalPopup] = useState(null); // 'tos' or 'privacy'
   const [notifications, setNotifications] = useState([]);
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
@@ -1139,14 +1140,14 @@ export default function App() {
             <div className="mt-6 pt-4 border-t border-[var(--border)]">
               <div className="flex items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
                 <button
-                  onClick={() => setShowTerms(true)}
+                  onClick={() => setShowLegalPopup('tos')}
                   className="hover:text-[var(--text-secondary)] transition-colors"
                 >
                   Syarat & Ketentuan
                 </button>
                 <span>|</span>
                 <button
-                  onClick={() => alert('Kebijakan Privasi\n\n• Data yang dikumpulkan: Nama, email (opsional), license key, device ID, progress belajar, aktivitas forum.\n\n• Penggunaan data: Autentikasi, sinkronisasi progress, notifikasi pengingat, dan peningkatan layanan.\n\n• Keamanan: Data disimpan di Firebase dengan enkripsi. Kami tidak menjual data ke pihak ketiga.\n\n• Hak pengguna: Anda dapat meminta penghapusan data dengan menghubungi admin.')}
+                  onClick={() => setShowLegalPopup('privacy')}
                   className="hover:text-[var(--text-secondary)] transition-colors"
                 >
                   Kebijakan Privasi
@@ -1156,6 +1157,96 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Legal Popup Modal */}
+      <AnimatePresence>
+        {showLegalPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="modal-overlay z-[200]"
+            onClick={() => setShowLegalPopup(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="modal p-6 max-w-md max-h-[80vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              {showLegalPopup === 'tos' && (
+                <>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-white" />
+                    </div>
+                    <h2 className="text-lg font-bold text-[var(--text)]">Syarat & Ketentuan</h2>
+                  </div>
+                  <div className="space-y-3 text-sm text-[var(--text-secondary)]">
+                    <div className="flex gap-2">
+                      <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <span>License key bersifat <strong>pribadi</strong> dan tidak boleh dibagikan.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <span>Dilarang menjual, menyewakan, atau memindahtangankan license key.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <span>Dilarang mengakali sistem dengan cara apapun.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <span>Konten di forum harus sopan dan tidak melanggar hukum.</span>
+                    </div>
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl mt-4">
+                      <p className="text-red-500 font-bold text-center text-xs">Pelanggaran = Akses DICABUT. NO REFUND!</p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {showLegalPopup === 'privacy' && (
+                <>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-white" />
+                    </div>
+                    <h2 className="text-lg font-bold text-[var(--text)]">Kebijakan Privasi</h2>
+                  </div>
+                  <div className="space-y-4 text-sm text-[var(--text-secondary)]">
+                    <div>
+                      <p className="font-semibold text-[var(--text)] mb-1">Data yang dikumpulkan:</p>
+                      <p className="text-xs">Nama, email (opsional), license key, device ID, progress belajar, aktivitas forum.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[var(--text)] mb-1">Penggunaan data:</p>
+                      <p className="text-xs">Autentikasi, sinkronisasi progress, notifikasi pengingat, dan peningkatan layanan.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[var(--text)] mb-1">Keamanan:</p>
+                      <p className="text-xs">Data disimpan di Firebase dengan enkripsi. Kami tidak menjual data ke pihak ketiga.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[var(--text)] mb-1">Hak pengguna:</p>
+                      <p className="text-xs">Anda dapat meminta penghapusan data dengan menghubungi admin.</p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <button
+                onClick={() => setShowLegalPopup(null)}
+                className="btn btn-primary w-full mt-6"
+              >
+                Tutup
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
 
       {/* Reminder Modal */}
       <AnimatePresence>
