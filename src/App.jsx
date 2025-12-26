@@ -4073,20 +4073,6 @@ function TermsAgreement({ onAgree }) {
           </div>
         </div>
 
-        {/* Privacy Policy Section */}
-        <div className="mb-6 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)]">
-          <h3 className="font-bold text-[var(--text)] mb-2 flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[var(--accent)]" />
-            Kebijakan Privasi
-          </h3>
-          <div className="text-xs text-[var(--text-muted)] space-y-2">
-            <p><strong>Data yang dikumpulkan:</strong> Nama, email (opsional), license key, device ID, progress belajar, aktivitas forum.</p>
-            <p><strong>Penggunaan data:</strong> Autentikasi, sinkronisasi progress, notifikasi pengingat, dan peningkatan layanan.</p>
-            <p><strong>Keamanan:</strong> Data disimpan di Firebase dengan enkripsi. Kami tidak menjual data ke pihak ketiga.</p>
-            <p><strong>Hak pengguna:</strong> Anda dapat meminta penghapusan data dengan menghubungi admin.</p>
-          </div>
-        </div>
-
         <div className="space-y-3">
           <label className="flex items-start gap-3 cursor-pointer">
             <input
