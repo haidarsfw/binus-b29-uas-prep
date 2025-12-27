@@ -267,6 +267,9 @@ export default function App() {
   // Toast notification state (replaces browser alert)
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
 
+  // Cooldown notification state
+  const [cooldown, setCooldown] = useState({ show: false, message: '', seconds: 0 });
+
   // Alarm state for reminder (continuous alarm until dismissed)
   const [alarmActive, setAlarmActive] = useState(false);
   const alarmAudioRef = useRef(null);
@@ -299,6 +302,12 @@ export default function App() {
     if (duration > 0) {
       setTimeout(() => setToast(t => ({ ...t, show: false })), duration);
     }
+  };
+
+  // Show cooldown notification (animated from bottom)
+  const showCooldown = (message, seconds) => {
+    setCooldown({ show: true, message, seconds });
+    setTimeout(() => setCooldown(c => ({ ...c, show: false })), 2500);
   };
 
   // Play continuous alarm sound until stopped
@@ -1484,6 +1493,24 @@ export default function App() {
               <button onClick={() => setToast(t => ({ ...t, show: false }))} className="ml-2 p-1 rounded-lg hover:bg-[var(--surface-hover)]">
                 <X className="w-4 h-4 text-[var(--text-muted)]" />
               </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cooldown Notification (animated from bottom) */}
+      <AnimatePresence>
+        {cooldown.show && (
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 80 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[600]"
+          >
+            <div className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-full shadow-lg text-sm font-medium">
+              <Timer className="w-4 h-4 animate-pulse" />
+              <span>⏳ Tunggu {cooldown.seconds}s</span>
             </div>
           </motion.div>
         )}
@@ -3691,7 +3718,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
   const handleCreate = async () => {
     const rateCheck = checkRateLimit('createThread', 30000);
     if (!rateCheck.allowed) {
-      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum membuat thread baru`, 'error');
+      showCooldown('Thread', rateCheck.remaining);
       return;
     }
     if (!newTitle.trim() || !newContent.trim()) return;
@@ -3840,7 +3867,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const handlePost = async () => {
     const rateCheck = checkRateLimit('postComment', 10000);
     if (!rateCheck.allowed) {
-      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum komentar`, 'error');
+      showCooldown('Komentar', rateCheck.remaining);
       return;
     }
     if (!newComment.trim()) return;
@@ -3855,7 +3882,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const handleReply = async (commentId) => {
     const rateCheck = checkRateLimit('replyComment', 5000);
     if (!rateCheck.allowed) {
-      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum membalas`, 'error');
+      showCooldown('Reply', rateCheck.remaining);
       return;
     }
     if (!replyText.trim()) return;
@@ -4615,7 +4642,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const sendTextMessage = async () => {
     const rateCheck = checkRateLimit('chat', 2000);
     if (!rateCheck.allowed) {
-      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi`, 'error');
+      showCooldown('Chat', rateCheck.remaining);
       return;
     }
     if (!input.trim() || sending) return;
