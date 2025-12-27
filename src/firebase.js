@@ -303,6 +303,11 @@ export const validateLicenseWithDevice = async (key, referralCode = null) => {
         let referralResult = null;
         const now = new Date();
 
+        // Check if account is suspended
+        if (license.suspendedUntil && new Date(license.suspendedUntil) > now) {
+            return { valid: false, error: `Akun disuspend sampai ${new Date(license.suspendedUntil).toLocaleString('id-ID')}` };
+        }
+
         // Check fixedExpiry FIRST (before any other validation)
         if (license.fixedExpiry) {
             const fixedExpiryDate = new Date(license.fixedExpiry);
@@ -1142,6 +1147,97 @@ export const clearAnnouncement = async () => {
         console.error('Error clearing announcement:', error);
         throw error;
     }
+};
+// --- Advanced Features: Error Reporting, Analytics, Suspension ---
+
+// Log error to Firestore
+export const logError = async (error, context = {}) => {
+    try {
+        const errorRef = ref(db, 'errorLogs');
+        const newError = {
+            message: error.message || String(error),
+            stack: error.stack || null,
+            context,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent
+        };
+        await push(errorRef, newError);
+    } catch (e) {
+        console.error('Failed to log error:', e);
+    }
+};
+
+// Log user activity
+export const logActivity = async (userName, action, details = '') => {
+    try {
+        const logRef = ref(db, 'activityLogs');
+        const newLog = {
+            userName,
+            action, // e.g., 'LOGIN', 'LOGOUT', 'UPDATE_PROFILE'
+            details,
+            timestamp: new Date().toISOString()
+        };
+        await push(logRef, newLog);
+    } catch (e) {
+        console.error('Failed to log activity:', e);
+    }
+};
+
+// Log analytics event
+export const logAnalytics = async (eventName, data = {}) => {
+    try {
+        const analyticsRef = ref(db, 'analytics');
+        const newEvent = {
+            eventName,
+            data,
+            timestamp: new Date().toISOString()
+        };
+        await push(analyticsRef, newEvent);
+    } catch (e) {
+        console.error('Failed to log analytics:', e);
+    }
+};
+
+// Suspend a license key
+export const suspendLicense = async (key, durationMinutes) => {
+    const licenseRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+    const suspendedUntil = new Date(Date.now() + durationMinutes * 60000).toISOString();
+    try {
+        await update(licenseRef, { suspendedUntil });
+        return true;
+    } catch (error) {
+        console.error('Error suspending license:', error);
+        throw error;
+    }
+};
+
+// Unsuspend a license key
+export const unsuspendLicense = async (key) => {
+    const licenseRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
+    try {
+        await update(licenseRef, { suspendedUntil: null });
+        return true;
+    } catch (error) {
+        console.error('Error unsuspending license:', error);
+        throw error;
+    }
+};
+
+// Subscribe to activity logs (for admin panel)
+export const subscribeToActivityLogs = (callback, limit = 50) => {
+    const logsRef = ref(db, 'activityLogs');
+    return onValue(logsRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            const logs = Object.entries(data)
+                .map(([id, log]) => ({ id, ...log }))
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, limit);
+            callback(logs);
+        } else {
+            callback([]);
+        }
+    });
 };
 
 export { db, ref, onValue };

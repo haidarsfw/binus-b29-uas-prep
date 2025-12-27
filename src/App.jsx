@@ -3,10 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
+
+
+
+// --- Rate Limiting Helper ---
+const rateLimits = {};
+const checkRateLimit = (key, limitMs) => {
+  const now = Date.now();
+  if (rateLimits[key] && now - rateLimits[key] < limitMs) {
+    return false; // Rate limited
+  }
+  rateLimits[key] = now;
+  return true; // Allowed
+};
 
 const themeColors = [
   { id: 'blue', name: 'Blue', color: '#3b82f6' },
@@ -256,6 +269,23 @@ export default function App() {
   // Alarm state for reminder (continuous alarm until dismissed)
   const [alarmActive, setAlarmActive] = useState(false);
   const alarmAudioRef = useRef(null);
+
+  // --- Advanced Features Effects ---
+  useEffect(() => {
+    // Request notification permission
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+    // Log visit
+    logAnalytics('APP_OPEN', { userAgent: navigator.userAgent });
+  }, []);
+
+  // Log login
+  useEffect(() => {
+    if (session) {
+      logActivity(session.userName || session.name || 'Unknown', 'LOGIN', `Role: ${session.isAdmin ? 'Admin' : 'User'}`);
+    }
+  }, [session?.licenseKey]);
 
   // Preview Mode Detection - License key "Preview01" triggers preview mode
   const isPreviewMode = useMemo(() => {
@@ -3658,6 +3688,10 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
   }, [subjectId]);
 
   const handleCreate = async () => {
+    if (!checkRateLimit('createThread', 30000)) {
+      showToast('Mohon tunggu 30 detik sebelum membuat thread baru', 'error');
+      return;
+    }
     if (!newTitle.trim() || !newContent.trim()) return;
     setCreating(true);
     try {
@@ -3802,6 +3836,10 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   }, [subjectId, thread.id]);
 
   const handlePost = async () => {
+    if (!checkRateLimit('postComment', 10000)) {
+      showToast('Mohon tunggu 10 detik sebelum komentar lagi', 'error');
+      return;
+    }
     if (!newComment.trim()) return;
     setPosting(true);
     try {
@@ -3812,6 +3850,10 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   };
 
   const handleReply = async (commentId) => {
+    if (!checkRateLimit('replyComment', 5000)) {
+      showToast('Mohon tunggu 5 detik sebelum membalas lagi', 'error');
+      return;
+    }
     if (!replyText.trim()) return;
     setPosting(true);
     try {
@@ -4522,6 +4564,13 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
             addNotification?.({ type: 'mention', title: 'Kamu di-mention!', message: `${m.authorName}: ${m.content.slice(0, 50)}` });
 
+            // Browser Notification
+            if (Notification.permission === 'granted') {
+              new Notification(`@${m.authorName} mention kamu`, {
+                body: m.content,
+              });
+            }
+
             // Mark as seen immediately in our local Set to preventing re-triggering in this same loop
             currentSeen.add(m.id);
             hasNewMentions = true;
@@ -4560,6 +4609,10 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   };
 
   const sendTextMessage = async () => {
+    if (!checkRateLimit('chat', 2000)) {
+      showToast('Jangan spam ya! Tunggu 2 detik.', 'error');
+      return;
+    }
     if (!input.trim() || sending) return;
     setSending(true);
     try {
@@ -4790,6 +4843,10 @@ function AdminDashboard({ session, onClose }) {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [statsRefresh, setStatsRefresh] = useState(0);
   const [dangerAction, setDangerAction] = useState(null);
+  // Activity logs & suspend
+  const [activityLogs, setActivityLogs] = useState([]);
+  const [suspendModal, setSuspendModal] = useState(null); // { key, name }
+  const [suspendMinutes, setSuspendMinutes] = useState(60);
   const [actionLoading, setActionLoading] = useState(false);
   const [announcementText, setAnnouncementText] = useState('');
   const [announcementType, setAnnouncementType] = useState('info');
@@ -4830,6 +4887,7 @@ function AdminDashboard({ session, onClose }) {
     { name: 'Users', icon: Users },
     { name: 'Stats', icon: Activity },
     { name: 'Announce', icon: Megaphone },
+    { name: 'Logs', icon: FileText },
   ];
 
   // Load data
@@ -5089,15 +5147,23 @@ function AdminDashboard({ session, onClose }) {
                   <h3 className="font-medium text-[var(--text)]">{users.length} Users Terdaftar</h3>
                   {users.map(u => {
                     const isExpired = u.expiry && new Date(u.expiry) < new Date();
+                    const lk = licenseKeys.find(k => k.key === u.licenseKey);
+                    const isSuspended = lk?.suspendedUntil && new Date(lk.suspendedUntil) > new Date();
                     return (
                       <div key={u.licenseKey} className="glass-card p-3">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-medium text-[var(--text)]">{u.userName}</span>
-                          {isExpired ? (
-                            <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>
-                          ) : (
-                            <span className="badge text-[10px] bg-green-500/15 text-green-500 border-0">Active</span>
-                          )}
+                          <div className="flex gap-1 items-center">
+                            {isSuspended && <span className="badge text-[10px] bg-orange-500/15 text-orange-500 border-0">Suspended</span>}
+                            {isExpired ? (
+                              <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>
+                            ) : (
+                              <span className="badge text-[10px] bg-green-500/15 text-green-500 border-0">Active</span>
+                            )}
+                            <button onClick={() => isSuspended ? unsuspendLicense(u.licenseKey).then(() => setStatsRefresh(r => r + 1)) : setSuspendModal({ key: u.licenseKey, name: u.userName })} className={`p-1.5 rounded-lg text-xs ${isSuspended ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500'}`} title={isSuspended ? 'Unsuspend' : 'Suspend'}>
+                              {isSuspended ? <Check className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
+                            </button>
+                          </div>
                         </div>
                         <p className="text-xs text-[var(--text-muted)] mb-1">
                           <code className="text-[var(--accent)]">{u.licenseKey}</code>
@@ -5248,6 +5314,31 @@ function AdminDashboard({ session, onClose }) {
                   </p>
                 </div>
               )}
+
+              {/* Activity Logs Tab */}
+              {activeTab === 4 && (
+                <div className="space-y-3">
+                  <h3 className="font-medium text-[var(--text)]">Activity Logs (Terbaru)</h3>
+                  {activityLogs.length === 0 ? (
+                    <p className="text-sm text-[var(--text-muted)] text-center py-4">Belum ada aktivitas.</p>
+                  ) : (
+                    <div className="space-y-2 max-h-[400px] overflow-y-auto">
+                      {activityLogs.map(log => (
+                        <div key={log.id} className="glass-card p-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium text-[var(--text)]">{log.userName}</span>
+                            <span className="text-[10px] text-[var(--text-muted)]">{new Date(log.timestamp).toLocaleString('id-ID')}</span>
+                          </div>
+                          <div className="text-[var(--text-secondary)]">
+                            <span className="font-mono text-xs px-1 py-0.5 bg-[var(--accent)]/15 rounded">{log.action}</span>
+                            {log.details && <span className="ml-2">{log.details}</span>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
         </div>
@@ -5285,6 +5376,32 @@ function AdminDashboard({ session, onClose }) {
             ? 'PERINGATAN: Ini akan menghapus SEMUA data aktivasi user (referral, email, dll). Semua user harus login ulang. Tindakan ini tidak bisa dibatalkan!'
             : 'PERINGATAN: Ini akan menghapus SEMUA license keys dan membuat ulang 3 key default (ADMIN1, TESTER01, TESTER02). Keys yang dibuat manual akan hilang!'}
         />
+
+        {/* Suspend Modal */}
+        <AnimatePresence>
+          {suspendModal && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/60 z-[700] flex items-center justify-center p-4" onClick={() => setSuspendModal(null)}>
+              <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="bg-[var(--surface-solid)] p-5 rounded-2xl max-w-sm w-full" onClick={e => e.stopPropagation()}>
+                <h3 className="font-bold text-[var(--text)] mb-3">Suspend User</h3>
+                <p className="text-sm text-[var(--text-secondary)] mb-4">
+                  Suspend <strong>{suspendModal.name}</strong> ({suspendModal.key}) selama berapa menit?
+                </p>
+                <select value={suspendMinutes} onChange={e => setSuspendMinutes(Number(e.target.value))} className="input w-full mb-4">
+                  <option value={30}>30 menit</option>
+                  <option value={60}>1 jam</option>
+                  <option value={180}>3 jam</option>
+                  <option value={1440}>1 hari</option>
+                  <option value={10080}>1 minggu</option>
+                  <option value={43200}>1 bulan</option>
+                </select>
+                <div className="flex gap-2">
+                  <button onClick={() => setSuspendModal(null)} className="btn btn-secondary flex-1">Batal</button>
+                  <button onClick={async () => { await suspendLicense(suspendModal.key, suspendMinutes); setStatsRefresh(r => r + 1); setSuspendModal(null); }} className="btn btn-primary flex-1 bg-orange-500 hover:bg-orange-600">Suspend</button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );
