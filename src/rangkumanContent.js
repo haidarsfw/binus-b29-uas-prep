@@ -1516,4 +1516,439 @@ Penyebab harga mahal menurut kritik sosial:
         }
 };
 
+// HRM (Human Resource Management) Content
+RANGKUMAN_CONTENT.hr = {
+        modul1: `<h1>📘 MODUL 1: MANAJEMEN KOMPENSASI STRATEGIS & SISTEM INSENTIF: TEORI, REGULASI, DAN IMPLEMENTASI TEKNIS</h1>
+<h2>1. Dasar-Dasar dan Faktor Penentu Kompensasi</h2>
+Kompensasi karyawan mencakup semua bentuk pembayaran yang diberikan kepada karyawan dan timbul dari hubungan kerja mereka. Ini terdiri dari dua komponen utama: pembayaran finansial langsung (upah, gaji, insentif, komisi, dan bonus) dan pembayaran finansial tidak langsung (tunjangan seperti asuransi dan liburan yang dibayar pemberi kerja) .
+Tujuan utamanya adalah menciptakan Aligned Reward Strategy, yaitu paket kompensasi yang menghasilkan perilaku karyawan yang dibutuhkan perusahaan untuk mencapai strategi kompetitifnya. Sebagai contoh, Wegmans Food Markets menggunakan strategi SDM dan kompensasi yang unik untuk meningkatkan kinerja dan layanan pelanggan .
+<h3>Keadilan dan Teori Motivasi</h3>
+Teori Keadilan (Equity Theory) menyatakan bahwa persepsi ketidakadilan menciptakan ketegangan yang memotivasi orang untuk menguranginya. Manajer harus menyeimbangkan empat jenis keadilan:
+<bullet><b>Eksternal:</b> Membandingkan gaji dengan perusahaan lain.</bullet>
+<bullet><b>Internal:</b> Membandingkan gaji antar jabatan di dalam perusahaan.</bullet>
+<bullet><b>Individual:</b> Membandingkan gaji antar individu dengan jabatan yang sama berdasarkan kinerja.</bullet>
+<bullet><b>Prosedural:</b> Keadilan dalam proses dan prosedur alokasi gaji .</bullet>
+<h3>Landasan Hukum Kompensasi</h3>
+Keputusan kompensasi sangat dipengaruhi oleh regulasi pemerintah untuk melindungi hak pekerja:
+<bullet><b>Davis-Bacon Act (1931):</b> Mengatur upah pada proyek pemerintah.</bullet>
+<bullet><b>Walsh-Healey Public Contract Act (1936):</b> Menetapkan upah minimum dan lembur untuk kontrak pemerintah.</bullet>
+<bullet><b>Fair Labor Standards Act (1938 - FLSA):</b> Undang-undang krusial yang mengatur upah minimum, jam kerja maksimum, lembur, dan perlindungan pekerja anak. Ini membedakan karyawan menjadi Exempt (dikecualikan dari lembur, biasanya manajer/profesional) dan Nonexempt.</bullet>
+<bullet><b>Equal Pay Act (1963):</b> Melarang diskriminasi upah berbasis gender untuk pekerjaan setara.</bullet>
+<bullet><b>ERISA (1974):</b> Mengatur dana pensiun, hak vesting, dan portabilitas.</bullet>
+Legislasi lain meliputi Age Discrimination in Employment Act, ADA (1990), FMLA, serta hukum jaminan sosial dan kompensasi pekerja .
+<h3>Pengaruh Serikat Pekerja dan Geografi</h3>
+<bullet><b>Serikat Pekerja:</b> Undang-undang seperti Wagner Act (National Labor Relations Act 1935) memberikan hak untuk berserikat dan bernegosiasi secara kolektif, yang mempengaruhi tingkat upah melalui National Labor Relations Board (NLRB) .</bullet>
+<bullet><b>Geografi:</b> Perusahaan harus memperhitungkan perbedaan biaya hidup (cost of living) di berbagai wilayah geografis dalam kebijakan gaji mereka .</bullet>
+
+<h2>2. Metode Evaluasi Jabatan (Job Evaluation)</h2>
+Evaluasi jabatan adalah perbandingan sistematis untuk menentukan nilai relatif satu pekerjaan terhadap pekerjaan lain guna menetapkan hierarki gaji. Proses ini didasarkan pada Faktor yang Dapat Dikompensasi (Compensable Factors), yaitu elemen dasar pekerjaan seperti keterampilan, usaha, tanggung jawab, dan kondisi kerja .
+<h3>Metode-Metode Utama:</h3>
+<b>Metode Pemeringkatan (Ranking Method):</b> Metode paling sederhana dengan memeringkat jabatan dari terendah ke tertinggi.
+<bullet><b>Langkah:</b> Dapatkan informasi jabatan, pilih faktor, peringkatkan jabatan, gabungkan penilaian, dan bandingkan dengan gaji saat ini serta survei pasar.</bullet>
+<bullet><b>Studi Kasus Jackson Hospital:</b> Jabatan "Office Manager" diperingkat 1 (Gaji saat ini $43,000), "Chief Nurse" peringkat 2 ($42,500), hingga "Orderly" peringkat 7 ($25,500). Penyesuaian dilakukan setelah membandingkan dengan survei pasar .</bullet>
+<b>Metode Klasifikasi Jabatan (Job Classification):</b> Mengategorikan jabatan ke dalam kelas/kelompok (grades) berdasarkan deskripsi standar. Contoh: Grade GS-7 (Pemerintah AS) mendefinisikan pekerjaan yang melakukan tugas khusus, bekerja independen, dan membutuhkan interpretasi kebijakan .
+<b>Metode Poin (Point Method):</b> Mengidentifikasi faktor kompensasi dan memberikan poin untuk setiap derajat faktor tersebut. Seringkali menggunakan sistem terkomputerisasi untuk akurasi .
+
+<h2>3. Membangun Rencana Pembayaran Kompetitif Pasar</h2>
+Proses menciptakan Market-Competitive Pay Plan melibatkan penggabungan data internal dan eksternal melalui langkah-langkah berikut :
+<bullet><b>Pilih Jabatan Benchmark:</b> Jabatan standar yang mudah dibandingkan di pasar.</bullet>
+<bullet><b>Pilih Faktor Kompensasi & Bobot:</b> Menentukan elemen nilai pekerjaan.</bullet>
+<bullet><b>Konversi ke Poin:</b> Mengubah bobot menjadi poin terukur.</bullet>
+<bullet><b>Analisis Pasar (Survei Gaji):</b> Menentukan apa yang dibayar pasar (External Wage Curve).</bullet>
+<bullet><b>Bandingkan dan Sesuaikan:</b> Membandingkan kurva upah internal (poin vs gaji saat ini) dengan kurva eksternal.</bullet>
+<bullet><b>Kembangkan Tingkatan Gaji (Pay Grades):</b> Mengelompokkan jabatan bernilai serupa.</bullet>
+<bullet><b>Tetapkan Rentang Tarif (Rate Ranges):</b> Membuat batas minimum, titik tengah, dan maksimum untuk setiap grade.</bullet>
+<bullet><b>Koreksi Tarif di Luar Garis:</b> Menyesuaikan tarif yang underpaid (hijau) atau overpaid (merah) .</bullet>
+
+<h2>4. Topik Kontemporer dan Kompensasi Eksekutif</h2>
+<bullet><b>Kompensasi Eksekutif & Pengawasan Dewan:</b> Gaji eksekutif ditentukan oleh Base Pay, insentif jangka pendek/panjang, dan perks. Pengawasan diperketat melalui regulasi pemerintah seperti SEC, Dodd-Frank Law, Sarbanes-Oxley Act, dan aktivisme pemegang saham untuk mencegah ekses .</bullet>
+<bullet><b>Kompensasi Profesional:</b> Memastikan kepatuhan FLSA (status profesional) .</bullet>
+<bullet><b>Competency-Based Pay:</b> Membayar berdasarkan keterampilan/kompetensi, bukan judul jabatan .</bullet>
+<bullet><b>Broadbanding:</b> Mengonsolidasikan tingkatan gaji menjadi beberapa "pita" lebar (Contoh: Band A dan Band B) untuk fleksibilitas lebih besar .</bullet>
+<bullet><b>Comparable Worth:</b> Persyaratan membayar upah setara untuk pekerjaan yang berbeda namun bernilai sebanding (Kasus: County of Washington v. Gunther) .</bullet>
+<bullet><b>Total Rewards & Engagement:</b> Menggunakan program penghargaan total (termasuk pengakuan dan pengembangan karir) dan media sosial/digital untuk meningkatkan keterlibatan karyawan .</bullet>
+
+<h2>5. Dinamika Kompensasi Berbasis Kinerja (Pay for Performance)</h2>
+Uang adalah motivator, namun efektivitasnya bergantung pada desain sistem. Sejarahnya berakar pada gerakan manajemen ilmiah Frederick Taylor .
+<h3>Teori Motivasi dalam Desain Insentif</h3>
+<bullet><b>Herzberg (Motivator-Hygiene):</b> Gaji adalah faktor higienis (mencegah ketidakpuasan), pencapaian adalah motivator.</bullet>
+<bullet><b>Edward Deci (Demotivator):</b> Insentif ekstrinsik berlebih dapat mengurangi motivasi intrinsik.</bullet>
+<bullet><b>Victor Vroom (Expectancy Theory):</b> Motivasi bergantung pada ekspektasi, instrumentalitas, dan valensi.</bullet>
+<bullet><b>B.F. Skinner (Behavior Modification):</b> Menggunakan penguatan positif.</bullet>
+<h3>Jenis-Jenis Insentif Individual & Tim</h3>
+<bullet><b>Piecework:</b> Bayaran per unit. Straight piecework (tarif tetap per unit) atau Standard hour plan (tarif berdasarkan waktu standar) .</bullet>
+<bullet><b>Merit Pay:</b> Kenaikan gaji permanen berbasis kinerja. Opsi lain adalah Lump-sum merit (sekali bayar) .</bullet>
+<bullet><b>Insentif Profesional:</b> Menggunakan Dual-Career Ladders (jalur manajerial vs teknis) .</bullet>
+<b>Insentif Penjualan:</b>
+<bullet>Salary Plan (Gaji tetap).</bullet>
+<bullet>Commission Plan (Murni hasil).</bullet>
+<bullet>Combination Plan (Campuran gaji + komisi). Perlu manajemen kuota yang efektif dan Enterprise Incentive Management (EIM) .</bullet>
+<b>Insentif Tim & Organisasi:</b>
+<bullet>Profit-sharing plans (Bagi laba).</bullet>
+<bullet>Scanlon plans (Bagi penghematan biaya).</bullet>
+<bullet>ESOPs (Kepemilikan saham).</bullet>
+<bullet><b>Studi Kasus Nucor:</b> Karyawan berpartisipasi dalam 4 rencana insentif dan bisa mendapat bonus >100% gaji dasar .</bullet>
+<h3>Penghargaan Non-Finansial (Daftar Bob Nelson)</h3>
+Pengakuan sosial meliputi: tugas menantang, otonomi, rotasi kerja, pujian, "Employee of the Month", hingga fasilitas fisik seperti meja yang lebih besar .
+
+<h2>6. Panduan Teknis Implementasi: Software Hashmicro</h2>
+Panduan langkah demi langkah menggunakan sistem HRIS Hashmicro untuk mengelola bonus dan struktur gaji secara otomatis :
+<bullet><b>Other Inputs:</b> Masuk ke menu ini. Buat input bonus tahunan dengan kode YB (Yearly Bonus) dan status "CONFIRM".</bullet>
+<bullet><b>Payslip Periods:</b> Buat periode (misal: 01/01/2022 - 12/31/2022). Ubah status ke "Open Periods".</bullet>
+<bullet><b>Generate Other Inputs:</b> Pilih karyawan (misal: Chris Evans), masukkan jenis input (Yearly Bonus), kode YB, bulan, dan jumlah (misal: 1.000.000).</bullet>
+<bullet><b>Salary Rules:</b> Buat aturan gaji baru. Nama: Yearly Bonus, Kategori: Other Allowance, Kode: YB. Wajib: Isi kolom Debit Account dan Credit Account pada tab Accounting.</bullet>
+<bullet><b>Salary Structures:</b> Buat struktur yang menggabungkan Basic Salary dan Yearly Bonus. Update akun debit/kredit pada aturan Basic Salary juga.</bullet>
+<bullet><b>Update Salary Structure:</b> Pada kontrak karyawan, ubah status dari Running ke New, perbarui struktur gaji, lalu kembalikan ke status Running.</bullet>
+<bullet><b>Employee Payslips:</b> Buat slip gaji. Isi nama, periode, bulan, referensi. Pastikan Salary Journal di tab Accounting sudah diisi sebelum klik Compute Sheet.</bullet>
+<bullet><b>Print:</b> Cetak slip gaji. Output akan menampilkan rincian pendapatan (Basic Salary + Yearly Bonus) dan total Take Home Pay dengan format profesional.</bullet>`,
+        modul2: `<h1>📘 MODUL 2: MANAJEMEN KESELAMATAN, KESEHATAN, DAN RISIKO KERJA KOMPREHENSIF</h1>
+<h2>1. Urgensi Keselamatan dan Peran Manajemen</h2>
+Keselamatan kerja memiliki dampak langsung terhadap profitabilitas organisasi. Statistik menunjukkan realitas yang serius: 5.190 pekerja di AS meninggal di tempat kerja dalam satu tahun, dan terjadi 2,9 juta cedera serta penyakit akibat kerja . Kecelakaan kerja membebani perusahaan dengan biaya tinggi, sehingga peningkatan keselamatan terbukti meningkatkan keuntungan (Improving Safety Boosts Profits) .
+<h3>Peran Manajemen</h3>
+Komitmen keselamatan dimulai dari puncak.
+<bullet><b>Peran Manajemen Puncak:</b> Sikap manajemen (management's attitude) adalah penentu utama budaya keselamatan.</bullet>
+<bullet><b>Peran Supervisor:</b> Bertanggung jawab atas pencegahan kecelakaan harian, termasuk melakukan inspeksi harian (daily walk-through) di tempat kerja untuk mengidentifikasi bahaya .</bullet>
+<h3>Hak dan Tanggung Jawab</h3>
+<bullet><b>Pengusaha:</b> Wajib menyediakan tempat kerja yang bebas dari bahaya yang diketahui (recognized hazards), memahami standar wajib (seperti standar OSHA), dan memeriksa kondisi tempat kerja secara rutin .</bullet>
+<bullet><b>Karyawan:</b> Berhak atas keselamatan dan kesehatan kerja tanpa rasa takut akan hukuman. Namun, manajemen sering menghadapi tantangan berupa resistensi karyawan terhadap prosedur keselamatan .</bullet>
+
+<h2>2. Diagnosa Penyebab Kecelakaan Kerja</h2>
+Manajer harus memahami tiga kategori utama penyebab kecelakaan untuk merumuskan pencegahan yang tepat:
+<bullet><b>Kejadian Kebetulan (Chance Occurrences):</b> Peristiwa di luar kendali manajemen (misal: bencana alam) .</bullet>
+<bullet><b>Kondisi Tidak Aman (Unsafe Conditions):</b> Penyebab fisik/lingkungan seperti peralatan yang tidak aman, jadwal kerja yang buruk, atau iklim keselamatan yang negatif .</bullet>
+<bullet><b>Tindakan Tidak Aman (Unsafe Acts):</b> Perilaku manusia yang membatalkan upaya keselamatan (misal: tidak pakai helm). Solusinya sulit karena menyangkut perilaku manusia yang bisa merusak semua upaya pencegahan lainnya .</bullet>
+
+<h2>3. Strategi Pencegahan Kecelakaan</h2>
+<h3>A. Mengurangi Kondisi Tidak Aman</h3>
+Ini adalah garis pertahanan pertama pemberi kerja (employer's first line of defense). Metode teknisnya meliputi:
+<bullet><b>Analisis Bahaya Pekerjaan (Job Hazard Analysis):</b> Mengidentifikasi bahaya di tiap langkah kerja.</bullet>
+<bullet><b>Tinjauan Keselamatan Operasional (Operational Safety Reviews):</b> Audit prosedur berkala.</bullet>
+<bullet><b>Alat Pelindung Diri (APD):</b> Penyediaan peralatan pelindung fisik .</bullet>
+<h3>B. Mengurangi Tindakan Tidak Aman & Membangun Budaya</h3>
+Mengubah perilaku manusia memerlukan pendekatan psikologis:
+<bullet><b>Membangun Budaya Keselamatan (Fostering a Culture of Safety):</b> Menciptakan lingkungan yang mendukung (Supportive Environment) di mana keselamatan diutamakan .</bullet>
+<bullet><b>Kebijakan & Target:</b> Menetapkan kebijakan keselamatan tertulis dan target pengendalian kerugian yang spesifik (specific loss control goals) .</bullet>
+<bullet><b>Program Berbasis Perilaku & Kesadaran:</b> Melatih karyawan untuk saling mengawasi perilaku kerja aman (Behavior-Based Safety) dan meningkatkan partisipasi karyawan .</bullet>
+
+<h2>4. Bahaya Kesehatan di Tempat Kerja: Masalah dan Solusi</h2>
+<h3>Bahaya Kimia dan Kualitas Udara</h3>
+Manajemen harus menerapkan prinsip Higiene Industri: mengenali, mengevaluasi, dan mengendalikan bahaya. Isu spesifik mencakup paparan asbes dan masalah kualitas udara di tempat kerja .
+<h3>Penyalahgunaan Zat (Substance Abuse)</h3>
+Alkoholisme dan penyalahgunaan zat merusak kinerja. Solusinya meliputi:
+<bullet>Pengujian zat (substance abuse testing).</bullet>
+<bullet>Penanganan spesifik untuk zat seperti ganja (marijuana).</bullet>
+<bullet>Tindakan disipliner atau rehabilitasi bagi karyawan yang terbukti melanggar .</bullet>
+<h3>Stres, Burnout, dan Depresi</h3>
+Banyak faktor pekerjaan dan kepribadian memicu stres, yang berdampak fatal bagi manusia.
+<bullet><b>Peran Pemberi Kerja:</b> Mengurangi stres kerja melalui desain ulang pekerjaan atau konseling.</bullet>
+<bullet><b>Burnout:</b> Kondisi kelelahan total fisik/mental.</bullet>
+<bullet><b>Depresi Karyawan:</b> Memerlukan intervensi serius karena berdampak pada produktivitas dan keselamatan .</bullet>
+<h3>Masalah Ergonomi dan Penyakit Lain</h3>
+<bullet><b>Ergonomi Komputer:</b> Penggunaan komputer memicu gangguan gerakan berulang (repetitive motion disorders) dan masalah punggung akibat duduk terlalu lama. Solusinya menggunakan alat bantu desain workstation (seperti e-tool OSHA) .</bullet>
+<bullet><b>Penyakit Menular & Rokok:</b> Mengelola risiko penyebaran penyakit dan aturan merokok di tempat kerja .</bullet>
+
+<h2>5. Keamanan Okupasi dan Manajemen Risiko (Risk Management)</h2>
+Keamanan tempat kerja berfokus melindungi karyawan dari risiko internal dan eksternal. Konsep Enterprise Risk Management (ERM) membagi risiko menjadi tiga kelas untuk dikelola:
+<bullet><b>Internal Preventable:</b> Risiko internal yang bisa dicegah.</bullet>
+<bullet><b>Strategy Risks:</b> Risiko yang diambil demi strategi bisnis.</bullet>
+<bullet><b>External Risks:</b> Risiko dari luar organisasi .</bullet>
+<h3>Mencegah Kekerasan di Tempat Kerja</h3>
+Langkah-langkah mitigasi meliputi:
+<bullet>Meningkatkan langkah keamanan (Heighten Security Measures).</bullet>
+<bullet>Memperbaiki penyaringan karyawan (Improve Employee Screening).</bullet>
+<bullet>Menerapkan kebijakan Zero-Tolerance terhadap kekerasan.</bullet>
+<bullet>Pelatihan manajemen konflik dan panduan pemecatan karyawan berisiko tinggi (firing high-risk employee) .</bullet>
+<bullet>Perlindungan khusus terhadap kekerasan pada wanita di tempat kerja.</bullet>
+<h3>Program Keamanan Fasilitas (4 Lapisan)</h3>
+<bullet><b>Analisis Risiko:</b> Menilai level risiko saat ini.</bullet>
+<bullet><b>Sistem Mekanis:</b> Kunci, kartu akses, gerbang fisik.</bullet>
+<bullet><b>Sistem Natural/Arsitektural:</b> Desain lansekap dan pencahayaan untuk meminimalkan area buta.</bullet>
+<bullet><b>Sistem Organisasional:</b> Kebijakan keamanan, manajemen tamu, dan prosedur penjagaan .</bullet>
+<h3>Terorisme, Siber, dan Darurat</h3>
+<bullet><b>Terorisme:</b> Fokus melindungi aset fisik dan nyawa karyawan .</bullet>
+<bullet><b>Keamanan Siber (Cyber Security):</b> Keamanan data adalah tanggung jawab semua orang. Prinsip: "Data lama adalah data buruk" (old data is bad data - harus dibersihkan), enkripsi, dan pemantauan .</bullet>
+<bullet><b>Rencana Kontinuitas Bisnis:</b> Mengingat 40% perusahaan tidak pernah buka kembali setelah bencana besar, rencana darurat harus dikembangkan, mengidentifikasi tanggung jawab kunci, dan dilatihkan kepada seluruh karyawan secara rutin .</bullet>
+
+<h2>6. Konteks Regulasi K3 di Indonesia (Materi Lokal)</h2>
+Indonesia memiliki kerangka hukum K3 yang spesifik dan mengikat.
+<h3>Landasan Hukum</h3>
+<bullet><b>UU No. 1 Tahun 1970:</b> Tentang Keselamatan Kerja.</bullet>
+<bullet><b>PP No. 50 Tahun 2012:</b> Tentang Penerapan Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3). K3 didefinisikan sebagai kegiatan menjamin keselamatan dan kesehatan tenaga kerja melalui upaya pencegahan kecelakaan dan penyakit kerja.</bullet>
+<h3>Tujuan Keselamatan dan Kesehatan Kerja</h3>
+<b>Tujuan Keselamatan:</b> (1) Melindungi keselamatan karyawan demi kesejahteraan dan produktivitas nasional; (2) Menjamin keselamatan orang lain di tempat kerja; (3) Memelihara sumber produksi agar digunakan aman dan efisien .
+<b>Tujuan Kesehatan:</b> (1) Meningkatkan kesehatan fisik/mental/sosial pekerja; (2) Mencegah gangguan kesehatan akibat kerja; (3) Perlindungan dari bahaya; (4) Penempatan pekerja sesuai kemampuan fisik/psikis .
+<h3>Sistem Manajemen K3 (SMK3)</h3>
+Penerapan SMK3 bertujuan untuk:
+<bullet>Meningkatkan efektivitas perlindungan K3 secara terstruktur & terintegrasi.</bullet>
+<bullet>Mengurangi risiko kecelakaan dan penyakit kerja.</bullet>
+<bullet>Menciptakan tempat kerja aman, nyaman, dan efisien . Catatan: SMK3 baru dinyatakan berhasil jika ketiga tujuan tersebut tercapai seluruhnya.</bullet>
+<h3>Manfaat Penerapan K3</h3>
+<b>Bagi Pekerja:</b> Memahami risiko, mampu bertindak darurat, menjamin keberlanjutan penghasilan (ekonomi keluarga), dan terhindar dari penyakit .
+<b>Bagi Perusahaan:</b> Menjaga produktivitas optimal, efisiensi finansial (kurangi biaya kesehatan/asuransi), serta meningkatkan citra positif di mata pemerintah dan masyarakat (kepercayaan & penghargaan) .
+<h3>Peran Digital</h3>
+Media sosial dan alat digital kini juga berperan dalam membantu isu keselamatan dalam organisasi .`,
+        modul3: `<h1>📘 MODUL 3: HUBUNGAN TENAGA KERJA DAN PERUNDINGAN KOLEKTIF</h1>
+<h2>1. Motivasi dan Dinamika Pengorganisasian Pekerja</h2>
+Mengapa pekerja memilih untuk berserikat? Memahami motivasi ini krusial bagi manajemen.
+<bullet><b>Kompensasi (Pay):</b> Keinginan mendapatkan "bagian kue yang adil" (fair share of the pie) .</bullet>
+<bullet><b>Perlindungan:</b> Melindungi diri dari keinginan manajemen yang sewenang-wenang (arbitrary whims of management).</bullet>
+<bullet><b>Hubungan Karyawan Buruk:</b> Moral rendah, ketakutan kehilangan pekerjaan, dan komunikasi yang buruk .</bullet>
+<h3>Studi Kasus: Hubungan dengan Engagement</h3>
+Sebuah studi dari Modern Survey menemukan bahwa memperhatikan tingkat keterlibatan karyawan (employee engagement) membantu membina hubungan positif dan menurunkan kemungkinan tenaga kerja mencari perwakilan serikat .
+<h3>Apa yang Diinginkan Serikat?</h3>
+<bullet><b>Keamanan Serikat (Union Security):</b> Memperjuangkan hak eksistensi. Isu utamanya adalah melawan aturan Right to Work yang melarang kewajiban keanggotaan serikat sebagai syarat kerja .</bullet>
+<bullet><b>Peningkatan Kesejahteraan:</b> Upah, jam kerja, dan tunjangan yang lebih baik.</bullet>
+
+<h2>2. Evolusi Hukum Ketenagakerjaan (Tiga Periode)</h2>
+Hukum perburuhan berevolusi melalui tiga periode utama sebagai respons terhadap kondisi ekonomi dan sikap publik :
+<h3>A. Periode Dorongan Kuat (Strong Encouragement)</h3>
+<bullet><b>Norris-LaGuardia Act (1932):</b> Menjamin hak berunding kolektif dan membatasi perintah pengadilan (stop orders) terhadap serikat. Poin penting: Menjadikan kontrak "Yellow Dog" (janji pekerja untuk tidak bergabung serikat) tidak berlaku secara hukum (unenforceable) .</bullet>
+<bullet><b>Wagner Act (National Labor Relations Act 1935):</b> Melarang praktik perburuhan tidak adil oleh pengusaha dan menetapkan pemilu rahasia (secret ballot elections). Membentuk NLRB (National Labor Relations Board) .</bullet>
+<b>5 Praktik Tidak Adil Pengusaha (Wagner Act):</b>
+<bullet>Mengganggu hak organisasi diri.</bullet>
+<bullet>Mendominasi pembentukan serikat.</bullet>
+<bullet>Mendiskriminasi karyawan karena aktivitas serikat.</bullet>
+<bullet>Mendiskriminasi karyawan karena mengajukan tuntutan.</bullet>
+<bullet>Menolak berunding secara kolektif .</bullet>
+<h3>B. Periode Dorongan Dimodifikasi (Modified Encouragement)</h3>
+<bullet><b>Taft-Hartley Act (1947):</b> Menyeimbangkan kekuatan dengan melarang praktik tidak adil oleh serikat dan memberi wewenang Presiden AS untuk menghentikan sementara Pemogokan Darurat Nasional (National Emergency Strikes) .</bullet>
+<b>4 Praktik Tidak Adil Serikat (Taft-Hartley Act):</b>
+<bullet>Menahan/memaksa karyawan dalam hak tawar-menawar.</bullet>
+<bullet>Menyebabkan pengusaha mendiskriminasi karyawan.</bullet>
+<bullet>Menolak berunding dengan itikad baik (good faith).</bullet>
+<bullet>Terlibat dalam Featherbedding (meminta bayaran untuk pekerjaan yang tidak dilakukan) .</bullet>
+<h3>C. Periode Regulasi Mendetail</h3>
+Fokus pada regulasi mendetail urusan internal serikat (Detailed regulation of internal union affairs).
+<b>Hak-Hak Karyawan & Pengusaha</b>
+<bullet><b>Karyawan:</b> Dilindungi dari paksaan serikat.</bullet>
+<bullet><b>Pengusaha:</b> Boleh mengekspresikan pandangan tapi dilarang melakukan ancaman, janji, paksaan, atau campur tangan langsung (direct interference) .</bullet>
+
+<h2>3. Proses Perundingan Kolektif (Collective Bargaining)</h2>
+Definisi hukumnya adalah kewajiban manajemen dan buruh untuk merundingkan upah, jam kerja, dan syarat kerja dengan "Itikad Baik" (Good Faith), yaitu upaya yang masuk akal (reasonable effort) untuk mencapai kesepakatan .
+<h3>Tahapan Negosiasi</h3>
+<bullet><b>Tim Negosiasi:</b> Pembentukan tim.</bullet>
+<bullet><b>Biaya Kontrak (Costing the Contract):</b> Menghitung dampak biaya dari tuntutan serikat secara cermat .</bullet>
+<b>Item Perundingan:</b>
+<bullet><b>Mandatory:</b> Wajib dirundingkan (upah, jam kerja).</bullet>
+<bullet><b>Voluntary:</b> Sukarela.</bullet>
+<bullet><b>Illegal:</b> Melanggar hukum .</bullet>
+<h3>Resolusi Kebuntuan (Impasses)</h3>
+Jika terjadi jalan buntu (stalemate), intervensi pihak ketiga digunakan:
+<bullet><b>Mediasi:</b> Pihak ketiga membantu mencapai kesepakatan sukarela.</bullet>
+<bullet><b>Pencari Fakta (Fact-finder):</b> Mempelajari fakta dan memberi rekomendasi.</bullet>
+<bullet><b>Arbitrase:</b> Pihak ketiga membuat keputusan mengikat (binding).</bullet>
+<bullet><b>Pemogokan (Strikes):</b> Langkah terakhir penarikan tenaga kerja .</bullet>
+
+<h2>4. Perjanjian Kontrak & Masa Depan</h2>
+<bullet><b>Kontrak:</b> Dokumen kesepakatan bisa setebal 20-30 halaman atau lebih. Tren saat ini mengarah pada kontrak yang lebih panjang (longer contract) yang berisi aturan detail .</bullet>
+<bullet><b>Strategi Serikat Saat Ini:</b> Menghadapi penurunan anggota, serikat pekerja kini: (1) Mengorganisasi secara agresif, (2) Menekan Kongres (Pushing Congress), dan (3) Menggunakan tuntutan hukum Class Action .</bullet>
+<bullet><b>Hubungan Kooperatif:</b> Beralih ke kemitraan kooperatif (cooperative partnership) antara manajemen dan buruh, bukan lagi hubungan bermusuhan .</bullet>`,
+        modul4: `<h1>📘 MODUL 4: TRANSFORMASI INFRASTRUKTUR HR: MODEL KOMPETENSI ULRICH DAN ANALITIK STRATEGIS</h1>
+<h2>1. Model SDM David Ulrich: Redefinisi Peran HR</h2>
+Agar fungsi Sumber Daya Manusia (SDM) dapat memberikan nilai tambah nyata, organisasi memerlukan HR Model yang kokoh. Model ini didefinisikan sebagai kerangka kerja yang menghubungkan strategi HR, tujuan, proses, dan pekerjaan menjadi satu model operasi yang padu. Model ini bertindak sebagai matriks keputusan untuk menempatkan peran dan tanggung jawab yang tepat, baik secara eksternal maupun internal antar unit.
+<bullet><b>Prinsip Utama:</b> Setiap perubahan pada Agenda HR harus dimulai dengan perubahan pada Model HR itu sendiri.</bullet>
+<h3>Urgensi Model HR</h3>
+Organisasi memerlukan model HR yang jelas karena:
+<bullet><b>Visibilitas:</b> Membuat inisiatif manajemen HR terlihat jelas bagi manajer dan karyawan.</bullet>
+<bullet><b>Kejelasan Hubungan:</b> Memperjelas hubungan dengan pelanggan internal, vendor eksternal, dan saling ketergantungan proses.</bullet>
+<bullet><b>Panduan Strategis:</b> Strategi HR sering kali terlalu abstrak; model ini memberikan panduan konkret dan membantu mengorganisir pemikiran tim.</bullet>
+<h3>Empat Peran Kunci HR (David Ulrich)</h3>
+David Ulrich merumuskan empat peran utama yang harus dimainkan profesional HR modern:
+<b>A. HR Business Partner (Strategic Partner)</b>
+Peran ini membangun kemitraan strategis dengan klien internal.
+<bullet><b>Fungsi:</b> Titik kontak tunggal, mewakili layanan HR, dan mempengaruhi desain organisasi.</bullet>
+<bullet><b>Aktivitas Kunci:</b> Mengidentifikasi talenta kunci (top talents) dan pemegang pengetahuan (know-how holders), memberikan umpan balik jujur kepada klien internal, serta menjalankan proyek lintas fungsi.</bullet>
+<b>B. Change Agent (Agen Perubahan)</b>
+Bertanggung jawab mengelola transformasi dan budaya organisasi.
+<bullet><b>Fungsi:</b> Berpartisipasi dalam tim manajemen perubahan dan memimpin inisiatif budaya baru.</bullet>
+<bullet><b>Aktivitas Kunci:</b> Mengomunikasikan perubahan untuk mendapatkan kepercayaan (buy-in), menyusun pelatihan keterampilan baru, memperbarui deskripsi pekerjaan, dan mengumpulkan umpan balik karyawan secara berkelanjutan.</bullet>
+<b>C. Administration Expert (Ahli Administrasi)</b>
+Peran transaksional yang menjadi fondasi kredibilitas HR.
+<bullet><b>Fungsi:</b> Menguasai hukum ketenagakerjaan dan pengelolaan data yang akurat.</bullet>
+<bullet><b>Aktivitas Kunci:</b> Mengimplementasikan persyaratan legislasi/K3, memperkenalkan solusi HRIS untuk menghilangkan entri data manual, dan bertanggung jawab penuh atas pengembangan sumber data karyawan.</bullet>
+<b>D. Employee Advocate (Employee Champion)</b>
+Peran inti untuk melindungi kepentingan karyawan.
+<bullet><b>Fungsi:</b> Memastikan inisiatif strategis seimbang dengan kesejahteraan karyawan.</bullet>
+<bullet><b>Aktivitas Kunci:</b> Menjalankan survei kepuasan (Voice of Employee) untuk identifikasi kesenjangan budaya, memastikan peluang karir yang adil, dan mengelola prosedur keluhan (grievance) untuk menjamin perlakuan adil.</bullet>
+
+<h2>2. HR Analytics: Metodologi Berbasis Bukti</h2>
+HR Analytics adalah metodologi untuk menciptakan wawasan (insights) tentang bagaimana investasi pada aset modal manusia berkontribusi terhadap kesuksesan empat luaran bisnis: (1) menghasilkan pendapatan, (2) meminimalkan pengeluaran, (3) mengurangi risiko, dan (4) mengeksekusi rencana strategis.
+<h3>Definisi para ahli dalam materi:</h3>
+<bullet><b>Lalwani (2021):</b> Penerapan metode statistik pada data SDM, talenta, keuangan, dan operasional yang terintegrasi.</bullet>
+<bullet><b>AIHR (Vulpen, 2021):</b> Proses pengumpulan bersama (co-collection), analisis, dan pelaporan data HR.</bullet>
+<bullet><b>West (2019):</b> Penerapan bukti/data untuk keputusan bisnis tentang karyawan. Ini adalah pertemuan disiplin statistik, ilmu perilaku, sistem teknologi, dan strategi manusia.</bullet>
+<h3>Evolusi Fungsi HR: Reaktif vs Prediktif</h3>
+Tuntutan manajemen bergeser dari administratif ke strategis:
+<bullet><b>Rekrutmen Tradisional:</b> "Saya butuh isi posisi. Apa prosesnya?" → <b>Masa Depan:</b> "Saya ingin perkuat talent pipeline. Siapa kandidat best fit untuk budaya kita?"</bullet>
+<bullet><b>Rewards Tradisional:</b> "Apa saja benefit yang tersedia?" → <b>Masa Depan:</b> "Bisakah kita notifikasi benefit yang disesuaikan kebutuhan gaya hidup karyawan?"</bullet>
+<bullet><b>Atrisi Tradisional:</b> "Karyawan resign. Beri gaji tandingan?" → <b>Masa Depan:</b> "Apa pendorong atrisi utama (key attrition drivers) top performers kita?"</bullet>
+<bullet><b>L & D Tradisional:</b> "Kursus apa yang tersedia?" → <b>Masa Depan:</b> "Rekomendasikan kebutuhan belajar tim saya untuk 18 bulan ke depan."</bullet>
+<bullet><b>Suksesi Tradisional:</b> "Berapa jumlah suksesor?" → <b>Masa Depan:</b> "Kompetensi apa yang kita butuhkan untuk dorong strategi organisasi?"</bullet>
+
+<h3>Tingkat Kematangan Analitik (Maturity of Analytics)</h3>
+Mengacu pada model Meulen & McCall (2018), kemampuan analitik berkembang melalui empat tahap:
+<bullet><b>Descriptive Analytics:</b> Menjawab "Apa yang terjadi?" (What happened?).</bullet>
+<bullet><b>Diagnostic Analytics:</b> Menjawab "Mengapa itu terjadi?" (Why did it happen?).</bullet>
+<bullet><b>Predictive Analytics:</b> Menjawab "Apa yang akan terjadi?" (What will happen?).</bullet>
+<bullet><b>Prescriptive Analytics:</b> Menjawab "Bagaimana kita mewujudkannya?" (How can I make it happen?).</bullet>
+<h3>Implementasi: Metrik Kunci</h3>
+Bedah teknis metrik HR dan faktor pengaruhnya:
+<b>Tingkat Penerimaan Penawaran (Rate of Offer Acceptance):</b>
+<bullet><b>Faktor:</b> Daya saing gaji, Employer Brand, kecepatan proses, pengalaman kandidat, dan fleksibilitas kerja.</bullet>
+<b>Kinerja Karyawan (Employee Performance):</b>
+<bullet><b>Faktor:</b> Kejelasan target (goals), kompetensi (skills), dukungan alat kerja, kualitas atasan, dan motivasi.</bullet>
+<b>Retensi Karyawan (Employee Retention):</b>
+<bullet><b>Faktor:</b> Peluang karir, hubungan dengan manajer, keadilan kompensasi, budaya kerja, dan work-life balance.</bullet>`,
+        modul5: `<h1>📘 MODUL 5: MANAJEMEN SDM DALAM KONTEKS KHUSUS: LINGKUP GLOBAL DAN BISNIS KECIL (SME)</h1>
+<h2>BAGIAN 1: MANAJEMEN SDM GLOBAL (IHRM)</h2>
+<h3>1. Tantangan Manajerial Lintas Negara</h3>
+Tantangan utama dalam manajemen global adalah realitas bahwa apa yang berhasil di satu negara belum tentu efektif di negara lain. Manajemen Sumber Daya Manusia Internasional (IHRM) didefinisikan sebagai konsep dan teknik yang digunakan pemberi kerja untuk mengelola tantangan SDM dalam operasi internasional mereka .
+Pemberi kerja global menghadapi perbedaan fundamental dalam lima dimensi kritis yang mempengaruhi praktik SDM :
+<bullet><b>Faktor Budaya:</b> Nilai-nilai dasar masyarakat.</bullet>
+<bullet><b>Faktor Politik:</b> Stabilitas dan kebijakan pemerintah.</bullet>
+<bullet><b>Faktor Hukum:</b> Regulasi ketenagakerjaan.</bullet>
+<bullet><b>Faktor Ekonomi:</b> Sistem ekonomi yang berlaku.</bullet>
+<bullet><b>Hubungan Tenaga Kerja:</b> Peran serikat pekerja.</bullet>
+<h3>2. Adaptasi terhadap Perbedaan Antarnegara</h3>
+<b>A. Dimensi Budaya (Studi Hofstede)</b>
+Geert Hofstede mengidentifikasi dimensi budaya yang mempengaruhi perilaku kerja :
+<bullet><b>Jarak Kekuasaan (Power Distance):</b> Penerimaan terhadap distribusi kekuasaan yang tidak setara.</bullet>
+<bullet><b>Individualisme:</b> Fokus pada diri sendiri vs kolektivisme.</bullet>
+<bullet><b>Maskulinitas:</b> Orientasi pada pencapaian dan ketegasan.</bullet>
+<bullet><b>Penghindaran Ketidakpastian (Uncertainty Avoidance):</b> Ketidaknyamanan terhadap ambiguitas.</bullet>
+<bullet><b>Orientasi Jangka Panjang:</b> Fokus pada masa depan vs tradisi.</bullet>
+<b>B. Sistem Ekonomi & Contoh Regional</b>
+Perbedaan sistem ekonomi (Pasar, Terencana, atau Campuran) menerjemahkan kebijakan SDM yang berbeda .
+<bullet><b>Uni Eropa (UE):</b> Memiliki regulasi ketat terkait upah minimum UE, jam kerja, dan prosedur pemutusan hubungan kerja .</bullet>
+<bullet><b>Tiongkok:</b> Tenaga kerjanya besar namun pertumbuhannya melambat. Tantangan meliputi rekrutmen, seleksi, kompensasi, dan peran serikat pekerja yang berbeda .</bullet>
+<h3>3. Strategi Penyusunan Staf (Staffing) Global</h3>
+Perusahaan harus memilih sumber daya berdasarkan orientasi nilai mereka:
+<bullet><b>Ethnocentric:</b> Berorientasi pada negara asal; posisi kunci diisi oleh Expatriates (warga negara asal).</bullet>
+<bullet><b>Polycentric:</b> Berorientasi lokal; posisi kunci di luar negeri diisi oleh Locals (penduduk setempat).</bullet>
+<bullet><b>Global:</b> Mencari orang terbaik tanpa memandang kebangsaan, bisa juga melibatkan Third-Country Nationals.</bullet>
+<bullet><b>Offshoring:</b> Memindahkan pekerjaan ke luar negeri sebagai alternatif.</bullet>
+<h3>4. Seleksi dan Pemeliharaan Ekspatriat</h3>
+Kegagalan penugasan ekspatriat sering disebabkan oleh tekanan keluarga dan ketidakmampuan beradaptasi .
+<bullet><b>Metode Seleksi:</b> Meliputi pengujian (testing), penyaringan adaptabilitas (adaptability screening), dan pratinjau realistis (realistic previews) bagi kandidat dan keluarganya .</bullet>
+<bullet><b>Pelatihan:</b> Wajib mencakup pelatihan pra-keberangkatan (pre-departure), pelatihan berkelanjutan (on-going), serta etika dan kode etik .</bullet>
+<bullet><b>Penilaian Kinerja:</b> Bobot penilaian harus lebih condong pada manajer di lokasi (on-site manager) dan kriteria harus diadaptasi dengan pekerjaan lokal .</bullet>
+<h3>5. Kompensasi, Keamanan, dan Repatriasi</h3>
+<bullet><b>Kompensasi (Metode Neraca):</b> Menyamakan daya beli ekspatriat dengan di negara asal. Komponennya mencakup insentif, Foreign service premium, Hardship allowance, dan Mobility premiums .</bullet>
+<bullet><b>Relasi Serikat & Keamanan:</b> Negosiasi kolektif di luar negeri seringkali lebih "bersemangat" (more vigorous). Isu keamanan mencakup perlindungan keselamatan pekerja lokal dan staf internasional, termasuk penggunaan asuransi Penculikan dan Tebusan (Kidnapping and Ransom - K&R insurance) .</bullet>
+<bullet><b>Repatriasi:</b> Masalah utama adalah "investasi yang sia-sia" (wasted investments) jika ekspatriat keluar setelah kembali. Solusinya adalah secara aktif menghargai pengalaman mereka (value the expatriate's experience).</bullet>
+<h3>6. Membangun Sistem HR Global yang Efektif</h3>
+Praktik terbaik melibatkan siklus Develop - Implement - Acceptable.
+<bullet><b>Kunci Sukses:</b> Lebih penting menstandarisasi hasil akhir (ends) dan kompetensi daripada metode spesifik.</bullet>
+<bullet><b>Implementasi:</b> Komunikasi adalah kunci ("You can't communicate enough") dan kontak yang konstan (constant contact) .</bullet>
+
+<h2>BAGIAN 2: MANAJEMEN SDM PADA BISNIS KECIL (SME)</h2>
+<h3>1. Tantangan Bisnis Kecil</h3>
+Slogan "Tidak ada yang kecil tentang bisnis kecil" (There's nothing small about small business) menekankan peran vital mereka dalam pertumbuhan ekonomi. Manajemen SDM di bisnis kecil berbeda karena:
+<bullet><b>Ukuran (Size):</b> Jumlah karyawan yang sedikit.</bullet>
+<bullet><b>Prioritas:</b> Fokus pada kelangsungan hidup (matter of survival).</bullet>
+<bullet><b>Informalitas:</b> Prosedur yang lebih santai.</bullet>
+<bullet><b>Sifat Pengusaha (The Entrepreneur):</b> Kendali pemilik yang dominan .</bullet>
+<bullet><b>Implikasi Risiko:</b> Bisnis kecil rentan terhadap risiko hukum, keputusan yang lambat karena manajer kewalahan, dan kerugian kompetitif karena administrasi kertas (paperwork) yang memakan waktu dan rentan data entry errors .</bullet>
+<h3>2. Strategi Seleksi dan Pelatihan yang Fleksibel</h3>
+<bullet><b>Seleksi:</b> Bisnis kecil bisa menggunakan tes seleksi sederhana namun efektif seperti Wonderlic Personnel Test atau Predictive Index. Tips praktis meliputi jajak pendapat kontak pribadi dan penggunaan tes online .</bullet>
+<bullet><b>Pelatihan Informal:</b> Sekitar 70% pelatihan di bisnis kecil bersifat informal. Pelatihan informal terjadi ketika karyawan memiliki kebutuhan belajar, termotivasi, dan diberi kesempatan. Pelatihan formal bisa memanfaatkan vendor swasta atau asosiasi seperti Small Business Administration (SBA) dan National Association of Manufacturers .</bullet>
+<h3>3. Kompensasi dan Fleksibilitas</h3>
+Bisnis kecil memanfaatkan keakraban (familiarity) dan fleksibilitas sebagai daya tarik. Contohnya adalah menawarkan fleksibilitas kerja/hidup (work/life flexibility) dan program pensiun sederhana seperti Simple IRA yang murah dan mudah . Untuk penentuan gaji, mereka dapat menggunakan alat online seperti Salary.com, Oracle, atau Halogen .
+<h3>4. Professional Employer Organizations (PEOs)</h3>
+PEO adalah solusi outsourcing di mana vendor menjadi "co-employers of record" bagi karyawan perusahaan.
+<bullet><b>Manfaat:</b> PEO menangani asuransi dan tunjangan (daya tarik utama), serta mengurangi risiko hukum dan beban administrasi.</bullet>
+<bullet><b>Risiko (Caveats):</b> Potensi kerugian pajak (tax disadvantages) dan perlunya memastikan PEO memandang praktik SDM secara strategis .</bullet>
+<h3>5. Manajemen Sistem Manual (Daftar Lengkap Formulir)</h3>
+Bagi yang mengelola sendiri, sistem manual memerlukan pengorganisasian formulir standar yang tercantum dalam Table 18.1 :
+<b>Formulir Karyawan Baru:</b> Aplikasi, Checklist Karyawan Baru, Wawancara Kerja, Cek Referensi, Laporan Referensi Telepon, Pengakuan Manual Karyawan, Perjanjian Kerja, Penafian Aplikasi, Perjanjian Kerahasiaan.
+<b>Formulir Karyawan Saat Ini:</b> Permintaan Perubahan Status, Catatan Karyawan, Evaluasi Kinerja, Surat Peringatan, Permintaan Liburan, Pemberitahuan Percobaan (Probation), Deskripsi Pekerjaan, Evaluasi Percobaan, Laporan Absensi, Pemberitahuan Disipliner, Formulir Keluhan (Grievance), Laporan Pengeluaran, Laporan Cedera.
+<b>Formulir Pemisahan (Separation):</b> Checklist Pensiun, Checklist Penghentian, Pengakuan COBRA, Klaim Pengangguran, Wawancara Keluar (Exit Interview).
+<h3>6. Otomatisasi: HRIS dan Cloud</h3>
+Sistem Informasi SDM (HRIS) menyatukan proses manajemen ke dalam satu sistem otomatis.
+<bullet><b>Manfaat:</b> Pemrosesan transaksi yang lebih baik (hemat waktu, self-processing online) dan kemampuan pelaporan yang ditingkatkan .</bullet>
+<bullet><b>Vendor Utama:</b> Automated Data Process, Inc. (ADP), Business Information Technology, Inc., HR Microsystems, Lawson Software, Oracle, SAP America, Workday, dan Odoo .</bullet>
+<bullet><b>Cloud:</b> Penggunaan media sosial dan HR berbasis cloud memberikan efisiensi biaya dan aksesibilitas bagi bisnis kecil .</bullet>`,
+        tambahan: `<h1>🔍 ADDENDUM FINAL: DETAIL MIKRO & TEKNIS PELENGKAP (MODUL 1-5)</h1>
+Bagian ini memuat rincian teknis, daftar inventaris, dan formula hitungan yang disebutkan dalam slide sebagai materi "Diskusi" atau "Tabel Rincian" yang belum diurai per butir dalam narasi modul utama.
+
+<h2>A. PELENGKAP MODUL SATU (Kompensasi)</h2>
+<h3>1. Detail Kasus Hukum Comparable Worth</h3>
+<bullet><b>Kasus:</b> County of Washington v. Gunther.</bullet>
+<bullet><b>Esensi:</b> Mahkamah Agung AS memutuskan bahwa kegagalan Washington County untuk membayar sipir penjara wanita setara dengan sipir penjara pria (untuk pekerjaan yang sebanding/bernilai sama) dapat dianggap sebagai diskriminasi seks di bawah Title VII, meskipun pekerjaan tersebut tidak identik.</bullet>
+<h3>2. Komponen Total Rewards (Imbalan Total)</h3>
+Selain gaji dan bonus, program Total Rewards untuk meningkatkan keterlibatan karyawan mencakup pengakuan (recognition) non-finansial seperti:
+<bullet>Program pengakuan karyawan (misal: "Employee of the Month").</bullet>
+<bullet>Peluang pengembangan karir dan pelatihan.</bullet>
+<bullet>Fleksibilitas kerja dan keseimbangan kehidupan kerja (work-life balance).</bullet>
+<bullet>Budaya perusahaan yang positif.</bullet>
+
+<h2>B. PELENGKAP MODUL DUA (Keselamatan & Kesehatan)</h2>
+<h3>1. Checklist Bahaya Kantor & Ergonomi (Office Safety)</h3>
+Untuk mengurangi kondisi tidak aman, supervisor harus memeriksa detail fisik berikut yang sering terabaikan:
+<bullet>Kabel listrik yang terkelupas atau manajemen kabel yang buruk (risiko tersandung).</bullet>
+<bullet>Lantai licin atau karpet yang tidak rata.</bullet>
+<bullet>Pencahayaan yang buruk di tangga atau lorong.</bullet>
+<bullet>Penyimpanan bahan kimia pembersih yang tidak aman.</bullet>
+<bullet>Posisi monitor komputer (harus sejajar mata) dan kursi ergonomis untuk mencegah Repetitive Motion Disorders.</bullet>
+
+<h2>C. PELENGKAP MODUL EMPAT (HR Analytics)</h2>
+Pada slide Session 23, terdapat instruksi "Read and Discuss: Find out how to calculate below HR metrics". Berikut adalah formula standar industri untuk melengkapi instruksi tersebut agar modul Anda aplikatif:
+<h3>1. Rumus Tingkat Penerimaan Penawaran (Rate of Offer Acceptance)</h3>
+<b>Rate of Offer Acceptance = (Jumlah Penawaran Diterima / Jumlah Total Penawaran yang Diberikan) × 100%</b>
+<h3>2. Rumus Retensi Karyawan (Retention Rate)</h3>
+<b>Retention Rate = (Jumlah Karyawan di Akhir Periode / Jumlah Karyawan di Awal Periode (tanpa rekrutmen baru)) × 100%</b>
+(Catatan: Pastikan tidak menghitung karyawan baru yang masuk selama periode berjalan untuk akurasi retensi murni).
+<h3>3. Rumus Kinerja Karyawan (Employee Performance)</h3>
+Metrik ini biasanya tidak menggunakan satu rumus tunggal, melainkan gabungan dari:
+<bullet><b>Pencapaian KPI:</b> (Realisasi Target / Target Ditetapkan) × 100%</bullet>
+<bullet><b>Skor Penilaian 360:</b> Rata-rata skor dari atasan, rekan kerja, dan bawahan.</bullet>
+<bullet><b>Revenue per Employee:</b> Total Pendapatan Perusahaan / Jumlah Total Karyawan.</bullet>
+
+<h2>D. PELENGKAP MODUL LIMA (SME & Global)</h2>
+<h3>1. Daftar Lengkap Formulir Manual HR (Tabel 18.1)</h3>
+Untuk kepatuhan administrasi "Zero Missing", berikut adalah inventarisasi lengkap 32 formulir yang wajib dimiliki bisnis kecil jika menggunakan sistem manual (Session 26):
+<b>Kelompok 1: Formulir Karyawan Baru</b>
+<bullet>Aplikasi Kerja (Application)</bullet>
+<bullet>Checklist Karyawan Baru (New Employee Checklist)</bullet>
+<bullet>Panduan Wawancara Kerja (Employment Interview)</bullet>
+<bullet>Cek Referensi (Reference Check)</bullet>
+<bullet>Laporan Referensi Telepon (Telephone Reference Report)</bullet>
+<bullet>Pengakuan Buku Manual Karyawan (Employee Manual Acknowledgment)</bullet>
+<bullet>Perjanjian Kerja (Employment Agreement)</bullet>
+<bullet>Penafian Aplikasi Kerja (Employment Application Disclaimer)</bullet>
+<bullet>Perjanjian Kerahasiaan Karyawan (Employee Secrecy Agreement)</bullet>
+<b>Kelompok 2: Formulir Karyawan Saat Ini</b>
+<bullet>10. Permintaan Perubahan Status (Employee Status Change Request)</bullet>
+<bullet>11. Catatan Karyawan (Employee Record)</bullet>
+<bullet>12. Evaluasi Kinerja (Performance Evaluation)</bullet>
+<bullet>13. Pemberitahuan Peringatan (Warning Notice)</bullet>
+<bullet>14. Permintaan Cuti/Liburan (Vacation Request)</bullet>
+<bullet>15. Pemberitahuan Masa Percobaan (Probation Notice)</bullet>
+<bullet>16. Deskripsi Pekerjaan (Job Description)</bullet>
+<bullet>17. Evaluasi Masa Percobaan (Probationary Evaluation)</bullet>
+<bullet>18. Konfirmasi Deposit Langsung (Direct Deposit Acknowledgment)</bullet>
+<bullet>19. Laporan Absensi (Absence Report)</bullet>
+<bullet>20. Pemberitahuan Disipliner (Disciplinary Notice)</bullet>
+<bullet>21. Formulir Keluhan (Grievance Form)</bullet>
+<bullet>22. Laporan Pengeluaran (Expense Report)</bullet>
+<bullet>23. Pengakuan Pilihan 401(k)/Pensiun (401(k) Choices Acknowledgment)</bullet>
+<bullet>24. Laporan Cedera (Injury Report)</bullet>
+<b>Kelompok 3: Formulir Pemisahan (Separation)</b>
+<bullet>25. Checklist Pensiun (Retirement Checklist)</bullet>
+<bullet>26. Checklist Penghentian Kerja (Termination Checklist)</bullet>
+<bullet>27. Pengakuan COBRA (Asuransi Lanjutan)</bullet>
+<bullet>28. Klaim Pengangguran (Unemployment Claim)</bullet>
+<bullet>29. Wawancara Keluar (Employee Exit Interview)</bullet>
+<h3>2. Daftar Vendor HRIS Spesifik</h3>
+Daftar spesifik vendor perangkat lunak yang disebutkan dalam materi untuk referensi implementasi:
+<bullet>Automated Data Process, Inc. (ADP)</bullet>
+<bullet>Business Information Technology, Inc.</bullet>
+<bullet>Human Resource Microsystems</bullet>
+<bullet>Lawson Software</bullet>
+<bullet>Oracle Corporation</bullet>
+<bullet>SAP America, Inc.</bullet>
+<bullet>Workday</bullet>
+<bullet>Odoo</bullet>`
+};
+
 export default RANGKUMAN_CONTENT;

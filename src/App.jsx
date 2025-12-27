@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
 import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs } from './firebase';
@@ -2124,6 +2124,14 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[var(--accent)]" />
             <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
+            <div className="relative group">
+              <Info className="w-3.5 h-3.5 text-[var(--text-muted)] cursor-help hover:text-[var(--accent)] transition-colors" />
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-[var(--surface-solid)] border border-[var(--border)] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 text-xs text-[var(--text-secondary)]">
+                ⚠️ Jadwal ini adalah <strong className="text-[var(--warning)]">prediksi</strong>, bukan jadwal resmi.
+                <br />Admin akan update saat jadwal resmi dirilis.
+                <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--border)]"></div>
+              </div>
+            </div>
           </div>
           <div className="space-y-1">
             {Object.entries(classSchedule).map(([subject, date]) => {
@@ -2243,7 +2251,8 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
     if (searchCategory === 'all' || searchCategory === 'rangkuman') {
       const rangkumanKey = subject.id === 'mis' ? 'mis' :
         subject.id === 'intro' ? 'intro' :
-          subject.id === 'marketing' ? 'marketing' : null;
+          subject.id === 'marketing' ? 'marketing' :
+            subject.id === 'hr' ? 'hr' : null;
       if (rangkumanKey && RANGKUMAN_CONTENT[rangkumanKey]) {
         Object.entries(RANGKUMAN_CONTENT[rangkumanKey]).forEach(([key, val]) => {
           if (typeof val === 'string' && val.toLowerCase().includes(q)) {
@@ -3088,6 +3097,20 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                 </p>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Mentor PPT Note - when no mentor content but has note */}
+        {rangkuman?.mentorPPTNote && (!rangkuman?.mentorPPT || rangkuman.mentorPPT.length === 0) && (
+          <div className="glass-card p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Presentation className="w-5 h-5 text-purple-500" />
+              <span className="font-bold text-[var(--text)]">Rangkuman Mentor</span>
+            </div>
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+              <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-yellow-200">{rangkuman.mentorPPTNote}</p>
+            </div>
           </div>
         )}
 

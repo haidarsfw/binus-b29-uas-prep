@@ -40,7 +40,7 @@ export const DB = {
                 { id: 5, title: 'Week 13: Sustainable Marketing: Social Responsibility & Ethics (Ch.20)', driveId: '1pxfTiAYLtrqG9M6xAvRWsXyZCoLypoz6JKBeOhvVCz0', type: 'slides', xp: 10 },
             ],
             kisiKisi: [],
-            kisiKisiNote: '⚠️ Kisi-kisi untuk Marketing Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 sebagai panduan belajar.',
+            kisiKisiNote: '⚠️ Kisi-kisi untuk Marketing Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 dan Addendum sebagai panduan belajar.',
             flashcards: [
                 // MODUL 1: Marketing Channels & Logistics
                 { id: 1, term: 'Filosofi Netflix: "Finding the Future by Abandoning the Past"', definition: 'Strategi berani meninggalkan model bisnis lama (DVD fisik) demi masa depan (Streaming) agar tidak tertinggal zaman seperti Blockbuster.' },
@@ -327,18 +327,171 @@ export const DB = {
                 { id: 8, title: 'Session 26: Managing HR in SME', driveId: '1ZVRcU56KB3Jg5ZVHQHgwxrzDA9xXw-shv0quXTq_teQ', type: 'slides', xp: 10 },
             ],
             kisiKisi: [],
-            kisiKisiNote: '⚠️ Kisi-kisi untuk Human Resources Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan materi PPT Session 17-26 sebagai panduan belajar.',
+            kisiKisiNote: '⚠️ Kisi-kisi untuk Human Resources Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 dan Addendum sebagai panduan belajar.',
             flashcards: [
-                { id: 1, term: 'Job Analysis', definition: 'Mengumpulkan info tugas & kualifikasi' },
-                { id: 2, term: 'Onboarding', definition: 'Orientasi karyawan baru' },
-                { id: 3, term: 'KPI', definition: 'Key Performance Indicator' },
-                { id: 4, term: 'TNA', definition: 'Training Need Analysis' },
+                // Legislasi Tambahan
+                { id: 1, term: 'Age Discrimination in Employment Act (ADEA)', definition: 'Undang-undang yang melindungi pekerja dari diskriminasi berdasarkan usia (disebutkan dalam daftar legislasi pelindung hak pekerja).' },
+                { id: 2, term: 'ADA (1990)', definition: 'Americans with Disabilities Act, melindungi pekerja dengan disabilitas (disebutkan dalam daftar legislasi pelindung hak pekerja).' },
+                { id: 3, term: 'FMLA', definition: 'Family and Medical Leave Act, mengatur cuti medis dan keluarga (disebutkan dalam daftar legislasi pelindung hak pekerja).' },
+                // Teori Vroom
+                { id: 4, term: 'Komponen 1: Ekspektasi (Expectancy)', definition: 'Keyakinan bahwa usaha akan menghasilkan kinerja (Bagian dari Teori Harapan Vroom).' },
+                { id: 5, term: 'Komponen 2: Instrumentalitas', definition: 'Keyakinan bahwa kinerja akan menghasilkan imbalan/reward (Bagian dari Teori Harapan Vroom).' },
+                { id: 6, term: 'Komponen 3: Valensi', definition: 'Nilai yang diberikan individu terhadap imbalan tersebut (Bagian dari Teori Harapan Vroom).' },
+                // Sistem Insentif
+                { id: 7, term: 'Lump-sum Merit', definition: 'Opsi kenaikan gaji berbasis kinerja yang dibayarkan sekali (tidak permanen menambah gaji pokok), berbeda dengan Merit Pay standar.' },
+                { id: 8, term: 'Enterprise Incentive Management (EIM)', definition: 'Sistem manajemen yang diperlukan untuk mengelola rencana insentif komisi/kombinasi yang kompleks secara efektif.' },
+                // Bahaya Kantor
+                { id: 9, term: 'Bahaya Kabel Listrik', definition: 'Kabel yang terkelupas atau manajemen kabel yang buruk menimbulkan risiko tersandung (trip hazard).' },
+                { id: 10, term: 'Bahaya Lantai', definition: 'Lantai licin atau karpet yang tidak rata yang berpotensi menyebabkan jatuh.' },
+                { id: 11, term: 'Bahaya Pencahayaan', definition: 'Pencahayaan yang buruk, terutama di tangga atau lorong yang dapat memicu kecelakaan.' },
+                { id: 12, term: 'Bahaya Kimia Kantor', definition: 'Penyimpanan bahan kimia pembersih yang tidak aman.' },
+                // Ergonomi
+                { id: 13, term: 'Posisi Monitor yang Benar', definition: 'Monitor komputer harus sejajar dengan mata untuk mencegah gangguan leher/punggung.' },
+                { id: 14, term: 'Kursi Ergonomis', definition: 'Diperlukan untuk mencegah Repetitive Motion Disorders dan masalah punggung akibat duduk lama.' },
+                // Alat Bantu
+                { id: 15, term: 'e-tool OSHA', definition: 'Alat bantu desain workstation yang direkomendasikan untuk solusi ergonomi komputer.' },
+                // Stres Kerja
+                { id: 16, term: 'Perbedaan Burnout vs Depresi', definition: 'Burnout adalah kelelahan total, sementara Depresi adalah kondisi klinis yang lebih fatal; keduanya memerlukan intervensi berbeda.' },
+                // Definisi Ahli
+                { id: 17, term: 'Definisi HR Analytics (Lalwani, 2021)', definition: 'Penerapan metode statistik pada data SDM, talenta, keuangan, dan operasional yang terintegrasi.' },
+                { id: 18, term: 'Definisi HR Analytics (AIHR/Vulpen, 2021)', definition: 'Proses pengumpulan bersama (co-collection), analisis, dan pelaporan data HR.' },
+                // Metrik Hiring
+                { id: 19, term: 'Faktor Speed of Process', definition: 'Kecepatan proses rekrutmen mempengaruhi tingkat penerimaan penawaran (Offer Acceptance Rate).' },
+                { id: 20, term: 'Faktor Candidate Experience', definition: 'Pengalaman kandidat selama seleksi mempengaruhi keputusan menerima penawaran.' },
+                // Metrik Retensi
+                { id: 21, term: 'Faktor Hubungan Atasan', definition: 'Kualitas hubungan dengan manajer adalah penentu utama retensi karyawan.' },
+                { id: 22, term: 'Faktor Work-Life Balance', definition: 'Keseimbangan kerja dan kehidupan pribadi mempengaruhi keputusan karyawan untuk bertahan.' },
+                // Formulir Manual
+                { id: 23, term: 'Formulir New Employee Checklist', definition: 'Daftar periksa untuk memastikan semua prosedur penerimaan karyawan baru terlaksana (Item No. 2 Tabel 18.1).' },
+                { id: 24, term: 'Formulir Telephone Reference Report', definition: 'Laporan hasil pengecekan referensi kandidat via telepon (Item No. 5 Tabel 18.1).' },
+                { id: 25, term: 'Formulir Employee Secrecy Agreement', definition: 'Perjanjian kerahasiaan yang wajib ditandatangani karyawan baru (Item No. 9 Tabel 18.1).' },
+                { id: 26, term: 'Formulir Employee Status Change Request', definition: 'Permintaan perubahan status karyawan (promosi/mutasi) untuk karyawan saat ini (Item No. 10 Tabel 18.1).' },
+                { id: 27, term: 'Formulir Probation Notice', definition: 'Pemberitahuan masa percobaan bagi karyawan (Item No. 15 Tabel 18.1).' },
+                { id: 28, term: 'Formulir Disciplinary Notice', definition: 'Pemberitahuan tindakan disipliner tertulis (Item No. 20 Tabel 18.1).' },
+                { id: 29, term: 'Formulir Grievance Form', definition: 'Formulir resmi untuk karyawan mengajukan keluhan (Item No. 21 Tabel 18.1).' },
+                { id: 30, term: 'Formulir Retirement Checklist', definition: 'Daftar periksa prosedur pensiun karyawan (Item No. 25 Tabel 18.1).' },
+                { id: 31, term: 'Formulir COBRA Acknowledgment', definition: 'Pengakuan terkait asuransi kesehatan lanjutan pasca-kerja (Item No. 27 Tabel 18.1).' },
+                // Vendor HRIS
+                { id: 32, term: 'ADP (Automated Data Process, Inc.)', definition: 'Salah satu vendor utama perangkat lunak HRIS yang disebutkan dalam materi.' },
+                { id: 33, term: 'Lawson Software', definition: 'Vendor perangkat lunak HRIS yang disebutkan dalam materi.' },
+                { id: 34, term: 'Workday', definition: 'Vendor perangkat lunak HRIS berbasis cloud modern yang disebutkan dalam materi.' },
+                { id: 35, term: 'Odoo', definition: 'Platform manajemen bisnis open-source yang mencakup modul HR, disebutkan dalam materi.' },
+                { id: 36, term: 'SAP America, Inc.', definition: 'Vendor sistem enterprise besar yang menyediakan solusi HRIS.' },
+                // Tambahan Flashcard (37-55)
+                { id: 37, term: 'ERISA (Detail)', definition: 'Undang-undang yang mengatur dana pensiun, hak vesting, dan portabilitas (dijelaskan lebih dalam dari sekadar singkatan).' },
+                { id: 38, term: 'Kode Input Bonus Hashmicro', definition: 'Kode yang digunakan dalam sistem untuk Yearly Bonus adalah YB.' },
+                { id: 39, term: 'Alur Update Kontrak Hashmicro', definition: 'Urutan status wajib: Running -> New -> Update Struktur Gaji -> Running.' },
+                { id: 40, term: 'Lump-sum Merit', definition: 'Kenaikan gaji berbasis kinerja yang dibayarkan sekali saja (tidak menaikkan gaji pokok secara permanen).' },
+                { id: 41, term: 'Detail Statistik Kematian (AS)', definition: 'Angka spesifik kematian kerja per tahun: 5.190 pekerja.' },
+                { id: 42, term: 'Detail Statistik Cedera (AS)', definition: 'Angka spesifik cedera/penyakit kerja per tahun: 2,9 juta kasus.' },
+                { id: 43, term: 'Chance Occurrences', definition: 'Peristiwa di luar kendali manajemen (contoh: bencana alam) yang menyebabkan kecelakaan.' },
+                { id: 44, term: 'Detail Right to Work', definition: 'Aturan hukum negara bagian yang melarang kewajiban keanggotaan serikat sebagai syarat kerja (ancaman bagi Union Security).' },
+                { id: 45, term: 'Class Action', definition: 'Salah satu strategi serikat pekerja modern: menggunakan tuntutan hukum massal untuk menekan perusahaan.' },
+                { id: 46, term: 'Sitasi Meulen & McCall (2018)', definition: 'Ahli yang merumuskan 4 Tingkat Kematangan Analitik (Descriptive s.d Prescriptive).' },
+                { id: 47, term: 'Definisi Descriptive Analytics', definition: 'Tingkat dasar analitik yang hanya menjawab "Apa yang terjadi?" (What happened?).' },
+                { id: 48, term: 'Wonderlic Personnel Test', definition: 'Salah satu tes seleksi sederhana yang direkomendasikan untuk bisnis kecil.' },
+                { id: 49, term: 'Predictive Index', definition: 'Alat tes seleksi lain yang cocok dan efektif untuk bisnis kecil.' },
+                { id: 50, term: 'Simple IRA', definition: 'Program pensiun yang murah, mudah, dan sederhana, sering digunakan sebagai daya tarik bisnis kecil.' },
+                { id: 51, term: 'Hardship Allowance', definition: 'Tunjangan khusus bagi ekspatriat yang ditempatkan di lokasi dengan kondisi hidup sulit/berbahaya.' },
+                { id: 52, term: 'Foreign Service Premium', definition: 'Insentif finansial tambahan sekadar karena bersedia bekerja di luar negeri.' },
+                { id: 53, term: 'Mobility Premiums', definition: 'Pembayaran sekaligus (lump-sum) untuk menghargai perpindahan tempat tinggal.' },
+                { id: 54, term: 'Odoo', definition: 'Salah satu vendor HRIS yang disebutkan dalam materi (Open source solution).' },
+                { id: 55, term: 'SAP America', definition: 'Vendor sistem enterprise besar untuk HRIS yang terdaftar di materi.' },
             ],
             essayExam: [{ question: 'Rancang program onboarding untuk Gen Z!', modelAnswer: 'Pre-boarding digital, buddy system, training, project assignment.', rubric: { teori: 30, konteks: 40, argumentasi: 30 } }],
             quiz: [
-                { question: 'Job Description adalah...', options: ['Kualifikasi', 'Daftar tugas', 'Analisis', 'Evaluasi'], answer: 1, xp: 5 },
-                { question: '360-Degree Feedback adalah...', options: ['MBO', 'Penilaian multi-pihak', 'BARS', 'Rating'], answer: 1, xp: 5 },
+                // Modul 1: Kompensasi (1-12)
+                { question: "Apa definisi dari 'Aligned Reward Strategy' dalam manajemen kompensasi?", options: ['Strategi membayar gaji terendah untuk menghemat biaya', 'Paket kompensasi yang menghasilkan perilaku karyawan untuk mencapai strategi kompetitif', 'Sistem pembayaran yang hanya berdasarkan pada durasi kerja', 'Strategi menyamakan gaji semua level karyawan demi keadilan'], answer: 1, xp: 5 },
+                { question: 'Apa dua komponen utama dalam kompensasi karyawan?', options: ['Gaji Pokok dan Tunjangan Makan', 'Pembayaran Finansial Langsung dan Pembayaran Finansial Tidak Langsung', 'Insentif Jangka Pendek dan Insentif Jangka Panjang', 'Upah Minimum dan Upah Lembur'], answer: 1, xp: 5 },
+                { question: "Menurut Teori Keadilan (Equity Theory), 'Keadilan Eksternal' merujuk pada apa?", options: ['Membandingkan gaji antar jabatan di dalam perusahaan', 'Membandingkan gaji dengan perusahaan lain di pasar', 'Membandingkan gaji antar individu dengan jabatan yang sama', 'Keadilan dalam proses alokasi gaji'], answer: 1, xp: 5 },
+                { question: "Dalam konteks FLSA (1938), apa yang dimaksud dengan karyawan 'Exempt'?", options: ['Karyawan yang dikecualikan dari aturan lembur (biasanya manajer/profesional)', 'Karyawan yang berhak mendapatkan uang lembur', 'Karyawan paruh waktu', 'Karyawan magang'], answer: 0, xp: 5 },
+                { question: 'Undang-undang mana yang menetapkan upah minimum dan lembur untuk kontrak pemerintah?', options: ['Davis-Bacon Act (1931)', 'Walsh-Healey Public Contract Act (1936)', 'Equal Pay Act (1963)', 'ERISA (1974)'], answer: 1, xp: 5 },
+                { question: 'Apa elemen dasar pekerjaan seperti keterampilan, usaha, dan tanggung jawab dalam Evaluasi Jabatan disebut?', options: ['Key Performance Indicators', 'Job Specifications', 'Compensable Factors', 'Job Descriptions'], answer: 2, xp: 5 },
+                { question: 'Metode evaluasi jabatan yang paling sederhana dengan memeringkat jabatan dari terendah ke tertinggi adalah?', options: ['Metode Poin', 'Metode Klasifikasi', 'Metode Pemeringkatan (Ranking Method)', 'Factor Comparison'], answer: 2, xp: 5 },
+                { question: "Apa langkah keempat dalam membangun 'Market-Competitive Pay Plan'?", options: ['Pilih Jabatan Benchmark', 'Analisis Pasar (Survei Gaji)', 'Tetapkan Rentang Tarif', 'Koreksi Tarif di Luar Garis'], answer: 1, xp: 5 },
+                { question: "'County of Washington v. Gunther' menetapkan prinsip hukum terkait apa?", options: ['Keselamatan Kerja', 'Hak Berserikat', 'Comparable Worth (Nilai Sebanding)', 'Pensiun Dini'], answer: 2, xp: 5 },
+                { question: 'Menurut Teori Motivasi Herzberg, gaji dianggap sebagai faktor apa?', options: ['Motivator', 'Higienis (Mencegah ketidakpuasan)', 'Intrinsik', 'Afektif'], answer: 1, xp: 5 },
+                { question: "Dalam Teori Harapan Vroom, keyakinan bahwa 'kinerja akan menghasilkan imbalan' disebut?", options: ['Ekspektasi', 'Instrumentalitas', 'Valensi', 'Reinforcement'], answer: 1, xp: 5 },
+                { question: 'Jenis insentif tim yang membagikan hasil dari penghematan biaya produksi disebut?', options: ['Profit-sharing plans', 'ESOPs', 'Scanlon plans', 'Commission plans'], answer: 2, xp: 5 },
+                // Modul 1: Teknis Hashmicro (13)
+                { question: "Pada software Hashmicro, apa yang wajib diisi pada tab 'Accounting' saat membuat Salary Rules?", options: ['Nama Karyawan', 'Debit Account dan Credit Account', 'Nomor Rekening Bank', 'Tanggal Lahir'], answer: 1, xp: 5 },
+                // Modul 1: Legislasi Tambahan (14)
+                { question: 'Undang-undang yang melindungi pekerja dari diskriminasi berdasarkan usia adalah?', options: ['ADA', 'FMLA', 'ADEA (Age Discrimination in Employment Act)', 'ERISA'], answer: 2, xp: 5 },
+                // Modul 2: K3 & Risiko (15-18)
+                { question: "Apa yang dimaksud dengan 'Unsafe Conditions'?", options: ['Perilaku ceroboh karyawan', 'Bencana alam tak terduga', 'Penyebab fisik/lingkungan seperti peralatan rusak atau ventilasi buruk', 'Tekanan mental dari atasan'], answer: 2, xp: 5 },
+                { question: "Apa 'garis pertahanan pertama' (first line of defense) pemberi kerja dalam mencegah kecelakaan?", options: ['Mengurangi Kondisi Tidak Aman', 'Mengurangi Tindakan Tidak Aman', 'Melakukan Pelatihan K3', 'Menyediakan Klinik Kesehatan'], answer: 0, xp: 5 },
+                { question: "Apa tujuan utama dari 'Job Hazard Analysis'?", options: ['Menghitung biaya asuransi', 'Mengidentifikasi bahaya di tiap langkah kerja spesifik', 'Menilai kinerja karyawan', 'Menentukan gaji pokok'], answer: 1, xp: 5 },
+                // Modul 2: Detail Teknis (18-19)
+                { question: 'Terkait ergonomi komputer, di mana posisi monitor yang benar?', options: ['Di atas tingkat mata', 'Sejajar dengan mata', 'Di bawah dagu', 'Di samping kiri meja'], answer: 1, xp: 5 },
+                { question: 'Apa prinsip utama keamanan siber terkait data lama?', options: ['Data lama harus diarsipkan selamanya', 'Old data is bad data (Data lama adalah risiko dan harus dibersihkan)', 'Data lama tidak perlu diamankan', 'Data lama lebih aman dari data baru'], answer: 1, xp: 5 },
+                // Modul 2: K3 Indonesia (20)
+                { question: 'Peraturan Pemerintah (PP) No. 50 Tahun 2012 mengatur tentang apa?', options: ['Upah Minimum Provinsi', 'Penerapan Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3)', 'Jaminan Hari Tua', 'Serikat Pekerja'], answer: 1, xp: 5 },
+                // Modul 2: Detail Teknis (21)
+                { question: "Apa perbedaan utama antara 'Burnout' dan 'Depresi'?", options: ['Burnout adalah masalah fisik, Depresi masalah mental', 'Burnout adalah kelelahan total, Depresi adalah kondisi klinis yang lebih fatal', 'Burnout hanya dialami manajer, Depresi dialami staf', 'Tidak ada perbedaan, keduanya sama'], answer: 1, xp: 5 },
+                // Modul 3: Hubungan Kerja (22-25)
+                { question: "Kontrak 'Yellow Dog' yang dinyatakan tidak berlaku oleh Norris-LaGuardia Act berisi janji apa?", options: ['Janji pengusaha menaikkan gaji', 'Janji pekerja untuk tidak bergabung dengan serikat pekerja', 'Janji serikat untuk tidak mogok', 'Janji pekerja untuk bekerja lembur'], answer: 1, xp: 5 },
+                { question: 'Manakah yang merupakan praktik tidak adil pengusaha menurut Wagner Act?', options: ['Mendominasi atau mencampuri pembentukan serikat', 'Melakukan featherbedding', 'Memaksa karyawan mogok', 'Menolak membayar iuran serikat'], answer: 0, xp: 5 },
+                { question: 'Apa istilah untuk praktik serikat pekerja meminta bayaran untuk pekerjaan yang tidak dilakukan?', options: ['Lockout', 'Boycott', 'Featherbedding', 'Wildcat Strike'], answer: 2, xp: 5 },
+                { question: 'Jika negosiasi buntu, pihak ketiga yang bisa membuat keputusan MENGIKAT (binding) disebut?', options: ['Mediator', 'Fact-finder', 'Arbitrator', 'Konsultan'], answer: 2, xp: 5 },
+                // Modul 4: Transformasi HR (26-27)
+                { question: "Menurut David Ulrich, peran HR yang bertugas sebagai 'mitra strategis' adalah?", options: ['Administrative Expert', 'Change Agent', 'Employee Advocate', 'HR Business Partner (Strategic Partner)'], answer: 3, xp: 5 },
+                { question: "Apa fokus utama peran 'Change Agent' dalam model Ulrich?", options: ['Mengelola administrasi penggajian', 'Mengelola transformasi dan budaya organisasi', 'Menangani keluhan individu karyawan', 'Menyusun kontrak kerja'], answer: 1, xp: 5 },
+                // Modul 4: HR Analytics (28-30)
+                { question: "Tahap kematangan analitik yang menjawab pertanyaan 'Mengapa itu terjadi?' (Why did it happen?) adalah?", options: ['Descriptive Analytics', 'Diagnostic Analytics', 'Predictive Analytics', 'Prescriptive Analytics'], answer: 1, xp: 5 },
+                { question: "Apa rumus yang tepat untuk menghitung 'Retention Rate'?", options: ['(Jumlah Karyawan Baru / Total Karyawan) x 100%', '(Jumlah Karyawan Akhir Periode / Jumlah Karyawan Awal Periode [tanpa rekrutmen baru]) x 100%', '(Jumlah Karyawan Keluar / Total Karyawan Awal) x 100%', '(Total Gaji / Jumlah Karyawan) x 100%'], answer: 1, xp: 5 },
+                { question: 'Menurut West (2019), HR Analytics adalah pertemuan dari disiplin ilmu apa saja?', options: ['Ekonomi, Hukum, dan Sosiologi', 'Statistik, Ilmu Perilaku, Teknologi, dan Strategi', 'Akuntansi, Manajemen, dan Psikologi', 'Pemasaran, Operasional, dan Keuangan'], answer: 1, xp: 5 },
+                // Modul 5: Global HR (31-34)
+                { question: 'Strategi penyusunan staf global di mana posisi kunci diisi oleh warga negara asal (expatriates) disebut?', options: ['Polycentric', 'Geocentric', 'Ethnocentric', 'Regiocentric'], answer: 2, xp: 5 },
+                { question: "Salah satu dimensi budaya Hofstede adalah 'Power Distance'. Apa artinya?", options: ['Tingkat kenyamanan terhadap risiko', 'Penerimaan terhadap distribusi kekuasaan yang tidak setara', 'Fokus pada kepentingan individu vs kelompok', 'Orientasi jangka panjang vs tradisi'], answer: 1, xp: 5 },
+                { question: 'Apa pendekatan kompensasi yang umum digunakan untuk ekspatriat agar daya belinya setara dengan di negara asal?', options: ['Metode Lokalisasi', 'Metode Lump-sum', 'Metode Neraca (Balance Sheet Approach)', 'Metode Negosiasi'], answer: 2, xp: 5 },
+                // Modul 5: SME HR (34)
+                { question: 'Apa itu PEO (Professional Employer Organization)?', options: ['Organisasi serikat pekerja internasional', "Vendor outsourcing yang menjadi 'co-employers' menangani administrasi HR/pajak", 'Badan pemerintah untuk UKM', 'Software rekrutmen gratis'], answer: 1, xp: 5 },
+                // Modul 5: SME HR - Formulir (35-37)
+                { question: "Formulir 'Telephone Reference Report' digunakan pada tahap apa?", options: ['Saat karyawan akan pensiun', 'Saat mengevaluasi kinerja tahunan', 'Saat memeriksa referensi kandidat karyawan baru', 'Saat mengajukan klaim asuransi'], answer: 2, xp: 5 },
+                { question: 'Formulir apa yang wajib ditandatangani karyawan baru untuk menjaga rahasia perusahaan?', options: ['Grievance Form', 'COBRA Acknowledgment', 'Employee Secrecy Agreement', 'Probation Notice'], answer: 2, xp: 5 },
+                { question: "'Grievance Form' berfungsi untuk?", options: ['Mengajukan cuti liburan', 'Melaporkan pengeluaran dinas', 'Mengajukan keluhan resmi karyawan', 'Mencatat kehadiran harian'], answer: 2, xp: 5 },
+                // Modul 5: SME HR - Vendor (38)
+                { question: 'Manakah di bawah ini yang merupakan vendor perangkat lunak HRIS yang disebutkan dalam materi?', options: ['Adobe Photoshop', 'Workday', 'AutoCAD', 'CorelDraw'], answer: 1, xp: 5 },
+                // Modul 1: Kompensasi (39)
+                { question: "Metode insentif 'Piecework' jenis 'Straight Piecework' artinya?", options: ['Membayar tarif tetap per unit yang dihasilkan', 'Membayar berdasarkan jam kerja standar', 'Membayar bonus tahunan', 'Membayar komisi penjualan'], answer: 0, xp: 5 },
+                // Modul 5: Global HR (40)
+                { question: 'Masalah utama dalam repatriasi (kepulangan) ekspatriat adalah?', options: ['Biaya tiket pesawat terlalu mahal', 'Investasi sia-sia karena ekspatriat sering keluar setelah kembali (turnover)', 'Ekspatriat lupa bahasa negara asal', 'Visa kerja kadaluarsa'], answer: 1, xp: 5 },
+                // Tambahan Quiz (41-60)
+                { question: 'Undang-undang ERISA (1974) secara spesifik mengatur tentang apa?', options: ['Upah Minimum dan Lembur', 'Diskriminasi Gender', 'Dana Pensiun, Hak Vesting, dan Portabilitas', 'Keselamatan Kerja di Pabrik'], answer: 2, xp: 5 },
+                { question: "Apa perbedaan utama 'Lump-sum Merit' dengan kenaikan gaji merit biasa?", options: ['Lump-sum dibayarkan setiap bulan', 'Lump-sum hanya untuk eksekutif', 'Lump-sum dibayarkan sekali dan tidak menaikkan gaji pokok permanen', 'Lump-sum berupa saham bukan uang tunai'], answer: 2, xp: 5 },
+                { question: "Dalam panduan Hashmicro, apa kode input yang digunakan untuk 'Yearly Bonus'?", options: ['BON', 'YB', 'ANB', 'THR'], answer: 1, xp: 5 },
+                { question: 'Bagaimana urutan status kontrak yang benar saat melakukan update struktur gaji di Hashmicro?', options: ['Draft -> Running -> Done', 'Running -> Cancelled -> New', 'Running -> New -> Update Struktur -> Running', 'New -> Running -> Expired'], answer: 2, xp: 5 },
+                { question: 'Berdasarkan statistik AS dalam materi, berapa jumlah kematian pekerja per tahun?', options: ['1.000 pekerja', '5.190 pekerja', '10.500 pekerja', '250 pekerja'], answer: 1, xp: 5 },
+                { question: 'Peristiwa di luar kendali manajemen seperti bencana alam dikategorikan sebagai?', options: ['Unsafe Acts', 'Unsafe Conditions', 'Chance Occurrences', 'Human Error'], answer: 2, xp: 5 },
+                { question: "Apa itu aturan 'Right to Work' yang sering menjadi tantangan bagi serikat pekerja?", options: ['Hak untuk mogok kerja kapan saja', 'Larangan kewajiban keanggotaan serikat sebagai syarat kerja', 'Kewajiban perusahaan menyediakan ruang serikat', 'Hak pekerja mendapatkan pesangon'], answer: 1, xp: 5 },
+                { question: 'Selain mengorganisasi agresif dan menekan Kongres, apa strategi modern serikat pekerja?', options: ['Menggunakan kekerasan fisik', 'Menggunakan tuntutan hukum Class Action', 'Membeli saham mayoritas perusahaan', 'Menutup pabrik secara paksa'], answer: 1, xp: 5 },
+                { question: 'Siapa ahli yang merumuskan 4 Tingkat Kematangan Analitik (Descriptive hingga Prescriptive)?', options: ['David Ulrich', 'Meulen & McCall (2018)', 'Frederick Taylor', 'Geert Hofstede'], answer: 1, xp: 5 },
+                { question: "Apa fokus dari 'Descriptive Analytics'?", options: ["Menjawab 'Apa yang akan terjadi?'", "Menjawab 'Mengapa itu terjadi?'", "Menjawab 'Apa yang terjadi?' (What happened?)", 'Memberikan solusi otomatis'], answer: 2, xp: 5 },
+                { question: 'Manakah di bawah ini yang merupakan tes seleksi personel sederhana yang direkomendasikan untuk bisnis kecil?', options: ['GMAT', 'Wonderlic Personnel Test', 'TOEFL', 'Rorschach Test'], answer: 1, xp: 5 },
+                { question: 'Selain Wonderlic, tes apa yang disebut efektif untuk seleksi di bisnis kecil?', options: ['Predictive Index', 'IQ Test Lengkap', 'Tes Kesehatan MRI', 'Tes DNA'], answer: 0, xp: 5 },
+                { question: 'Apa nama program pensiun yang murah dan sederhana yang sering digunakan bisnis kecil?', options: ['Complex 401(k)', 'Defined Benefit Plan', 'Simple IRA', 'State Pension'], answer: 2, xp: 5 },
+                { question: 'Tunjangan yang diberikan kepada ekspatriat karena ditempatkan di lokasi yang sulit atau berbahaya disebut?', options: ['Mobility Premium', 'Hardship Allowance', 'Performance Bonus', 'Travel Grant'], answer: 1, xp: 5 },
+                { question: "Apa definisi 'Foreign Service Premium'?", options: ['Gaji pokok mata uang asing', 'Insentif finansial tambahan karena bersedia bekerja di luar negeri', 'Biaya sekolah anak ekspatriat', 'Asuransi kesehatan internasional'], answer: 1, xp: 5 },
+                { question: 'Pembayaran lump-sum untuk menghargai perpindahan tempat tinggal ekspatriat disebut?', options: ['Mobility Premiums', 'Severance Pay', 'Commission', 'Overtime Pay'], answer: 0, xp: 5 },
+                { question: 'Selain Workday dan Oracle, manakah yang termasuk vendor HRIS utama dalam materi?', options: ['SAP America', 'Microsoft Word', 'Canva', 'Zoom'], answer: 0, xp: 5 },
+                { question: 'Platform manajemen bisnis open-source yang mencakup modul HR dan disebut dalam materi adalah?', options: ['Linux HR', 'Odoo', 'Android', 'Mozilla'], answer: 1, xp: 5 },
+                { question: 'Siapa pencetus gerakan Manajemen Ilmiah yang menjadi akar sistem pembayaran berbasis kinerja?', options: ['Frederick Taylor', 'Henri Fayol', 'Max Weber', 'Elton Mayo'], answer: 0, xp: 5 },
+                { question: "Apa pendekatan 'Polycentric' dalam penyusunan staf global?", options: ['Posisi kunci di luar negeri diisi oleh penduduk setempat (Locals)', 'Posisi kunci diisi oleh warga negara asal', 'Mencari orang terbaik tanpa melihat negara', 'Memindahkan pabrik ke negara berkembang'], answer: 0, xp: 5 },
             ],
+            rangkuman: {
+                modulInti: [
+                    { title: 'Modul 1: Manajemen Kompensasi Strategis & Sistem Insentif', contentKey: 'modul1', type: 'native' },
+                    { title: 'Modul 2: Manajemen Keselamatan, Kesehatan, dan Risiko Kerja', contentKey: 'modul2', type: 'native' },
+                    { title: 'Modul 3: Hubungan Tenaga Kerja dan Perundingan Kolektif', contentKey: 'modul3', type: 'native' },
+                    { title: 'Modul 4: Transformasi Infrastruktur HR (Model Ulrich & HR Analytics)', contentKey: 'modul4', type: 'native' },
+                    { title: 'Modul 5: Manajemen SDM Global & Bisnis Kecil (SME)', contentKey: 'modul5', type: 'native' },
+                ],
+                addendum: [
+                    { title: 'Addendum: Detail Mikro & Teknis Pelengkap (Modul 1-5)', contentKey: 'tambahan', type: 'native' },
+                ],
+                mentorPPT: [],
+                mentorPPTNote: '⚠️ Rangkuman Mentor tidak tersedia untuk mata kuliah Human Resources Management.',
+            },
         },
         mis: {
             materi: [
