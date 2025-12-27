@@ -15,10 +15,11 @@ const rateLimits = {};
 const checkRateLimit = (key, limitMs) => {
   const now = Date.now();
   if (rateLimits[key] && now - rateLimits[key] < limitMs) {
-    return false; // Rate limited
+    const remaining = Math.ceil((limitMs - (now - rateLimits[key])) / 1000);
+    return { allowed: false, remaining }; // Rate limited
   }
   rateLimits[key] = now;
-  return true; // Allowed
+  return { allowed: true, remaining: 0 }; // Allowed
 };
 
 const themeColors = [
@@ -3688,8 +3689,9 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
   }, [subjectId]);
 
   const handleCreate = async () => {
-    if (!checkRateLimit('createThread', 30000)) {
-      showToast('Mohon tunggu 30 detik sebelum membuat thread baru', 'error');
+    const rateCheck = checkRateLimit('createThread', 30000);
+    if (!rateCheck.allowed) {
+      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum membuat thread baru`, 'error');
       return;
     }
     if (!newTitle.trim() || !newContent.trim()) return;
@@ -3836,8 +3838,9 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   }, [subjectId, thread.id]);
 
   const handlePost = async () => {
-    if (!checkRateLimit('postComment', 10000)) {
-      showToast('Mohon tunggu 10 detik sebelum komentar lagi', 'error');
+    const rateCheck = checkRateLimit('postComment', 10000);
+    if (!rateCheck.allowed) {
+      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum komentar`, 'error');
       return;
     }
     if (!newComment.trim()) return;
@@ -3850,8 +3853,9 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   };
 
   const handleReply = async (commentId) => {
-    if (!checkRateLimit('replyComment', 5000)) {
-      showToast('Mohon tunggu 5 detik sebelum membalas lagi', 'error');
+    const rateCheck = checkRateLimit('replyComment', 5000);
+    if (!rateCheck.allowed) {
+      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi sebelum membalas`, 'error');
       return;
     }
     if (!replyText.trim()) return;
@@ -4609,8 +4613,9 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   };
 
   const sendTextMessage = async () => {
-    if (!checkRateLimit('chat', 2000)) {
-      showToast('Jangan spam ya! Tunggu 2 detik.', 'error');
+    const rateCheck = checkRateLimit('chat', 2000);
+    if (!rateCheck.allowed) {
+      showToast(`⏳ Tunggu ${rateCheck.remaining} detik lagi`, 'error');
       return;
     }
     if (!input.trim() || sending) return;
