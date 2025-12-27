@@ -942,7 +942,7 @@ export default function App() {
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} />
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -2166,7 +2166,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode, showCooldown }) {
   const content = DB.content[subject.id];
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -4942,6 +4942,12 @@ function AdminDashboard({ session, onClose }) {
     };
     loadData();
   }, [statsRefresh]);
+
+  // Subscribe to activity logs
+  useEffect(() => {
+    const unsub = subscribeToActivityLogs(setActivityLogs, 100);
+    return () => unsub && unsub();
+  }, []);
 
   const resetForm = () => {
     setKeyForm({ key: '', name: '', daysActive: 30, isAdmin: false, isTester: false, maxDevices: 1, fixedExpiry: '' });
