@@ -429,6 +429,10 @@ export default function App() {
     if (session) {
       const userProgressKey = `studyProgress_${session.licenseKey || session.key || 'default'}`;
       localStorage.setItem(userProgressKey, JSON.stringify(progress));
+      // Sync progress to Firebase
+      if (session.licenseKey && Object.keys(progress).length > 0) {
+        saveUserSettings(session.licenseKey, { progress });
+      }
     }
   }, [progress, session]);
 
@@ -694,6 +698,12 @@ export default function App() {
           if (cloudSettings.reminder) {
             setReminder(cloudSettings.reminder);
             localStorage.setItem('studyReminder', cloudSettings.reminder);
+          }
+          // Load progress from cloud
+          if (cloudSettings.progress && Object.keys(cloudSettings.progress).length > 0) {
+            setProgress(cloudSettings.progress);
+            const userProgressKey = `studyProgress_${session.licenseKey}`;
+            localStorage.setItem(userProgressKey, JSON.stringify(cloudSettings.progress));
           }
         }
 
@@ -5191,28 +5201,32 @@ function AdminDashboard({ session, onClose }) {
                     const isSuspended = lk?.suspendedUntil && new Date(lk.suspendedUntil) > new Date();
                     return (
                       <div key={u.licenseKey} className="glass-card p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-medium text-[var(--text)]">{u.userName}</span>
-                          <div className="flex gap-1 items-center">
-                            {isSuspended && <span className="badge text-[10px] bg-orange-500/15 text-orange-500 border-0">Suspended</span>}
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-[var(--text)]">{u.userName}</span>
+                            {isSuspended && <span className="badge text-[10px] bg-orange-500/15 text-orange-500 border-0">🚫 Suspended</span>}
                             {isExpired ? (
                               <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>
                             ) : (
                               <span className="badge text-[10px] bg-green-500/15 text-green-500 border-0">Active</span>
                             )}
-                            <button onClick={() => isSuspended ? unsuspendLicense(u.licenseKey).then(() => setStatsRefresh(r => r + 1)) : setSuspendModal({ key: u.licenseKey, name: u.userName })} className={`p-1.5 rounded-lg text-xs ${isSuspended ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500'}`} title={isSuspended ? 'Unsuspend' : 'Suspend'}>
-                              {isSuspended ? <Check className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
-                            </button>
                           </div>
                         </div>
-                        <p className="text-xs text-[var(--text-muted)] mb-1">
+                        <p className="text-xs text-[var(--text-muted)] mb-2">
                           <code className="text-[var(--accent)]">{u.licenseKey}</code>
                         </p>
-                        <div className="flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+                        <div className="flex flex-wrap gap-2 text-xs text-[var(--text-muted)] mb-2">
                           <span>📅 {u.expiry ? new Date(u.expiry).toLocaleDateString('id-ID') : '-'}</span>
                           {u.referralCode && <span>🎁 {u.referralCount || 0} referral</span>}
                           {u.email && <span>✉️ {u.email}</span>}
                         </div>
+                        {/* SUSPEND/UNSUSPEND BUTTON - HIGHLY VISIBLE */}
+                        <button
+                          onClick={() => isSuspended ? unsuspendLicense(u.licenseKey).then(() => setStatsRefresh(r => r + 1)) : setSuspendModal({ key: u.licenseKey, name: u.userName })}
+                          className={`w-full py-2 px-3 rounded-lg text-sm font-medium flex items-center justify-center gap-2 ${isSuspended ? 'bg-green-500/20 text-green-500 hover:bg-green-500/30' : 'bg-orange-500/20 text-orange-500 hover:bg-orange-500/30'}`}
+                        >
+                          {isSuspended ? <><Check className="w-4 h-4" /> Unsuspend User</> : <><XCircle className="w-4 h-4" /> Suspend User</>}
+                        </button>
                       </div>
                     );
                   })}
