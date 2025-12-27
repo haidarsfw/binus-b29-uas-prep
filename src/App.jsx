@@ -2021,6 +2021,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Selamat Pagi' : hour < 17 ? 'Selamat Siang' : 'Selamat Malam';
   const classSchedule = schedules[selectedClass] || schedules['Other'] || {};
+  const [showScheduleInfo, setShowScheduleInfo] = useState(false);
 
   const getSubjectProgress = (subjectId) => {
     const content = DB.content[subjectId];
@@ -2124,13 +2125,30 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[var(--accent)]" />
             <span className="text-sm font-medium text-[var(--text)]">Jadwal UAS</span>
-            <div className="relative group">
-              <Info className="w-3.5 h-3.5 text-[var(--text-muted)] cursor-help hover:text-[var(--accent)] transition-colors" />
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-[var(--surface-solid)] border border-[var(--border)] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 text-xs text-[var(--text-secondary)]">
-                ⚠️ Jadwal ini adalah <strong className="text-[var(--warning)]">prediksi</strong>, bukan jadwal resmi.
-                <br />Admin akan update saat jadwal resmi dirilis.
-                <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--border)]"></div>
-              </div>
+            <div className="relative">
+              <button
+                onClick={() => setShowScheduleInfo(!showScheduleInfo)}
+                onMouseEnter={() => setShowScheduleInfo(true)}
+                onMouseLeave={() => setShowScheduleInfo(false)}
+                className="p-1 -m-1 touch-manipulation"
+                aria-label="Info jadwal"
+              >
+                <Info className="w-3.5 h-3.5 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors" />
+              </button>
+              <AnimatePresence>
+                {showScheduleInfo && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-[var(--surface-solid)] border border-[var(--border)] rounded-lg shadow-lg z-50 text-xs text-[var(--text-secondary)] min-w-[200px]"
+                  >
+                    ⚠️ Jadwal ini adalah <strong className="text-[var(--warning)]">prediksi</strong>, bukan jadwal resmi.
+                    <br />Admin akan update saat jadwal resmi dirilis.
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--border)]"></div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
           <div className="space-y-1">
