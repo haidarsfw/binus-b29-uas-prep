@@ -1403,8 +1403,8 @@ export default function App() {
       <a href="https://wa.me/6287839256171" target="_blank" rel="noopener noreferrer" className="fixed bottom-5 right-5 z-50 group">
         <div className="flex items-center gap-2">
           <span className="hidden group-hover:block px-3 py-1.5 glass-strong rounded-lg text-sm text-[var(--text)] animate-fade whitespace-nowrap">Contact Support</span>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg glass-strong border border-[var(--border)]">
-            <Headphones className="w-6 h-6 text-[var(--text)]" />
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg glass-strong border border-[var(--border)]">
+            <Headphones className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--text)]" />
           </motion.div>
         </div>
       </a>
@@ -2008,8 +2008,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             <p className="text-[var(--text-secondary)] mb-1">{greeting},</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-2 flex items-center gap-2 justify-center md:justify-start flex-wrap">
               {name}!
-              {session?.isAdmin && <span className="text-xs px-2 py-0.5 bg-red-500/15 text-red-500 rounded-md font-semibold">Admin</span>}
-              {session?.isTester && <span className="text-xs px-2 py-0.5 bg-amber-500/15 text-amber-500 rounded-md font-semibold">Tester</span>}
+              {session?.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-500 rounded font-semibold">Admin</span>}
+              {session?.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded font-semibold">Tester</span>}
             </h1>
             <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Progress <span className="font-bold gradient-text">{Math.round(overallProgress)}%</span></p>
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
@@ -3934,7 +3934,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
                   <div className="avatar avatar-sm">{c.authorName?.charAt(0) || '?'}</div>
                   <span className="font-medium text-[var(--text)] text-sm">{c.authorName}</span>
                   {c.isAdmin && <span className="text-[8px] px-1 bg-red-500/15 text-red-400 rounded font-medium">Admin</span>}
-                  {c.isTester && <span className="text-[8px] px-1 bg-amber-500/15 text-amber-400 rounded font-medium">Tester</span>}
+                  {c.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded font-medium">Tester</span>}
                   {c.authorClass && <span className="class-badge text-xs">{c.authorClass}</span>}
                   <span className="text-xs text-[var(--text-muted)]">{new Date(c.createdAt).toLocaleString('id-ID')}</span>
                 </div>
@@ -4707,7 +4707,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
   return (
     <>
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setIsOpen(true)} className="fixed bottom-24 right-5 z-50 w-14 h-14 gradient-accent rounded-2xl flex items-center justify-center shadow-xl glow">
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setIsOpen(true)} className="fixed bottom-20 sm:bottom-24 right-5 z-50 w-10 h-10 sm:w-14 sm:h-14 gradient-accent rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl glow">
         <MessageSquare className="w-6 h-6 text-white" />
       </motion.button>
 
@@ -4755,7 +4755,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     return (
                       <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                         <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
-                          {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.isAdmin && <span className="text-[8px] px-1 bg-red-500/20 text-red-400 rounded mr-0.5">Admin</span>}{msg.isTester && <span className="text-[8px] px-1 bg-amber-500/20 text-amber-400 rounded mr-0.5">Tester</span>}{msg.authorClass && <span className="text-[8px] px-1 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
+                          {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded mr-0.5">Admin</span>}{msg.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/20 text-amber-400 rounded mr-0.5">Tester</span>}{msg.authorClass && <span className="text-[10px] px-1.5 py-0.5 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
                           <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
                             {/* WhatsApp-style Reply Quote */}
                             {msg.replyToName && (
