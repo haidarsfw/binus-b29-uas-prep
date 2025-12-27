@@ -1420,7 +1420,7 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -2393,7 +2393,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
-        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />}
 
         {/* Content Lock Overlay for Preview Mode */}
         {isPreviewMode && <ContentLockOverlay />}
@@ -3672,7 +3672,7 @@ function PersonalNotes({ subjectId, subjectName, isPreviewMode, licenseKey }) {
 }
 
 
-function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
+function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown }) {
   const [threads, setThreads] = useState([]);
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -3753,6 +3753,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
           selectedClass={selectedClass}
           onBack={() => setSelectedThread(null)}
           onDelete={() => setConfirmDelete({ type: 'thread', id: selectedThread.id })}
+          showCooldown={showCooldown}
         />
         {/* Confirm Modal */}
         <AnimatePresence>
@@ -3848,7 +3849,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode }) {
   );
 }
 
-function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete }) {
+function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete, showCooldown }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [posting, setPosting] = useState(false);
@@ -4538,7 +4539,7 @@ const DEFAULT_STICKERS = [
   { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode, showCooldown }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -4875,6 +4876,7 @@ function AdminDashboard({ session, onClose }) {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [statsRefresh, setStatsRefresh] = useState(0);
   const [dangerAction, setDangerAction] = useState(null);
+  const [resetDevicesKey, setResetDevicesKey] = useState(null); // For Reset Devices confirmation
   // Activity logs & suspend
   const [activityLogs, setActivityLogs] = useState([]);
   const [suspendModal, setSuspendModal] = useState(null); // { key, name }
@@ -5145,7 +5147,7 @@ function AdminDashboard({ session, onClose }) {
                               <button onClick={() => startEdit(k)} className="p-2 text-[var(--accent)] hover:bg-[var(--accent)]/10 rounded-lg" title="Edit">
                                 <Settings className="w-4 h-4" />
                               </button>
-                              <button onClick={async () => { if (confirm('Reset semua devices untuk key ini?')) { await resetLicenseDevices(k.key); setStatsRefresh(p => p + 1); alert('Devices reset!'); } }} className="p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg" title="Reset Devices">
+                              <button onClick={() => setResetDevicesKey(k.key)} className="p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg" title="Reset Devices">
                                 <RotateCcw className="w-4 h-4" />
                               </button>
                               <button onClick={() => setConfirmDelete(k.key)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete">
@@ -5382,6 +5384,19 @@ function AdminDashboard({ session, onClose }) {
           onConfirm={handleDeleteKey}
           title="Hapus License Key"
           message={`Yakin ingin menghapus key ${confirmDelete}? User yang menggunakan key ini tidak akan bisa login lagi.`}
+        />
+
+        {/* Reset Devices Confirmation */}
+        <ConfirmModal
+          isOpen={!!resetDevicesKey}
+          onClose={() => setResetDevicesKey(null)}
+          onConfirm={async () => {
+            await resetLicenseDevices(resetDevicesKey);
+            setStatsRefresh(p => p + 1);
+            setResetDevicesKey(null);
+          }}
+          title="🔄 Reset Devices"
+          message={`Reset semua devices untuk key ${resetDevicesKey}? User harus login ulang dari device baru.`}
         />
 
         {/* Danger Action Confirmation */}
