@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -29,6 +29,9 @@ const themeColors = [
   { id: 'rose', name: 'Rose', color: '#f43f5e' },
   { id: 'emerald', name: 'Emerald', color: '#10b981' },
   { id: 'amber', name: 'Amber', color: '#f59e0b' },
+  { id: 'slate', name: 'Slate', color: '#64748b' },
+  { id: 'zinc', name: 'Zinc', color: '#71717a' },
+  { id: 'midnight', name: 'Midnight', color: '#3730a3' },
 ];
 
 const fonts = [
@@ -274,11 +277,18 @@ export default function App() {
   const [alarmActive, setAlarmActive] = useState(false);
   const alarmAudioRef = useRef(null);
 
+  // Browser notification state
+  const [notificationPermission, setNotificationPermission] = useState('default');
+  const mentionSoundRef = useRef(null);
+
   // --- Advanced Features Effects ---
   useEffect(() => {
-    // Request notification permission
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
+    // Request notification permission and store result
+    if ('Notification' in window) {
+      setNotificationPermission(Notification.permission);
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then(perm => setNotificationPermission(perm));
+      }
     }
     // Log visit
     logAnalytics('APP_OPEN', { userAgent: navigator.userAgent });
@@ -309,6 +319,47 @@ export default function App() {
     setCooldown({ show: true, message, seconds });
     setTimeout(() => setCooldown(c => ({ ...c, show: false })), 2500);
   };
+
+  // Show browser notification for mentions
+  const showBrowserNotification = useCallback((title, body, onClick) => {
+    // Play mention sound using Web Audio API
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const playBeep = (freq, startTime, duration) => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = freq;
+        osc.type = 'sine';
+        gain.gain.setValueAtTime(0.3, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+        osc.start(startTime);
+        osc.stop(startTime + duration);
+      };
+      // Two quick beeps
+      playBeep(880, audioContext.currentTime, 0.1);
+      playBeep(1100, audioContext.currentTime + 0.15, 0.1);
+    } catch (e) { /* Audio not supported */ }
+
+    // Show browser notification if permitted and tab not focused
+    if (notificationPermission === 'granted' && document.hidden) {
+      const notification = new Notification(title, {
+        body,
+        icon: '/vite.svg',
+        tag: 'mention-' + Date.now()
+      });
+      if (onClick) {
+        notification.onclick = () => {
+          window.focus();
+          onClick();
+          notification.close();
+        };
+      }
+    }
+    // Also show in-app toast
+    showToast(`📢 ${title}: ${body}`, 'info', 5000);
+  }, [notificationPermission]);
 
   // Play continuous alarm sound until stopped
   const playAlarmSound = () => {
@@ -356,7 +407,7 @@ export default function App() {
     if (alarmAudioRef.current) {
       alarmAudioRef.current.isPlaying = false;
       if (alarmAudioRef.current.audioContext) {
-        try { alarmAudioRef.current.audioContext.close(); } catch (e) { }
+        try { alarmAudioRef.current.audioContext.close(); } catch { }
       }
       alarmAudioRef.current = null;
     }
@@ -727,6 +778,47 @@ export default function App() {
     loadUserData();
   }, [session]);
 
+  // Realtime sync: listen for settings changes from other devices
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+
+    const unsubscribe = subscribeToUserSettings(session.licenseKey, (settings) => {
+      if (!settings) return;
+
+      // Sync progress from other devices
+      if (settings.progress && Object.keys(settings.progress).length > 0) {
+        setProgress(prev => {
+          // Only update if different to avoid loops
+          const prevJson = JSON.stringify(prev);
+          const newJson = JSON.stringify(settings.progress);
+          if (prevJson !== newJson) {
+            const userProgressKey = `studyProgress_${session.licenseKey}`;
+            localStorage.setItem(userProgressKey, newJson);
+            return settings.progress;
+          }
+          return prev;
+        });
+      }
+
+      // Sync theme settings
+      if (settings.dark !== undefined) {
+        const darkValue = settings.dark === true || settings.dark === 'true';
+        setDark(prev => prev !== darkValue ? darkValue : prev);
+      }
+      if (settings.theme) {
+        setTheme(prev => prev !== settings.theme ? settings.theme : prev);
+      }
+      if (settings.font) {
+        setFont(prev => prev !== settings.font ? settings.font : prev);
+      }
+      if (settings.reminder) {
+        setReminder(prev => prev !== settings.reminder ? settings.reminder : prev);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [session?.licenseKey]);
+
   const updateProgress = useCallback((subjectId, section, itemId) => {
     setProgress(prev => {
       const subjectProgress = prev[subjectId] || {};
@@ -743,9 +835,20 @@ export default function App() {
     let total = 0, completed = 0;
     Object.keys(DB.content).forEach(subjectId => {
       const content = DB.content[subjectId];
-      total += (content.materi?.length || 0) + (content.kisiKisi?.length || 0);
       const subjectProgress = progress[subjectId] || {};
-      completed += (subjectProgress.materi?.length || 0) + (subjectProgress.kisiKisi?.length || 0);
+
+      // Materi Inti only
+      const materiCount = content.materi?.length || 0;
+      total += materiCount;
+      completed += (subjectProgress.materi?.length || 0);
+
+      // Quiz modules (count unique categories)
+      if (content.quiz?.length > 0) {
+        const categories = [...new Set(content.quiz.map(q => q.category || 'General').filter(Boolean))];
+        total += categories.length;
+        const quizScores = subjectProgress.quizScores || {};
+        completed += Object.keys(quizScores).length;
+      }
     });
     return total > 0 ? (completed / total) * 100 : 0;
   }, [progress]);
@@ -852,7 +955,7 @@ export default function App() {
                 setShowTerms(true);
               }
               // Show tutorial if first time OR if preview mode (always show for preview)
-              if (!localStorage.getItem('tutorialCompletedV5') || s.licenseKey?.toLowerCase() === 'preview01') {
+              if (!localStorage.getItem('tutorialCompletedV5') || session.licenseKey?.toLowerCase() === 'preview01') {
                 setShowTutorial(true);
               }
             }}
@@ -952,7 +1055,7 @@ export default function App() {
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -1117,7 +1220,7 @@ export default function App() {
                         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
                         oscillator.start(audioContext.currentTime);
                         oscillator.stop(audioContext.currentTime + 0.5);
-                      } catch (e) { }
+                      } catch { }
 
                       // Vibrate
                       if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
@@ -1430,7 +1533,7 @@ export default function App() {
       </a>
 
       {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />
+      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -1874,7 +1977,7 @@ function Login({ dark, setDark, onSuccess }) {
           setError(r.error);
         }
       }
-    } catch (err) {
+    } catch {
       // Network/timeout errors should NOT count as failed attempts
       setError('Koneksi gagal. Coba lagi.');
     }
@@ -2022,19 +2125,63 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const greeting = hour < 12 ? 'Selamat Pagi' : hour < 17 ? 'Selamat Siang' : 'Selamat Malam';
   const classSchedule = schedules[selectedClass] || schedules['Other'] || {};
   const [showScheduleInfo, setShowScheduleInfo] = useState(false);
+  const [showPatchNotes, setShowPatchNotes] = useState(false);
+
+  // Version and patch notes data
+  const currentVersion = "1.0.1";
+  const patchNotes = {
+    current: {
+      version: "1.0.1",
+      date: "29 Des 2024",
+      changes: [
+        "- Fitur quiz per modul dengan penyimpanan skor",
+        "- Peningkatan kenyamanan tampilan light mode",
+        "- Perbaikan error pada mode 'Kerjakan Semua'",
+        "- Perhitungan progress berdasarkan Materi Inti dan Quiz",
+        "- Penambahan 3 opsi tema warna baru",
+        "- Forum dan Chat mention system dengan @all untuk admin",
+        "- Browser notification dan sound saat di-mention"
+      ]
+    },
+    past: [
+      {
+        version: "1.0.0",
+        date: "25 Des 2024",
+        changes: [
+          "- Rilis versi pertama aplikasi",
+          "- Sistem Flashcards dan Quiz",
+          "- Live Chat dan Forum diskusi",
+          "- Fitur pengingat belajar",
+          "- Dukungan multi-theme",
+          "- Sinkronisasi progress ke cloud"
+        ]
+      }
+    ]
+  };
 
   const getSubjectProgress = (subjectId) => {
     const content = DB.content[subjectId];
     const subjectProgress = progress[subjectId] || {};
-    const total = (content.materi?.length || 0) + (content.kisiKisi?.length || 0);
-    const completed = (subjectProgress.materi?.length || 0) + (subjectProgress.kisiKisi?.length || 0);
+
+    // Materi Inti only
+    let total = content.materi?.length || 0;
+    let completed = subjectProgress.materi?.length || 0;
+
+    // Quiz modules (count unique categories)
+    if (content.quiz?.length > 0) {
+      const categories = [...new Set(content.quiz.map(q => q.category || 'General').filter(Boolean))];
+      total += categories.length;
+      const quizScores = subjectProgress.quizScores || {};
+      completed += Object.keys(quizScores).length;
+    }
+
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
-  const formatDate = (dateStr) => {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-  };
+  // const formatDate = (dateStr) => {
+  //   const d = new Date(dateStr);
+  //   return d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  // };
 
   return (
     <div className="animate-fade">
@@ -2054,6 +2201,9 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
               <span className="badge badge-accent"><BookOpen className="w-3 h-3" />{DB.subjects.length} Mata Kuliah</span>
               {onlineUsers.length > 0 && <span className="badge badge-success"><span className="online-dot mr-1" />{onlineUsers.length} Online</span>}
+              <button onClick={() => setShowPatchNotes(true)} className="badge hover:opacity-80 transition-opacity cursor-pointer" style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}>
+                <Sparkles className="w-3 h-3" />v{currentVersion}
+              </button>
             </div>
           </div>
         </div>
@@ -2093,12 +2243,12 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                 acc[d] = (acc[d] || 0) + 1;
                 return acc;
               }, {});
-              // Build emoji string
+              // Build emoji string with (n) format
               let str = '';
-              if (counts.desktop) str += counts.desktop > 1 ? `${counts.desktop}💻` : '💻';
-              if (counts.mobile) str += counts.mobile > 1 ? `${counts.mobile}📱` : '📱';
-              if (counts.tablet) str += counts.tablet > 1 ? `${counts.tablet}📲` : '📲';
-              return str;
+              if (counts.desktop) str += counts.desktop > 1 ? `(${counts.desktop}) 💻` : '💻';
+              if (counts.mobile) str += counts.mobile > 1 ? ` (${counts.mobile}) 📱` : ' 📱';
+              if (counts.tablet) str += counts.tablet > 1 ? ` (${counts.tablet}) 📲` : ' 📲';
+              return str.trim();
             };
 
             return (
@@ -2198,11 +2348,86 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
           );
         })}
       </div>
+
+      {/* Patch Notes Modal */}
+      <AnimatePresence>
+        {showPatchNotes && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setShowPatchNotes(false)}
+          >
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="glass-strong p-6 max-w-md w-full relative max-h-[80vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              <button onClick={() => setShowPatchNotes(false)} className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-[var(--text)]">
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 gradient-accent rounded-xl flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[var(--text)]">Patch Notes</h3>
+                  <p className="text-xs text-[var(--text-muted)]">Versi {currentVersion}</p>
+                </div>
+              </div>
+
+              {/* Current Update */}
+              <div className="mb-4">
+                <h4 className="text-sm font-bold text-[var(--accent)] mb-2">
+                  🆕 v{patchNotes.current.version} - {patchNotes.current.date}
+                </h4>
+                <ul className="space-y-1">
+                  {patchNotes.current.changes.map((c, i) => (
+                    <li key={i} className="text-xs text-[var(--text-secondary)] pl-2">{c}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Past Updates */}
+              {patchNotes.past.length > 0 && (
+                <div className="border-t border-[var(--border)] pt-4">
+                  <h4 className="text-sm font-medium text-[var(--text-muted)] mb-3">Riwayat Update</h4>
+                  {patchNotes.past.map((p, idx) => (
+                    <div key={idx} className="mb-3">
+                      <p className="text-xs font-medium text-[var(--text)]">v{p.version} - {p.date}</p>
+                      <ul className="space-y-0.5 mt-1">
+                        {p.changes.slice(0, 3).map((c, i) => (
+                          <li key={i} className="text-xs text-[var(--text-muted)] pl-2">{c}</li>
+                        ))}
+                        {p.changes.length > 3 && (
+                          <li className="text-xs text-[var(--text-muted)] pl-2">+{p.changes.length - 3} lainnya</li>
+                        )}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Bug Report Note */}
+              <div className="mt-4 p-3 surface-flat rounded-lg">
+                <p className="text-xs text-[var(--text-secondary)]">
+                  💡 Menemukan bug atau kendala? Chat admin di tombol bawah kanan layar Anda!
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode, showCooldown }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode, showCooldown, onlineUsers }) {
   const content = DB.content[subject.id];
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -2243,7 +2468,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
             if (item.topic.toLowerCase().includes(q)) {
               results.push({ type: 'kisi', content: item.topic, index: idx, title: item.topic });
             }
-            item.items.forEach((subItem, subIdx) => {
+            item.items.forEach((subItem) => {
               if (subItem.toLowerCase().includes(q)) {
                 results.push({ type: 'kisi', content: subItem, index: idx, title: item.topic });
               }
@@ -2428,9 +2653,9 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} isPreviewMode={isPreviewMode} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} isPreviewMode={isPreviewMode} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
-        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
+        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} progress={progress} updateProgress={updateProgress} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
-        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />}
 
         {/* Content Lock Overlay for Preview Mode */}
         {isPreviewMode && <ContentLockOverlay />}
@@ -2439,13 +2664,13 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   );
 }
 
-function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
+function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
   const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
   const [viewerDarkMode, setViewerDarkMode] = useState(true); // Default dark for night study
-  const [activeModulIndex, setActiveModulIndex] = useState(0);
+  // const [activeModulIndex, setActiveModulIndex] = useState(0); // Reserved for future use
   const [highlightQuery, setHighlightQuery] = useState(''); // For search keyword highlighting
 
   // Handle search target navigation
@@ -3378,17 +3603,42 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
   );
 }
 
-function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
-  const [mode, setMode] = useState('flashcards'); // 'flashcards' or 'quiz'
+function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, updateProgress, searchTarget, onClearSearch }) {
+  const [mode, setMode] = useState('flashcards'); // 'flashcards', 'quiz-select', or 'quiz'
   const [flipped, setFlipped] = useState({});
   const [cur, setCur] = useState(0);
   const [sel, setSel] = useState(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
   const [time, setTime] = useState(20);
-  const [shuffleKey, setShuffleKey] = useState(0); // Used to trigger re-shuffle
+  const [shuffleKey, setShuffleKey] = useState(0);
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [flashcardsCompleted, setFlashcardsCompleted] = useState(false);
+  const [highlightedCard, setHighlightedCard] = useState(null);
 
-  // Fisher-Yates shuffle algorithm
+  // Get saved progress
+  const subjectProgress = progress?.[subjectId] || {};
+  const quizScores = subjectProgress.quizScores || {};
+
+  // Get unique quiz categories/modules
+  const quizModules = useMemo(() => {
+    if (!quiz?.length) return [];
+    const categories = [...new Set(quiz.map(q => q.category || 'General').filter(Boolean))];
+    return categories.map(cat => ({
+      name: cat,
+      questions: quiz.filter(q => (q.category || 'General') === cat),
+      lastScore: quizScores[cat] || null
+    }));
+  }, [quiz, quizScores]);
+
+  // Get questions for selected module
+  const moduleQuestions = useMemo(() => {
+    if (!selectedModule) return [];
+    if (selectedModule === 'all') return quiz || [];
+    return quiz?.filter(q => (q.category || 'General') === selectedModule) || [];
+  }, [quiz, selectedModule]);
+
+  // Fisher-Yates shuffle
   const shuffleArray = (arr) => {
     const shuffled = [...arr];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -3398,52 +3648,123 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
     return shuffled;
   };
 
-  // Randomize flashcards and quiz on mount or shuffle key change
   const shuffledFlashcards = useMemo(() => shuffleArray(flashcards || []), [flashcards, shuffleKey]);
-  const shuffledQuiz = useMemo(() => shuffleArray(quiz || []), [quiz, shuffleKey]);
+  const shuffledModuleQuiz = useMemo(() => shuffleArray(moduleQuestions), [moduleQuestions, shuffleKey]);
 
   const toggle = (id) => setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
 
+  // Navigate to searched flashcard
+  useEffect(() => {
+    if (searchTarget && searchTarget.type === 'flashcard' && typeof searchTarget.index === 'number' && flashcards?.length > 0) {
+      setMode('flashcards');
+      // Get the original flashcard by index
+      const targetCard = flashcards[searchTarget.index];
+      if (targetCard && shuffledFlashcards?.length > 0) {
+        // Find this card in the shuffled array
+        const shuffledIndex = shuffledFlashcards.findIndex(f =>
+          f.id === targetCard.id || (f.term === targetCard.term && f.definition === targetCard.definition)
+        );
+        if (shuffledIndex >= 0) {
+          // Calculate which page this card is on (default 8 cards per page)
+          const cPerPage = typeof cardsPerPage === 'number' && cardsPerPage > 0 ? cardsPerPage : 8;
+          const targetPage = Math.floor(shuffledIndex / cPerPage);
+          setFlashPage(targetPage);
+          // Highlight and flip the card
+          const cardId = targetCard.id || searchTarget.index;
+          setHighlightedCard(cardId);
+          setFlipped(prev => ({ ...prev, [cardId]: true }));
+        }
+      }
+      // Clear after a delay
+      setTimeout(() => {
+        setHighlightedCard(null);
+        onClearSearch?.();
+      }, 3000);
+    }
+  }, [searchTarget]);
+
+  // Timer for quiz
   useEffect(() => {
     if (mode !== 'quiz' || done || sel !== null) return;
     const t = setInterval(() => setTime(v => { if (v <= 1) { handleAns(-1); return 20; } return v - 1; }), 1000);
     return () => clearInterval(t);
   }, [mode, cur, sel, done]);
 
-  const handleAns = (i) => { if (sel !== null) return; setSel(i); if (shuffledQuiz && i === shuffledQuiz[cur]?.answer) setScore(s => s + 1); };
-  const next = () => { if (cur < (shuffledQuiz?.length || 1) - 1) { setCur(c => c + 1); setSel(null); setTime(20); } else setDone(true); };
-  const resetQuiz = () => { setCur(0); setSel(null); setScore(0); setDone(false); setTime(20); setShuffleKey(k => k + 1); }; // Re-shuffle on reset
+  const handleAns = (i) => {
+    if (sel !== null) return;
+    setSel(i);
+    if (shuffledModuleQuiz && i === shuffledModuleQuiz[cur]?.answer) setScore(s => s + 1);
+  };
 
-  // Pagination state for flashcards
+  const next = () => {
+    if (cur < shuffledModuleQuiz.length - 1) {
+      setCur(c => c + 1);
+      setSel(null);
+      setTime(20);
+    } else {
+      setDone(true);
+      // Save score for this module
+      if (selectedModule && updateProgress && !isPreviewMode) {
+        const percentage = Math.round((score + (sel !== null && shuffledModuleQuiz[cur]?.answer === sel ? 1 : 0)) / shuffledModuleQuiz.length * 100);
+        updateProgress(subjectId, 'quizScores', { ...(subjectProgress.quizScores || {}), [selectedModule]: percentage });
+      }
+    }
+  };
+
+  const resetQuiz = () => {
+    setCur(0);
+    setSel(null);
+    setScore(0);
+    setDone(false);
+    setTime(20);
+    setShuffleKey(k => k + 1);
+  };
+
+  const startModuleQuiz = (moduleName) => {
+    setSelectedModule(moduleName);
+    resetQuiz();
+    setMode('quiz');
+  };
+
+  const backToModuleSelect = () => {
+    setMode('quiz-select');
+    setSelectedModule(null);
+    resetQuiz();
+  };
+
+  // Mark flashcards as completed
+  const markFlashcardsComplete = () => {
+    if (updateProgress && !isPreviewMode) {
+      updateProgress(subjectId, 'flashcardsCompleted', true);
+    }
+    setFlashcardsCompleted(true);
+  };
+
+  // Pagination for flashcards
   const [flashPage, setFlashPage] = useState(0);
-
-  // Get cards per page based on screen width
   const getCardsPerPage = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth >= 1024) return 8; // PC/iPad (4x2 grid)
-      if (window.innerWidth >= 640) return 8; // Tablet (4x2 grid)
-      return 4; // Mobile (2x2 grid)
+      if (window.innerWidth >= 1024) return 8;
+      if (window.innerWidth >= 640) return 8;
+      return 4;
     }
     return 8;
   };
-
   const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
 
-  // Update cards per page on resize
   useEffect(() => {
     const handleResize = () => setCardsPerPage(getCardsPerPage());
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate pagination
   const totalFlashPages = Math.ceil((shuffledFlashcards?.length || 0) / cardsPerPage);
   const currentFlashcards = shuffledFlashcards?.slice(flashPage * cardsPerPage, (flashPage + 1) * cardsPerPage) || [];
 
   const nextFlashPage = () => {
     if (flashPage < totalFlashPages - 1) {
       setFlashPage(p => p + 1);
-      setFlipped({}); // Reset flipped state
+      setFlipped({});
     }
   };
 
@@ -3454,17 +3775,73 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
     }
   };
 
-  // Flashcards View
+  // ========== QUIZ MODULE SELECTION VIEW ==========
+  if (mode === 'quiz-select') {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between mb-4">
+          <button onClick={() => setMode('flashcards')} className="btn-ghost text-sm">← Ke Flashcards</button>
+          <h3 className="font-bold text-[var(--text)]">Pilih Modul Quiz</h3>
+        </div>
+
+        <div className="grid gap-3">
+          {quizModules.map((mod, idx) => (
+            <motion.button
+              key={mod.name}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => startModuleQuiz(mod.name)}
+              className="glass-card p-4 text-left flex items-center justify-between hover:border-[var(--accent)] transition-all"
+            >
+              <div className="flex-1">
+                <p className="font-medium text-[var(--text)]">{mod.name}</p>
+                <p className="text-xs text-[var(--text-muted)]">{mod.questions.length} soal</p>
+              </div>
+              <div className="flex items-center gap-3">
+                {mod.lastScore !== null ? (
+                  <span className={`text-sm font-bold ${mod.lastScore >= 70 ? 'text-[var(--success)]' : mod.lastScore >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
+                    {mod.lastScore}% ✓
+                  </span>
+                ) : (
+                  <span className="text-xs text-[var(--text-muted)]">Belum dikerjakan</span>
+                )}
+                <ChevronRight className="w-4 h-4 text-[var(--text-muted)]" />
+              </div>
+            </motion.button>
+          ))}
+        </div>
+
+        {/* All-at-once option */}
+        <div className="pt-4 border-t border-[var(--border)]">
+          <motion.button
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            onClick={() => { setSelectedModule('all'); resetQuiz(); setMode('quiz'); }}
+            className="btn btn-secondary w-full"
+          >
+            Kerjakan Semua ({quiz?.length || 0} soal)
+          </motion.button>
+        </div>
+      </div>
+    );
+  }
+
+  // ========== FLASHCARDS VIEW ==========
   if (mode === 'flashcards') {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-[var(--text)]">Flashcards ({shuffledFlashcards?.length || 0} kartu)</h3>
-          {shuffledQuiz && shuffledQuiz.length > 0 && (
-            <button onClick={() => setMode('quiz')} className="btn btn-primary text-sm">
-              Mulai Quiz →
-            </button>
-          )}
+          <div className="flex items-center gap-2">
+            {subjectProgress.flashcardsCompleted && (
+              <span className="text-xs text-[var(--success)] font-medium">✓ Selesai</span>
+            )}
+            {quiz?.length > 0 && (
+              <button onClick={() => setMode('quiz-select')} className="btn btn-primary text-sm">
+                Mulai Quiz →
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Pagination Info */}
@@ -3503,33 +3880,35 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
           </motion.button>
         </div>
 
-        {/* Cards Grid - 4x2 on PC/iPad, 2x2 on Mobile */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <p className="text-center text-xs text-[var(--text-muted)] mb-4">Klik kartu untuk flip 🔄</p>
+
+        {/* Flashcards Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {currentFlashcards.map((f, idx) => (
             <motion.div
-              key={f.id || f.term}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
+              key={f.id || idx}
               whileHover={{ scale: 1.02 }}
-              onClick={() => toggle(f.id || f.term)}
-              className={`flashcard h-52 ${flipped[f.id || f.term] ? 'flipped' : ''}`}
+              whileTap={{ scale: 0.98 }}
+              className={`aspect-[3/4] cursor-pointer perspective-1000 ${highlightedCard === (f.id || idx) ? 'ring-4 ring-yellow-400 rounded-xl animate-pulse' : ''}`}
+              onClick={() => toggle(f.id || idx)}
             >
-              <div className="flashcard-inner">
-                <div className="flashcard-front">
-                  <span className="text-xs text-white/60 absolute top-4 left-4 font-medium">TAP TO FLIP</span>
-                  <h4 className="text-lg font-bold">{f.term}</h4>
-                </div>
-                <div className="flashcard-back">
+              <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${flipped[f.id || idx] ? 'rotate-y-180' : ''}`}>
+                {/* Back - DEFINISI */}
+                <div className="absolute w-full h-full backface-hidden rounded-xl shadow-lg p-4 flex items-center justify-center text-center bg-[var(--surface)] border border-[var(--border)] rotate-y-180 overflow-auto">
                   <span className="text-xs text-[var(--accent)] absolute top-4 left-4 font-bold">DEFINISI</span>
                   <p className="text-[var(--text)] leading-relaxed text-sm">{f.definition}</p>
+                </div>
+                {/* Front - TERM */}
+                <div className="absolute w-full h-full backface-hidden rounded-xl shadow-lg p-4 flex items-center justify-center text-center gradient-accent">
+                  <span className="text-xs text-white/60 absolute top-4 left-4 font-bold">TERM</span>
+                  <p className="text-white font-semibold text-sm leading-tight">{f.term}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Quick Navigation Dots */}
+        {/* Dots Navigation */}
         {totalFlashPages > 1 && (
           <div className="flex items-center justify-center gap-2 mt-4">
             {Array.from({ length: totalFlashPages }).map((_, i) => (
@@ -3544,40 +3923,62 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
             ))}
           </div>
         )}
+
+        {/* Mark as complete button */}
+        {flashPage >= totalFlashPages - 1 && !subjectProgress.flashcardsCompleted && (
+          <div className="mt-4 text-center">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={markFlashcardsComplete}
+              className="btn btn-success"
+            >
+              ✓ Tandai Flashcards Selesai
+            </motion.button>
+          </div>
+        )}
       </div>
     );
   }
 
-  // Quiz Done View
+  // ========== QUIZ DONE VIEW ==========
   if (done) {
+    const finalScore = Math.round((score / shuffledModuleQuiz.length) * 100);
     return (
       <div className="glass-card p-8 text-center">
         <div className="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl glow">
           <ClipboardCheck className="w-10 h-10 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-[var(--text)] mb-2">Quiz Selesai!</h3>
-        <p className="text-4xl font-bold gradient-text mb-4">{score}/{shuffledQuiz?.length || 0}</p>
-        <div className="flex gap-3 justify-center">
-          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn btn-secondary">
-            ← Ke Flashcards
+        <p className="text-sm text-[var(--text-muted)] mb-2">{selectedModule === 'all' ? 'Semua Modul' : selectedModule}</p>
+        <p className="text-4xl font-bold gradient-text mb-2">{score}/{shuffledModuleQuiz.length}</p>
+        <p className={`text-lg font-bold mb-4 ${finalScore >= 70 ? 'text-[var(--success)]' : finalScore >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
+          {finalScore}%
+        </p>
+        <div className="flex gap-3 justify-center flex-wrap">
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={backToModuleSelect} className="btn btn-secondary">
+            ← Pilih Modul Lain
           </motion.button>
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={resetQuiz} className="btn btn-primary">
-            Ulangi Quiz
+            Ulangi Quiz Ini
           </motion.button>
         </div>
       </div>
     );
   }
 
-  // Quiz View
-  const q = shuffledQuiz?.[cur];
+  // ========== QUIZ VIEW ==========
+  const q = shuffledModuleQuiz?.[cur];
   if (!q) return <div className="text-[var(--text-secondary)]">Quiz tidak tersedia</div>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={() => { setMode('flashcards'); resetQuiz(); }} className="btn-ghost text-sm">← Ke Flashcards</button>
-        <span className="text-[var(--text-secondary)]">{cur + 1}/{shuffledQuiz.length}</span>
+        <button onClick={backToModuleSelect} className="btn-ghost text-sm">← Pilih Modul</button>
+        <div className="text-center">
+          <span className="text-[var(--text-secondary)] text-sm">{selectedModule === 'all' ? 'Semua' : selectedModule}</span>
+          <p className="text-xs text-[var(--text-muted)]">{cur + 1}/{shuffledModuleQuiz.length}</p>
+        </div>
         <span className={`badge ${time <= 5 ? 'badge-warning animate-pulse' : ''}`}><Timer className="w-3 h-3 mr-1" />{time}s</span>
       </div>
       <div className="h-1 bg-[var(--border)] rounded-full overflow-hidden"><div className="timer-bar h-full rounded-full" style={{ width: `${(time / 20) * 100}%` }} /></div>
@@ -3595,7 +3996,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode }) {
             );
           })}
         </div>
-        {sel !== null && <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={next} className="btn btn-primary w-full mt-6">{cur < quiz.length - 1 ? 'Lanjut' : 'Lihat Hasil'}</motion.button>}
+        {sel !== null && <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} onClick={next} className="btn btn-primary w-full mt-6">{cur < shuffledModuleQuiz.length - 1 ? 'Lanjut' : 'Lihat Hasil'}</motion.button>}
       </div>
     </div>
   );
@@ -3723,7 +4124,7 @@ function PersonalNotes({ subjectId, subjectName, isPreviewMode, licenseKey }) {
 }
 
 
-function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown }) {
+function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown, onlineUsers = [] }) {
   const [threads, setThreads] = useState([]);
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -3805,6 +4206,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown 
           onBack={() => setSelectedThread(null)}
           onDelete={() => setConfirmDelete({ type: 'thread', id: selectedThread.id })}
           showCooldown={showCooldown}
+          onlineUsers={onlineUsers}
         />
         {/* Confirm Modal */}
         <AnimatePresence>
@@ -3900,7 +4302,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown 
   );
 }
 
-function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete, showCooldown }) {
+function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete, showCooldown, onlineUsers = [] }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [posting, setPosting] = useState(false);
@@ -3908,8 +4310,21 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const [replyText, setReplyText] = useState('');
   const [confirmDeleteComment, setConfirmDeleteComment] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [showMentions, setShowMentions] = useState(false);
   const isOwner = thread.authorId === getDeviceId();
   const isAdmin = session?.isAdmin === true;
+
+  // Get unique usernames for mentions
+  const mentionableUsers = useMemo(() => {
+    const users = onlineUsers.filter(u => u.userName).map(u => u.userName);
+    return [...new Set(users)].slice(0, 10);
+  }, [onlineUsers]);
+
+  // Insert @mention into comment
+  const insertMention = (username) => {
+    setNewComment(prev => prev + `@${username} `);
+    setShowMentions(false);
+  };
 
   useEffect(() => {
     const unsub = subscribeToComments(subjectId, thread.id, setComments);
@@ -3988,14 +4403,38 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
       <h3 className="font-bold text-[var(--text)] mb-4">{comments.length} Komentar</h3>
 
       {!thread.closed && (
-        <div className="flex gap-3 mb-6">
-          <div className="avatar flex-shrink-0">{session.userName?.charAt(0) || '?'}</div>
-          <div className="flex-1 flex gap-2">
-            <input value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Tulis komentar..." className="input flex-1" onKeyDown={(e) => e.key === 'Enter' && handlePost()} />
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePost} disabled={posting || !newComment.trim()} className="btn btn-primary">
-              {posting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
-            </motion.button>
+        <div className="mb-6">
+          <div className="flex gap-3">
+            <div className="avatar flex-shrink-0">{session.userName?.charAt(0) || '?'}</div>
+            <div className="flex-1 flex gap-2">
+              <input value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Tulis komentar..." className="input flex-1" onKeyDown={(e) => e.key === 'Enter' && handlePost()} />
+              <button onClick={() => setShowMentions(!showMentions)} className={`btn-ghost p-2 ${showMentions ? 'text-[var(--accent)]' : ''}`} title="Mention user">
+                <User className="w-4 h-4" />
+              </button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePost} disabled={posting || !newComment.trim()} className="btn btn-primary">
+                {posting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
+              </motion.button>
+            </div>
           </div>
+          {/* Mention Dropdown */}
+          <AnimatePresence>
+            {showMentions && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-2 ml-12 p-2 surface-flat rounded-lg">
+                <p className="text-xs text-[var(--text-muted)] mb-2">Mention user:</p>
+                <div className="flex flex-wrap gap-1">
+                  {isAdmin && (
+                    <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>
+                  )}
+                  {mentionableUsers.map(u => (
+                    <button key={u} onClick={() => insertMention(u)} className="px-2 py-0.5 text-xs surface-flat rounded-lg hover:bg-[var(--accent-soft)]">@{u}</button>
+                  ))}
+                  {mentionableUsers.length === 0 && !isAdmin && (
+                    <span className="text-xs text-[var(--text-muted)]">Tidak ada user online</span>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
@@ -4590,7 +5029,7 @@ const DEFAULT_STICKERS = [
   { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode, showCooldown }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode, showCooldown, showBrowserNotification }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -4632,46 +5071,49 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     return () => window.removeEventListener('keydown', handleEsc, true);
   }, [isOpen]);
 
+  // Subscribe to chat messages for mention detection (ALWAYS active)
   useEffect(() => {
-    if (isOpen) {
-      isFirstLoad.current = true;
-      const unsub = subscribeToGlobalChat((msgs) => {
-        const currentSeen = new Set(seenMentionIdsRef.current);
-        let hasNewMentions = false;
+    isFirstLoad.current = true;
+    const unsub = subscribeToGlobalChat((msgs) => {
+      // Always update messages
+      setMessages(msgs);
 
-        // Check for new mentions that haven't been seen
-        msgs.forEach(m => {
-          if (m.content?.includes(`@${currentUserName}`) &&
-            m.authorId !== currentDeviceId &&
-            !currentSeen.has(m.id)) {
+      const currentSeen = new Set(seenMentionIdsRef.current);
+      let hasNewMentions = false;
 
-            addNotification?.({ type: 'mention', title: 'Kamu di-mention!', message: `${m.authorName}: ${m.content.slice(0, 50)}` });
+      // Check for new mentions that haven't been seen
+      msgs.forEach(m => {
+        // Check for @username or @all mentions
+        const mentionsMe = m.content?.includes(`@${currentUserName}`);
+        const mentionsAll = m.content?.includes('@all');
+        const isNewMessage = !currentSeen.has(m.id);
+        const isFromOthers = m.authorId !== currentDeviceId;
+        // Only notify for messages in last 30 seconds (avoid old message spam)
+        const isRecent = Date.now() - m.timestamp < 30000;
 
-            // Browser Notification
-            if (Notification.permission === 'granted') {
-              new Notification(`@${m.authorName} mention kamu`, {
-                body: m.content,
-              });
-            }
+        if ((mentionsMe || mentionsAll) && isFromOthers && isNewMessage && isRecent) {
+          const notifTitle = mentionsAll ? 'Pengumuman untuk Semua' : 'Kamu di-mention!';
 
-            // Mark as seen immediately in our local Set to preventing re-triggering in this same loop
-            currentSeen.add(m.id);
-            hasNewMentions = true;
-          }
-        });
+          addNotification?.({ type: 'mention', title: notifTitle, message: `${m.authorName}: ${m.content.slice(0, 50)}` });
 
-        if (hasNewMentions) {
-          const newSeenArray = Array.from(currentSeen).slice(-100); // Keep last 100
-          setSeenMentionIds(newSeenArray);
-          localStorage.setItem('seenMentions', JSON.stringify(newSeenArray));
-          seenMentionIdsRef.current = newSeenArray; // Update ref immediately
+          // Use showBrowserNotification helper (includes sound)
+          showBrowserNotification?.(notifTitle, `${m.authorName}: ${m.content.slice(0, 80)}`, () => setIsOpen(true));
+
+          // Mark as seen
+          currentSeen.add(m.id);
+          hasNewMentions = true;
         }
-
-        setMessages(msgs);
       });
-      return () => unsub();
-    }
-  }, [isOpen]);
+
+      if (hasNewMentions) {
+        const newSeenArray = Array.from(currentSeen).slice(-100);
+        setSeenMentionIds(newSeenArray);
+        localStorage.setItem('seenMentions', JSON.stringify(newSeenArray));
+        seenMentionIdsRef.current = newSeenArray;
+      }
+    });
+    return () => unsub();
+  }, [currentUserName, currentDeviceId]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -4869,7 +5311,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
               {replyTo && <div className="px-3 py-1.5 border-t border-[var(--border)] flex items-center gap-2 text-xs"><Reply className="w-3 h-3 text-[var(--accent)]" /><span className="flex-1 truncate text-[var(--text-muted)]">Balas {replyTo.authorName}</span><button onClick={() => setReplyTo(null)}><X className="w-3 h-3" /></button></div>}
 
               <AnimatePresence>
-                {showMentions && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1">{onlineUsers.filter(u => u.userName).slice(0, 6).map(u => <button key={u.id} onClick={() => insertMention(u.userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg">@{u.userName}</button>)}</div></motion.div>}
+                {showMentions && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1">{session?.isAdmin && <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>}{onlineUsers.filter(u => u.userName).slice(0, 6).map(u => <button key={u.id} onClick={() => insertMention(u.userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg">@{u.userName}</button>)}</div></motion.div>}
               </AnimatePresence>
 
               <AnimatePresence>

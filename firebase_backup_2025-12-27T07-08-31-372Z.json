@@ -1,0 +1,1595 @@
+{
+  "activityLogs": {
+    "-OhTSTj_L76zVepLUFGG": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:19:05.046Z",
+      "userName": "Admin"
+    },
+    "-OhTT2hIw8KWrqvK27jp": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:21:36.467Z",
+      "userName": "Admin"
+    },
+    "-OhTTw7FC2Rk3Ist1pdc": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:25:27.568Z",
+      "userName": "Admin"
+    },
+    "-OhTUXJyxESiIFYqEHJ1": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:28:04.002Z",
+      "userName": "Admin"
+    },
+    "-OhTVKbQp4ovmLYVbj5x": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:31:34.107Z",
+      "userName": "Admin"
+    },
+    "-OhTVXkGkZbnB_6k8ej4": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:32:27.894Z",
+      "userName": "Preview User"
+    },
+    "-OhTV_RtX6EJdbgCGvk2": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:32:38.942Z",
+      "userName": "Tester"
+    },
+    "-OhTWqLXLNy-10hy5ZDk": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:38:10.311Z",
+      "userName": "Tester"
+    },
+    "-OhTXj2aRudcW0w_obTS": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:02.598Z",
+      "userName": "Tester"
+    },
+    "-OhTXj3octgiqJ9NtLGd": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:02.676Z",
+      "userName": "Tester"
+    },
+    "-OhTXkamiNhwc8lUV76D": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:08.946Z",
+      "userName": "Tester"
+    },
+    "-OhTXoc5aprvmnDk8Z4e": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:25.414Z",
+      "userName": "Tester"
+    },
+    "-OhTXsiyX1dBVDlSagSN": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:42.238Z",
+      "userName": "Tester"
+    },
+    "-OhTXv6a89hQdiUyZw-2": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:42:52.006Z",
+      "userName": "Tester"
+    },
+    "-OhTXwd5ceAu0_rYZdic": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:42:58.222Z",
+      "userName": "Admin"
+    },
+    "-OhTY2_V9HsaGb6Wd7O4": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:43:26.688Z",
+      "userName": "Admin"
+    },
+    "-OhTYK5-I9WSiqc2IHaj": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:44:38.400Z",
+      "userName": "Admin"
+    },
+    "-OhTYRYNU4qK46lBtij9": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:45:08.952Z",
+      "userName": "Admin"
+    },
+    "-OhTYRYSWdlC67C5BC4R": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:45:08.957Z",
+      "userName": "Admin"
+    },
+    "-OhTYUAWN1aG2aNGwmI0": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:45:19.713Z",
+      "userName": "Admin"
+    },
+    "-OhTYYKKKjVr-qjZ8cXt": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:45:36.725Z",
+      "userName": "Admin"
+    },
+    "-OhTYqPLwAdRrNz5dUmV": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:46:54.870Z",
+      "userName": "Admin"
+    },
+    "-OhTYsuaCv7cf0hqaCUo": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:47:05.090Z",
+      "userName": "Tester2"
+    },
+    "-OhTZ0CVuxi6cM7gb0RI": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:47:39.068Z",
+      "userName": "Admin"
+    },
+    "-OhT_vzLVGNG_S8WjFmP": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:56:02.006Z",
+      "userName": "Admin"
+    },
+    "-OhT_wvI5w6v_1moXuBw": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:56:05.843Z",
+      "userName": "Admin"
+    },
+    "-OhTaAHfosZ3ad97aUN6": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T06:57:04.652Z",
+      "userName": "Admin"
+    },
+    "-OhTaBztICIqWRWrrIpW": {
+      "action": "LOGIN",
+      "details": "Role: User",
+      "timestamp": "2025-12-27T06:57:11.642Z",
+      "userName": "Tester2"
+    },
+    "-OhTb-he_L9ejtvTeb18": {
+      "action": "LOGIN",
+      "details": "Role: Admin",
+      "timestamp": "2025-12-27T07:00:43.467Z",
+      "userName": "Admin"
+    }
+  },
+  "analytics": {
+    "-OhTSTE23FLx-05KV6rr": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:19:02.979Z"
+    },
+    "-OhTSTE88tAeWEZQ3I0T": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:19:02.985Z"
+    },
+    "-OhTSTEDJUEPMYdWVgAv": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:19:02.990Z"
+    },
+    "-OhTSTEFpXBj9a-NwojH": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:19:02.991Z"
+    },
+    "-OhTT2guB1dqalAK58WJ": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:21:36.442Z"
+    },
+    "-OhTT2gxcUrEOcZVHb6c": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:21:36.445Z"
+    },
+    "-OhTTw6rWl5C5csCmXyt": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:25:27.543Z"
+    },
+    "-OhTTw6uU2IQFwsJP2eg": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:25:27.546Z"
+    },
+    "-OhTUXJiKlLR_3LcmIi7": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:28:03.986Z"
+    },
+    "-OhTVKb3Maxh5MFHVE_O": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:31:34.084Z"
+    },
+    "-OhTVKb6wPGabGKOHiuq": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:31:34.087Z"
+    },
+    "-OhTWqLLCMebXBMvUmJ3": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:38:10.299Z"
+    },
+    "-OhTXj2-b0Kg63VbRJ1r": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:02.559Z"
+    },
+    "-OhTXj2ByeJmQiiHrx_v": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:02.572Z"
+    },
+    "-OhTXj39zdALlygKBkZI": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:02.634Z"
+    },
+    "-OhTXj3FgZyygdm8FDrX": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:02.640Z"
+    },
+    "-OhTXkaWtW9J8GFQMHP5": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:08.929Z"
+    },
+    "-OhTXkaZhyJTMYI9QpU7": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:08.932Z"
+    },
+    "-OhTXobgB7bPFIYxt6V9": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:25.388Z"
+    },
+    "-OhTXobjV8wL_H2PAG33": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:25.391Z"
+    },
+    "-OhTXsi_sOpDqTCfkUV9": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:42.213Z"
+    },
+    "-OhTXsic7Ko3joGn597X": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:42.216Z"
+    },
+    "-OhTXv6D_ZTdv_WBl0-S": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:51.982Z"
+    },
+    "-OhTXv6GQC1UPfkUVb7O": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:42:51.985Z"
+    },
+    "-OhTY2_6usYLcBMbXsrc": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:43:26.663Z"
+    },
+    "-OhTY2_90E1ha50p6nEP": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:43:26.666Z"
+    },
+    "-OhTYK4Y4SAzFpMVQ3B9": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:44:38.371Z"
+    },
+    "-OhTYK4b3SGaxu956zJ7": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:44:38.375Z"
+    },
+    "-OhTYRXsMkOseE4YD8u4": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:45:08.920Z"
+    },
+    "-OhTYRY0hMg4zpqkEog_": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:45:08.928Z"
+    },
+    "-OhTYUAEbwXGIR6pksWi": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:45:19.695Z"
+    },
+    "-OhTYYK0xko5q_dNQpGB": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:45:36.705Z"
+    },
+    "-OhTYqOwPnwvsOr9Qi0k": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:46:54.844Z"
+    },
+    "-OhTYqP-tGxAYuk2XtE3": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:46:54.847Z"
+    },
+    "-OhT_vyzhF7jndEJha6k": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:56:01.983Z"
+    },
+    "-OhT_vz1hxP693xhQSvX": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:56:01.986Z"
+    },
+    "-OhT_wutJc0gFNk0WTvU": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:56:05.817Z"
+    },
+    "-OhT_wux96Ah361kQEhh": {
+      "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+      },
+      "eventName": "APP_OPEN",
+      "timestamp": "2025-12-27T06:56:05.821Z"
+    }
+  },
+  "announcement": {
+    "active": true,
+    "createdAt": "2025-12-24T14:06:34.788Z",
+    "message": "Sedang ada update sistem. Mohon tunggu sebentar dan refresh halaman setelah selesai.",
+    "type": "info"
+  },
+  "errorLogs": {
+    "-OhTWfMNarQICgxm0pG9": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817444177:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817444177:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766816960983:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817444177:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:37:25.309Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTXnrAoG2Xk627uX2m": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817489772:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766817489772:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:42:22.248Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTXpA8XgYtvFAtl3BD": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817489772:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766817489772:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:42:27.623Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTXuuKncw7lY2GEAoU": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817489772:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766817489772:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:42:51.127Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTY2ID6D0mhwWwjGsv": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817489772:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766817489772:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:43:25.494Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTYJ7TXHTNOCirn-Wq": {
+      "context": {
+        "componentStack": "\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:3773:24)\n    at div (<anonymous>)\n    at MotionDOMComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:5427:40)\n    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4346:24)\n    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=a1975c6a:4425:26)\n    at main (<anonymous>)\n    at div (<anonymous>)\n    at App (http://localhost:5173/src/App.jsx?t=1766817489772:338:27)\n    at ErrorBoundary (http://localhost:5173/src/main.jsx?t=1766817489772:9:5)"
+      },
+      "message": "showCooldown is not defined",
+      "stack": "ReferenceError: showCooldown is not defined\n    at SubjectView (http://localhost:5173/src/App.jsx?t=1766817489772:4122:120)\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:18509:20)\n    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:5654:24)\n    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:7475:21)\n    at beginWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:8525:20)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:997:72)\n    at performUnitOfWork (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12561:98)\n    at workLoopSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12424:43)\n    at renderRootSync (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:12408:13)\n    at performWorkOnRoot (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=a1975c6a:11827:37)",
+      "timestamp": "2025-12-27T06:44:34.443Z",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+    },
+    "-OhTYTeBECUsSXPGkBAb": {
+      "context": {
+        "componentStack": "\ny4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1523:10971\ndiv@unknown:0:0\nmotion.div@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:12128\nej@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:167\nnt@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:1123\nmain@unknown:0:0\ndiv@unknown:0:0\ng4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1515:107238\nI4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1552:55334"
+      },
+      "message": "Can't find variable: showCooldown",
+      "stack": "y4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1523:17187\nRd@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:48106\nem@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:70905\nqk@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:116988\nJC@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:116034\nSm@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:115866\nBk@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:112659\niy@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:124592\nrl@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:123141\nty@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:123421\n@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:124652",
+      "timestamp": "2025-12-27T06:45:17.521Z",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+    },
+    "-OhTYY29xdRMm-oXUcE0": {
+      "context": {
+        "componentStack": "\ny4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1523:10971\ndiv@unknown:0:0\nmotion.div@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:12128\nej@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:167\nnt@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:17:1123\nmain@unknown:0:0\ndiv@unknown:0:0\ng4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1515:107238\nI4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1552:55334"
+      },
+      "message": "Can't find variable: showCooldown",
+      "stack": "y4@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:1523:17187\nRd@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:48106\nem@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:70905\nqk@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:116988\nJC@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:116034\nSm@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:115866\nBk@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:112659\niy@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:124592\nrl@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:123141\nty@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:123421\n@https://uasbmb29.xyz/assets/index-BoP6Tb_s.js:8:124652",
+      "timestamp": "2025-12-27T06:45:35.503Z",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1"
+    }
+  },
+  "forums": {
+    "marketing": {
+      "threads": {
+        "-OgvSrMIiy5N7KQqKFnN": {
+          "authorClass": "Other",
+          "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+          "authorName": "Tester",
+          "closed": false,
+          "commentCount": 4,
+          "comments": {
+            "-OgvSwVlPQ1za3uwXvaW": {
+              "authorClass": "Other",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+              "authorName": "Tester",
+              "content": "sss",
+              "createdAt": "2025-12-20T11:14:24.356Z",
+              "replies": {
+                "-OgvSxv8Y9omSiyUbvvH": {
+                  "authorClass": "Other",
+                  "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+                  "authorName": "Tester",
+                  "content": "sss",
+                  "createdAt": "2025-12-20T11:14:30.140Z"
+                },
+                "-OgwHYyOGQI5-CeuJPx-": {
+                  "authorClass": "Other",
+                  "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+                  "authorName": "Tester",
+                  "content": "l",
+                  "createdAt": "2025-12-20T15:04:17.494Z"
+                }
+              }
+            },
+            "-Oh-irtCQP8BU3EKhx94": {
+              "authorClass": "Other",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+              "authorName": "Admin",
+              "content": "s",
+              "createdAt": "2025-12-21T11:46:28.020Z"
+            },
+            "-Oh-oWkq4dDT8CQ2uirn": {
+              "authorClass": "Other",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+              "authorName": "Admin",
+              "content": "ss",
+              "createdAt": "2025-12-21T12:11:10.211Z"
+            },
+            "-Oh3WoU_KAM_2DtVLJkj": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+              "authorName": "Admin",
+              "content": "WOI",
+              "createdAt": "2025-12-22T05:27:55.094Z"
+            }
+          },
+          "content": "tes2",
+          "createdAt": "2025-12-20T11:14:03.269Z",
+          "imageUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766229242/cng2pwxd3cxibjzkoip0.jpg",
+          "title": "tes2"
+        },
+        "-Oh-slse9Sh7WTeCzjZ3": {
+          "authorClass": "Other",
+          "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+          "authorName": "Admin",
+          "closed": false,
+          "commentCount": 6,
+          "comments": {
+            "-OhTBw8_A82S_KnPBOXT": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+              "authorName": "Admin",
+              "content": "ya",
+              "createdAt": "2025-12-27T05:06:49.030Z",
+              "isAdmin": true,
+              "isTester": true
+            },
+            "-OhTSVsqfV8L-Mr-LOeB": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+              "authorName": "Admin",
+              "content": "s",
+              "createdAt": "2025-12-27T06:19:13.831Z",
+              "isAdmin": true,
+              "isTester": true
+            },
+            "-OhTTzU4sxMbt7i82fWw": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+              "authorName": "Admin",
+              "content": "s",
+              "createdAt": "2025-12-27T06:25:41.289Z",
+              "isAdmin": true,
+              "isTester": true,
+              "replies": {
+                "-OhTVm_z-A3o6l8icnhR": {
+                  "authorClass": "LE86",
+                  "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+                  "authorName": "Tester",
+                  "content": "d",
+                  "createdAt": "2025-12-27T06:33:32.772Z",
+                  "isAdmin": false,
+                  "isTester": false
+                }
+              }
+            },
+            "-OhTVOfT5Ydsxb49AMMw": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+              "authorName": "Admin",
+              "content": "s",
+              "createdAt": "2025-12-27T06:31:50.722Z",
+              "isAdmin": true,
+              "isTester": true
+            },
+            "-OhTVazYE_a1b7bsw-eE": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+              "authorName": "Tester",
+              "content": "d",
+              "createdAt": "2025-12-27T06:32:45.256Z",
+              "isAdmin": false,
+              "isTester": false
+            },
+            "-OhTYwt-4MYdxYPOWmZ2": {
+              "authorClass": "LE86",
+              "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+              "authorName": "Tester2",
+              "content": "s",
+              "createdAt": "2025-12-27T06:47:21.372Z",
+              "isAdmin": false,
+              "isTester": false
+            }
+          },
+          "content": "s",
+          "createdAt": "2025-12-21T12:29:44.812Z",
+          "imageUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766320184/esp9rnh9i9b3av4g1zew.jpg",
+          "title": "s"
+        }
+      }
+    }
+  },
+  "globalChat": {
+    "-OgvoMEzJdYwmExGZwQu": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjea8ylr",
+      "authorName": "Tester2",
+      "content": "📚",
+      "createdAt": "2025-12-20T12:52:20.985Z",
+      "type": "sticker"
+    },
+    "-OgvoQVk8LK7x-p-7ij_": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjea8ylr",
+      "authorName": "Tester2",
+      "content": "😢",
+      "createdAt": "2025-12-20T12:52:38.442Z",
+      "type": "text"
+    },
+    "-OgvoU38YQF0G9wPWEZm": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+      "authorName": "Tester",
+      "content": "hey",
+      "createdAt": "2025-12-20T12:52:52.981Z",
+      "type": "text"
+    },
+    "-Ogvp8wf3X-GrdtKKXxN": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "res",
+      "createdAt": "2025-12-20T12:55:48.622Z",
+      "type": "text"
+    },
+    "-OgvptyDjatQ_Z7BW8Pv": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-20T12:59:05.329Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766235544/dbt4yumvjvnowvhvsqgr.jpg",
+      "type": "image"
+    },
+    "-Ogvq_9D80WfhiBn38rZ": {
+      "authorClass": "LD86",
+      "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjeb0al4",
+      "authorName": "Tester2",
+      "content": "test",
+      "createdAt": "2025-12-20T13:02:01.932Z",
+      "type": "text"
+    },
+    "-OgvsmIwckMYd9_sqaNv": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "↩️ Tester2: \"test\" — apa pan",
+      "createdAt": "2025-12-20T13:11:40.390Z",
+      "type": "text"
+    },
+    "-OgvsoOQoH0QN7IdV-3X": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "❤️",
+      "createdAt": "2025-12-20T13:11:48.933Z",
+      "type": "sticker"
+    },
+    "-Ogvsqioh1CLwwqYV2xM": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-20T13:11:58.494Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766236318/cjnd3xi6n7ujvoxx23vf.jpg",
+      "type": "image"
+    },
+    "-OgvssWDnKDdRcaMEQgZ": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "@Tester",
+      "createdAt": "2025-12-20T13:12:05.816Z",
+      "type": "text"
+    },
+    "-Ogvsyu0zL2PSW6FK6vu": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-20T13:12:31.979Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766236351/pyd5ptveru8fv9gzwvit.jpg",
+      "type": "image"
+    },
+    "-OgvtXe3eRTTDODJHLbf": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "@Tester2",
+      "createdAt": "2025-12-20T13:14:58.414Z",
+      "type": "text"
+    },
+    "-OgvtYXae2bG8D19dX8i": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "@Admin",
+      "createdAt": "2025-12-20T13:15:02.032Z",
+      "type": "text"
+    },
+    "-Ogvto0FNkEzZPXUhvw9": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "↩️ Admin: \"...\" — s",
+      "createdAt": "2025-12-20T13:16:09.513Z",
+      "type": "text"
+    },
+    "-Ogvub4v9xSXoUwFzahw": {
+      "authorClass": "LD86",
+      "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjeb0al4",
+      "authorName": "Tester2",
+      "content": "",
+      "createdAt": "2025-12-20T13:19:38.380Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766236778/plaouqne9uyqq4qm2ve0.jpg",
+      "type": "image"
+    },
+    "-Ogvucx1ABa6g3_GBQmv": {
+      "authorClass": "LD86",
+      "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjeb0al4",
+      "authorName": "Tester2",
+      "content": "minitor aman",
+      "createdAt": "2025-12-20T13:19:46.004Z",
+      "type": "text"
+    },
+    "-OgvvfT2VbYDd76iM5_k": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "amaann",
+      "createdAt": "2025-12-20T13:24:18.791Z",
+      "type": "text"
+    },
+    "-Ogvvgrsb8gy-NSjYfyf": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "tes ld",
+      "createdAt": "2025-12-20T13:24:24.540Z",
+      "replyToContent": "minitor aman",
+      "replyToId": "-Ogvucx1ABa6g3_GBQmv",
+      "replyToName": "Tester2",
+      "type": "text"
+    },
+    "-Ogvvwnx7hNPXj3nucgE": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "@Tester",
+      "createdAt": "2025-12-20T13:25:29.824Z",
+      "type": "text"
+    },
+    "-Ogw29Er6zRNd9jy9WPt": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjed0znj",
+      "authorName": "Tester",
+      "content": "tes",
+      "createdAt": "2025-12-20T13:57:00.843Z",
+      "type": "text"
+    },
+    "-Ogw3VSJhmaYzas14a-x": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjed0znj",
+      "authorName": "Tester",
+      "content": "b29",
+      "createdAt": "2025-12-20T14:02:53.960Z",
+      "type": "text"
+    },
+    "-Ogw4OH5kbugYWDT4rBp": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "b30",
+      "createdAt": "2025-12-20T14:06:45.863Z",
+      "type": "text"
+    },
+    "-Ogw4P_a7uGfrQE-XVmT": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "s'",
+      "createdAt": "2025-12-20T14:06:51.207Z",
+      "replyToContent": "b29",
+      "replyToId": "-Ogw3VSJhmaYzas14a-x",
+      "replyToName": "Tester",
+      "type": "text"
+    },
+    "-Ogw4TQad37lq1clT_9k": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-20T14:07:06.950Z",
+      "deleted": true,
+      "type": "audio"
+    },
+    "-OgwFkKhYMXkv4AwjUo-": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "🎤",
+      "createdAt": "2025-12-20T14:56:23.849Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/video/upload/v1766242583/np53jfscpmocnkafrsjp.webm",
+      "type": "audio"
+    },
+    "-OgwFs4-WQAAoqHFIJB4": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "🎤",
+      "createdAt": "2025-12-20T14:56:55.548Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/video/upload/v1766242614/oyrgrxjn2prtbqxgyl29.webm",
+      "type": "audio"
+    },
+    "-OgwFzaWKsua4I21WqR_": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "@Admin",
+      "createdAt": "2025-12-20T14:57:26.364Z",
+      "type": "text"
+    },
+    "-OgwKkfa4O0xcTlU37td": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Admin",
+      "content": "🎤",
+      "createdAt": "2025-12-20T15:18:15.956Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/video/upload/v1766243894/d1nl0p48eo1nw0lwsn4x.webm",
+      "type": "audio"
+    },
+    "-OgyLKxw1dJCoowgq6rZ": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko",
+      "authorName": "Tester",
+      "content": "📚",
+      "createdAt": "2025-12-21T00:40:03.173Z",
+      "type": "sticker"
+    },
+    "-OgyVRLRxnqsKWUJl1zB": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "tes",
+      "createdAt": "2025-12-21T01:24:10.757Z",
+      "type": "text"
+    },
+    "-OgyVRwD6XB5NSqCHmej": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-21T01:24:13.175Z",
+      "deleted": true,
+      "type": "text"
+    },
+    "-OgzsbtJH2POB2FOKksL": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Tester",
+      "content": "tes",
+      "createdAt": "2025-12-21T07:49:26.614Z",
+      "type": "text"
+    },
+    "-Oh-cjwD6B2BheIZhvM6": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-21T11:19:42.590Z",
+      "deleted": true,
+      "type": "text"
+    },
+    "-Oh-eZdZHf_szOVLxmmX": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "Halo, ini testing dari Admin.",
+      "createdAt": "2025-12-21T11:27:40.619Z",
+      "type": "text"
+    },
+    "-Oh-srL16ZUrPEcPVOXY": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-21T12:30:07.172Z",
+      "deleted": true,
+      "type": "customSticker"
+    },
+    "-Oh2vi-mINoaZEsAbjun": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "k",
+      "createdAt": "2025-12-22T02:41:27.021Z",
+      "type": "text"
+    },
+    "-Oh2voIGBmthPthBZRzt": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "",
+      "createdAt": "2025-12-22T02:41:52.780Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766371312/vouunv5u8zirbht9jhkk.jpg",
+      "type": "image"
+    },
+    "-Oh2vsKuy3IiVMaQ0IkZ": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Admin",
+      "content": "k",
+      "createdAt": "2025-12-22T02:42:09.333Z",
+      "replyToContent": "...",
+      "replyToId": "-Oh2voIGBmthPthBZRzt",
+      "replyToName": "Admin",
+      "type": "text"
+    },
+    "-Oh3-9IjjhPF2o25jP_Q": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgkdutj",
+      "authorName": "Tester",
+      "content": "",
+      "createdAt": "2025-12-22T03:00:51.799Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766372449/oeb1cxcreznw4pzwmvyq.jpg",
+      "type": "image"
+    },
+    "-Oh3-B-IP-bzXWgUCGiK": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgkdutj",
+      "authorName": "Tester",
+      "content": "",
+      "createdAt": "2025-12-22T03:00:58.748Z",
+      "mediaUrl": "https://res.cloudinary.com/dmerjrm3p/image/upload/v1766372456/wholf9qywtyyxgfqrzm7.jpg",
+      "type": "image"
+    },
+    "-Oh3Ws5_PkLAZg7B5F7H": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+      "authorName": "Admin",
+      "content": "oi gas belajar",
+      "createdAt": "2025-12-22T05:28:09.878Z",
+      "type": "text"
+    },
+    "-Oh3Wv-mDfSP6N75JmRT": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+      "authorName": "Admin",
+      "content": "🔥",
+      "createdAt": "2025-12-22T05:28:21.795Z",
+      "type": "sticker"
+    },
+    "-OhJtjFnJ7l9YpSlmC0L": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+      "authorName": "Preview User",
+      "content": "d",
+      "createdAt": "2025-12-25T09:46:20.591Z",
+      "type": "text"
+    },
+    "-OhNSVJXhwZRwhucSXCv": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+      "authorName": "Preview User",
+      "content": "n",
+      "createdAt": "2025-12-26T02:21:28.151Z",
+      "type": "text"
+    },
+    "-OhOTd7dnTXYkDwDeb39": {
+      "authorClass": "Other",
+      "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdxnizz",
+      "authorName": "Tester",
+      "content": "tes",
+      "createdAt": "2025-12-26T07:06:03.923Z",
+      "type": "text"
+    },
+    "-OhPjdJe_pZlMAEridli": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+      "authorName": "Admin",
+      "content": "a",
+      "createdAt": "2025-12-26T12:59:58.017Z",
+      "type": "text"
+    },
+    "-OhTBr3Uazup2AyFgJNP": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+      "authorName": "Admin",
+      "content": "tes",
+      "createdAt": "2025-12-27T05:06:28.224Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTSYUFLsCMPcZUdkfw": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "aa",
+      "createdAt": "2025-12-27T06:19:24.481Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTSZ-qdwwXrMRMmWhU": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "a",
+      "createdAt": "2025-12-27T06:19:26.631Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTS_JRRrT-1Af7TVrz": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:19:31.981Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTSaZ1YqBgxwohUe8O": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "testing rate limit",
+      "createdAt": "2025-12-27T06:19:37.074Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTSb2clWR7ucBZyFka": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "1",
+      "createdAt": "2025-12-27T06:19:39.097Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTTwmY43Si5TEyMRgG": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:25:30.247Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTTxNmYd3eOcE_TZ8o": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:25:32.694Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTTxt-w89tg_8HwoOx": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "dd",
+      "createdAt": "2025-12-27T06:25:34.756Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTVLqzzIYgd2yiAsy-": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "f",
+      "createdAt": "2025-12-27T06:31:39.172Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTVMMYhekHkf6KYUlb": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:31:41.256Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTVMrJCYL1wVAgt3gr": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:31:43.289Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTVYhuU6k858XXPraS": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Preview User",
+      "content": "d",
+      "createdAt": "2025-12-27T06:32:31.839Z",
+      "isAdmin": false,
+      "isTester": false,
+      "type": "text"
+    },
+    "-OhTXmOH8bgMoqTqWU66": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Tester",
+      "content": "d",
+      "createdAt": "2025-12-27T06:42:16.239Z",
+      "isAdmin": false,
+      "isTester": false,
+      "type": "text"
+    },
+    "-OhTY118XdnscaX2Dk58": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:43:20.305Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    },
+    "-OhTY1WvZxd0PFQ_ZgrS": {
+      "authorClass": "LE86",
+      "authorId": "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de",
+      "authorName": "Admin",
+      "content": "d",
+      "createdAt": "2025-12-27T06:43:22.339Z",
+      "isAdmin": true,
+      "isTester": true,
+      "type": "text"
+    }
+  },
+  "licenseKeys": {
+    "ADMIN1": {
+      "createdAt": "2025-12-21T07:59:16.958Z",
+      "daysActive": 365,
+      "isAdmin": true,
+      "isTester": true,
+      "key": "ADMIN1",
+      "maxDevices": 4,
+      "name": "Admin",
+      "updatedAt": "2025-12-26T13:10:20.092Z"
+    },
+    "B29-JBM5VD": {
+      "createdAt": "2025-12-24T05:54:01.644Z",
+      "daysActive": 60,
+      "isAdmin": false,
+      "isTester": true,
+      "key": "B29-JBM5VD",
+      "maxDevices": 2,
+      "name": "Keiza",
+      "updatedAt": "2025-12-27T01:09:50.148Z"
+    },
+    "B29-QNO8BW": {
+      "createdAt": "2025-12-25T22:02:50.569Z",
+      "daysActive": 60,
+      "isAdmin": false,
+      "isTester": true,
+      "key": "B29-QNO8BW",
+      "maxDevices": 2,
+      "name": "Millen",
+      "updatedAt": "2025-12-27T01:09:55.283Z"
+    },
+    "TESTER01": {
+      "createdAt": "2025-12-21T07:59:16.979Z",
+      "daysActive": 365,
+      "fixedExpiry": "2026-01-01T00:00:00.000Z",
+      "isAdmin": false,
+      "isTester": false,
+      "key": "TESTER01",
+      "maxDevices": 999,
+      "name": "Tester",
+      "updatedAt": "2025-12-27T01:10:02.230Z"
+    },
+    "TESTER02": {
+      "createdAt": "2025-12-21T07:59:17.000Z",
+      "daysActive": 365,
+      "fixedExpiry": "2026-01-01T00:00:00.000Z",
+      "isAdmin": false,
+      "key": "TESTER02",
+      "maxDevices": 999,
+      "name": "Tester2"
+    },
+    "TESTER03": {
+      "createdAt": "2025-12-21T11:48:10.320Z",
+      "daysActive": 30,
+      "fixedExpiry": "2025-12-25T00:00:00.000Z",
+      "isAdmin": false,
+      "key": "TESTER03",
+      "maxDevices": 999,
+      "name": "Tester3",
+      "suspendedUntil": "2025-12-27T07:56:43.376Z",
+      "updatedAt": "2025-12-26T05:38:46.854Z"
+    }
+  },
+  "licenses": {
+    "ADMIN1": {
+      "activatedAt": "2025-12-21T07:59:49.431Z",
+      "deviceIds": [
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de"
+      ],
+      "email": "",
+      "expiry": "2026-12-21T07:59:49.431Z",
+      "referralCode": "REF-ADMI-PIWG",
+      "referralCount": 4,
+      "userName": "Admin"
+    },
+    "TESTER01": {
+      "activatedAt": "2025-12-21T08:00:12.397Z",
+      "deviceIds": [
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+        "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgkdutj",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgmwmcb",
+        "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjgrf7kn",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjh79ox0",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjhx2s24",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjk76k5d",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdxnizz",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de"
+      ],
+      "expiry": "2026-01-01T00:00:00.000Z",
+      "referralCode": "REF-TEST-SUXE",
+      "referralCount": 0,
+      "referredBy": "REF-ADMI-PIWG",
+      "referredByUser": "Admin",
+      "userName": "Tester"
+    },
+    "TESTER02": {
+      "activatedAt": "2025-12-21T11:56:43.745Z",
+      "deviceIds": [
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+        "TW96aWxsYS81LjAgKFgxMTsgTGludXgg_mjftgalb",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgke1cc",
+        "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjjzdggd",
+        "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjk1yfhi",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2de"
+      ],
+      "expiry": "2026-01-01T00:00:00.000Z",
+      "referralCode": "REF-TEST-CENT",
+      "referralCount": 0,
+      "referredBy": "REF-ADMI-PIWG",
+      "referredByUser": "Admin",
+      "userName": "Tester2"
+    },
+    "TESTER03": {
+      "activatedAt": "2025-12-21T11:50:12.166Z",
+      "deviceIds": [
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna",
+        "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgjhx3j",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgotxyz",
+        "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjipyxrl",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjk77d3b",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjea8ylr",
+        "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j"
+      ],
+      "expiry": "2026-01-01T00:00:00.000Z",
+      "referralCode": "REF-TEST-ZQV3",
+      "referralCount": 0,
+      "referredBy": "REF-ADMI-PIWG",
+      "referredByUser": "Admin",
+      "userName": "Tester3"
+    }
+  },
+  "presence": {
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjduzwko": {
+      "lastSeen": 1766295864869,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjdwuafw": {
+      "deviceType": "desktop",
+      "lastSeen": 1766818513781,
+      "online": true,
+      "userName": "Admin"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjea8ylr": {
+      "lastSeen": 1766642395075,
+      "online": false
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1k0rt": {
+      "lastSeen": 1766280390719,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjf1l2d5": {
+      "lastSeen": 1766280206300
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfb77x8": {
+      "lastSeen": 1766299676912,
+      "online": false,
+      "userName": "Administrator"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjfcii0j": {
+      "lastSeen": 1766758105351,
+      "online": false
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjhx2s24": {
+      "currentSubject": "intro",
+      "deviceType": "desktop",
+      "lastSeen": 1766453974809,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjk76k5d": {
+      "deviceType": "desktop",
+      "lastSeen": 1766592090281,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKE1hY2ludG9zaDsg_mjk77d3b": {
+      "currentSubject": "intro",
+      "deviceType": "desktop",
+      "lastSeen": 1766593699699,
+      "online": false,
+      "userName": "Tester3"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjebf22k": {
+      "lastSeen": 1766241719764,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjebwgxe": {
+      "currentSubject": "marketing",
+      "deviceType": "mobile",
+      "lastSeen": 1766669240119,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgjhx3j": {
+      "lastSeen": 1766370849887,
+      "online": false
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjgkdutj": {
+      "deviceType": "mobile",
+      "lastSeen": 1766372853603,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjjzdggd": {
+      "deviceType": "tablet",
+      "lastSeen": 1766578885256,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjk1yfhi": {
+      "deviceType": "tablet",
+      "lastSeen": 1766583156956,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKExpbnV4OyBBbmRy_mjla804e": {
+      "currentSubject": "marketing",
+      "lastSeen": 1766657456703
+    },
+    "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjecakee": {
+      "currentSubject": "marketing",
+      "lastSeen": 1766237689685,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjed0znj": {
+      "lastSeen": 1766253743487,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg_mjgrf7kn": {
+      "lastSeen": 1766384648908,
+      "online": false
+    },
+    "TW96aWxsYS81LjAgKFgxMTsgTGludXgg_mjftgalb": {
+      "deviceType": "desktop",
+      "lastSeen": 1766327296060,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdxnizz": {
+      "currentSubject": "marketing",
+      "deviceType": "mobile",
+      "lastSeen": 1766733501850,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjdzrzna": {
+      "deviceType": "mobile",
+      "lastSeen": 1766817963950,
+      "online": false,
+      "userName": "Admin"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjeb0al4": {
+      "lastSeen": 1766236835755,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjeb6o8a": {
+      "currentSubject": "mis",
+      "lastSeen": 1766236030807,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgke1cc": {
+      "deviceType": "mobile",
+      "lastSeen": 1766372253898,
+      "online": false,
+      "userName": "Tester2"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgmwmcb": {
+      "deviceType": "mobile",
+      "lastSeen": 1766393498567,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjgotxyz": {
+      "deviceType": "mobile",
+      "lastSeen": 1766379955290,
+      "online": false,
+      "userName": "Tester3"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjh79ox0": {
+      "deviceType": "mobile",
+      "lastSeen": 1766410655024,
+      "online": false,
+      "userName": "Tester"
+    },
+    "TW96aWxsYS81LjAgKGlQaG9uZTsgQ1BV_mjipyxrl": {
+      "deviceType": "mobile",
+      "lastSeen": 1766741067097,
+      "online": false,
+      "userName": "Tester3"
+    }
+  },
+  "referrals": {
+    "ADMIN1": {
+      "TESTER01": {
+        "newUserKey": "TESTER01",
+        "newUserName": "Tester",
+        "referredAt": "2025-12-26T04:49:01.880Z"
+      },
+      "TESTER02": {
+        "newUserKey": "TESTER02",
+        "newUserName": "Tester2",
+        "referredAt": "2025-12-26T04:49:14.244Z"
+      },
+      "TESTER03": {
+        "newUserKey": "TESTER03",
+        "newUserName": "Tester3",
+        "referredAt": "2025-12-26T04:49:34.159Z"
+      },
+      "TESTER04": {
+        "newUserKey": "TESTER04",
+        "newUserName": "Tester4",
+        "referredAt": "2025-12-26T04:49:52.810Z"
+      }
+    }
+  },
+  "userNotes": {
+    "ADMIN1": {
+      "hr": {
+        "content": "",
+        "updatedAt": "2025-12-26T12:56:30.427Z"
+      }
+    }
+  },
+  "userSettings": {
+    "ADMIN1": {
+      "dark": true,
+      "font": "poppins",
+      "selectedClass": "Other",
+      "theme": "rose",
+      "updatedAt": "2025-12-27T07:00:43.471Z"
+    },
+    "PREVIEW01": {
+      "dark": true,
+      "font": "poppins",
+      "selectedClass": "LE86",
+      "theme": "rose",
+      "updatedAt": "2025-12-27T06:32:27.904Z"
+    },
+    "TESTER01": {
+      "dark": true,
+      "font": "poppins",
+      "selectedClass": "LE86",
+      "theme": "rose",
+      "updatedAt": "2025-12-27T06:42:52.007Z"
+    },
+    "TESTER02": {
+      "dark": true,
+      "font": "poppins",
+      "selectedClass": "Other",
+      "theme": "rose",
+      "updatedAt": "2025-12-27T06:57:14.279Z"
+    },
+    "TESTER03": {
+      "dark": true,
+      "font": "inter",
+      "selectedClass": "Other",
+      "theme": "blue",
+      "updatedAt": "2025-12-26T09:23:48.848Z"
+    }
+  }
+}

@@ -638,6 +638,17 @@ export const getUserSettings = async (licenseKey) => {
     }
 };
 
+// Subscribe to user settings for realtime sync across devices
+export const subscribeToUserSettings = (licenseKey, callback) => {
+    const settingsRef = ref(db, `userSettings/${licenseKey.toUpperCase()}`);
+    const unsubscribe = onValue(settingsRef, (snapshot) => {
+        callback(snapshot.val());
+    }, (error) => {
+        console.error('Error subscribing to settings:', error);
+    });
+    return unsubscribe;
+};
+
 // Save user personal notes to Firebase
 export const saveUserNotes = async (licenseKey, subjectId, notes) => {
     try {
