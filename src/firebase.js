@@ -853,7 +853,7 @@ export const getDeviceType = () => {
 };
 
 // Presence system
-export const setupPresence = (userId, userName, currentSubject = null) => {
+export const setupPresence = (userId, userName, currentSubject = null, hideStatus = false) => {
     const userStatusRef = ref(db, `presence/${userId}`);
     const connectedRef = ref(db, '.info/connected');
     const deviceType = getDeviceType();
@@ -866,6 +866,7 @@ export const setupPresence = (userId, userName, currentSubject = null) => {
                 userName,
                 currentSubject,
                 deviceType,
+                hideStatus, // Privacy: hide from online list
                 lastSeen: serverTimestamp(),
             };
             set(userStatusRef, statusData);

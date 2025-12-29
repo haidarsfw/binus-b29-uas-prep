@@ -281,6 +281,11 @@ export default function App() {
   const [notificationPermission, setNotificationPermission] = useState('default');
   const mentionSoundRef = useRef(null);
 
+  // Hide online status state (privacy feature) - default OFF (visible)
+  const [hideStatus, setHideStatus] = useState(() => localStorage.getItem('hideStatus') === 'true');
+  const [hideStatusChangedAt, setHideStatusChangedAt] = useState(() => parseInt(localStorage.getItem('hideStatusChangedAt') || '0'));
+  const [showHideStatusConfirm, setShowHideStatusConfirm] = useState(false); // Styled confirmation modal
+
   // --- Advanced Features Effects ---
   useEffect(() => {
     // Request notification permission and store result
@@ -600,17 +605,17 @@ export default function App() {
   useEffect(() => {
     if (!session) return;
     const userId = getDeviceId();
-    setupPresence(userId, session.userName, currentSubject?.id);
+    setupPresence(userId, session.userName, currentSubject?.id, hideStatus);
     const unsub = subscribeToPresence(setOnlineUsers);
     return () => unsub();
-  }, [session, currentSubject]);
+  }, [session, currentSubject, hideStatus]);
 
-  // Update presence when subject changes
+  // Update presence when subject or hideStatus changes
   useEffect(() => {
     if (!session) return;
     const userId = getDeviceId();
-    updatePresence(userId, { currentSubject: currentSubject?.id || null });
-  }, [session, currentSubject]);
+    updatePresence(userId, { currentSubject: currentSubject?.id || null, hideStatus });
+  }, [session, currentSubject, hideStatus]);
 
   // Smart presence: frequent updates when tab visible, infrequent when hidden
   useEffect(() => {
@@ -746,9 +751,14 @@ export default function App() {
             setFont(cloudSettings.font);
             localStorage.setItem('font', cloudSettings.font);
           }
-          if (cloudSettings.reminder) {
-            setReminder(cloudSettings.reminder);
-            localStorage.setItem('studyReminder', cloudSettings.reminder);
+          // Sync reminder - handle empty string as "no reminder"
+          if (cloudSettings.hasOwnProperty('reminder')) {
+            setReminder(cloudSettings.reminder || '');
+            if (cloudSettings.reminder) {
+              localStorage.setItem('studyReminder', cloudSettings.reminder);
+            } else {
+              localStorage.removeItem('studyReminder');
+            }
           }
           // Load progress from cloud
           if (cloudSettings.progress && Object.keys(cloudSettings.progress).length > 0) {
@@ -1051,7 +1061,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           {!currentSubject ? (
             <motion.div key="d" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} onSelect={setCurrentSubject} progress={progress} onlineUsers={onlineUsers} schedules={DB.schedules} />
+              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} onSelect={setCurrentSubject} progress={progress} onlineUsers={onlineUsers} schedules={DB.schedules} hideStatus={hideStatus} />
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
@@ -1131,6 +1141,40 @@ export default function App() {
                   <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
                     <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
+                </div>
+
+                {/* Hide Online Status - Below Mode Gelap */}
+                <div className="p-4 glass-card rounded-xl space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span className="text-[var(--text)] font-medium">Sembunyikan Status Online</span>
+                      <span className="text-xs text-[var(--text-muted)]">
+                        {hideStatus ? '🔒 Status tersembunyi - kamu tidak bisa melihat siapa yang online' : '👀 Status terlihat oleh semua orang'}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const now = Date.now();
+                        const cooldownMs = 60 * 60 * 1000; // 1 hour
+                        const timePassed = now - hideStatusChangedAt;
+                        // Admin bypass - no cooldown for admin
+                        if (!session?.isAdmin && timePassed < cooldownMs && hideStatusChangedAt > 0) {
+                          const remainingMin = Math.ceil((cooldownMs - timePassed) / 60000);
+                          showToast(`⏳ Kamu hanya bisa mengganti ini 1 jam sekali. Tunggu ${remainingMin} menit lagi.`, 'warning');
+                          return;
+                        }
+                        // Show styled confirmation modal
+                        setShowHideStatusConfirm(true);
+                      }}
+                      className={`w-12 h-7 rounded-full p-1 transition-colors ${hideStatus ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}
+                    >
+                      <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${hideStatus ? 'ml-auto' : ''}`} />
+                    </button>
+                  </div>
+                  <p className="text-xs text-[var(--text-muted)] border-t border-[var(--border)] pt-2">
+                    ⚠️ Kamu hanya bisa mengganti pengaturan ini <b>1 jam sekali</b>. Jika menyembunyikan status, kamu juga tidak bisa melihat siapa yang online.
+                    {session?.isAdmin && <span className="block mt-1 text-amber-500">👑 Admin tetap bisa melihat semua user.</span>}
+                  </p>
                 </div>
 
                 {/* Email for Reminder */}
@@ -1402,6 +1446,65 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* Hide Status Confirmation Modal (styled, not browser native) */}
+      <AnimatePresence>
+        {showHideStatusConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100000] flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.6)' }}
+            onClick={() => setShowHideStatusConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              className="glass-strong p-6 rounded-2xl max-w-sm w-full"
+              onClick={e => e.stopPropagation()}
+            >
+              <h3 className="font-bold text-[var(--text)] text-center text-lg mb-2">
+                {hideStatus ? '👀 Tampilkan Status Online?' : '🔒 Sembunyikan Status Online?'}
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)] text-center mb-4">
+                {hideStatus
+                  ? 'Status kamu akan terlihat oleh semua orang.'
+                  : 'Jika menyembunyikan status, kamu juga tidak bisa melihat siapa yang online.'}
+              </p>
+              <p className="text-xs text-[var(--text-muted)] text-center mb-4 p-2 bg-[var(--accent-soft)] rounded-lg">
+                ⚠️ Kamu hanya bisa mengganti ini <b>1 jam sekali</b>
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowHideStatusConfirm(false)}
+                  className="flex-1 py-2.5 px-4 rounded-xl surface-flat text-[var(--text)] text-sm font-medium"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={() => {
+                    const newValue = !hideStatus;
+                    const now = Date.now();
+                    setHideStatus(newValue);
+                    setHideStatusChangedAt(now);
+                    localStorage.setItem('hideStatus', String(newValue));
+                    localStorage.setItem('hideStatusChangedAt', String(now));
+                    if (session?.licenseKey) {
+                      saveUserSettings(session.licenseKey, { hideStatus: newValue, hideStatusChangedAt: now });
+                    }
+                    showToast(newValue ? '🔒 Status online disembunyikan' : '👀 Status online terlihat', 'success');
+                    setShowHideStatusConfirm(false);
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl gradient-accent text-white text-sm font-medium"
+                >
+                  Ya, Lanjutkan
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
 
       {/* Reminder Modal */}
       <AnimatePresence>
@@ -1466,7 +1569,12 @@ export default function App() {
                           onClick={() => {
                             setReminder('');
                             localStorage.removeItem('studyReminder');
+                            // Sync to Firebase so all devices with same license key get updated
+                            if (session?.licenseKey) {
+                              saveUserSettings(session.licenseKey, { reminder: '' });
+                            }
                             setShowReminder(false);
+                            showToast('🔔 Reminder dihapus', 'success');
                           }}
                           className="btn btn-secondary flex-1"
                         >
@@ -1476,7 +1584,16 @@ export default function App() {
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        onClick={() => setShowReminder(false)}
+                        onClick={() => {
+                          // Sync reminder to Firebase
+                          if (session?.licenseKey && reminder) {
+                            saveUserSettings(session.licenseKey, { reminder });
+                          }
+                          setShowReminder(false);
+                          if (reminder && reminder.includes('T')) {
+                            showToast('🔔 Reminder disimpan', 'success');
+                          }
+                        }}
                         className="btn btn-primary flex-1"
                       >
                         Simpan
@@ -1661,6 +1778,14 @@ export default function App() {
                   onClick={() => {
                     stopAlarmSound();
                     setAlarmActive(false);
+                    // Clear reminder to stop red dot
+                    setReminder('');
+                    localStorage.removeItem('studyReminder');
+                    setReminderActive(false);
+                    // Sync to Firebase so all devices know reminder is cleared
+                    if (session?.licenseKey) {
+                      saveUserSettings(session.licenseKey, { reminder: '' });
+                    }
                   }}
                   className="btn btn-primary px-6 py-3"
                 >
@@ -2119,31 +2244,42 @@ function Login({ dark, setDark, onSuccess }) {
   );
 }
 
-function Dashboard({ session, selectedClass, overallProgress, onSelect, progress, onlineUsers, schedules }) {
+function Dashboard({ session, selectedClass, overallProgress, onSelect, progress, onlineUsers, schedules, hideStatus }) {
   const name = session?.userName || 'Student';
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Selamat Pagi' : hour < 17 ? 'Selamat Siang' : 'Selamat Malam';
   const classSchedule = schedules[selectedClass] || schedules['Other'] || {};
   const [showScheduleInfo, setShowScheduleInfo] = useState(false);
   const [showPatchNotes, setShowPatchNotes] = useState(false);
+  const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.0.1";
+  const currentVersion = "1.0.2";
   const patchNotes = {
     current: {
-      version: "1.0.1",
+      version: "1.0.2",
       date: "29 Des 2024",
       changes: [
-        "- Fitur quiz per modul dengan penyimpanan skor",
-        "- Peningkatan kenyamanan tampilan light mode",
-        "- Perbaikan error pada mode 'Kerjakan Semua'",
-        "- Perhitungan progress berdasarkan Materi Inti dan Quiz",
-        "- Penambahan 3 opsi tema warna baru",
-        "- Forum dan Chat mention system dengan @all untuk admin",
-        "- Browser notification dan sound saat di-mention"
+        "- Fitur Sembunyikan Status Online di Settings",
+        "- Tombol Hubungi Admin di halaman error",
+        "- Perbaikan reminder red dot yang tidak hilang",
+        "- Peningkatan logging error untuk debugging",
+        "- Tombol patch notes dengan warna berbeda"
       ]
     },
     past: [
+      {
+        version: "1.0.1",
+        date: "29 Des 2024",
+        changes: [
+          "- Fitur quiz per modul dengan penyimpanan skor",
+          "- Peningkatan kenyamanan tampilan light mode",
+          "- Perbaikan error pada mode 'Kerjakan Semua'",
+          "- Perhitungan progress berdasarkan Materi Inti dan Quiz",
+          "- Penambahan 3 opsi tema warna baru",
+          "- Forum dan Chat mention system dengan @all untuk admin"
+        ]
+      },
       {
         version: "1.0.0",
         date: "25 Des 2024",
@@ -2201,7 +2337,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
               <span className="badge badge-accent"><BookOpen className="w-3 h-3" />{DB.subjects.length} Mata Kuliah</span>
               {onlineUsers.length > 0 && <span className="badge badge-success"><span className="online-dot mr-1" />{onlineUsers.length} Online</span>}
-              <button onClick={() => setShowPatchNotes(true)} className="badge hover:opacity-80 transition-opacity cursor-pointer" style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}>
+              <button onClick={() => setShowPatchNotes(true)} className="badge hover:opacity-80 transition-opacity cursor-pointer" style={{ background: 'rgba(6,182,212,0.2)', color: '#06b6d4', fontWeight: 600 }}>
                 <Sparkles className="w-3 h-3" />v{currentVersion}
               </button>
             </div>
@@ -2213,16 +2349,30 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         {/* Online Users - shrink to fit content */}
         <div className="glass-card p-4 md:w-auto md:min-w-[140px] md:max-w-[240px] shrink-0">
+          {/* Online Widget Header */}
           <div className="flex items-center gap-2 mb-2">
             <div className="online-dot" />
             <span className="text-sm font-medium text-[var(--text)]">Online</span>
-            <span className="ml-auto text-xs px-1.5 py-0.5 surface-flat rounded-full text-[var(--text-muted)] font-medium">{onlineUsers.length}</span>
+            {/* Show count of visible users (admin sees all, non-admin sees only non-hidden) */}
+            <span className="ml-auto text-xs px-1.5 py-0.5 surface-flat rounded-full text-[var(--text-muted)] font-medium">
+              {session?.isAdmin ? onlineUsers.length : onlineUsers.filter(u => !u.hideStatus).length}
+            </span>
           </div>
-          {onlineUsers.length > 0 ? (() => {
-            // Group users by userName and collect device types
-            const grouped = onlineUsers.reduce((acc, u) => {
+          {/* Show message if user is hiding their status */}
+          {hideStatus && !session?.isAdmin ? (
+            <p className="text-xs text-[var(--text-muted)] flex items-center gap-1">
+              <span>🔒</span> Status kamu tersembunyi
+            </p>
+          ) : onlineUsers.length > 0 ? (() => {
+            // Filter users: admin sees all, others see only non-hidden users
+            const visibleOnlineUsers = session?.isAdmin
+              ? onlineUsers
+              : onlineUsers.filter(u => !u.hideStatus);
+
+            // Group users by userName and collect device types + hideStatus
+            const grouped = visibleOnlineUsers.reduce((acc, u) => {
               const name = u.userName || 'Unknown';
-              if (!acc[name]) acc[name] = { userName: name, devices: [] };
+              if (!acc[name]) acc[name] = { userName: name, devices: [], hideStatus: u.hideStatus };
               acc[name].devices.push(u.deviceType || 'desktop');
               return acc;
             }, {});
@@ -2251,12 +2401,14 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
               return str.trim();
             };
 
-            return (
+            return uniqueUsers.length > 0 ? (
               <div className="flex flex-col gap-1">
                 {uniqueUsers.slice(0, 4).map((u, i) => (
                   <motion.div key={u.userName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="flex items-center gap-1.5 text-xs">
                     <div className="avatar avatar-sm text-[10px] w-5 h-5 shrink-0">{u.userName?.charAt(0) || '?'}</div>
                     <span className="text-[var(--text)] truncate">{u.userName}</span>
+                    {/* Admin sees 🔒 for hidden users */}
+                    {session?.isAdmin && u.hideStatus && <span className="text-[10px]" title="Status tersembunyi">🔒</span>}
                     <span className="text-[10px] ml-auto">{getDeviceEmojis(u.devices)}</span>
                   </motion.div>
                 ))}
@@ -2264,6 +2416,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                   <span className="text-xs text-[var(--text-muted)]">+{uniqueUsers.length - 4} lainnya</span>
                 )}
               </div>
+            ) : (
+              <p className="text-[var(--text-muted)] text-xs">-</p>
             );
           })() : (
             <p className="text-[var(--text-muted)] text-xs">-</p>
@@ -2393,23 +2547,38 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                 </ul>
               </div>
 
-              {/* Past Updates */}
+              {/* Past Updates - Collapsible per version */}
               {patchNotes.past.length > 0 && (
                 <div className="border-t border-[var(--border)] pt-4">
                   <h4 className="text-sm font-medium text-[var(--text-muted)] mb-3">Riwayat Update</h4>
-                  {patchNotes.past.map((p, idx) => (
-                    <div key={idx} className="mb-3">
-                      <p className="text-xs font-medium text-[var(--text)]">v{p.version} - {p.date}</p>
-                      <ul className="space-y-0.5 mt-1">
-                        {p.changes.slice(0, 3).map((c, i) => (
-                          <li key={i} className="text-xs text-[var(--text-muted)] pl-2">{c}</li>
-                        ))}
-                        {p.changes.length > 3 && (
-                          <li className="text-xs text-[var(--text-muted)] pl-2">+{p.changes.length - 3} lainnya</li>
-                        )}
-                      </ul>
-                    </div>
-                  ))}
+                  {patchNotes.past.map((p, idx) => {
+                    const isExpanded = expandedVersions[p.version] || false;
+                    return (
+                      <div key={idx} className="mb-3">
+                        <button
+                          onClick={() => setExpandedVersions(prev => ({ ...prev, [p.version]: !prev[p.version] }))}
+                          className="w-full flex items-center justify-between text-left p-2 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
+                        >
+                          <p className="text-xs font-medium text-[var(--text)]">v{p.version} - {p.date}</p>
+                          <ChevronDown className={`w-4 h-4 text-[var(--text-muted)] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.ul
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden space-y-0.5 mt-1 pl-2"
+                            >
+                              {p.changes.map((c, i) => (
+                                <li key={i} className="text-xs text-[var(--text-muted)]">{c}</li>
+                              ))}
+                            </motion.ul>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
