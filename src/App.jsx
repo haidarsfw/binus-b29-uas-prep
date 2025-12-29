@@ -751,6 +751,16 @@ export default function App() {
             setFont(cloudSettings.font);
             localStorage.setItem('font', cloudSettings.font);
           }
+          // Sync hideStatus from cloud - works across devices
+          if (cloudSettings.hasOwnProperty('hideStatus')) {
+            const hideStatusValue = cloudSettings.hideStatus === true || cloudSettings.hideStatus === 'true';
+            setHideStatus(hideStatusValue);
+            localStorage.setItem('hideStatus', String(hideStatusValue));
+          }
+          if (cloudSettings.hasOwnProperty('hideStatusChangedAt')) {
+            setHideStatusChangedAt(cloudSettings.hideStatusChangedAt || 0);
+            localStorage.setItem('hideStatusChangedAt', String(cloudSettings.hideStatusChangedAt || 0));
+          }
           // Sync reminder - handle empty string as "no reminder"
           if (cloudSettings.hasOwnProperty('reminder')) {
             setReminder(cloudSettings.reminder || '');
