@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -286,6 +286,81 @@ export default function App() {
   const [hideStatusChangedAt, setHideStatusChangedAt] = useState(() => parseInt(localStorage.getItem('hideStatusChangedAt') || '0'));
   const [showHideStatusConfirm, setShowHideStatusConfirm] = useState(false); // Styled confirmation modal
 
+  // === NEW FEATURE STATES (v1.1.0) ===
+
+  // Bookmark system - syncs to Firebase
+  const [bookmarks, setBookmarks] = useState([]); // { id, subjectId, type, category, note, createdAt }
+  const [showBookmarkModal, setShowBookmarkModal] = useState(null); // { subjectId, type, item } for adding bookmark
+
+  // Dark mode schedule - auto switch based on time
+  const [darkModeSchedule, setDarkModeSchedule] = useState(() => {
+    const saved = localStorage.getItem('darkModeSchedule');
+    return saved ? JSON.parse(saved) : { enabled: false, startTime: '18:00', endTime: '06:00' };
+  });
+
+  // Admin error notification badge
+  const [unreadErrorCount, setUnreadErrorCount] = useState(0);
+
+  // === NEW FEATURE EFFECTS (v1.1.0) ===
+
+  // Subscribe to bookmarks from Firebase
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+    const unsub = subscribeToBookmarks(session.licenseKey, (data) => {
+      setBookmarks(data || []);
+    });
+    return () => unsub();
+  }, [session?.licenseKey]);
+
+  // Dark mode schedule - auto switch based on time (FIXED: only checks interval, tracks last switch)
+  useEffect(() => {
+    if (!darkModeSchedule.enabled) return;
+
+    let lastSwitchedMinute = -1; // Track last switch to prevent duplicates
+
+    const checkDarkMode = () => {
+      const now = new Date();
+      const currentMinute = now.getHours() * 60 + now.getMinutes();
+
+      // Prevent multiple switches in the same minute
+      if (currentMinute === lastSwitchedMinute) return;
+
+      const [startH, startM] = darkModeSchedule.startTime.split(':').map(Number);
+      const [endH, endM] = darkModeSchedule.endTime.split(':').map(Number);
+      const startTime = startH * 60 + startM;
+      const endTime = endH * 60 + endM;
+
+      // Handle overnight schedule (e.g., 18:00 - 06:00)
+      let shouldBeDark;
+      if (startTime > endTime) {
+        shouldBeDark = currentMinute >= startTime || currentMinute < endTime;
+      } else {
+        shouldBeDark = currentMinute >= startTime && currentMinute < endTime;
+      }
+
+      // Use functional update and track switch
+      setDark(prev => {
+        if (prev !== shouldBeDark) {
+          lastSwitchedMinute = currentMinute;
+          localStorage.setItem('dark', String(shouldBeDark));
+          return shouldBeDark;
+        }
+        return prev;
+      });
+    };
+
+    // Only check on interval, NOT immediately (prevents initial switch bug)
+    const interval = setInterval(checkDarkMode, 30000); // Check every 30 seconds
+    return () => clearInterval(interval);
+  }, [darkModeSchedule.enabled, darkModeSchedule.startTime, darkModeSchedule.endTime]);
+
+  // Subscribe to unread error count (admin only)
+  useEffect(() => {
+    if (!session?.isAdmin) return;
+    const unsub = subscribeToUnreadErrorCount(setUnreadErrorCount);
+    return () => unsub();
+  }, [session?.isAdmin]);
+
   // --- Advanced Features Effects ---
   useEffect(() => {
     // Request notification permission and store result
@@ -323,6 +398,44 @@ export default function App() {
   const showCooldown = (message, seconds) => {
     setCooldown({ show: true, message, seconds });
     setTimeout(() => setCooldown(c => ({ ...c, show: false })), 2500);
+  };
+
+  // === BOOKMARK FUNCTIONS (v1.1.0) ===
+  const addBookmark = async (subjectId, type, itemKey, category = 'important', note = '') => {
+    const newBookmark = {
+      id: Date.now().toString(),
+      subjectId,
+      type, // 'materi', 'flashcard', 'quiz', 'essay'
+      itemKey, // e.g., 'ppt-1' or 'flashcard-0'
+      category, // 'important', 'review-later', 'difficult'
+      note,
+      createdAt: new Date().toISOString()
+    };
+    const updated = [...bookmarks, newBookmark];
+    setBookmarks(updated);
+    await saveBookmarks(session.licenseKey, updated);
+    showToast('📌 Ditambahkan ke bookmark', 'success', 2000);
+  };
+
+  const removeBookmark = async (bookmarkId) => {
+    const updated = bookmarks.filter(b => b.id !== bookmarkId);
+    setBookmarks(updated);
+    await saveBookmarks(session.licenseKey, updated);
+    showToast('🗑️ Bookmark dihapus', 'success', 2000);
+  };
+
+  const updateBookmarkNote = async (bookmarkId, note) => {
+    const updated = bookmarks.map(b => b.id === bookmarkId ? { ...b, note } : b);
+    setBookmarks(updated);
+    await saveBookmarks(session.licenseKey, updated);
+  };
+
+  const isBookmarked = (subjectId, type, itemKey) => {
+    return bookmarks.some(b => b.subjectId === subjectId && b.type === type && b.itemKey === itemKey);
+  };
+
+  const getBookmarkByItem = (subjectId, type, itemKey) => {
+    return bookmarks.find(b => b.subjectId === subjectId && b.type === type && b.itemKey === itemKey);
   };
 
   // Show browser notification for mentions
@@ -831,8 +944,13 @@ export default function App() {
       if (settings.font) {
         setFont(prev => prev !== settings.font ? settings.font : prev);
       }
-      if (settings.reminder) {
-        setReminder(prev => prev !== settings.reminder ? settings.reminder : prev);
+      // Sync reminder - handle empty string as "deleted reminder"
+      if (settings.hasOwnProperty('reminder')) {
+        const newReminder = settings.reminder || '';
+        setReminder(prev => prev !== newReminder ? newReminder : prev);
+        if (!newReminder) {
+          localStorage.removeItem('studyReminder');
+        }
       }
     });
 
@@ -1052,11 +1170,18 @@ export default function App() {
                 <RotateCcw className="w-3 h-3" />
               </button>
             </div>
-            {/* Admin Dashboard Button */}
+            {/* Admin Dashboard Button with Error Badge */}
             {session?.isAdmin && (
-              <button onClick={() => setShowAdminDashboard(true)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all" title="Admin Dashboard">
-                <Database className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
-              </button>
+              <div className="relative">
+                <button onClick={() => setShowAdminDashboard(true)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all" title="Admin Dashboard">
+                  <Database className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+                </button>
+                {unreadErrorCount > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 text-[10px] font-bold bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse">
+                    {unreadErrorCount > 99 ? '99+' : unreadErrorCount}
+                  </span>
+                )}
+              </div>
             )}
             <button onClick={() => setShowSettings(true)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all"><Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--text-secondary)]" /></button>
             <button onClick={() => setDark(!dark)} className="p-1.5 sm:p-2.5 rounded-xl hover:bg-[var(--surface-hover)] transition-all">
@@ -1151,6 +1276,67 @@ export default function App() {
                   <button onClick={() => setDark(!dark)} className={`w-12 h-7 rounded-full p-1 transition-colors ${dark ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}>
                     <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${dark ? 'ml-auto' : ''}`} />
                   </button>
+                </div>
+
+                {/* Dark Mode Schedule */}
+                <div className="p-4 glass-card rounded-xl space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span className="text-[var(--text)] font-medium">Jadwal Mode Gelap</span>
+                      <span className="text-xs text-[var(--text-muted)]">
+                        {darkModeSchedule.enabled ? `🕐 ${darkModeSchedule.startTime} - ${darkModeSchedule.endTime}` : 'Matikan/nyalakan manual'}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const updated = { ...darkModeSchedule, enabled: !darkModeSchedule.enabled };
+                        setDarkModeSchedule(updated);
+                        localStorage.setItem('darkModeSchedule', JSON.stringify(updated));
+                        if (session?.licenseKey) {
+                          saveUserSettings(session.licenseKey, { darkModeSchedule: updated });
+                        }
+                      }}
+                      className={`w-12 h-7 rounded-full p-1 transition-colors ${darkModeSchedule.enabled ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}
+                    >
+                      <motion.div layout className={`w-5 h-5 rounded-full bg-white shadow-md ${darkModeSchedule.enabled ? 'ml-auto' : ''}`} />
+                    </button>
+                  </div>
+                  {darkModeSchedule.enabled && (
+                    <div className="flex gap-2 items-center pt-2 border-t border-[var(--border)]">
+                      <div className="flex-1">
+                        <label className="text-xs text-[var(--text-muted)] block mb-1">Mulai Gelap</label>
+                        <input
+                          type="time"
+                          value={darkModeSchedule.startTime}
+                          onChange={(e) => {
+                            const updated = { ...darkModeSchedule, startTime: e.target.value };
+                            setDarkModeSchedule(updated);
+                            localStorage.setItem('darkModeSchedule', JSON.stringify(updated));
+                            if (session?.licenseKey) {
+                              saveUserSettings(session.licenseKey, { darkModeSchedule: updated });
+                            }
+                          }}
+                          className="input w-full text-sm"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <label className="text-xs text-[var(--text-muted)] block mb-1">Selesai</label>
+                        <input
+                          type="time"
+                          value={darkModeSchedule.endTime}
+                          onChange={(e) => {
+                            const updated = { ...darkModeSchedule, endTime: e.target.value };
+                            setDarkModeSchedule(updated);
+                            localStorage.setItem('darkModeSchedule', JSON.stringify(updated));
+                            if (session?.licenseKey) {
+                              saveUserSettings(session.licenseKey, { darkModeSchedule: updated });
+                            }
+                          }}
+                          className="input w-full text-sm"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Hide Online Status - Below Mode Gelap */}
@@ -2264,20 +2450,31 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.0.2";
+  const currentVersion = "1.1.0";
   const patchNotes = {
     current: {
-      version: "1.0.2",
-      date: "29 Des 2024",
+      version: "1.1.0",
+      date: "30 Des 2024",
       changes: [
-        "- Fitur Sembunyikan Status Online di Settings",
-        "- Tombol Hubungi Admin di halaman error",
-        "- Perbaikan reminder red dot yang tidak hilang",
-        "- Peningkatan logging error untuk debugging",
-        "- Tombol patch notes dengan warna berbeda"
+        "- Fitur Jadwal Mode Gelap: atur waktu otomatis gelap/terang",
+        "- Perbaikan sinkronisasi Reminder antar perangkat",
+        "- Peningkatan performa: ukuran aplikasi dikurangi 31%",
+        "- Perbaikan pengaturan yang tidak tersimpan",
+        "- Sistem multi-perangkat yang lebih stabil"
       ]
     },
     past: [
+      {
+        version: "1.0.2",
+        date: "29 Des 2024",
+        changes: [
+          "- Fitur Sembunyikan Status Online di Settings",
+          "- Tombol Hubungi Admin di halaman error",
+          "- Perbaikan reminder red dot yang tidak hilang",
+          "- Peningkatan logging error untuk debugging",
+          "- Tombol patch notes dengan warna berbeda"
+        ]
+      },
       {
         version: "1.0.1",
         date: "29 Des 2024",
@@ -2843,7 +3040,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   );
 }
 
-function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
+function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
@@ -2926,7 +3123,7 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch }) {
 
   const closeViewer = () => setViewFile(null);
 
-  const renderFileList = (files, sectionName) => {
+  const renderFileList = (files) => {
     if (!files || files.length === 0) return null;
 
     return (
@@ -5558,6 +5755,15 @@ function AdminDashboard({ session, onClose }) {
   const [announcementType, setAnnouncementType] = useState('info');
   const [sendingAnnouncement, setSendingAnnouncement] = useState(false);
 
+  // Error Logs state (Phase 4)
+  const [errorLogs, setErrorLogs] = useState([]);
+  const [errorFilter, setErrorFilter] = useState('all'); // 'all', 'critical', 'warning', 'resolved'
+  const [clearingLogs, setClearingLogs] = useState(false);
+
+  // Analytics state (Phase 5)
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [peakHours, setPeakHours] = useState(Array(24).fill(0));
+
   // Announcement templates
   const announcementTemplates = [
     { label: '🔄 Server Reboot', text: 'Server akan di-reboot sebentar lagi. Mohon tunggu sekitar 1 menit dan refresh halaman.', type: 'maintenance' },
@@ -5589,11 +5795,10 @@ function AdminDashboard({ session, onClose }) {
   };
 
   const tabs = [
-    { name: 'License Keys', icon: Key },
-    { name: 'Users', icon: Users },
-    { name: 'Stats', icon: Activity },
-    { name: 'Announce', icon: Megaphone },
-    { name: 'Logs', icon: FileText },
+    { name: 'Keys', icon: Key },         // Tab 0: License Keys + Users (merged)
+    { name: 'Stats', icon: Activity },   // Tab 1: Stats + Analytics (merged)  
+    { name: 'Logs', icon: FileText },    // Tab 2: Activity Logs + Error Logs (merged)
+    { name: 'Announce', icon: Megaphone }, // Tab 3: Announcements
   ];
 
   // Load data
@@ -5619,6 +5824,23 @@ function AdminDashboard({ session, onClose }) {
   useEffect(() => {
     const unsub = subscribeToActivityLogs(setActivityLogs, 100);
     return () => unsub && unsub();
+  }, []);
+
+  // Subscribe to error logs (Phase 4)
+  useEffect(() => {
+    const unsub = subscribeToErrorLogs(setErrorLogs, 100);
+    return () => unsub && unsub();
+  }, []);
+
+  // Load analytics data (Phase 5)
+  useEffect(() => {
+    const loadAnalytics = async () => {
+      const lb = await getUserLeaderboard();
+      const ph = await getPeakHoursData();
+      setLeaderboard(lb);
+      setPeakHours(ph);
+    };
+    loadAnalytics();
   }, []);
 
   const resetForm = () => {
@@ -5853,8 +6075,8 @@ function AdminDashboard({ session, onClose }) {
                 </div>
               )}
 
-              {/* Users Tab */}
-              {activeTab === 1 && (
+              {/* Users Tab - now part of Keys tab */}
+              {activeTab === 0 && (
                 <div className="space-y-3">
                   <h3 className="font-medium text-[var(--text)]">{users.length} Users Terdaftar</h3>
                   {users.map(u => {
@@ -5896,7 +6118,7 @@ function AdminDashboard({ session, onClose }) {
               )}
 
               {/* Stats Tab */}
-              {activeTab === 2 && (
+              {activeTab === 1 && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="glass-card p-4 text-center">
@@ -6031,8 +6253,8 @@ function AdminDashboard({ session, onClose }) {
                 </div>
               )}
 
-              {/* Activity Logs Tab */}
-              {activeTab === 4 && (
+              {/* Activity Logs Tab - now part of Logs tab */}
+              {activeTab === 2 && (
                 <div className="space-y-3">
                   <h3 className="font-medium text-[var(--text)]">Activity Logs (Terbaru)</h3>
                   {activityLogs.length === 0 ? (
@@ -6053,6 +6275,161 @@ function AdminDashboard({ session, onClose }) {
                       ))}
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* Error Logs Tab - now part of Logs tab */}
+              {activeTab === 2 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-medium text-[var(--text)]">Error Logs</h3>
+                    <div className="flex gap-2">
+                      <select
+                        value={errorFilter}
+                        onChange={(e) => setErrorFilter(e.target.value)}
+                        className="input text-sm py-1 px-2"
+                      >
+                        <option value="all">Semua</option>
+                        <option value="unresolved">Belum Diperbaiki</option>
+                        <option value="resolved">Sudah Diperbaiki</option>
+                      </select>
+                      <button
+                        onClick={async () => {
+                          setClearingLogs(true);
+                          const cleared = await clearOldErrorLogs(7);
+                          setClearingLogs(false);
+                          alert(cleared > 0 ? `${cleared} logs lama (>7 hari) dihapus` : 'Tidak ada logs yang lebih dari 7 hari');
+                        }}
+                        disabled={clearingLogs}
+                        className="btn btn-secondary text-xs py-1 px-2"
+                      >
+                        {clearingLogs ? '...' : 'Hapus >7 hari'}
+                      </button>
+                      <button
+                        onClick={async () => {
+                          const unresolved = errorLogs.filter(l => !l.resolved);
+                          for (const log of unresolved) {
+                            await markErrorResolved(log.id);
+                          }
+                          alert(`${unresolved.length} errors marked as resolved`);
+                        }}
+                        className="btn btn-secondary text-xs py-1 px-2"
+                      >
+                        ✓ All Resolved
+                      </button>
+                    </div>
+                  </div>
+                  {errorLogs.length === 0 ? (
+                    <p className="text-sm text-[var(--text-muted)] text-center py-4">✅ Tidak ada error logs.</p>
+                  ) : (
+                    <div className="space-y-2 max-h-[400px] overflow-y-auto">
+                      {errorLogs
+                        .filter(log => {
+                          if (errorFilter === 'resolved') return log.resolved;
+                          if (errorFilter === 'unresolved') return !log.resolved;
+                          return true;
+                        })
+                        .map(log => (
+                          <div key={log.id} className={`glass-card p-3 text-sm ${log.resolved ? 'opacity-60' : ''}`}>
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${log.message?.includes('crash') || log.message?.includes('fatal')
+                                    ? 'bg-red-500/20 text-red-500'
+                                    : 'bg-amber-500/20 text-amber-500'
+                                    }`}>
+                                    {log.message?.includes('crash') || log.message?.includes('fatal') ? 'CRITICAL' : 'WARNING'}
+                                  </span>
+                                  <span className="text-[10px] text-[var(--text-muted)]">
+                                    {new Date(log.timestamp).toLocaleString('id-ID')}
+                                  </span>
+                                  {log.resolved && <Check className="w-3 h-3 text-green-500" />}
+                                </div>
+                                <p className="text-[var(--text)] font-mono text-xs break-all">{log.message}</p>
+                                {log.stack && (
+                                  <details className="mt-1">
+                                    <summary className="text-[10px] text-[var(--text-muted)] cursor-pointer">Stack trace</summary>
+                                    <pre className="text-[9px] text-[var(--text-muted)] mt-1 p-2 bg-black/20 rounded overflow-x-auto">{log.stack}</pre>
+                                  </details>
+                                )}
+                              </div>
+                              {!log.resolved && (
+                                <button
+                                  onClick={() => markErrorResolved(log.id)}
+                                  className="btn btn-secondary text-[10px] py-1 px-2 shrink-0"
+                                >
+                                  ✓ Resolved
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Analytics Tab - now part of Stats tab */}
+              {activeTab === 1 && (
+                <div className="space-y-6">
+                  {/* Leaderboard */}
+                  <div>
+                    <h3 className="font-medium text-[var(--text)] mb-3 flex items-center gap-2">
+                      <Crown className="w-4 h-4 text-amber-500" /> Leaderboard
+                    </h3>
+                    {leaderboard.length === 0 ? (
+                      <p className="text-sm text-[var(--text-muted)] text-center py-4">Belum ada data.</p>
+                    ) : (
+                      <div className="space-y-2">
+                        {leaderboard.slice(0, 10).map((user, i) => (
+                          <div key={user.licenseKey} className="glass-card p-3 flex items-center gap-3">
+                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${i === 0 ? 'bg-amber-500 text-white' :
+                              i === 1 ? 'bg-gray-400 text-white' :
+                                i === 2 ? 'bg-amber-700 text-white' :
+                                  'bg-[var(--surface)] text-[var(--text-muted)]'
+                              }`}>{i + 1}</span>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-[var(--text)]">{user.userName}</p>
+                              <p className="text-[10px] text-[var(--text-muted)]">
+                                Quiz: {user.totalScore} pts | Online: {Math.round(user.onlineMinutes / 60)}h
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Peak Hours Chart */}
+                  <div>
+                    <h3 className="font-medium text-[var(--text)] mb-3 flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4 text-[var(--accent)]" /> Jam Tersibuk
+                    </h3>
+                    <div className="glass-card p-4">
+                      <div className="flex items-end gap-1 h-24">
+                        {peakHours.map((count, hour) => {
+                          const maxCount = Math.max(...peakHours, 1);
+                          const height = (count / maxCount) * 100;
+                          return (
+                            <div key={hour} className="flex-1 flex flex-col items-center">
+                              <div
+                                className="w-full bg-[var(--accent)] rounded-t transition-all"
+                                style={{ height: `${height}%`, minHeight: count > 0 ? '4px' : '0' }}
+                                title={`${hour}:00 - ${count} sesi`}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="flex justify-between mt-1 text-[8px] text-[var(--text-muted)]">
+                        <span>00</span>
+                        <span>06</span>
+                        <span>12</span>
+                        <span>18</span>
+                        <span>23</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </>

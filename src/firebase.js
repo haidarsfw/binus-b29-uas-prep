@@ -1252,4 +1252,177 @@ export const subscribeToActivityLogs = (callback, limit = 50) => {
     });
 };
 
+// ============ BOOKMARK SYSTEM ============
+
+// Save all bookmarks for a user
+export const saveBookmarks = async (licenseKey, bookmarks) => {
+    try {
+        const bookmarksRef = ref(db, `bookmarks/${licenseKey}`);
+        await set(bookmarksRef, bookmarks);
+        return true;
+    } catch (e) {
+        console.error('Failed to save bookmarks:', e);
+        return false;
+    }
+};
+
+// Get bookmarks for a user
+export const getBookmarks = async (licenseKey) => {
+    try {
+        const bookmarksRef = ref(db, `bookmarks/${licenseKey}`);
+        const snapshot = await get(bookmarksRef);
+        return snapshot.exists() ? snapshot.val() : [];
+    } catch (e) {
+        console.error('Failed to get bookmarks:', e);
+        return [];
+    }
+};
+
+// Subscribe to bookmark changes (real-time sync)
+export const subscribeToBookmarks = (licenseKey, callback) => {
+    const bookmarksRef = ref(db, `bookmarks/${licenseKey}`);
+    return onValue(bookmarksRef, (snapshot) => {
+        const data = snapshot.exists() ? snapshot.val() : [];
+        callback(Array.isArray(data) ? data : []);
+    });
+};
+
+// ============ ERROR LOGS (ADMIN) ============
+
+// Subscribe to error logs
+export const subscribeToErrorLogs = (callback, limit = 100) => {
+    const errorRef = ref(db, 'errorLogs');
+    return onValue(errorRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            const logs = Object.entries(data)
+                .map(([id, log]) => ({ id, ...log }))
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, limit);
+            callback(logs);
+        } else {
+            callback([]);
+        }
+    });
+};
+
+// Clear old error logs (older than X days)
+export const clearOldErrorLogs = async (daysOld) => {
+    try {
+        const errorRef = ref(db, 'errorLogs');
+        const snapshot = await get(errorRef);
+        if (!snapshot.exists()) return 0;
+
+        const data = snapshot.val();
+        const cutoffDate = Date.now() - (daysOld * 24 * 60 * 60 * 1000);
+        let cleared = 0;
+
+        for (const [id, log] of Object.entries(data)) {
+            const logTime = new Date(log.timestamp).getTime();
+            if (logTime < cutoffDate) {
+                await remove(ref(db, `errorLogs/${id}`));
+                cleared++;
+            }
+        }
+        return cleared;
+    } catch (e) {
+        console.error('Failed to clear old logs:', e);
+        return 0;
+    }
+};
+
+// Mark error as resolved
+export const markErrorResolved = async (errorId) => {
+    try {
+        const errorRef = ref(db, `errorLogs/${errorId}`);
+        await update(errorRef, { resolved: true, resolvedAt: new Date().toISOString() });
+        return true;
+    } catch (e) {
+        console.error('Failed to mark error resolved:', e);
+        return false;
+    }
+};
+
+// Get unread (unresolved) error count
+export const subscribeToUnreadErrorCount = (callback) => {
+    const errorRef = ref(db, 'errorLogs');
+    return onValue(errorRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            const unreadCount = Object.values(data).filter(log => !log.resolved).length;
+            callback(unreadCount);
+        } else {
+            callback(0);
+        }
+    });
+};
+
+// ============ USER ANALYTICS (ADMIN) ============
+
+// Log study session for analytics
+export const logStudySession = async (licenseKey, data) => {
+    try {
+        const sessionRef = ref(db, `analytics/sessions`);
+        await push(sessionRef, {
+            licenseKey,
+            ...data,
+            timestamp: new Date().toISOString()
+        });
+        return true;
+    } catch (e) {
+        console.error('Failed to log study session:', e);
+        return false;
+    }
+};
+
+// Get user leaderboard (by quiz scores and online time)
+export const getUserLeaderboard = async () => {
+    try {
+        // Get license keys for names
+        const keysRef = ref(db, 'licenseKeys');
+        const keysSnapshot = await get(keysRef);
+        const keysData = keysSnapshot.exists() ? keysSnapshot.val() : {};
+
+        // Build leaderboard from license keys
+        const users = Object.entries(keysData)
+            .filter(([key, data]) => !data.isAdmin) // Exclude admins
+            .map(([key, data]) => ({
+                licenseKey: key,
+                userName: data.name || key.substring(0, 8),
+                totalScore: data.totalQuizScore || 0,
+                onlineMinutes: data.totalOnlineMinutes || 0,
+            }));
+
+        // Sort by totalScore descending
+        return users.sort((a, b) => b.totalScore - a.totalScore);
+    } catch (e) {
+        console.error('Failed to get leaderboard:', e);
+        return [];
+    }
+};
+
+// Get peak hours data (activity by hour)
+export const getPeakHoursData = async () => {
+    try {
+        const sessionsRef = ref(db, 'analytics/sessions');
+        const snapshot = await get(sessionsRef);
+        if (!snapshot.exists()) return Array(24).fill(0);
+
+        const data = snapshot.val();
+        const hourCounts = Array(24).fill(0);
+
+        Object.values(data).forEach(session => {
+            if (session.timestamp) {
+                const hour = new Date(session.timestamp).getHours();
+                hourCounts[hour]++;
+            }
+        });
+
+        return hourCounts;
+    } catch (e) {
+        console.error('Failed to get peak hours:', e);
+        return Array(24).fill(0);
+    }
+};
+
 export { db, ref, onValue };
