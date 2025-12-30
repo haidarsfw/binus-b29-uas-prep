@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
+import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
 import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData } from './firebase';
@@ -2457,6 +2457,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
       date: "30 Des 2024",
       changes: [
         "- Fitur Jadwal Mode Gelap: atur waktu otomatis gelap/terang",
+        "- Rangkuman: 3 mode tampilan (Dark/Sepia/Light) + layout lebih compact",
         "- Perbaikan sinkronisasi Reminder antar perangkat",
         "- Peningkatan performa: ukuran aplikasi dikurangi 31%",
         "- Perbaikan pengaturan yang tidak tersimpan",
@@ -3045,7 +3046,9 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
   const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
-  const [viewerDarkMode, setViewerDarkMode] = useState(true); // Default dark for night study
+  const [viewerTheme, setViewerTheme] = useState('dark'); // 'dark', 'sepia', 'light'
+  const viewerDarkMode = viewerTheme === 'dark'; // For backward compatibility
+  const cycleViewerTheme = () => setViewerTheme(prev => prev === 'dark' ? 'sepia' : prev === 'sepia' ? 'light' : 'dark');
   // const [activeModulIndex, setActiveModulIndex] = useState(0); // Reserved for future use
   const [highlightQuery, setHighlightQuery] = useState(''); // For search keyword highlighting
 
@@ -3215,11 +3218,11 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
               {viewFile.type === 'native' && (
                 <button
                   type="button"
-                  onClick={() => setViewerDarkMode(!viewerDarkMode)}
+                  onClick={cycleViewerTheme}
                   style={{
                     color: 'white',
                     padding: '8px 12px',
-                    background: viewerDarkMode ? 'rgba(59,130,246,0.5)' : 'rgba(255,255,255,0.15)',
+                    background: viewerTheme === 'dark' ? 'rgba(59,130,246,0.5)' : viewerTheme === 'sepia' ? 'rgba(180,140,100,0.5)' : 'rgba(255,255,255,0.25)',
                     borderRadius: '8px',
                     border: 'none',
                     cursor: 'pointer',
@@ -3229,8 +3232,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                     fontSize: '12px'
                   }}
                 >
-                  {viewerDarkMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-                  {viewerDarkMode ? 'Dark' : 'Light'}
+                  {viewerTheme === 'dark' ? <Moon className="w-4 h-4" /> : viewerTheme === 'sepia' ? <Coffee className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                  {viewerTheme === 'dark' ? 'Dark' : viewerTheme === 'sepia' ? 'Sepia' : 'Light'}
                 </button>
               )}
               {/* Close Button */}
@@ -3272,14 +3275,15 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                   maxWidth: '800px',
                   height: '100%',
                   overflowY: 'auto',
-                  backgroundColor: viewerDarkMode ? '#1a1a2e' : '#ffffff',
+                  backgroundColor: viewerTheme === 'dark' ? '#1a1a2e' : viewerTheme === 'sepia' ? '#cdc5b9' : '#f5f3ef',
                   borderRadius: '12px',
                   padding: '32px 40px',
-                  color: viewerDarkMode ? '#e5e7eb' : '#1a1a2e',
+                  color: viewerTheme === 'dark' ? '#e5e7eb' : viewerTheme === 'sepia' ? '#1f2937' : '#374151',
                   transition: 'background-color 0.3s, color 0.3s',
-                  boxShadow: viewerDarkMode
+                  textShadow: viewerTheme === 'dark' ? 'none' : '0 0.5px 1px rgba(0,0,0,0.12)',
+                  boxShadow: viewerTheme === 'dark'
                     ? '0 4px 20px rgba(0,0,0,0.5)'
-                    : '0 4px 20px rgba(0,0,0,0.15)'
+                    : '0 4px 20px rgba(0,0,0,0.12)'
                 }}
                 onContextMenu={e => e.preventDefault()}
                 onCopy={e => e.preventDefault()}
@@ -3342,11 +3346,11 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                     // Split by lines and parse tags
                     const lines = moduleContent.split('\n');
                     return (
-                      <div style={{ lineHeight: '1.8' }}>
+                      <div style={{ lineHeight: '1.7' }}>
                         {lines.map((line, idx) => {
                           const trimmed = line.trim();
                           if (!trimmed) {
-                            return <div key={idx} style={{ height: '20px' }} />;
+                            return <div key={idx} style={{ height: '12px' }} />;
                           }
 
                           // <h1>...</h1> - Module title
@@ -3356,9 +3360,9 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                               <h1 key={idx} style={{
                                 fontSize: '22px',
                                 fontWeight: 'bold',
-                                color: viewerDarkMode ? '#60a5fa' : '#1d4ed8',
-                                marginTop: idx > 0 ? '40px' : '0',
-                                marginBottom: '8px'
+                                color: viewerTheme === 'dark' ? '#60a5fa' : '#1d4ed8',
+                                marginTop: idx > 0 ? '24px' : '0',
+                                marginBottom: '6px'
                               }}>
                                 {parseInline(content)}
                               </h1>
@@ -3367,14 +3371,15 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
 
                           // <subtitle>...</subtitle> - Subtitle
                           if (trimmed.startsWith('<subtitle>')) {
-                            const content = trimmed.replace(/<\/?subtitle>/g, '');
+                            // Strip any remaining HTML tags like <i></i>
+                            const content = trimmed.replace(/<\/?subtitle>/g, '').replace(/<\/?[^>]+(>|$)/g, '');
                             return (
                               <p key={idx} style={{
                                 fontSize: '14px',
-                                color: viewerDarkMode ? '#9ca3af' : '#6b7280',
-                                marginBottom: '16px'
+                                color: viewerTheme === 'dark' ? '#9ca3af' : '#64748b',
+                                marginBottom: '6px'
                               }}>
-                                {parseInline(content)}
+                                {content}
                               </p>
                             );
                           }
@@ -3386,11 +3391,11 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                               <h2 key={idx} style={{
                                 fontSize: '17px',
                                 fontWeight: 'bold',
-                                color: viewerDarkMode ? '#fbbf24' : '#b45309',
-                                marginTop: '32px',
-                                marginBottom: '16px',
-                                paddingBottom: '8px',
-                                borderBottom: `1px solid ${viewerDarkMode ? 'rgba(251,191,36,0.3)' : 'rgba(180,83,9,0.2)'}`
+                                color: viewerTheme === 'dark' ? '#fbbf24' : '#b45309',
+                                marginTop: '20px',
+                                marginBottom: '10px',
+                                paddingBottom: '6px',
+                                borderBottom: `1px solid ${viewerTheme === 'dark' ? 'rgba(251,191,36,0.3)' : 'rgba(180,83,9,0.25)'}`
                               }}>
                                 {parseInline(content)}
                               </h2>
@@ -3404,9 +3409,9 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                               <h3 key={idx} style={{
                                 fontSize: '15px',
                                 fontWeight: '600',
-                                color: viewerDarkMode ? '#34d399' : '#047857',
-                                marginTop: '24px',
-                                marginBottom: '10px'
+                                color: viewerTheme === 'dark' ? '#34d399' : '#047857',
+                                marginTop: '16px',
+                                marginBottom: '6px'
                               }}>
                                 {parseInline(content)}
                               </h3>
@@ -3420,13 +3425,13 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                               <div key={idx} style={{
                                 fontSize: '14px',
                                 fontWeight: '600',
-                                color: viewerDarkMode ? '#f87171' : '#dc2626',
-                                backgroundColor: viewerDarkMode ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.08)',
-                                padding: '12px 16px',
+                                color: viewerTheme === 'dark' ? '#f87171' : '#dc2626',
+                                backgroundColor: viewerTheme === 'dark' ? 'rgba(248,113,113,0.1)' : 'rgba(220,38,38,0.08)',
+                                padding: '10px 14px',
                                 borderRadius: '6px',
-                                marginTop: '16px',
-                                marginBottom: '16px',
-                                borderLeft: `3px solid ${viewerDarkMode ? '#f87171' : '#dc2626'}`
+                                marginTop: '10px',
+                                marginBottom: '10px',
+                                borderLeft: `3px solid ${viewerTheme === 'dark' ? '#f87171' : '#dc2626'}`
                               }}>
                                 {parseInline(content)}
                               </div>
@@ -3441,8 +3446,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                             const alt = altMatch ? altMatch[1] : 'Image';
                             return (
                               <div key={idx} style={{
-                                marginTop: '20px',
-                                marginBottom: '20px',
+                                marginTop: '12px',
+                                marginBottom: '12px',
                                 textAlign: 'center'
                               }}>
                                 <img
@@ -3451,14 +3456,14 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                                   style={{
                                     maxWidth: '100%',
                                     borderRadius: '8px',
-                                    boxShadow: viewerDarkMode
+                                    boxShadow: viewerTheme === 'dark'
                                       ? '0 4px 12px rgba(0,0,0,0.4)'
                                       : '0 4px 12px rgba(0,0,0,0.15)'
                                   }}
                                 />
                                 <p style={{
                                   fontSize: '12px',
-                                  color: viewerDarkMode ? '#9ca3af' : '#6b7280',
+                                  color: viewerTheme === 'dark' ? '#9ca3af' : '#6b7280',
                                   marginTop: '8px',
                                   fontStyle: 'italic'
                                 }}>{alt}</p>
@@ -3472,17 +3477,17 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                             return (
                               <div key={idx} style={{
                                 display: 'flex',
-                                marginLeft: '20px',
-                                marginBottom: '10px'
+                                marginLeft: '16px',
+                                marginBottom: '8px'
                               }}>
                                 <span style={{
                                   marginRight: '12px',
-                                  color: viewerDarkMode ? '#60a5fa' : '#2563eb',
+                                  color: viewerTheme === 'dark' ? '#60a5fa' : '#2563eb',
                                   fontWeight: 'bold'
                                 }}>•</span>
                                 <span style={{
                                   fontSize: '14px',
-                                  color: viewerDarkMode ? '#d1d5db' : '#374151',
+                                  color: viewerTheme === 'dark' ? '#d1d5db' : '#475569',
                                   flex: 1
                                 }}>
                                   {parseInline(content)}
@@ -3495,8 +3500,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                           return (
                             <p key={idx} style={{
                               fontSize: '14px',
-                              marginBottom: '12px',
-                              color: viewerDarkMode ? '#d1d5db' : '#374151'
+                              marginBottom: '10px',
+                              color: viewerTheme === 'dark' ? '#d1d5db' : '#475569'
                             }}>
                               {parseInline(trimmed)}
                             </p>
