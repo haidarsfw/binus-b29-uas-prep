@@ -10,15 +10,52 @@ export const DB = {
     // ============================================================
 
     // ============================================================
-    // JADWAL UJIAN PER KELAS (12-24 Januari 2026)
+    // JADWAL UJIAN RESMI (dari BINUSMAYA - 31 Des 2025)
+    // Format: { date: ISO, type: 'onsite'|'online', note: optional }
     // ============================================================
     schedules: {
-        'LA86': { 'Marketing Management': '2026-01-12T08:00:00', 'Human Resources Management': '2026-01-14T10:00:00', 'Management Information Systems for Leader': '2026-01-18T13:00:00', 'Introduction to Management and Business': '2026-01-22T08:00:00' },
-        'LB86': { 'Marketing Management': '2026-01-12T10:00:00', 'Human Resources Management': '2026-01-15T13:00:00', 'Management Information Systems for Leader': '2026-01-19T08:00:00', 'Introduction to Management and Business': '2026-01-22T10:00:00' },
-        'LC86': { 'Marketing Management': '2026-01-13T13:00:00', 'Human Resources Management': '2026-01-15T08:00:00', 'Management Information Systems for Leader': '2026-01-19T10:00:00', 'Introduction to Management and Business': '2026-01-23T13:00:00' },
-        'LD86': { 'Marketing Management': '2026-01-13T15:00:00', 'Human Resources Management': '2026-01-16T15:00:00', 'Management Information Systems for Leader': '2026-01-20T15:00:00', 'Introduction to Management and Business': '2026-01-23T15:00:00' },
-        'LE86': { 'Marketing Management': '2026-01-14T17:00:00', 'Human Resources Management': '2026-01-17T17:00:00', 'Management Information Systems for Leader': '2026-01-21T17:00:00', 'Introduction to Management and Business': '2026-01-24T17:00:00' },
-        'Other': { 'Marketing Management': '2026-01-14T08:00:00', 'Human Resources Management': '2026-01-17T10:00:00', 'Management Information Systems for Leader': '2026-01-21T13:00:00', 'Introduction to Management and Business': '2026-01-24T15:00:00' },
+        'LA86': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
+        'LB86': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
+        'LC86': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
+        'LD86': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
+        'LE86': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
+        'Other': {
+            'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
+            'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
+        },
     },
 
     classes: ['LA86', 'LB86', 'LC86', 'LD86', 'LE86', 'Other'],

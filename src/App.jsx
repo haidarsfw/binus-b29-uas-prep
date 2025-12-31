@@ -2450,21 +2450,32 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.1.0";
+  const currentVersion = "1.1.1";
   const patchNotes = {
     current: {
-      version: "1.1.0",
-      date: "30 Des 2024",
+      version: "1.1.1",
+      date: "31 Des 2025",
       changes: [
-        "- Fitur Jadwal Mode Gelap: atur waktu otomatis gelap/terang",
-        "- Rangkuman: 3 mode tampilan (Dark/Sepia/Light) + layout lebih compact",
-        "- Perbaikan sinkronisasi Reminder antar perangkat",
-        "- Peningkatan performa: ukuran aplikasi dikurangi 31%",
-        "- Perbaikan pengaturan yang tidak tersimpan",
-        "- Sistem multi-perangkat yang lebih stabil"
+        "- Jadwal UAS RESMI dari BINUSMAYA (5 mata kuliah lengkap)",
+        "- Keterangan tipe ujian: Onsite / Online",
+        "- CB Pancasila: Start 14 Jan, Deadline 21 Jan 17:01",
+        "- Countdown otomatis ke ujian terdekat",
+        "- Info tooltip: sumber jadwal resmi BINUSMAYA"
       ]
     },
     past: [
+      {
+        version: "1.1.0",
+        date: "30 Des 2024",
+        changes: [
+          "- Fitur Jadwal Mode Gelap: atur waktu otomatis gelap/terang",
+          "- Rangkuman: 3 mode tampilan (Dark/Sepia/Light) + layout lebih compact",
+          "- Perbaikan sinkronisasi Reminder antar perangkat",
+          "- Peningkatan performa: ukuran aplikasi dikurangi 31%",
+          "- Perbaikan pengaturan yang tidak tersimpan",
+          "- Sistem multi-perangkat yang lebih stabil"
+        ]
+      },
       {
         version: "1.0.2",
         date: "29 Des 2024",
@@ -2655,8 +2666,8 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                     exit={{ opacity: 0, y: 5 }}
                     className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-[var(--surface-solid)] border border-[var(--border)] rounded-lg shadow-lg z-50 text-xs text-[var(--text-secondary)] min-w-[200px]"
                   >
-                    ⚠️ Jadwal ini adalah <strong className="text-[var(--warning)]">prediksi</strong>, bukan jadwal resmi.
-                    <br />Admin akan update saat jadwal resmi dirilis.
+                    ✅ Jadwal ini adalah jadwal <strong className="text-[var(--success)]">resmi</strong> dari aplikasi <strong>BINUSMAYA</strong>.
+                    <br />Diperbarui: 31 Des 2025
                     <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--border)]"></div>
                   </motion.div>
                 )}
@@ -2664,20 +2675,33 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             </div>
           </div>
           <div className="space-y-1">
-            {Object.entries(classSchedule).map(([subject, date]) => {
-              const d = new Date(date);
-              return (
-                <div key={subject} className="flex items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
-                  <span className="text-[var(--text)] flex-1 mr-3">{subject}</span>
-                  <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
-                    {d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' })}
-                  </span>
-                  <span className="text-[var(--text-muted)] ml-2 whitespace-nowrap">
-                    {d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
-                  </span>
-                </div>
-              );
-            })}
+            {Object.entries(classSchedule)
+              .sort(([, a], [, b]) => new Date(a.date || a) - new Date(b.date || b))
+              .map(([subject, info]) => {
+                const d = new Date(info.date || info);
+                const dueDate = info.due ? new Date(info.due) : null;
+                const isOnline = info.type === 'online';
+                return (
+                  <div key={subject} className="flex items-center text-xs py-1 border-b border-[var(--border)] last:border-0">
+                    <span className="text-[var(--text)] flex-1 mr-2 leading-tight">{subject}</span>
+                    <span className="text-[var(--text-muted)] text-[10px] mr-2">
+                      {isOnline ? 'Online' : 'Onsite'}
+                    </span>
+                    {dueDate ? (
+                      <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
+                        {d.toLocaleDateString('id-ID', { day: 'numeric' })} - {dueDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                      </span>
+                    ) : (
+                      <span className="text-[var(--text-secondary)] font-medium whitespace-nowrap">
+                        {d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
+                      </span>
+                    )}
+                    <span className="text-[var(--text-muted)] ml-1.5 whitespace-nowrap">
+                      {dueDate ? dueDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
@@ -4925,7 +4949,8 @@ function ExamCountdown({ schedules, selectedClass }) {
       let nearestExam = null;
       let nearestSubject = '';
 
-      Object.entries(classSchedule).forEach(([subject, dateStr]) => {
+      Object.entries(classSchedule).forEach(([subject, info]) => {
+        const dateStr = info.date || info;
         const examDate = new Date(dateStr);
         if (examDate > now && (!nearestExam || examDate < nearestExam)) {
           nearestExam = examDate;
@@ -4964,15 +4989,15 @@ function ExamCountdown({ schedules, selectedClass }) {
         {isUrgent && <span className="ml-auto text-xs text-red-500 font-bold animate-pulse">H-{countdown.days}</span>}
       </div>
       <p className="text-xs text-[var(--text-muted)] mb-3">{countdown.subject}</p>
-      <div className="flex gap-2 text-center mt-auto">
+      <div className="flex gap-2 text-center flex-1 items-stretch">
         {[
           { value: countdown.days, label: 'Hari' },
           { value: countdown.hours, label: 'Jam' },
           { value: countdown.minutes, label: 'Mnt' },
           { value: countdown.seconds, label: 'Dtk' },
         ].map((item, i) => (
-          <div key={i} className="flex-1 surface-flat rounded-lg py-2 px-1">
-            <div className={`text-lg font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
+          <div key={i} className="flex-1 surface-flat rounded-lg py-2 px-1 flex flex-col items-center justify-center">
+            <div className={`text-xl font-bold tabular-nums ${isUrgent ? 'text-red-500' : 'gradient-text'}`}>
               {String(item.value).padStart(2, '0')}
             </div>
             <div className="text-[9px] text-[var(--text-muted)]">{item.label}</div>
