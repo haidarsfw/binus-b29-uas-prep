@@ -2533,6 +2533,10 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
+  // const formatDate = (dateStr) => {
+  //   const d = new Date(dateStr);
+  //   return d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  // };
 
   return (
     <div className="animate-fade">
@@ -3069,6 +3073,7 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const [viewerTheme, setViewerTheme] = useState('dark'); // 'dark', 'sepia', 'light'
   const viewerDarkMode = viewerTheme === 'dark'; // For backward compatibility
   const cycleViewerTheme = () => setViewerTheme(prev => prev === 'dark' ? 'sepia' : prev === 'sepia' ? 'light' : 'dark');
+  // const [activeModulIndex, setActiveModulIndex] = useState(0); // Reserved for future use
   const [highlightQuery, setHighlightQuery] = useState(''); // For search keyword highlighting
 
   // Handle search target navigation
