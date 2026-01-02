@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
@@ -41,6 +41,18 @@ const fonts = [
 ];
 
 const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
+
+// Loading Spinner for Suspense fallback
+function LoadingSpinner({ message = 'Memuat...' }) {
+  return (
+    <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm flex items-center justify-center">
+      <div className="glass-strong p-6 rounded-2xl text-center">
+        <div className="w-10 h-10 border-3 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-[var(--text)] text-sm">{message}</p>
+      </div>
+    </div>
+  );
+}
 
 function CircularProgress({ value, size = 140, stroke = 10 }) {
   const radius = (size - stroke) / 2;
@@ -1845,8 +1857,10 @@ export default function App() {
         </div>
       </a>
 
-      {/* Global Live Chat */}
-      <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
+      {/* Global Live Chat - with Suspense */}
+      <Suspense fallback={null}>
+        <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
+      </Suspense>
 
       {/* Notification Popup */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
@@ -2012,10 +2026,12 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Interactive Tutorial */}
+      {/* Interactive Tutorial - with Suspense */}
       <AnimatePresence>
         {showTutorial && (
-          <Tutorial onComplete={() => setShowTutorial(false)} />
+          <Suspense fallback={<LoadingSpinner message="Memuat Tutorial..." />}>
+            <Tutorial onComplete={() => setShowTutorial(false)} />
+          </Suspense>
         )}
       </AnimatePresence>
 
@@ -2075,13 +2091,15 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Admin Dashboard Modal */}
+      {/* Admin Dashboard Modal - with loading state */}
       <AnimatePresence>
         {showAdminDashboard && (
-          <AdminDashboard
-            session={session}
-            onClose={() => setShowAdminDashboard(false)}
-          />
+          <Suspense fallback={<LoadingSpinner message="Memuat Admin Dashboard..." />}>
+            <AdminDashboard
+              session={session}
+              onClose={() => setShowAdminDashboard(false)}
+            />
+          </Suspense>
         )}
       </AnimatePresence>
 
