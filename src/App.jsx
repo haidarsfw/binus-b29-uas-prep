@@ -3932,7 +3932,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
       <div className="glass-card p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
           <List className="w-5 h-5 text-[var(--accent)]" />
-          <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Ujian</h3>
+          <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Ujian {subjectId === 'marketing' && <span className="text-xs font-normal text-[var(--text-muted)] ml-1">(B28)</span>}</h3>
         </div>
 
         {isNewFormat ? (
@@ -3981,7 +3981,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
         <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
           <div className="flex items-center gap-2 mb-1">
             <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
-            <span className="font-bold text-[var(--text)] text-sm">{kisiKisi?.length > 0 ? 'Catatan Penting dari Dosen' : 'Informasi'}</span>
+            <span className="font-bold text-[var(--text)] text-sm">{kisiKisi?.length > 0 ? 'Catatan Penting' : 'Informasi'}</span>
           </div>
           <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
         </div>

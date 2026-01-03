@@ -78,50 +78,50 @@ export const DB = {
             ],
             kisiKisi: [
                 {
-                    topic: '1. AIDA Model',
+                    topic: 'AIDA Model',
                     items: [
-                        'Jelaskan konsep AIDA Model (model komunikasi pemasaran yang menggambarkan tahapan kognitif konsumen)',
-                        'Attention: Cara memancing perhatian konsumen',
-                        'Interest: Cara membuat konsumen tertarik mempelajari lebih lanjut',
-                        'Desire: Cara memunculkan hasrat/keinginan untuk memiliki produk',
-                        'Action: Cara mendorong konsumen melakukan tindakan pembelian',
-                        'Berikan contoh konkret penerapan AIDA Model'
+                        'Instruksi: Jelaskan konsep, jabarkan singkatan, dan berikan contoh konkret.',
+                        'Konsep: Model komunikasi pemasaran yang menggambarkan tahapan kognitif konsumen.',
+                        'Attention: Bagaimana cara memancing perhatian konsumen.',
+                        'Interest: Bagaimana membuat konsumen tertarik mempelajari lebih lanjut.',
+                        'Desire: Bagaimana memunculkan hasrat/keinginan untuk memiliki produk.',
+                        'Action: Bagaimana mendorong konsumen melakukan tindakan pembelian.'
                     ]
                 },
                 {
-                    topic: '2. Pricing Strategy (Strategi Penetapan Harga)',
+                    topic: 'Pricing Strategy (Strategi Penetapan Harga)',
                     items: [
-                        'Cost Based: Penetapan harga berdasarkan akumulasi biaya produksi (cost of production)',
-                        'Value Based: Penetapan harga berdasarkan nilai yang dirasakan/diinginkan customer (customer value)',
-                        'Competition Based: Penetapan harga yang bereaksi terhadap apa yang dilakukan kompetitor',
-                        'Competitor Based: Penetapan harga berdasarkan harga pasar atau mengikuti kompetitor lainnya'
+                        'Instruksi: Jelaskan definisi dari strategi berikut:',
+                        'Cost Based: Penetapan harga berdasarkan akumulasi biaya yang terjadi atas pembuatan produk (cost of production).',
+                        'Value Based: Kebalikan dari cost based; penetapan harga berdasarkan apa yang diminta atau seberapa besar nilai yang dirasakan/diinginkan customer (customer value).',
+                        'Competition Based: Penetapan harga yang bereaksi terhadap apa yang dilakukan oleh kompetitornya.',
+                        'Competitor Based: Penetapan harga berdasarkan harga pasar atau mengikuti kompetitor lainnya.'
                     ]
                 },
                 {
-                    topic: '3. Integrated Marketing Communication (IMC)',
+                    topic: 'Integrated Marketing Communication (IMC)',
                     items: [
-                        'Konsep IMC: Mengintegrasikan berbagai saluran komunikasi untuk menyampaikan pesan yang konsisten',
-                        'Urgensi IMC: Mengapa perusahaan tidak bisa hanya mengandalkan 1 channel saja',
-                        'Kenapa tidak cukup satu saluran? Audiens tersebar dan butuh pendekatan holistik',
-                        'Promotion Tools: Advertising (Iklan), Sales Promotion (Promosi Penjualan), Public Relations, Direct Marketing, dll.'
+                        'Instruksi: Jelaskan konsep, alasan pentingnya, dan elemen (tools) di dalamnya.',
+                        'Konsep IMC: Mengintegrasikan berbagai saluran komunikasi untuk menyampaikan pesan yang konsisten.',
+                        'Urgensi (Kenapa butuh IMC?): Menjelaskan mengapa perusahaan tidak bisa hanya mengandalkan 1 hal/channel saja.',
+                        'Kenapa tidak cukup satu saluran? Karena audiens tersebar dan membutuhkan pendekatan holistik agar pesan tersampaikan efektif.',
+                        'Promotion Tools (Dijelaskan masing-masing): Advertising (Iklan), Sales Promotion (Promosi Penjualan), Public Relations, Direct Marketing, dll.'
                     ]
                 },
                 {
-                    topic: '4. Marketing Communication Budget',
+                    topic: 'Marketing Communication Budget',
                     items: [
-                        'Jelaskan jenis-jenis metode penganggaran komunikasi pemasaran',
-                        'Berikan contoh penerapan masing-masing metode'
+                        'Instruksi: Jelaskan jenis-jenis metode penganggaran komunikasi pemasaran dan berikan contohnya.'
                     ]
                 },
                 {
-                    topic: '5. Market Entry Strategy',
+                    topic: 'Market Entry Strategy',
                     items: [
-                        'Jelaskan strategi untuk memasuki pasar baru (How to entry new market strategy)',
-                        'Berbagai opsi entry: export, licensing, joint venture, direct investment, dll.'
+                        'Instruksi: Jelaskan bagaimana strategi untuk memasuki pasar baru (How to entry new market strategy).'
                     ]
                 }
             ],
-            kisiKisiNote: '⚠️ PENTING: Kisi-kisi di atas merupakan kisi-kisi UAS angkatan B28, bukan B29. Karena berasal dari angkatan sebelumnya, tidak menutup kemungkinan materi yang keluar di UAS B29 akan berbeda. Saat ini dosen B29 belum mengeluarkan kisi-kisi resmi. Gunakan sebagai referensi tambahan, dan tetap pelajari seluruh materi dari Rangkuman untuk persiapan yang lebih lengkap.',
+            kisiKisiNote: '⚠️ PENTING: Kisi-kisi di atas merupakan kisi-kisi UAS angkatan B28, bukan B29. Karena berasal dari angkatan sebelumnya, tidak menutup kemungkinan bahwa materi yang keluar di UAS B29 akan berbeda. Saat ini belum ada kisi-kisi resmi untuk B29. Gunakan sebagai referensi tambahan, dan tetap pelajari seluruh materi dari Rangkuman untuk persiapan yang lebih lengkap.',
             flashcards: [
                 // MODUL 1: Marketing Channels & Logistics
                 { id: 1, term: 'Filosofi Netflix: "Finding the Future by Abandoning the Past"', definition: 'Strategi berani meninggalkan model bisnis lama (DVD fisik) demi masa depan (Streaming) agar tidak tertinggal zaman seperti Blockbuster.' },
