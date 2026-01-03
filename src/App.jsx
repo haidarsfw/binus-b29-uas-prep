@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, updateQuizScore, updateOnlineTime, recordSession } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -599,6 +599,8 @@ export default function App() {
       if (userProgress) {
         setProgress(JSON.parse(userProgress));
       }
+      // Record session for peak hours analytics
+      recordSession();
       // Show terms agreement on every login/reload
       if (!sessionStorage.getItem('termsAgreedThisSession')) {
         setShowTerms(true);
@@ -629,6 +631,15 @@ export default function App() {
     const i = setInterval(() => setPomo(p => p.time <= 1 ? { time: 25 * 60, active: false } : { ...p, time: p.time - 1 }), 1000);
     return () => clearInterval(i);
   }, [pomo.active]);
+
+  // Track online time every 5 minutes for leaderboard
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+    const interval = setInterval(() => {
+      updateOnlineTime(session.licenseKey, 5); // Add 5 minutes
+    }, 5 * 60 * 1000); // Every 5 minutes
+    return () => clearInterval(interval);
+  }, [session?.licenseKey]);
 
   // Subscribe to announcements (realtime)
   useEffect(() => {
@@ -3068,7 +3079,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} isPreviewMode={isPreviewMode} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} isPreviewMode={isPreviewMode} />}
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
-        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} progress={progress} updateProgress={updateProgress} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} />}
+        {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} progress={progress} updateProgress={updateProgress} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} session={session} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />}
 
@@ -4061,7 +4072,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
   );
 }
 
-function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, updateProgress, searchTarget, onClearSearch }) {
+function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, updateProgress, searchTarget, onClearSearch, session }) {
   const [mode, setMode] = useState('flashcards'); // 'flashcards', 'quiz-select', or 'quiz'
   const [flipped, setFlipped] = useState({});
   const [cur, setCur] = useState(0);
@@ -4163,8 +4174,13 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
       setDone(true);
       // Save score for this module
       if (selectedModule && updateProgress && !isPreviewMode) {
-        const percentage = Math.round((score + (sel !== null && shuffledModuleQuiz[cur]?.answer === sel ? 1 : 0)) / shuffledModuleQuiz.length * 100);
+        const finalScore = score + (sel !== null && shuffledModuleQuiz[cur]?.answer === sel ? 1 : 0);
+        const percentage = Math.round(finalScore / shuffledModuleQuiz.length * 100);
         updateProgress(subjectId, 'quizScores', { ...(subjectProgress.quizScores || {}), [selectedModule]: percentage });
+        // Track quiz score for leaderboard
+        if (session?.licenseKey) {
+          updateQuizScore(session.licenseKey, finalScore);
+        }
       }
     }
   };

@@ -1425,4 +1425,55 @@ export const getPeakHoursData = async () => {
     }
 };
 
+// ============================================
+// STATS TRACKING (for Leaderboard & Analytics)
+// ============================================
+
+// Update user's quiz score (adds to total)
+export const updateQuizScore = async (licenseKey, score) => {
+    if (!licenseKey || !score) return;
+    try {
+        const keyRef = ref(db, `licenseKeys/${licenseKey}`);
+        const snapshot = await get(keyRef);
+        if (snapshot.exists()) {
+            const currentTotal = snapshot.val().totalQuizScore || 0;
+            await update(keyRef, {
+                totalQuizScore: currentTotal + score,
+                lastQuizAt: Date.now()
+            });
+        }
+    } catch (e) {
+        console.error('Failed to update quiz score:', e);
+    }
+};
+
+// Update user's online time (in minutes)
+export const updateOnlineTime = async (licenseKey, minutes) => {
+    if (!licenseKey || !minutes) return;
+    try {
+        const keyRef = ref(db, `licenseKeys/${licenseKey}`);
+        const snapshot = await get(keyRef);
+        if (snapshot.exists()) {
+            const currentTotal = snapshot.val().totalOnlineMinutes || 0;
+            await update(keyRef, {
+                totalOnlineMinutes: currentTotal + minutes
+            });
+        }
+    } catch (e) {
+        console.error('Failed to update online time:', e);
+    }
+};
+
+// Record session for peak hours tracking
+export const recordSession = async () => {
+    try {
+        const sessionsRef = ref(db, 'analytics/sessions');
+        await push(sessionsRef, {
+            timestamp: Date.now()
+        });
+    } catch (e) {
+        console.error('Failed to record session:', e);
+    }
+};
+
 export { db, ref, onValue };
