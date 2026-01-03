@@ -79,8 +79,8 @@ export const DB = {
             kisiKisi: [
                 {
                     topic: 'AIDA Model',
+                    instruction: 'Jelaskan konsep, jabarkan singkatan, dan berikan contoh konkret.',
                     items: [
-                        'Instruksi: Jelaskan konsep, jabarkan singkatan, dan berikan contoh konkret.',
                         'Konsep: Model komunikasi pemasaran yang menggambarkan tahapan kognitif konsumen.',
                         'Attention: Bagaimana cara memancing perhatian konsumen.',
                         'Interest: Bagaimana membuat konsumen tertarik mempelajari lebih lanjut.',
@@ -90,8 +90,8 @@ export const DB = {
                 },
                 {
                     topic: 'Pricing Strategy (Strategi Penetapan Harga)',
+                    instruction: 'Jelaskan definisi dari strategi berikut:',
                     items: [
-                        'Instruksi: Jelaskan definisi dari strategi berikut:',
                         'Cost Based: Penetapan harga berdasarkan akumulasi biaya yang terjadi atas pembuatan produk (cost of production).',
                         'Value Based: Kebalikan dari cost based; penetapan harga berdasarkan apa yang diminta atau seberapa besar nilai yang dirasakan/diinginkan customer (customer value).',
                         'Competition Based: Penetapan harga yang bereaksi terhadap apa yang dilakukan oleh kompetitornya.',
@@ -100,8 +100,8 @@ export const DB = {
                 },
                 {
                     topic: 'Integrated Marketing Communication (IMC)',
+                    instruction: 'Jelaskan konsep, alasan pentingnya, dan elemen (tools) di dalamnya.',
                     items: [
-                        'Instruksi: Jelaskan konsep, alasan pentingnya, dan elemen (tools) di dalamnya.',
                         'Konsep IMC: Mengintegrasikan berbagai saluran komunikasi untuk menyampaikan pesan yang konsisten.',
                         'Urgensi (Kenapa butuh IMC?): Menjelaskan mengapa perusahaan tidak bisa hanya mengandalkan 1 hal/channel saja.',
                         'Kenapa tidak cukup satu saluran? Karena audiens tersebar dan membutuhkan pendekatan holistik agar pesan tersampaikan efektif.',
@@ -110,15 +110,13 @@ export const DB = {
                 },
                 {
                     topic: 'Marketing Communication Budget',
-                    items: [
-                        'Instruksi: Jelaskan jenis-jenis metode penganggaran komunikasi pemasaran dan berikan contohnya.'
-                    ]
+                    instruction: 'Jelaskan jenis-jenis metode penganggaran komunikasi pemasaran dan berikan contohnya.',
+                    items: []
                 },
                 {
                     topic: 'Market Entry Strategy',
-                    items: [
-                        'Instruksi: Jelaskan bagaimana strategi untuk memasuki pasar baru (How to entry new market strategy).'
-                    ]
+                    instruction: 'Jelaskan bagaimana strategi untuk memasuki pasar baru (How to entry new market strategy).',
+                    items: []
                 }
             ],
             kisiKisiNote: '⚠️ PENTING: Kisi-kisi di atas merupakan kisi-kisi UAS angkatan B28, bukan B29. Karena berasal dari angkatan sebelumnya, tidak menutup kemungkinan bahwa materi yang keluar di UAS B29 akan berbeda. Saat ini belum ada kisi-kisi resmi untuk B29. Gunakan sebagai referensi tambahan, dan tetap pelajari seluruh materi dari Rangkuman untuk persiapan yang lebih lengkap.',

@@ -3997,14 +3997,23 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
                   </span>
                   {section.topic}
                 </h4>
-                <ul className="ml-8 space-y-1">
-                  {section.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
-                      <span className="text-[var(--accent)] mt-1">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Instruction as plain text (italic) */}
+                {section.instruction && (
+                  <p className="ml-8 text-[var(--text-secondary)] text-sm italic mb-2">
+                    {section.instruction}
+                  </p>
+                )}
+                {/* Items with bullet points */}
+                {section.items?.length > 0 && (
+                  <ul className="ml-8 space-y-1">
+                    {section.items.map((item, itemIdx) => (
+                      <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
+                        <span className="text-[var(--accent)] mt-1">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))}
           </div>
