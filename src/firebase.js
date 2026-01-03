@@ -1412,14 +1412,14 @@ export const getUserLeaderboard = async () => {
         const keysSnapshot = await get(keysRef);
         const keysData = keysSnapshot.exists() ? keysSnapshot.val() : {};
 
-        // Build leaderboard from license keys
+        // Build leaderboard from license keys (includes everyone)
         const users = Object.entries(keysData)
-            .filter(([key, data]) => !data.isAdmin) // Exclude admins
             .map(([key, data]) => ({
                 licenseKey: key,
                 userName: data.name || key.substring(0, 8),
                 totalScore: data.totalQuizScore || 0,
                 onlineMinutes: data.totalOnlineMinutes || 0,
+                isAdmin: data.isAdmin || false,
             }));
 
         // Sort by totalScore descending
