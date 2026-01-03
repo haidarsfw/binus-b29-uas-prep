@@ -3347,29 +3347,69 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
 
                     // Helper function to parse inline formatting (bold, italic)
                     const parseInline = (text) => {
+                      if (!text || typeof text !== 'string') return text;
+
                       const parts = [];
                       let remaining = text;
                       let key = 0;
 
+                      // Process character by character with tag detection
                       while (remaining.length > 0) {
-                        // Look for <b>...</b> or <i>...</i>
-                        const boldMatch = remaining.match(/^(.*?)<b>(.*?)<\/b>/s);
-                        const italicMatch = remaining.match(/^(.*?)<i>(.*?)<\/i>/s);
+                        // Check for <b> tag
+                        const boldStart = remaining.indexOf('<b>');
+                        const italicStart = remaining.indexOf('<i>');
 
-                        if (boldMatch && (!italicMatch || boldMatch.index <= italicMatch.index)) {
-                          if (boldMatch[1]) parts.push(<span key={key++}>{highlightKeyword(boldMatch[1])}</span>);
-                          parts.push(<b key={key++} style={{ fontWeight: '600' }}>{highlightKeyword(boldMatch[2])}</b>);
-                          remaining = remaining.slice(boldMatch[0].length);
-                        } else if (italicMatch) {
-                          if (italicMatch[1]) parts.push(<span key={key++}>{highlightKeyword(italicMatch[1])}</span>);
-                          parts.push(<i key={key++} style={{ fontStyle: 'italic' }}>{highlightKeyword(italicMatch[2])}</i>);
-                          remaining = remaining.slice(italicMatch[0].length);
-                        } else {
-                          parts.push(highlightKeyword(remaining));
+                        // Find which tag comes first
+                        let nextTagStart = -1;
+                        let tagType = null;
+
+                        if (boldStart !== -1 && (italicStart === -1 || boldStart < italicStart)) {
+                          nextTagStart = boldStart;
+                          tagType = 'b';
+                        } else if (italicStart !== -1) {
+                          nextTagStart = italicStart;
+                          tagType = 'i';
+                        }
+
+                        if (nextTagStart === -1) {
+                          // No more tags, add remaining text
+                          if (remaining) parts.push(<span key={key++}>{highlightKeyword(remaining)}</span>);
                           break;
                         }
+
+                        // Add text before the tag
+                        if (nextTagStart > 0) {
+                          parts.push(<span key={key++}>{highlightKeyword(remaining.slice(0, nextTagStart))}</span>);
+                        }
+
+                        // Find closing tag
+                        const closeTag = `</${tagType}>`;
+                        const closeTagPos = remaining.indexOf(closeTag, nextTagStart + 3);
+
+                        if (closeTagPos === -1) {
+                          // No closing tag, treat as plain text
+                          parts.push(<span key={key++}>{highlightKeyword(remaining.slice(nextTagStart))}</span>);
+                          break;
+                        }
+
+                        // Extract content between tags
+                        const innerContent = remaining.slice(nextTagStart + 3, closeTagPos);
+
+                        // Recursively parse inner content for nested tags
+                        const parsedInner = parseInline(innerContent);
+
+                        if (tagType === 'b') {
+                          parts.push(<strong key={key++} style={{ fontWeight: '600' }}>{parsedInner}</strong>);
+                        } else {
+                          parts.push(<em key={key++} style={{ fontStyle: 'italic' }}>{parsedInner}</em>);
+                        }
+
+                        remaining = remaining.slice(closeTagPos + closeTag.length);
                       }
-                      return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
+
+                      if (parts.length === 0) return text;
+                      if (parts.length === 1) return parts[0];
+                      return parts;
                     };
 
                     // Auto-scroll to first highlight after render
