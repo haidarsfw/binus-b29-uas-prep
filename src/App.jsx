@@ -599,8 +599,8 @@ export default function App() {
       if (userProgress) {
         setProgress(JSON.parse(userProgress));
       }
-      // Record session for peak hours analytics
-      recordSession();
+      // Record session for peak hours analytics (excludes admins)
+      recordSession(d.isAdmin);
       // Show terms agreement on every login/reload
       if (!sessionStorage.getItem('termsAgreedThisSession')) {
         setShowTerms(true);

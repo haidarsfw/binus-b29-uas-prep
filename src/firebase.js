@@ -1464,8 +1464,9 @@ export const updateOnlineTime = async (licenseKey, minutes) => {
     }
 };
 
-// Record session for peak hours tracking
-export const recordSession = async () => {
+// Record session for peak hours tracking (excludes admins)
+export const recordSession = async (isAdmin = false) => {
+    if (isAdmin) return; // Don't count admin sessions in peak hours
     try {
         const sessionsRef = ref(db, 'analytics/sessions');
         await push(sessionsRef, {
