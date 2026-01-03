@@ -5,12 +5,12 @@
 
 export const RANGKUMAN_CONTENT = {
         intro: {
-                modul1: `<h1>📘 MODUL 1: KEPEMIMPINAN (<i>LEADERSHIP</i>)</h1>
+                modul1: `<h1> MODUL 1: KEPEMIMPINAN (<i>LEADERSHIP</i>)</h1>
 <subtitle><b><i>(Mencakup Session 15 & 16)</i></b></subtitle>
 
 Bagian ini membahas evolusi teori kepemimpinan, mulai dari pendekatan klasik yang melihat "sifat bawaan" hingga pendekatan kontemporer yang menekankan pada situasi dan hubungan antar manusia.
 
-<h2>🧠 Session 15: Leadership Theory (Teori Kepemimpinan Klasik)</h2>
+<h2> Session 15: Leadership Theory (Teori Kepemimpinan Klasik)</h2>
 
 <h3>1. Definisi Pemimpin vs. Kepemimpinan</h3>
 Dalam konteks manajemen, kita membedakan antara subjek dan prosesnya. <b>Pemimpin (<i>Leader</i>)</b> adalah individu yang memiliki kemampuan untuk memengaruhi orang lain dan memegang otoritas manajerial. Sedangkan <b>Kepemimpinan (<i>Leadership</i>)</b> adalah proses memengaruhi sekelompok orang untuk mencapai tujuan bersama. Seorang manajer idealnya adalah seorang pemimpin, namun tidak semua pemimpin memegang jabatan manajer formal.
@@ -40,7 +40,7 @@ Paul Hersey dan Ken Blanchard mengembangkan teori yang sangat relevan di dunia k
 <bullet><b>R3 (Mampu tapi Tidak Mau/Ragu):</b> Membutuhkan gaya <b>Participating</b>. Pemimpin berbagi ide dan memfasilitasi pengambilan keputusan untuk meningkatkan kepercayaan diri pengikut.</bullet>
 <bullet><b>R4 (Mampu & Mau):</b> Membutuhkan gaya <b>Delegating</b>. Pemimpin menyerahkan tanggung jawab keputusan dan pelaksanaan sepenuhnya kepada pengikut.</bullet>
 
-<h2>🔥 Session 16: Being Effective Leader (Teori Kepemimpinan Modern)</h2>
+<h2> Session 16: Being Effective Leader (Teori Kepemimpinan Modern)</h2>
 
 <h3>1. Path-Goal Theory</h3>
 Teori ini menyatakan bahwa tugas utama seorang pemimpin adalah membantu pengikut mencapai tujuan mereka dan memberikan arahan atau dukungan yang diperlukan untuk memastikan tujuan tersebut sejalan dengan tujuan organisasi. Pemimpin bertindak sebagai "pembuka jalan" dengan membersihkan hambatan yang dihadapi bawahan.
@@ -66,14 +66,14 @@ Kepercayaan adalah fondasi utama kepemimpinan. Terdapat lima dimensi kunci keper
 <bullet><b>Loyalitas:</b> Kesediaan untuk melindungi dan menyelamatkan wajah orang lain.</bullet>
 <bullet><b>Keterbukaan:</b> Kesediaan untuk berbagi ide dan informasi secara bebas.</bullet>`,
 
-                modul2: `<h1>🛡️ MODUL 2: PENGENDALIAN (<i>CONTROLLING</i>)</h1>
+                modul2: `<h1>️ MODUL 2: PENGENDALIAN (<i>CONTROLLING</i>)</h1>
 <subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
 
 Modul ini sangat krusial karena membahas bagaimana manajer memastikan bahwa rencana yang telah disusun benar-benar terlaksana dengan baik. Bagian ini memiliki banyak poin yang tercatat dalam kisi-kisi ujian.
 
-<h2>⚠️ Session 17: Monitoring and Controlling I</h2>
+<h2>️ Session 17: Monitoring and Controlling I</h2>
 
-<warning>⚠️ [Keluar UAS: Definisi & Pentingnya Controlling] Berdasarkan Rangkuman Mentor Hal. 2, poin-poin di bawah ini wajib dipahami secara mendalam.</warning>
+<warning>️ [Keluar UAS: Definisi & Pentingnya Controlling] Berdasarkan Rangkuman Mentor Hal. 2, poin-poin di bawah ini wajib dipahami secara mendalam.</warning>
 
 <h3>1. Definisi Pengendalian (<i>Controlling</i>)</h3>
 <b>Pengendalian</b> adalah proses manajemen yang melibatkan pemantauan (<i>monitoring</i>), perbandingan (<i>comparing</i>), dan perbaikan (<i>correcting</i>) kinerja kerja. Tanpa pengendalian, manajemen tidak dapat mengetahui apakah tujuan organisasi tercapai atau tidak. Ini adalah mata rantai terakhir dalam fungsi manajemen.
@@ -100,9 +100,9 @@ Ada tiga opsi tindakan:
 <bullet><b>Correct Performance:</b> Memperbaiki kinerja. Bisa berupa tindakan korektif segera (<i>immediate</i>) untuk memadamkan masalah saat itu juga, atau tindakan korektif mendasar (<i>basic</i>) yang menganalisis akar penyebab masalah agar tidak terulang.</bullet>
 <bullet><b>Revise Standard:</b> Jika kinerja secara konsisten melampaui target, mungkin targetnya terlalu rendah. Sebaliknya, jika target tidak pernah tercapai meski usaha sudah maksimal, mungkin targetnya yang tidak realistis dan perlu diturunkan.</bullet>
 
-<h2>⚠️ Session 18: Monitoring and Controlling II</h2>
+<h2>️ Session 18: Monitoring and Controlling II</h2>
 
-<warning>⚠️ [Keluar UAS: Alat Ukur Organisasi & Studi Kasus] Bagian ini sering muncul dalam analisis kasus terkait efektivitas perusahaan.</warning>
+<warning>️ [Keluar UAS: Alat Ukur Organisasi & Studi Kasus] Bagian ini sering muncul dalam analisis kasus terkait efektivitas perusahaan.</warning>
 
 <h3>1. Kendali Keuangan (<i>Financial Controls</i>)</h3>
 Setiap bisnis bertujuan mencari keuntungan, sehingga rasio keuangan adalah alat kontrol utama.
@@ -126,14 +126,14 @@ Manajer masa kini menghadapi tantangan pengendalian yang unik:
 <bullet><b>Perbedaan Lintas Budaya:</b> Metode pengendalian di perusahaan multinasional harus disesuaikan. Di beberapa negara, pengawasan langsung lebih efektif, sementara di negara maju, pengendalian berbasis teknologi lebih umum.</bullet>
 <bullet><b>Privasi Tempat Kerja:</b> Perusahaan berhak memantau aktivitas karyawan (email, internet) untuk mencegah penyalahgunaan sumber daya dan kebocoran data, namun hal ini sering memicu perdebatan mengenai privasi.</bullet>
 <bullet><b>Pencurian Karyawan (<i>Employee Theft</i>):</b> Didefinisikan sebagai pengambilan properti perusahaan tanpa izin. Ini tidak hanya berupa uang, tetapi juga barang kantor, perlengkapan, hingga "pencurian waktu" (bermain media sosial saat jam kerja). Solusinya melibatkan sistem keamanan yang lebih baik dan penanaman budaya kejujuran.</bullet>`,
-                modul3: `<h1>📘 MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO</h1>
+                modul3: `<h1> MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO</h1>
 <subtitle><b><i>(Mencakup Session 19, 20, 21, & 22)</i></b></subtitle>
 
 Modul ini menjawab pertanyaan fundamental: Bagaimana mengubah sebuah ide menjadi bisnis yang legal dan layak? Bagaimana mengelola risiko di dalamnya? Dan bagaimana memotivasi orang-orang yang bekerja di dalamnya?
 
-<h2>⚠️ Session 19: Identifying Risk (Identifikasi Risiko & Kewirausahaan)</h2>
+<h2>️ Session 19: Identifying Risk (Identifikasi Risiko & Kewirausahaan)</h2>
 
-<warning>⚠️ [Keluar UAS: Entrepreneurship & Legal Forms] Topik ini adalah pondasi utama kisi-kisi "Entrepreneurship" dan "Identification".</warning>
+<warning>️ [Keluar UAS: Entrepreneurship & Legal Forms] Topik ini adalah pondasi utama kisi-kisi "Entrepreneurship" dan "Identification".</warning>
 
 <h3>1. Perbedaan Small Business vs. Entrepreneurship</h3>
 Meskipun sering dianggap sama, kedua istilah ini memiliki pola pikir yang berbeda secara fundamental:
@@ -153,7 +153,7 @@ Sebelum uang diinvestasikan, ide harus diuji kelayakannya. Analisis ini mencakup
 <bullet><b>Pembiayaan:</b> Dari mana modal berasal? Apakah dari dana pribadi (<i>bootstrapping</i>), <b>Angel Investor</b> (individu kaya yang berinvestasi di tahap awal), atau <b>Venture Capital</b> (perusahaan investasi profesional).</bullet>
 
 <h3>4. Bentuk Kepemilikan Bisnis (<i>Legal Forms of Organization</i>)</h3>
-<warning>⚠️ [Keluar UAS: Hafalkan Kelebihan & Kekurangan Tiap Bentuk] Pemilihan badan hukum sangat krusial karena menentukan beban pajak dan tanggung jawab hukum pemilik.</warning>
+<warning>️ [Keluar UAS: Hafalkan Kelebihan & Kekurangan Tiap Bentuk] Pemilihan badan hukum sangat krusial karena menentukan beban pajak dan tanggung jawab hukum pemilik.</warning>
 
 <b>Perusahaan Perseorangan (<i>Sole Proprietorship</i>):</b>
 <bullet><b>Konsep:</b> Bisnis dimiliki satu orang.</bullet>
@@ -173,9 +173,9 @@ Sebelum uang diinvestasikan, ide harus diuji kelayakannya. Analisis ini mencakup
 <b>Limited Liability Company (LLC):</b>
 <bullet><b>Konsep:</b> Bentuk hybrid yang mencoba mengambil kelebihan Partnership (pajak fleksibel) dan Corporation (perlindungan hukum).</bullet>
 
-<h2>⚠️ Session 20: Evaluating I (Evaluasi Ide & Risiko)</h2>
+<h2>️ Session 20: Evaluating I (Evaluasi Ide & Risiko)</h2>
 
-<warning>⚠️ [Keluar UAS: Strategic Evaluation & Sources of Opportunity]</warning>
+<warning>️ [Keluar UAS: Strategic Evaluation & Sources of Opportunity]</warning>
 
 <h3>1. Persepsi Risiko (<i>Risk Perception</i>)</h3>
 Dalam mengevaluasi ide bisnis, sikap pengambil keputusan terhadap risiko sangat menentukan:
@@ -190,9 +190,9 @@ Dari mana datangnya ide bisnis brilian? Peter Drucker merumuskan beberapa sumber
 <bullet><b>Demographics:</b> Perubahan struktur penduduk. <i>Contoh: Populasi menua membuka peluang bisnis kesehatan lansia.</i></bullet>
 <bullet><b>Changes in Perception:</b> Perubahan cara pandang masyarakat. <i>Contoh: Gaya hidup sehat kini dianggap keren, memicu bisnis katering diet.</i></bullet>
 
-<h2>⚠️ Session 21: Risk Management (Manajemen Risiko & Politik Organisasi)</h2>
+<h2>️ Session 21: Risk Management (Manajemen Risiko & Politik Organisasi)</h2>
 
-<warning>⚠️ [Keluar UAS: Risk Management] Sesuai kisi-kisi, bagian ini membahas sisi internal manajemen risiko, yaitu konflik manusia.</warning>
+<warning>️ [Keluar UAS: Risk Management] Sesuai kisi-kisi, bagian ini membahas sisi internal manajemen risiko, yaitu konflik manusia.</warning>
 
 <h3>1. Realita Politik Organisasi</h3>
 Banyak mahasiswa berpikir dunia kerja itu ideal: siapa yang pintar, dia yang naik jabatan. Faktanya, organisasi adalah entitas politis. Mengapa? Karena adanya <b>Potensi Konflik atas Sumber Daya</b>.
@@ -205,9 +205,9 @@ Untuk sukses (dan memitigasi risiko karir), seorang profesional harus cerdas ber
 <bullet><b>Hindari "Tainted Members":</b> Jangan terlalu dekat dengan orang yang punya reputasi buruk atau kinerja rendah. Asosiasi dengan mereka bisa merusak citra profesional Anda.</bullet>
 <bullet><b>Dukung Atasan (<i>Support Your Boss</i>):</b> Karir Anda seringkali bergantung pada rekomendasi atasan. Bantulah mereka sukses, jangan menjelekkan mereka di belakang. Jika atasan sukses, biasanya timnya juga akan terbawa naik.</bullet>
 
-<h2>🧠 Session 22: Evaluating II (Teori Motivasi)</h2>
+<h2> Session 22: Evaluating II (Teori Motivasi)</h2>
 
-<warning>⚠️ [Keluar UAS: Teori Motivasi untuk Evaluasi SDM] Materi ini sering digunakan untuk menganalisis studi kasus: "Mengapa kinerja karyawan X menurun?"</warning>
+<warning>️ [Keluar UAS: Teori Motivasi untuk Evaluasi SDM] Materi ini sering digunakan untuk menganalisis studi kasus: "Mengapa kinerja karyawan X menurun?"</warning>
 
 <h3>1. Teori Hierarki Kebutuhan Maslow</h3>
 Manusia termotivasi berdasarkan tingkatan kebutuhan. Kita tidak akan peduli pada kebutuhan tinggi jika kebutuhan dasar belum terpenuhi.
@@ -236,12 +236,12 @@ Seorang karyawan akan termotivasi jika dia percaya pada tiga hal berturut-turut:
 <bullet><b>Instrumentality:</b> "Kalau target tercapai, perusahaan PASTI kasih bonus." (Keyakinan pada sistem reward).</bullet>
 <bullet><b>Valence:</b> "Bonusnya menarik buat aku." (Ketertarikan pada nilai hadiah).</bullet>
 <bullet><b>Aplikasi:</b> Manajer harus memastikan target realistis, janji ditepati, dan hadiahnya relevan.</bullet>`,
-                modul4: `<h1>📘 MODUL 4: STRATEGI & PRAKTIK MANAJEMEN</h1>
+                modul4: `<h1> MODUL 4: STRATEGI & PRAKTIK MANAJEMEN</h1>
 <subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
 
 Jika Modul 1 bicara soal "Orang" (<i>Leadership</i>) dan Modul 2 bicara soal "Risiko" (<i>Risk</i>), maka Modul 4 ini bicara soal "Arah" (<i>Strategy</i>). Bagaimana kita membawa kapal besar bernama perusahaan ini menuju tujuan di tengah badai persaingan global?
 
-<h2>🌏 Session 25: Management Practice (Isu Global & Studi Kasus)</h2>
+<h2> Session 25: Management Practice (Isu Global & Studi Kasus)</h2>
 
 Pada sesi ini, kita melihat penerapan teori manajemen dalam dunia nyata, khususnya menghadapi tantangan ekonomi global dan standar operasional perusahaan kelas dunia.
 
@@ -260,9 +260,9 @@ Materi ini menggunakan Starbucks sebagai contoh emas penerapan <b>Value Chain Ma
 <bullet><b>Kontrol Kualitas dari Hulu ke Hilir:</b> Starbucks tidak hanya membeli biji kopi sembarangan. Mereka mengontrol proses dari pemilihan biji kopi Arabika terbaik di petani (Amerika Latin, Afrika, Asia), proses pemanggangan (<i>roasting</i>) di fasilitas khusus, hingga penyeduhan oleh Barista. Inilah yang disebut <b>Integrated Value Chain</b>.</bullet>
 <bullet><b>Standar Lingkungan (CSR):</b> Praktik manajemen modern tidak bisa lepas dari isu lingkungan. Starbucks menerapkan strategi pengurangan sedotan plastik dan sertifikasi toko ramah lingkungan (<i>Greener Stores</i>). Ini bukan sekadar amal, tapi strategi bisnis untuk menjaga citra merek di mata konsumen modern yang peduli lingkungan.</bullet>
 
-<h2>⚠️ Session 26: Strategic Management (Manajemen Strategis)</h2>
+<h2>️ Session 26: Strategic Management (Manajemen Strategis)</h2>
 
-<warning>⚠️ [Keluar UAS: Proses Manajemen Strategis & Analisis SWOT] Berdasarkan file Rangkuman Mentor (Hal. 22), bagan proses ini ditandai "KELUAR UAS". Anda wajib menghafal urutannya.</warning>
+<warning>️ [Keluar UAS: Proses Manajemen Strategis & Analisis SWOT] Berdasarkan file Rangkuman Mentor (Hal. 22), bagan proses ini ditandai "KELUAR UAS". Anda wajib menghafal urutannya.</warning>
 
 <h3>1. Apa itu Manajemen Strategis?</h3>
 <b>Manajemen strategis</b> adalah apa yang dilakukan manajer untuk mengembangkan strategi organisasi. Ini adalah "cetak biru" (<i>blueprint</i>) tentang bagaimana perusahaan akan berbisnis, bagaimana cara menang bersaing, dan bagaimana menarik serta memuaskan pelanggan untuk mencapai tujuan.
@@ -311,7 +311,7 @@ Warren Buffett mempopulerkan istilah <b>Economic Moat</b> (Parit Ekonomi). Bayan
 Siapa cepat, dia dapat. Organisasi yang pertama kali membawa inovasi produk ke pasar disebut <b>First Mover</b>.
 <bullet><b>Keuntungan:</b> Menguasai pasar lebih dulu, membangun loyalitas merek, menetapkan standar industri.</bullet>
 <bullet><b>Kerugian:</b> Biaya riset mahal, risiko produk gagal tinggi, dan kompetitor bisa meniru lalu menyempurnakan produk kita dengan biaya lebih murah (<b>Second Mover Advantage</b>).</bullet>`,
-                tambahan: `<h1>🔍 TAMBAHAN DETAIL TEKNIS (Hafalan Slide)</h1>
+                tambahan: `<h1> TAMBAHAN DETAIL TEKNIS (Hafalan Slide)</h1>
 
 <h3>1. Lima Kekuatan Porter (<i>Porter's Five Forces</i>) - Session 26</h3>
 Di Bagian 3, saya membahas <b>Competitive Advantage</b>. Di slide Session 26, ada model spesifik untuk menganalisis persaingan industri yang wajib dihafal poinnya:
@@ -340,14 +340,14 @@ Di Bagian 1 (<i>Controlling</i>), saya sebutkan soal <b>Employee Theft</b>. Di s
 <bullet><b>Outside Activities:</b> Mogok kerja ilegal, aktivitas kriminal di luar kantor.</bullet>`
         },
         mis: {
-                modul1: `<h1>📘 MODUL 1: MANAJEMEN PENGETAHUAN & KECERDASAN BUATAN</h1>
+                modul1: `<h1> MODUL 1: MANAJEMEN PENGETAHUAN & KECERDASAN BUATAN</h1>
 <subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
 
 Topik Utama: Bagaimana organisasi mengubah data mentah menjadi wawasan bisnis, dan bagaimana mesin cerdas membantu proses tersebut. Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 2 (Mini Case).
 
-<h2>⚠️ Session 17: Managing Knowledge (Manajemen Pengetahuan)</h2>
+<h2>️ Session 17: Managing Knowledge (Manajemen Pengetahuan)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 2 - Knowledge Management] (Fokus pada studi kasus: Identifikasi jenis pengetahuan yang hilang dan bagaimana proses mengelolanya).</warning>
+<warning>️ [KELUAR UAS: Soal No. 2 - Knowledge Management] (Fokus pada studi kasus: Identifikasi jenis pengetahuan yang hilang dan bagaimana proses mengelolanya).</warning>
 
 <h3>1. Lanskap Manajemen Pengetahuan</h3>
 Dalam bisnis modern, aset termahal bukanlah gedung pabrik atau inventaris gudang, melainkan Pengetahuan (Knowledge). Sistem Manajemen Pengetahuan (Knowledge Management Systems - KMS) adalah infrastruktur TI yang dirancang untuk mengumpulkan, menyimpan, dan menyebarkan pengetahuan agar organisasi tidak "lupa" ketika karyawan kunci keluar.
@@ -377,9 +377,9 @@ Manajemen pengetahuan adalah sebuah proses siklus, bukan kejadian satu kali. Ada
 <bullet><b>Penyebaran Pengetahuan (Knowledge Dissemination):</b> Pengetahuan di gudang data tidak ada gunanya jika tidak sampai ke otak karyawan. Perusahaan menggunakan portal intranet, email, wiki internal, atau mesin pencari korporat untuk menyebarkan informasi ini. Tujuannya: "Orang yang tepat mendapatkan informasi yang tepat pada waktu yang tepat."</bullet>
 <bullet><b>Penerapan Pengetahuan (Knowledge Application):</b> Ini adalah tahap "cuan"-nya. Pengetahuan yang sudah disebar harus digunakan untuk mengubah praktik bisnis. Apakah pengetahuan itu menghasilkan produk baru? Apakah membuat proses kerja lebih cepat? Tanpa penerapan, tiga langkah sebelumnya sia-sia.</bullet>
 
-<h2>⚠️ Session 18: Artificial Intelligence (AI)</h2>
+<h2>️ Session 18: Artificial Intelligence (AI)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 2 - AI Techniques] (Hafalkan teknik-teknik di bawah ini. Soal kasus biasanya meminta Anda memilih teknologi AI mana yang cocok untuk memecahkan masalah tertentu).</warning>
+<warning>️ [KELUAR UAS: Soal No. 2 - AI Techniques] (Hafalkan teknik-teknik di bawah ini. Soal kasus biasanya meminta Anda memilih teknologi AI mana yang cocok untuk memecahkan masalah tertentu).</warning>
 
 <h3>1. Definisi Kecerdasan Buatan (AI)</h3>
 Artificial Intelligence (AI) adalah upaya sistem komputer untuk meniru fungsi kognitif manusia, seperti belajar, mengenali pola, memahami bahasa, dan memecahkan masalah. AI tidak memiliki "kesadaran" seperti manusia, tetapi ia bisa memproses data jauh lebih cepat dan akurat.
@@ -406,14 +406,14 @@ Dalam materi kuliah, terdapat beberapa cabang utama AI yang diterapkan di dunia 
 <b>Agen Cerdas (Intelligent Agents):</b> Program perangkat lunak yang bekerja di latar belakang tanpa intervensi manusia langsung untuk melaksanakan tugas spesifik, berulang, dan terprediksi.
 <bullet><b>Contoh Konkret:</b> Chatbot layanan pelanggan yang otomatis menjawab pertanyaan dasar, atau fitur "Siri/Google Assistant" yang otomatis menjadwalkan rapat ketika Anda bilang "Set meeting jam 9".</bullet>`,
 
-                modul2: `<h1>📘 MODUL 2: PENINGKATAN PENGAMBILAN KEPUTUSAN (ENHANCING DECISION MAKING)</h1>
+                modul2: `<h1> MODUL 2: PENINGKATAN PENGAMBILAN KEPUTUSAN (ENHANCING DECISION MAKING)</h1>
 <subtitle><b><i>(Mencakup Session 19 & 20)</i></b></subtitle>
 
 Topik Utama: Bagaimana sistem informasi mengubah manajer dari "pengambil keputusan berdasarkan insting" menjadi "pengambil keputusan berbasis data (data-driven)". Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 3 (Mini Case).
 
-<h2>⚠️ Session 19: The Decision Making Process</h2>
+<h2>️ Session 19: The Decision Making Process</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 3 - Decision Making Process] (Hafalkan klasifikasi keputusan dan 4 tahapan Simon. Soal kasus biasanya meminta Anda menganalisis masalah yang dihadapi manajer dan menentukan solusi sistem apa yang tepat).</warning>
+<warning>️ [KELUAR UAS: Soal No. 3 - Decision Making Process] (Hafalkan klasifikasi keputusan dan 4 tahapan Simon. Soal kasus biasanya meminta Anda menganalisis masalah yang dihadapi manajer dan menentukan solusi sistem apa yang tepat).</warning>
 
 <h3>1. Tipe Keputusan dan Level Manajemen</h3>
 Dalam sebuah organisasi, tidak semua masalah memiliki bobot yang sama. Sistem informasi dirancang spesifik berdasarkan siapa yang menggunakannya dan jenis keputusan apa yang diambil:
@@ -452,9 +452,9 @@ Herbert Simon, peraih Nobel, merumuskan empat tahapan yang dilalui manusia saat 
 • Pertanyaan Kunci: "Apakah solusi ini berhasil memecahkan masalah?"
 • Peran Sistem: Laporan monitoring pasca-implementasi.</bullet>
 
-<h2>⚠️ Session 20: Business Intelligence & Analytics</h2>
+<h2>️ Session 20: Business Intelligence & Analytics</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 3 - Balanced Scorecard & BI] (Topik Balanced Scorecard sangat sering muncul sebagai alat analisis kinerja perusahaan dalam studi kasus).</warning>
+<warning>️ [KELUAR UAS: Soal No. 3 - Balanced Scorecard & BI] (Topik Balanced Scorecard sangat sering muncul sebagai alat analisis kinerja perusahaan dalam studi kasus).</warning>
 
 <h3>1. Ekosistem Business Intelligence (BI)</h3>
 Istilah "Business Intelligence" adalah payung besar yang mencakup infrastruktur (gudang data), alat analisis, dan aplikasi untuk membantu pengambilan keputusan. Ada enam elemen dalam lingkungan BI yang ideal:
@@ -505,14 +505,14 @@ Sistem interaktif untuk memfasilitasi pemecahan masalah tidak terstruktur oleh s
 
 <bullet><b>Fungsi:</b> Menyediakan alat kolaborasi (ruang rapat virtual, voting elektronik, kuesioner anonim) agar rapat lebih produktif dan tidak didominasi satu orang saja.</bullet>`,
 
-                modul3: `<h1>📘 MODUL 3: MEMBANGUN SISTEM INFORMASI</h1>
+                modul3: `<h1> MODUL 3: MEMBANGUN SISTEM INFORMASI</h1>
 <subtitle><b><i>(Mencakup Session 21 & 22)</i></b></subtitle>
 
 Topik Utama: Metodologi penciptaan sistem baru dan keputusan strategis "Beli atau Buat" (Make or Buy Decision). Relevansi Ujian: Materi ini adalah kunci jawaban untuk Soal No. 1 (Study Case).
 
-<h2>⚠️ Session 21: Systems Development Life Cycle (SDLC)</h2>
+<h2>️ Session 21: Systems Development Life Cycle (SDLC)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 1 - Building Information Systems] (Hafalkan 6 tahapan ini secara berurutan. Dalam studi kasus, Anda sering diminta merancang tahapan solusi sistem untuk masalah perusahaan).</warning>
+<warning>️ [KELUAR UAS: Soal No. 1 - Building Information Systems] (Hafalkan 6 tahapan ini secara berurutan. Dalam studi kasus, Anda sering diminta merancang tahapan solusi sistem untuk masalah perusahaan).</warning>
 
 <h3>1. Definisi SDLC (Metode Waterfall)</h3>
 SDLC atau siklus hidup pengembangan sistem adalah metode tradisional untuk membangun sistem informasi. Sering disebut Model Air Terjun (Waterfall) karena tahapannya mengalir ke bawah secara berurutan dan tidak bisa kembali ke tahap sebelumnya tanpa biaya besar. Metode ini kaku, formal, namun sangat disiplin.
@@ -553,9 +553,9 @@ Dalam studi kasus implementasi, Anda harus memilih strategi mana yang paling ama
 <bullet><b>Studi Percontohan (Pilot Study):</b> Sistem baru diterapkan di satu area terbatas dulu (misal: Cabang Jakarta saja). Jika sukses, baru ke seluruh cabang.</bullet>
 <bullet><b>Pendekatan Bertahap (Phased Approach):</b> Menerapkan sistem per modul. (Misal: modul Gaji dulu, bulan depan modul Absensi).</bullet>
 
-<h2>⚠️ Session 22: Alternative Systems-Building Approaches</h2>
+<h2>️ Session 22: Alternative Systems-Building Approaches</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 1 - Prototyping & Outsourcing] (Soal kasus sering menanyakan: "Saran apa yang Anda berikan jika perusahaan butuh sistem cepat tapi tidak punya tim IT?" Jawabannya ada di sini).</warning>
+<warning>️ [KELUAR UAS: Soal No. 1 - Prototyping & Outsourcing] (Soal kasus sering menanyakan: "Saran apa yang Anda berikan jika perusahaan butuh sistem cepat tapi tidak punya tim IT?" Jawabannya ada di sini).</warning>
 
 <h3>1. Prototyping (Pembuatan Prototipe)</h3>
 Berbeda dengan SDLC yang kaku, Prototyping bersifat iteratif (berulang-ulang) dan cepat.
@@ -585,14 +585,14 @@ Menyerahkan pengembangan atau pengelolaan sistem kepada vendor eksternal.
 <bullet><b>Pilih Build (Buat Sendiri/In-house):</b> Jika sistem tersebut adalah Core Competency (rahasia dapur/keunggulan unik) perusahaan yang tidak boleh diketahui orang lain.</bullet>
 <bullet><b>Pilih Buy/Outsource:</b> Jika sistem tersebut adalah fungsi umum (seperti Payroll atau HR) yang bukan keunggulan kompetitif utama, atau jika perusahaan ingin memangkas biaya.</bullet>`,
 
-                modul4: `<h1>📘 MODUL 4: KEUNGGULAN OPERASIONAL & INTIMASI PELANGGAN</h1>
+                modul4: `<h1> MODUL 4: KEUNGGULAN OPERASIONAL & INTIMASI PELANGGAN</h1>
 <subtitle><b><i>(Mencakup Session 23 & 24)</i></b></subtitle>
 
 Topik Utama: Bagaimana perusahaan besar mengintegrasikan ribuan proses bisnis yang terpisah-pisah menjadi satu kesatuan mesin yang efisien menggunakan Aplikasi Perusahaan (Enterprise Applications). Relevansi Ujian: Kunci jawaban untuk Soal No. 2 (Study Case) tentang efisiensi operasional.
 
-<h2>⚠️ Session 23: Enterprise Systems (ERP) & Supply Chain Management (SCM)</h2>
+<h2>️ Session 23: Enterprise Systems (ERP) & Supply Chain Management (SCM)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 2 (Study Case) - Operational Excellence] (Perhatikan baik-baik konsep Integrasi Data dan perbedaan Push vs Pull Model. Ini sering menjadi solusi utama dalam analisis kasus inefisiensi).</warning>
+<warning>️ [KELUAR UAS: Soal No. 2 (Study Case) - Operational Excellence] (Perhatikan baik-baik konsep Integrasi Data dan perbedaan Push vs Pull Model. Ini sering menjadi solusi utama dalam analisis kasus inefisiensi).</warning>
 
 <h3>1. Sistem Perusahaan (Enterprise Resource Planning / ERP)</h3>
 Masalah klasik perusahaan besar adalah "Silo Informasi". Departemen Keuangan punya database sendiri, Gudang punya sendiri, dan Penjualan punya sendiri. Akibatnya, data tidak sinkron.
@@ -629,9 +629,9 @@ Ini adalah strategi produksi yang sangat krusial:
 <bullet><b>Keunggulan:</b> Stok sangat minim, biaya operasional rendah, dan responsif terhadap perubahan selera pasar.</bullet>
 <bullet><b>Contoh:</b> Dell Computer tidak merakit laptop sampai ada pesanan masuk di website mereka.</bullet>
 
-<h2>⚠️ Session 24: Customer Relationship Management (CRM)</h2>
+<h2>️ Session 24: Customer Relationship Management (CRM)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 2 (Study Case) - Customer Intimacy] (Gunakan materi ini jika studi kasus membahas tentang pelanggan yang kabur, komplain yang tidak tertangani, atau strategi meningkatkan penjualan).</warning>
+<warning>️ [KELUAR UAS: Soal No. 2 (Study Case) - Customer Intimacy] (Gunakan materi ini jika studi kasus membahas tentang pelanggan yang kabur, komplain yang tidak tertangani, atau strategi meningkatkan penjualan).</warning>
 
 <h3>1. Definisi dan Tujuan CRM</h3>
 Mendapatkan pelanggan baru biayanya 6 kali lebih mahal daripada mempertahankan pelanggan lama. Oleh karena itu, perusahaan menggunakan sistem CRM untuk mengelola hubungan dengan pelanggan guna mencapai Intimasi Pelanggan. CRM merekam setiap interaksi pelanggan dengan perusahaan di semua titik kontak (Touch Points), seperti telepon, email, web, atau kunjungan toko.
@@ -658,14 +658,14 @@ Meskipun canggih, implementasi ERP/SCM/CRM sering gagal. Dalam studi kasus imple
 <bullet><b>Perubahan Teknologi:</b> Membutuhkan infrastruktur TI yang kompleks.</bullet>
 <bullet><b>Perubahan Organisasi:</b> Karyawan sering menolak sistem baru (resistance to change) karena harus belajar cara kerja baru. Pelatihan dan manajemen perubahan (Change Management) sangat diperlukan agar sukses.</bullet>`,
 
-                modul5: `<h1>📘 MODUL 5: E-COMMERCE & PASAR DIGITAL</h1>
+                modul5: `<h1> MODUL 5: E-COMMERCE & PASAR DIGITAL</h1>
 <subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
 
 Topik Utama: Transformasi bisnis dari fisik ke digital, model bisnis internet, dan karakteristik unik barang digital. Relevansi Ujian: Kunci jawaban mutlak untuk Soal No. 1 (Mini Case) tentang E-Commerce dan Business Model.
 
-<h2>⚠️ Session 25: E-Commerce (Fitur & Konsep Dasar)</h2>
+<h2>️ Session 25: E-Commerce (Fitur & Konsep Dasar)</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 1 - 8 Fitur Unik E-Commerce] (Hafalkan 8 poin ini. Soal kasus sering bertanya: "Jelaskan karakteristik unik E-Commerce yang diterapkan oleh perusahaan X!").</warning>
+<warning>️ [KELUAR UAS: Soal No. 1 - 8 Fitur Unik E-Commerce] (Hafalkan 8 poin ini. Soal kasus sering bertanya: "Jelaskan karakteristik unik E-Commerce yang diterapkan oleh perusahaan X!").</warning>
 
 <h3>1. Mengapa E-Commerce Berbeda? (The 8 Unique Features)</h3>
 Perdagangan elektronik bukan sekadar memindahkan katalog kertas ke website. Ada 8 dimensi yang membuat teknologi ini revolusioner dibandingkan perdagangan tradisional:
@@ -709,9 +709,9 @@ Perdagangan elektronik bukan sekadar memindahkan katalog kertas ke website. Ada 
 <bullet><b>Disintermediation (Penghapusan Perantara):</b> E-Commerce memotong jalur distribusi. Produsen bisa jual langsung ke konsumen.
 • Dampak: Harga barang jadi lebih murah karena tidak perlu bayar distributor atau grosir.</bullet>
 
-<h2>⚠️ Session 26: Business & Revenue Models</h2>
+<h2>️ Session 26: Business & Revenue Models</h2>
 
-<warning>⚠️ [KELUAR UAS: Soal No. 1 - Business & Revenue Models] (Sangat Penting! Anda pasti diminta mengidentifikasi model bisnis perusahaan di soal studi kasus).</warning>
+<warning>️ [KELUAR UAS: Soal No. 1 - Business & Revenue Models] (Sangat Penting! Anda pasti diminta mengidentifikasi model bisnis perusahaan di soal studi kasus).</warning>
 
 <h3>1. Model Bisnis E-Commerce (Business Models)</h3>
 Bagaimana cara perusahaan memposisikan dirinya di internet?
@@ -740,12 +740,12 @@ Barang yang bisa dikirim melalui jaringan (Musik, Video, Software, E-book).
 <bullet><b>Karakteristik Unik:</b> Biaya produksi unit pertama mahal, tapi biaya produksi unit kedua (bikin salinan/copy) hampir NOL.</bullet>
 <bullet><b>Implikasi:</b> Keuntungannya sangat besar jika volume penjualan tinggi (seperti Microsoft atau Adobe).</bullet>`,
 
-                tambahan: `<h1>💎 ADDENDUM: DETAIL TEKNIS HAFALAN SLIDE</h1>
+                tambahan: `<h1> ADDENDUM: DETAIL TEKNIS HAFALAN SLIDE</h1>
 <subtitle><b><i>(Melengkapi Modul 1-5 untuk Study Case & Mini Case)</i></b></subtitle>
 
 Detail tambahan dari PPT yang sering terlewat, tapi bisa jadi kunci jawaban studi kasus.
 
-<h2>💎 ADDENDUM 1: DETAIL SCM (Study Case No. 2)</h2>
+<h2> ADDENDUM 1: DETAIL SCM (Study Case No. 2)</h2>
 <subtitle>Melengkapi Modul 4 - PPT Sesi 23-24 & PPT Review Sesi 25-26</subtitle>
 
 Di PPT Review, ada pertanyaan spesifik: "Distinguish between upstream and downstream portions of the supply chain." Ini wajib Anda hafal definisinya:
@@ -765,7 +765,7 @@ Di slide Sesi 24, ada istilah Social CRM. Ini berbeda dengan CRM biasa.
 <bullet><b>Definisi:</b> Menghubungkan data percakapan pelanggan di Media Sosial (Facebook, Twitter/X) langsung ke dalam sistem CRM perusahaan.</bullet>
 <bullet><b>Guna:</b> Agar CS bisa merespons komplain di Twitter dengan cepat dan tercatat di database pusat.</bullet>
 
-<h2>💎 ADDENDUM 2: DETAIL AI & KNOWLEDGE (Mini Case No. 2)</h2>
+<h2> ADDENDUM 2: DETAIL AI & KNOWLEDGE (Mini Case No. 2)</h2>
 <subtitle>Melengkapi Modul 1 - PPT Sesi 17-18</subtitle>
 
 Ada satu jenis sistem spesifik yang terselip di slide untuk pekerja profesional:
@@ -781,7 +781,7 @@ Berbeda dengan KMS (Manajemen Pengetahuan umum), KWS adalah sistem khusus untuk 
 Disebutkan di slide Sesi 17. Ini adalah sistem untuk mengelola Dokumen Tak Terstruktur.
 <bullet><b>Fokus:</b> Mengarsipkan PDF, Email, Video, dan Dokumen kontrak agar mudah dicari (di-index). Vendor terkenalnya: Oracle, OpenText.</bullet>
 
-<h2>💎 ADDENDUM 3: DETAIL MEMBANGUN SISTEM (Study Case No. 1)</h2>
+<h2> ADDENDUM 3: DETAIL MEMBANGUN SISTEM (Study Case No. 1)</h2>
 <subtitle>Melengkapi Modul 3 - PPT Sesi 21-22</subtitle>
 
 Dalam membangun sistem era sekarang, slide menyinggung tentang pengembangan aplikasi Mobile:
@@ -793,7 +793,7 @@ Dalam membangun sistem era sekarang, slide menyinggung tentang pengembangan apli
 <b>Responsive Web Design:</b>
 <bullet>Teknik mendesain website agar layout-nya otomatis berubah menyesuaikan ukuran layar (PC, Tablet, HP) tanpa perlu membuat dua situs berbeda. Ini solusi efisien dalam Building IS.</bullet>
 
-<h2>💎 ADDENDUM 4: DETAIL E-COMMERCE (Mini Case No. 1)</h2>
+<h2> ADDENDUM 4: DETAIL E-COMMERCE (Mini Case No. 1)</h2>
 <subtitle>Melengkapi Modul 5 - PPT Review Sesi 25-26</subtitle>
 
 Di slide Review, ada pertanyaan: "Explain the importance of micropayment systems."
@@ -804,12 +804,12 @@ Di slide Review, ada pertanyaan: "Explain the importance of micropayment systems
 <bullet><b>Contoh:</b> Pembayaran pakai Pulsa, GoPay, atau Apple Pay untuk beli skin di Mobile Legends.</bullet>`
         },
         marketing: {
-                modul1: `<h1>📘 MODUL 1: MARKETING CHANNELS & LOGISTICS</h1>
+                modul1: `<h1> MODUL 1: MARKETING CHANNELS & LOGISTICS</h1>
 <subtitle><b><i>(Chapter 12: Delivering Customer Value)</i></b></subtitle>
 
 Modul ini membahas bagaimana perusahaan menyampaikan nilai ke pelanggan melalui saluran distribusi dan logistik yang efektif. Dari Netflix hingga Sociolla, kita akan mempelajari strategi saluran pemasaran modern.
 
-<h2>🎬 1. PEMBUKA: BELAJAR DARI NETFLIX</h2>
+<h2> 1. PEMBUKA: BELAJAR DARI NETFLIX</h2>
 
 <h3>"Finding the Future by Abandoning the Past"</h3>
 Netflix telah berulang kali berinovasi untuk tetap berada di puncak industri hiburan video. Kunci keberhasilan mereka bukan hanya pada konten, tetapi pada <b>revolusi saluran distribusi</b>.
@@ -817,7 +817,7 @@ Netflix telah berulang kali berinovasi untuk tetap berada di puncak industri hib
 <bullet><b>Inovasi:</b> Dari mengirim DVD lewat pos, beralih ke streaming instan (<i>Watch Instantly</i>), hingga kini bisa diakses di hampir semua perangkat dan membuat konten orisinil.</bullet>
 <bullet><b>Pelajaran:</b> Untuk tetap memimpin, perusahaan harus berani meninggalkan cara lama demi masa depan (<i>finding its future by abandoning its past</i>). Jika Netflix bertahan pada DVD, mereka akan tertinggal seperti Blockbuster.</bullet>
 
-<h2>🔗 2. KONSEP DASAR: SUPPLY CHAINS VS VALUE DELIVERY NETWORK</h2>
+<h2> 2. KONSEP DASAR: SUPPLY CHAINS VS VALUE DELIVERY NETWORK</h2>
 
 Dalam menciptakan nilai pelanggan, perusahaan tidak bisa bekerja sendirian.
 
@@ -829,7 +829,7 @@ Dalam menciptakan nilai pelanggan, perusahaan tidak bisa bekerja sendirian.
 <bullet><b>Upstream Partners (Hulu):</b> Penyuplai bahan mentah, komponen, keuangan, dan keahlian.</bullet>
 <bullet><b>Downstream Partners (Hilir):</b> Saluran pemasaran (wholesaler/retailer) yang mengarah ke pelanggan.</bullet>
 
-<h2>🏪 3. SIFAT DAN PENTINGNYA SALURAN PEMASARAN</h2>
+<h2> 3. SIFAT DAN PENTINGNYA SALURAN PEMASARAN</h2>
 
 <h3>Definisi Marketing Channel</h3>
 <b>Marketing Channel (Saluran Distribusi):</b> Sekumpulan organisasi yang saling bergantung yang membantu membuat produk atau jasa tersedia untuk digunakan oleh konsumen atau pengguna bisnis.
@@ -850,7 +850,7 @@ Dalam menciptakan nilai pelanggan, perusahaan tidak bisa bekerja sendirian.
 <bullet><b>Financing:</b> Mengakuisisi dan menggunakan dana untuk biaya operasional saluran.</bullet>
 <bullet><b>Risk Taking:</b> Menanggung risiko pelaksanaan pekerjaan saluran.</bullet>
 
-<h2>📊 4. STRUKTUR DAN TINGKATAN SALURAN</h2>
+<h2> 4. STRUKTUR DAN TINGKATAN SALURAN</h2>
 
 <h3>Direct Marketing Channel (Saluran Langsung)</h3>
 Tidak ada perantara. Produsen menjual langsung ke konsumen. <i>(Contoh: GEICO, Quicken Loans)</i>.
@@ -861,7 +861,7 @@ Mengandung satu atau lebih tingkat perantara:
 <bullet><b>Level 2:</b> Produsen → Grosir → Pengecer → Konsumen.</bullet>
 <bullet><b>Level 3:</b> Produsen → Wholesaler → Jobber → Retailer → Konsumen.</bullet>
 
-<h2>⚔️ 5. PERILAKU DAN ORGANISASI SALURAN</h2>
+<h2>️ 5. PERILAKU DAN ORGANISASI SALURAN</h2>
 
 Saluran distribusi adalah sistem perilaku yang kompleks. Keberhasilan individu bergantung pada keberhasilan saluran secara keseluruhan.
 
@@ -888,7 +888,7 @@ Produsen, grosir, dan pengecer bertindak sebagai sistem terpadu.
 <b>Multichannel Distribution System:</b>
 <bullet>Satu perusahaan menetapkan dua atau lebih saluran pemasaran untuk mencapai segmen pelanggan yang berbeda. <i>(Contoh: John Deere menjual traktor besar lewat dealer premium, tapi menjual traktor rumahan lewat Lowe's dan online)</i>.</bullet>
 
-<h2>✂️ 6. DISINTERMEDIATION</h2>
+<h2>️ 6. DISINTERMEDIATION</h2>
 
 <b>Disintermediasi:</b> Pemotongan perantara saluran pemasaran oleh produsen, atau penggusuran perantara tradisional oleh jenis perantara baru yang radikal.
 
@@ -896,7 +896,7 @@ Produsen, grosir, dan pengecer bertindak sebagai sistem terpadu.
 <bullet>iTunes/Amazon MP3 menggantikan toko musik fisik, lalu Spotify menggantikan iTunes.</bullet>
 <bullet>Black & Decker menjual online tapi mengarahkan pembelian ke situs pengecer untuk menghindari konflik saluran.</bullet>
 
-<h2>🎯 7. KEPUTUSAN DESAIN SALURAN (<i>CHANNEL DESIGN DECISIONS</i>)</h2>
+<h2> 7. KEPUTUSAN DESAIN SALURAN (<i>CHANNEL DESIGN DECISIONS</i>)</h2>
 
 Merancang saluran yang efektif melibatkan <b>4 langkah</b>:
 
@@ -924,7 +924,7 @@ Menggunakan kriteria:
 <bullet><b>Kontrol:</b> Seberapa besar kendali produsen.</bullet>
 <bullet><b>Adaptabilitas:</b> Fleksibilitas jangka panjang.</bullet>
 
-<h2>🔧 8. MANAJEMEN SALURAN (<i>CHANNEL MANAGEMENT DECISIONS</i>)</h2>
+<h2> 8. MANAJEMEN SALURAN (<i>CHANNEL MANAGEMENT DECISIONS</i>)</h2>
 
 Setelah desain dipilih, perusahaan harus:
 
@@ -936,7 +936,7 @@ Setelah desain dipilih, perusahaan harus:
 <bullet><b>Exclusive Distribution:</b> Produsen memberi hak eksklusif wilayah.</bullet>
 <bullet><b>Exclusive Dealing:</b> Penjual melarang dealer menjual produk kompetitor. <i>(Bisa ilegal jika mengurangi kompetisi secara substansial)</i>.</bullet>
 
-<h2>🚚 9. LOGISTIK PEMASARAN & SCM</h2>
+<h2> 9. LOGISTIK PEMASARAN & SCM</h2>
 
 <b>Marketing Logistics (Physical Distribution):</b> Merencanakan, melaksanakan, dan mengendalikan aliran fisik barang, jasa, dan informasi dari titik asal ke titik konsumsi.
 
@@ -954,7 +954,7 @@ Konsep bahwa logistik butuh kerja sama tim (internal dan eksternal).
 <bullet><b>Cross-Functional Teamwork:</b> Pemasaran, penjualan, keuangan, operasi harus sinkron.</bullet>
 <bullet><b>Third-Party Logistics (3PL):</b> Menggunakan penyedia jasa logistik luar (seperti FedEx, UPS, DHL) untuk mengurus logistik agar perusahaan bisa fokus ke bisnis inti.</bullet>
 
-<h2>🛒 10. STUDI KASUS: SOCIOLLA (OMNICHANNEL)</h2>
+<h2> 10. STUDI KASUS: SOCIOLLA (OMNICHANNEL)</h2>
 
 <h3>Moving to Omnichannel Concept – Case of Sociolla</h3>
 Sociolla menerapkan strategi <b>Omnichannel Retailing</b>, mengintegrasikan pengalaman belanja fisik dan digital secara mulus.
@@ -962,12 +962,12 @@ Sociolla menerapkan strategi <b>Omnichannel Retailing</b>, mengintegrasikan peng
 <bullet>Konsumen bisa menggunakan aplikasi <b>SOCO</b> di dalam toko fisik untuk scan barcode dan melihat review produk.</bullet>
 <bullet>Sistem terintegrasi menghubungkan data perilaku belanja online dan offline.</bullet>
 <bullet>Contoh nyata bagaimana <i>multichannel distribution</i> berkembang menjadi <i>omnichannel experience</i>.</bullet>`,
-                modul2: `<h1>📘 MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
+                modul2: `<h1> MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
 <subtitle><b><i>(Referensi: PPT Week 10 & Chapter 14)</i></b></subtitle>
 
 Modul ini membahas bagaimana perusahaan mengintegrasikan seluruh alat komunikasi pemasaran untuk menyampaikan pesan yang jelas, konsisten, dan menarik.
 
-<h2>🍔 1. STUDI KASUS PEMBUKA: BURGER KING</h2>
+<h2> 1. STUDI KASUS PEMBUKA: BURGER KING</h2>
 
 <h3>"Anything but Traditional"</h3>
 Materi ini dibuka dengan analisis mendalam mengenai strategi komunikasi Burger King. Kampanye pemasaran Burger King seringkali terlihat impulsif, aneh (<i>wacky</i>), atau bahkan nekat di mata pengamat. Namun, di balik eksekusi yang terlihat kacau tersebut, terdapat strategi komunikasi yang sangat disiplin dan terintegrasi.
@@ -976,7 +976,7 @@ Materi ini dibuka dengan analisis mendalam mengenai strategi komunikasi Burger K
 <bullet><b>Diferensiasi:</b> Fokus komunikasi mereka selalu menekankan pada keunggulan produk daging sapi yang dipanggang dengan api (<i>flame-grilled</i>), yang membedakan mereka secara tajam dari kompetitor utama yang menggoreng dagingnya.</bullet>
 <bullet><b>Pelajaran Utama:</b> Kreativitas dalam eksekusi boleh saja liar dan tidak tradisional, asalkan pesan intinya tetap terintegrasi dan konsisten dengan identitas merek yang sudah dibangun.</bullet>
 
-<h2>📣 2. BAURAN PROMOSI (THE PROMOTION MIX)</h2>
+<h2> 2. BAURAN PROMOSI (THE PROMOTION MIX)</h2>
 
 <b>Bauran promosi</b> adalah perpaduan spesifik dari alat-alat promosi yang digunakan perusahaan untuk mengomunikasikan nilai pelanggan secara persuasif dan membangun hubungan pelanggan. Terdapat <b>lima alat utama</b> yang harus dipahami secara mendalam:
 
@@ -1007,7 +1007,7 @@ Berhubungan langsung dengan konsumen individu yang ditargetkan secara hati-hati 
 <bullet><b>Karakteristik:</b> Sifatnya segera, terpersonalisasi (disesuaikan untuk individu tertentu), dan interaktif.</bullet>
 <bullet><b>Mencakup:</b> Surat langsung, katalog, telemarketing, dan pemasaran media sosial.</bullet>
 
-<h2>🔗 3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
+<h2> 3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
 
 Lanskap komunikasi pemasaran telah berubah drastis akibat <b>fragmentasi media</b> dan teknologi digital. Konsumen kini dibombardir oleh ribuan pesan komersial setiap hari.
 
@@ -1020,7 +1020,7 @@ Konsep di mana perusahaan mengintegrasikan dan mengoordinasikan banyak saluran k
 <bullet><b>Compelling (Menarik)</b></bullet>
 tentang organisasi dan produknya. Semua <b>titik kontak (touchpoints)</b> merek harus menyuarakan pesan yang sama.
 
-<h2>🎯 4. MENGEMBANGKAN KOMUNIKASI PEMASARAN YANG EFEKTIF</h2>
+<h2> 4. MENGEMBANGKAN KOMUNIKASI PEMASARAN YANG EFEKTIF</h2>
 
 Proses komunikasi melibatkan sembilan elemen kunci (Pengirim, Penyandian, Pesan, Media, Penguraian, Penerima, Respons, Umpan Balik, dan Kebisingan). Untuk mencapai komunikasi efektif, pemasar harus mengikuti langkah-langkah berikut:
 
@@ -1058,7 +1058,7 @@ Pesan yang ideal harus mengikuti model <b>AIDA</b>:
 <bullet>Dampak pesan bergantung pada bagaimana audiens memandang komunikatornya.</bullet>
 <bullet>Sumber yang sangat kredibel (seperti dokter, selebriti, atau profesional) lebih persuasif.</bullet>
 
-<h2>💰 5. MENETAPKAN ANGGARAN PROMOSI</h2>
+<h2> 5. MENETAPKAN ANGGARAN PROMOSI</h2>
 
 Terdapat <b>empat metode umum</b> yang digunakan perusahaan untuk menetapkan total anggaran iklan:
 
@@ -1067,7 +1067,7 @@ Terdapat <b>empat metode umum</b> yang digunakan perusahaan untuk menetapkan tot
 <bullet><b>Competitive-Parity Method:</b> Menetapkan anggaran promosi untuk menyamai pengeluaran pesaing. Asumsinya adalah pengeluaran pesaing mewakili kebijaksanaan kolektif industri.</bullet>
 <bullet><b>Objective-and-Task Method:</b> <b>Metode yang paling logis.</b> Perusahaan menetapkan anggaran berdasarkan: (1) Mendefinisikan tujuan promosi spesifik, (2) Menentukan tugas-tugas yang harus dilakukan untuk mencapai tujuan tersebut, dan (3) Memperkirakan biaya dari pelaksanaan tugas-tugas tersebut.</bullet>
 
-<h2>🔄 6. STRATEGI BAURAN PROMOSI: PUSH VS PULL</h2>
+<h2> 6. STRATEGI BAURAN PROMOSI: PUSH VS PULL</h2>
 
 <h3>Push Strategy (Strategi Dorong)</h3>
 <bullet>Perusahaan "mendorong" produk melalui saluran pemasaran.</bullet>
@@ -1077,7 +1077,7 @@ Terdapat <b>empat metode umum</b> yang digunakan perusahaan untuk menetapkan tot
 <bullet>Perusahaan mengarahkan kegiatan pemasarannya (terutama <b>iklan</b> dan <b>promosi konsumen</b>) langsung kepada konsumen akhir untuk membujuk mereka membeli produk.</bullet>
 <bullet>Jika efektif, konsumen akan <b>meminta</b> produk tersebut kepada perantara, yang kemudian akan memintanya kepada produsen.</bullet>
 
-<h2>⚖️ 7. KOMUNIKASI PEMASARAN YANG BERTANGGUNG JAWAB SOSIAL</h2>
+<h2>️ 7. KOMUNIKASI PEMASARAN YANG BERTANGGUNG JAWAB SOSIAL</h2>
 
 Pemasar harus menyadari masalah hukum dan etika yang melingkupi komunikasi pemasaran.
 
@@ -1093,7 +1093,7 @@ Pemasar harus menyadari masalah hukum dan etika yang melingkupi komunikasi pemas
 <bullet><b>Dilarang:</b> Berusaha mendapatkan rahasia dagang pesaing.</bullet>
 <bullet><b>Dilarang:</b> Menjelek-jelekkan (<i>disparage</i>) pesaing atau produk mereka dengan memberikan informasi palsu.</bullet>
 
-<h2>🛒 8. STUDI KASUS PENUTUP: TOKOPEDIA</h2>
+<h2> 8. STUDI KASUS PENUTUP: TOKOPEDIA</h2>
 
 <h3>"Impactful Marketing Campaign – Case of Tokopedia"</h3>
 Modul ditutup dengan pembahasan mengenai kampanye pemasaran Tokopedia, khususnya kampanye <b>"Mulai Aja Dulu"</b>.
@@ -1101,12 +1101,12 @@ Modul ditutup dengan pembahasan mengenai kampanye pemasaran Tokopedia, khususnya
 <bullet><b>Tujuan:</b> Tokopedia ingin mengatasi hambatan psikologis masyarakat Indonesia (terutama anak muda) yang sering ragu untuk memulai bisnis atau mengejar mimpi.</bullet>
 <bullet><b>Strategi:</b> Menggunakan pendekatan emosional dan inspiratif melalui iklan TV dan media digital yang menampilkan cerita-cerita keberhasilan sederhana.</bullet>
 <bullet><b>Hasil:</b> Kampanye ini berhasil memposisikan Tokopedia bukan sekadar sebagai tempat belanja, tetapi sebagai mitra yang memberdayakan (<i>enabler</i>). Hal ini berdampak signifikan pada peningkatan jumlah penjual (merchant/UMKM) baru yang bergabung di platform Tokopedia, membuktikan bahwa kampanye pemasaran yang dirancang dengan baik dapat mencapai tujuan strategis perusahaan.</bullet>`,
-                modul3: `<h1>📘 MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
+                modul3: `<h1> MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
 <subtitle><b><i>(Referensi: PPT Week 11 & Chapter 18)</i></b></subtitle>
 
 Modul ini membahas bagaimana perusahaan menciptakan dan mempertahankan keunggulan kompetitif untuk memenangkan persaingan pasar.
 
-<h2>🏬 1. STUDI KASUS PEMBUKA: NORDSTROM</h2>
+<h2> 1. STUDI KASUS PEMBUKA: NORDSTROM</h2>
 
 <h3>"From Shoes to a Retail Powerhouse"</h3>
 Modul ini dibuka dengan sejarah Nordstrom yang bermula dari toko sepatu sederhana di Seattle (1901) hingga menjadi raksasa ritel mode. Kunci sukses mereka bukan harga murah, melainkan <b>strategi diferensiasi pelayanan yang ekstrem</b>.
@@ -1115,7 +1115,7 @@ Modul ini dibuka dengan sejarah Nordstrom yang bermula dari toko sepatu sederhan
 <bullet><b>Aturan Tunggal:</b> Nordstrom terkenal hanya memiliki satu aturan dalam buku pegangan karyawannya: <b>"Use good judgment in all situations"</b> (Gunakan penilaian yang baik dalam semua situasi). Tidak ada aturan birokrasi lain yang mengekang karyawan.</bullet>
 <bullet><b>Bukti Nyata:</b> Kisah karyawan yang menghangatkan mobil pelanggan saat salju, atau menerima pengembalian produk yang bahkan tidak mereka jual, membuktikan bahwa mereka fokus pada <b>Lifetime Value</b> pelanggan, bukan transaksi sesaat.</bullet>
 
-<h2>🔍 2. ANALISIS KOMPETITOR (COMPETITOR ANALYSIS)</h2>
+<h2> 2. ANALISIS KOMPETITOR (COMPETITOR ANALYSIS)</h2>
 
 Untuk merancang strategi yang mematikan, perusahaan harus melalui <b>tiga tahap</b> analisis pesaing:
 
@@ -1135,7 +1135,7 @@ Untuk merancang strategi yang mematikan, perusahaan harus melalui <b>tiga tahap<
 <bullet><b>Warning:</b> Menghancurkan pesaing dekat bisa berbahaya karena bisa memaksa mereka menjual perusahaan ke raksasa yang lebih besar, atau membuat pelanggan mereka lari ke pesaing lain.</bullet>
 <bullet><b>Blue Ocean Strategy:</b> Strategi mencari ruang pasar yang tidak memiliki pesaing (<i>uncontested market space</i>). Daripada berdarah-darah di "Red Ocean" (pasar padat persaingan), perusahaan menciptakan permintaan baru. <i>(Contoh: Cirque du Soleil)</i>.</bullet>
 
-<h2>🏆 3. STRATEGI PEMASARAN KOMPETITIF (MICHAEL PORTER)</h2>
+<h2> 3. STRATEGI PEMASARAN KOMPETITIF (MICHAEL PORTER)</h2>
 
 Michael Porter merumuskan <b>tiga strategi dasar (Winning Strategies)</b> dan satu strategi gagal.
 
@@ -1153,13 +1153,13 @@ Michael Porter merumuskan <b>tiga strategi dasar (Winning Strategies)</b> dan sa
 <bullet>Perusahaan memusatkan usaha pada segmen pasar yang sempit (niche), baik itu kelompok pembeli tertentu atau wilayah geografis tertentu, dan melayaninya dengan sangat baik.</bullet>
 <bullet><b>Contoh:</b> Ritz-Carlton (Fokus pada pelancong mewah).</bullet>
 
-<h3>❌ Strategi Gagal: Middle-of-the-Roaders</h3>
+<h3> Strategi Gagal: Middle-of-the-Roaders</h3>
 <bullet>Perusahaan yang mencoba menjadi segalanya (ingin murah tapi ingin bagus juga) biasanya gagal.</bullet>
 <bullet>Mereka tidak punya struktur biaya terendah, tapi juga tidak punya keunikan produk.</bullet>
 <bullet>Mereka akan "dimakan" oleh Cost Leader dari bawah dan Differentiator dari atas.</bullet>
 <bullet><b>Contoh:</b> Sears, Holiday Inn di masa lalu.</bullet>
 
-<h2>📊 4. POSISI KOMPETITIF (COMPETITIVE POSITIONS)</h2>
+<h2> 4. POSISI KOMPETITIF (COMPETITIVE POSITIONS)</h2>
 
 Pasar biasanya terbagi dalam proporsi <b>40-30-20-10</b>. Masing-masing punya strategi spesifik:
 
@@ -1183,7 +1183,7 @@ Perusahaan kecil yang melayani segmen yang diabaikan.
 <bullet><b>Strategi:</b> Spesialisasi. Kunci suksesnya adalah mengenal target pelanggan mereka dengan sangat dalam sehingga bisa menetapkan harga tinggi (<i>high margin</i>).</bullet>
 <bullet>Nichers fokus pada <b>profit tinggi</b>, bukan volume besar.</bullet>
 
-<h2>⚖️ 5. MENYEIMBANGKAN ORIENTASI: MARKET-CENTERED</h2>
+<h2>️ 5. MENYEIMBANGKAN ORIENTASI: MARKET-CENTERED</h2>
 
 Perusahaan berevolusi dalam orientasinya:
 
@@ -1192,7 +1192,7 @@ Perusahaan berevolusi dalam orientasinya:
 <bullet><b>Competitor-Centered:</b> Fokus total mengawasi gerak-gerik pesaing. <i>(Bagus sebagai petarung, tapi terlalu reaktif dan kehilangan visi sendiri)</i>.</bullet>
 <bullet><b>Market-Centered (Goal Utama):</b> Menyeimbangkan fokus pada <b>Pelanggan DAN Pesaing</b> secara bersamaan.</bullet>
 
-<h2>✈️ 6. STUDI KASUS PENUTUP: AIRASIA</h2>
+<h2>️ 6. STUDI KASUS PENUTUP: AIRASIA</h2>
 
 <h3>"Cost Leadership Strategy"</h3>
 Modul ditutup dengan pembahasan AirAsia sebagai implementasi nyata strategi <b>Overall Cost Leadership</b>.
@@ -1200,12 +1200,12 @@ Modul ditutup dengan pembahasan AirAsia sebagai implementasi nyata strategi <b>O
 <bullet><b>Efisiensi Ekstrem:</b> AirAsia memangkas semua fitur non-esensial (<i>no frills</i>). Tidak ada makanan gratis, bagasi berbayar, dan distribusi tiket dimaksimalkan lewat online untuk memotong biaya agen/admin.</bullet>
 <bullet><b>Operasional:</b> Penggunaan satu jenis pesawat (<i>single aircraft type</i>) mengurangi biaya pelatihan kru dan stok suku cadang secara signifikan. Waktu <i>turnaround</i> (pesawat parkir) yang cepat memaksimalkan penggunaan aset.</bullet>
 <bullet><b>Hasil:</b> Strategi biaya rendah ini memungkinkan AirAsia menawarkan harga tiket yang jauh di bawah rata-rata pasar, mendisrupsi industri penerbangan Asia, dan mewujudkan slogan <b>"Now Everyone Can Fly"</b>.</bullet>`,
-                modul4: `<h1>📘 MODUL 4: THE GLOBAL MARKETPLACE</h1>
+                modul4: `<h1> MODUL 4: THE GLOBAL MARKETPLACE</h1>
 <subtitle><b><i>(Referensi: PPT Week 12 & Chapter 19)</i></b></subtitle>
 
 Modul ini membahas strategi memasuki pasar global dan keputusan-keputusan penting yang harus diambil perusahaan.
 
-<h2>💄 1. STUDI KASUS PEMBUKA: L'ORÉAL</h2>
+<h2> 1. STUDI KASUS PEMBUKA: L'ORÉAL</h2>
 
 <h3>"Beauty for All. Beauty for Each Individual."</h3>
 L'Oréal adalah pemimpin dunia yang tak terbantahkan dalam industri kosmetik. Kunci sukses global mereka adalah strategi <b>Universalisation</b>, yang menyeimbangkan dua hal:
@@ -1218,7 +1218,7 @@ L'Oréal adalah pemimpin dunia yang tak terbantahkan dalam industri kosmetik. Ku
 <bullet><b>Brazil:</b> Membuat anak perusahaan (<i>subsidiary</i>) sendiri (1959) agar bisa masuk cepat, lalu mengakuisisi merek lokal.</bullet>
 <bullet><b>China:</b> Awalnya hanya ekspor lewat agen lokal, tapi gagal karena kurang kontrol.</bullet>
 
-<h2>🌍 2. LINGKUNGAN PEMASARAN GLOBAL</h2>
+<h2> 2. LINGKUNGAN PEMASARAN GLOBAL</h2>
 
 Sebelum masuk ke pasar global, perusahaan harus membedah <b>3 lingkungan utama</b>:
 
@@ -1243,7 +1243,7 @@ Daya tarik pasar tergantung pada struktur industrinya:
 <bullet><b>Kegagalan:</b> Marriott pernah diblokir di China karena mencantumkan Tibet dan Taiwan sebagai "negara" di website-nya.</bullet>
 <bullet><b>Sukses:</b> IKEA sukses di China karena paham konsumen sana butuh lebih dari sekadar desain Skandinavia.</bullet>
 
-<h2>🤔 3. KEPUTUSAN UTAMA: APAKAH AKAN GO GLOBAL?</h2>
+<h2> 3. KEPUTUSAN UTAMA: APAKAH AKAN GO GLOBAL?</h2>
 
 Tidak semua perusahaan harus global. Tapi jika pesaing menyerang pasar domestik atau pasar domestik jenuh, perusahaan harus mempertimbangkan:
 
@@ -1252,7 +1252,7 @@ Tidak semua perusahaan harus global. Tapi jika pesaing menyerang pasar domestik 
 <bullet>Bisakah kita beradaptasi dengan budaya lokal?</bullet>
 <bullet>Punyakah manajer kita pengalaman internasional?</bullet>
 
-<h2>🎯 4. KEPUTUSAN UTAMA: PASAR MANA YANG DITUJU?</h2>
+<h2> 4. KEPUTUSAN UTAMA: PASAR MANA YANG DITUJU?</h2>
 
 Sebelum masuk, perusahaan harus menilai <b>Potensi Pasar</b> berdasarkan indikator:
 
@@ -1262,7 +1262,7 @@ Sebelum masuk, perusahaan harus menilai <b>Potensi Pasar</b> berdasarkan indikat
 <bullet><b>Faktor Sosiokultural:</b> Gaya hidup, norma, bahasa.</bullet>
 <bullet><b>Faktor Politik-Hukum:</b> Prioritas nasional, stabilitas politik.</bullet>
 
-<h2>🚪 5. KEPUTUSAN UTAMA: CARA MASUK PASAR (ENTRY STRATEGIES)</h2>
+<h2> 5. KEPUTUSAN UTAMA: CARA MASUK PASAR (ENTRY STRATEGIES)</h2>
 
 Ada tiga strategi utama, dari risiko terendah hingga tertinggi:
 
@@ -1281,7 +1281,7 @@ Bergabung dengan partner di negara tujuan.
 <bullet>Membangun pabrik atau cabang sendiri 100%.</bullet>
 <bullet>Kontrol penuh, biaya buruh/bahan mungkin lebih murah, tapi risiko paling tinggi jika ada gejolak politik/ekonomi.</bullet>
 
-<h2>📦 6. KEPUTUSAN UTAMA: PROGRAM PEMASARAN (MARKETING MIX)</h2>
+<h2> 6. KEPUTUSAN UTAMA: PROGRAM PEMASARAN (MARKETING MIX)</h2>
 
 Perusahaan bisa memilih <b>Standardized</b> (sama semua) atau <b>Adapted</b> (disesuaikan).
 
@@ -1300,7 +1300,7 @@ Perusahaan bisa memilih <b>Standardized</b> (sama semua) atau <b>Adapted</b> (di
 Distribusi internasional itu rumit. Kita harus mengelola rantai utuh:
 <bullet><b>Seller (Pusat)</b> → <b>Channels between nations</b> (Antar negara) → <b>Channels within nations</b> (Di dalam negara tujuan) → <b>Final Buyer</b>.</bullet>
 
-<h2>🏢 7. KEPUTUSAN UTAMA: ORGANISASI PEMASARAN</h2>
+<h2> 7. KEPUTUSAN UTAMA: ORGANISASI PEMASARAN</h2>
 
 Evolusi perusahaan dalam mengelola bisnis internasional:
 
@@ -1308,7 +1308,7 @@ Evolusi perusahaan dalam mengelola bisnis internasional:
 <bullet><b>International Division:</b> Punya divisi khusus (bisa berdasarkan geografi atau grup produk).</bullet>
 <bullet><b>Global Organization:</b> Tidak lagi membedakan "domestik vs asing". Seluruh dunia dianggap satu pasar tanpa batas. Logistik dan keuangan direncanakan global.</bullet>
 
-<h2>🏍️ 8. STUDI KASUS PENUTUP: GOJEK</h2>
+<h2>️ 8. STUDI KASUS PENUTUP: GOJEK</h2>
 
 <h3>"Go Global"</h3>
 Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi <b>Adapted Marketing</b> yang kuat (bukan sekadar copy-paste).
@@ -1316,12 +1316,12 @@ Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi <b>Adapted
 <bullet><b>Adaptasi Merek:</b> Awalnya pakai nama lokal (Go-Viet di Vietnam, GET di Thailand) dan seragam beda warna untuk memenangkan hati lokal.</bullet>
 <bullet><b>Adaptasi Layanan:</b> Di Singapura fokus ke mobil (karena transportasi publik bagus), di Vietnam fokus ke motor (mirip Indonesia).</bullet>
 <bullet><b>Kesimpulan:</b> Strategi Gojek membuktikan pentingnya <b>"Think Globally, Act Locally"</b>.</bullet>`,
-                modul5: `<h1>📘 MODUL 5: SUSTAINABLE MARKETING</h1>
+                modul5: `<h1> MODUL 5: SUSTAINABLE MARKETING</h1>
 <subtitle><b><i>(Referensi: PPT Week 13 & Chapter 20)</i></b></subtitle>
 
 Modul terakhir ini membahas pemasaran yang bertanggung jawab secara sosial dan lingkungan untuk keberlanjutan bisnis dan bumi.
 
-<h2>🧴 1. STUDI KASUS PEMBUKA: UNILEVER</h2>
+<h2> 1. STUDI KASUS PEMBUKA: UNILEVER</h2>
 
 <h3>"Small Actions. Big Difference."</h3>
 Modul terakhir ini dibuka dengan visi besar dari Unilever melalui program <b>Unilever Sustainable Living Plan</b>. Unilever ingin membuktikan bahwa perusahaan tidak harus memilih antara "cari untung" atau "menyelamatkan bumi". Mereka bisa melakukan keduanya.
@@ -1330,7 +1330,7 @@ Modul terakhir ini dibuka dengan visi besar dari Unilever melalui program <b>Uni
 <bullet><b>Implementasi:</b> Mereka tidak hanya menjual produk, tetapi juga mengedukasi. Contohnya kampanye cuci tangan Lifebuoy untuk mencegah penyakit, atau memastikan rantai pasok bahan baku mereka (seperti kelapa sawit) diperoleh secara lestari.</bullet>
 <bullet><b>Pelajaran:</b> Kepedulian terhadap masa depan (Sustainability) bukan beban biaya, melainkan strategi inti untuk pertumbuhan jangka panjang.</bullet>
 
-<h2>📖 2. DEFINISI SUSTAINABLE MARKETING</h2>
+<h2> 2. DEFINISI SUSTAINABLE MARKETING</h2>
 
 Untuk memahami Pemasaran Berkelanjutan, kita harus melihat perbandingannya dengan konsep lain dalam matriks <b>"Kebutuhan Konsumen vs Kebutuhan Bisnis"</b>:
 
@@ -1346,11 +1346,11 @@ Untuk memahami Pemasaran Berkelanjutan, kita harus melihat perbandingannya denga
 <bullet><b>Fokus:</b> Mencari keuntungan bisnis saat ini, tetapi peduli pada kesejahteraan konsumen di masa depan.</bullet>
 <bullet><b>Contoh:</b> Perusahaan menjual makanan yang tidak hanya enak (saat ini) tapi juga sehat (masa depan), menghindari bahan berbahaya.</bullet>
 
-<h3>Sustainable Marketing (Pemasaran Berkelanjutan) ⭐</h3>
+<h3>Sustainable Marketing (Pemasaran Berkelanjutan) </h3>
 <bullet><b>Tingkatan tertinggi.</b> Ini adalah pemasaran yang bertanggung jawab secara sosial dan lingkungan.</bullet>
 <bullet><b>Definisi:</b> Memenuhi kebutuhan konsumen dan bisnis saat ini, sambil melestarikan atau meningkatkan kemampuan generasi mendatang untuk memenuhi kebutuhan mereka sendiri.</bullet>
 
-<h2>⚠️ 3. KRITIK SOSIAL TERHADAP PEMASARAN</h2>
+<h2>️ 3. KRITIK SOSIAL TERHADAP PEMASARAN</h2>
 
 Pemasaran sering mendapat serangan kritik dari pengamat sosial. Kritik ini dibagi menjadi <b>tiga dampak</b>:
 
@@ -1376,7 +1376,7 @@ Pemasaran sering mendapat serangan kritik dari pengamat sosial. Kritik ini dibag
 <bullet><b>Barriers to Entry:</b> Anggaran iklan raksasa mempersulit pemain baru.</bullet>
 <bullet><b>Predatory Competition:</b> Harga di bawah modal untuk mematikan pesaing kecil.</bullet>
 
-<h2>✊ 4. RESPON KONSUMEN DAN PUBLIK</h2>
+<h2> 4. RESPON KONSUMEN DAN PUBLIK</h2>
 
 Sebagai reaksi terhadap kritik di atas, muncul <b>dua gerakan besar</b>:
 
@@ -1390,7 +1390,7 @@ Gerakan terorganisir untuk melindungi dan meningkatkan lingkungan hidup.
 <bullet>Fokus pada <b>Environmental Sustainability:</b> Menghasilkan laba sambil menyelamatkan planet.</bullet>
 <bullet>Mencakup praktik <b>Pollution Prevention</b> (mencegah limbah) dan <b>Product Stewardship</b> (bertanggung jawab atas produk sepanjang siklus hidupnya).</bullet>
 
-<h2>🌟 5. LIMA PRINSIP PEMASARAN BERKELANJUTAN</h2>
+<h2> 5. LIMA PRINSIP PEMASARAN BERKELANJUTAN</h2>
 
 Agar perusahaan dapat bertahan jangka panjang dan etis, mereka harus mengadopsi <b>lima prinsip ini</b>:
 
@@ -1400,7 +1400,7 @@ Agar perusahaan dapat bertahan jangka panjang dan etis, mereka harus mengadopsi 
 <bullet><b>4. Sense-of-Mission Marketing:</b> Mendefinisikan misi dalam istilah sosial yang luas, bukan produk sempit. <i>(Contoh: Dove bukan sekadar jual sabun, tapi membangun kepercayaan diri wanita)</i>.</bullet>
 <bullet><b>5. Societal Marketing:</b> Membuat keputusan dengan mempertimbangkan: (1) Keinginan Konsumen, (2) Persyaratan Perusahaan (Profit), dan (3) Kesejahteraan Jangka Panjang Masyarakat.</bullet>
 
-<h2>⚖️ 6. ETIKA PEMASARAN</h2>
+<h2>️ 6. ETIKA PEMASARAN</h2>
 
 Siapa yang harus memandu etika perusahaan? Apakah pasar bebas atau sistem hukum?
 
@@ -1409,7 +1409,7 @@ Siapa yang harus memandu etika perusahaan? Apakah pasar bebas atau sistem hukum?
 <bullet><b>Integritas dan karakter manajer adalah kuncinya.</b></bullet>
 <bullet>Prinsip "Sustainable Company" adalah melampaui kepedulian pada pelanggan hari ini, menuju kepedulian pada dunia masa depan.</bullet>
 
-<h2>🍜 7. STUDI KASUS PENUTUP: LEMONILO</h2>
+<h2> 7. STUDI KASUS PENUTUP: LEMONILO</h2>
 
 <h3>"Societal Marketing Case"</h3>
 Modul ditutup dengan pembahasan Lemonilo sebagai contoh penerapan <b>Societal Marketing</b>.
@@ -1422,12 +1422,12 @@ Modul ditutup dengan pembahasan Lemonilo sebagai contoh penerapan <b>Societal Ma
 <bullet><b>Company:</b> Bisnis tumbuh pesat dan menguntungkan.</bullet>
 <bullet><b>Society:</b> Berkontribusi pada kesehatan masyarakat jangka panjang dengan menyediakan alternatif makanan yang lebih aman.</bullet>
 <bullet><b>Aksi Sosial:</b> Lemonilo juga aktif dalam kegiatan sosial (membagi sembako sehat dan hand sanitizer), memperkuat citra mereka sebagai brand yang peduli pada ekosistem kesehatan (<i>Healthy Lifestyle Ecosystem</i>).</bullet>`,
-                tambahan: `<h1>📚 ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
+                tambahan: `<h1> ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
 <subtitle><b><i>(Wajib dibaca sebagai satu kesatuan dengan Modul 1-5)</i></b></subtitle>
 
 Addendum ini berisi detail teknis tambahan dari masing-masing modul yang penting untuk pemahaman mendalam.
 
-<h2>🔍 PELENGKAP MODUL SATU (Week 9 - Chapter 12)</h2>
+<h2> PELENGKAP MODUL SATU (Week 9 - Chapter 12)</h2>
 
 <h3>1. Tiga Strategi Distribusi (Intensitas)</h3>
 Di Modul 1 disebutkan sekilas, tapi berikut definisi teknisnya:
@@ -1449,7 +1449,7 @@ Selain VMS (Vertikal), ada <b>Horizontal Marketing Systems</b>:
 <bullet><b>Definisi:</b> Dua atau lebih perusahaan di satu level bergabung untuk mengejar peluang pemasaran baru.</bullet>
 <bullet><b>Contoh:</b> Starbucks buka di dalam Target. Target punya lokasi, Starbucks punya kopi. Keduanya untung.</bullet>
 
-<h2>🔍 PELENGKAP MODUL DUA (Week 10 - Chapter 14)</h2>
+<h2> PELENGKAP MODUL DUA (Week 10 - Chapter 14)</h2>
 
 <h3>1. Model Komunikasi Pemasaran Baru</h3>
 Selain IMC, ada pergeseran peran pemasar menjadi <b>Content Marketing Managers</b>.
@@ -1466,7 +1466,7 @@ Untuk memastikan IMC berjalan, manajemen harus melakukan:
 <bullet>Menciptakan tema, nada, dan kualitas yang kompatibel di semua media.</bullet>
 <bullet>Menunjuk direktur marcomm yang bertanggung jawab atas semua komunikasi persuasi perusahaan.</bullet>
 
-<h2>🔍 PELENGKAP MODUL TIGA (Week 11 - Chapter 18)</h2>
+<h2> PELENGKAP MODUL TIGA (Week 11 - Chapter 18)</h2>
 
 <h3>1. Analisis Nilai Pelanggan (Customer Value Analysis)</h3>
 Dalam tahap menilai pesaing, ada alat spesifik bernama <b>Customer Value Analysis</b>:
@@ -1481,7 +1481,7 @@ Untuk strategi "Memperluas Total Pasar", ada 3 cara detail:
 <bullet><b>New Uses:</b> Cari kegunaan baru. <i>(Misal: Baking soda awalnya buat kue, dipromosikan buat pembersih kulkas)</i>.</bullet>
 <bullet><b>More Usage:</b> Bikin orang pakai lebih sering. <i>(Misal: Kampanye "Sikat gigi pagi dan malam" atau sampo "Bilas, ulangi")</i>.</bullet>
 
-<h2>🔍 PELENGKAP MODUL EMPAT (Week 12 - Chapter 19)</h2>
+<h2> PELENGKAP MODUL EMPAT (Week 12 - Chapter 19)</h2>
 
 <h3>1. Empat Tipe Struktur Industri</h3>
 Faktor ekonomi negara tujuan dibagi menjadi 4 tipe spesifik:
@@ -1497,7 +1497,7 @@ Masalah spesifik harga di pasar global:
 <bullet><b>Dumping:</b> Menjual produk di luar negeri dengan harga lebih murah dari modal atau lebih murah dari harga di negara asal (untuk mematikan pasar lokal). <b>Ini sering kena sanksi WTO</b>.</bullet>
 <bullet><b>Transfer Pricing:</b> Harga yang dibebankan antar cabang perusahaan di beda negara (sering dimainkan untuk hindari pajak).</bullet>
 
-<h2>🔍 PELENGKAP MODUL LIMA (Week 13 - Chapter 20)</h2>
+<h2> PELENGKAP MODUL LIMA (Week 13 - Chapter 20)</h2>
 
 <h3>1. Portofolio Kelestarian Lingkungan (Environmental Sustainability Portfolio)</h3>
 Ada matriks strategi lingkungan yang membagi fokus perusahaan:
@@ -1518,7 +1518,7 @@ Penyebab harga mahal menurut kritik sosial:
 
 // HRM (Human Resource Management) Content
 RANGKUMAN_CONTENT.hr = {
-        modul1: `<h1>📘 MODUL 1: MANAJEMEN KOMPENSASI STRATEGIS & SISTEM INSENTIF: TEORI, REGULASI, DAN IMPLEMENTASI TEKNIS</h1>
+        modul1: `<h1> MODUL 1: MANAJEMEN KOMPENSASI STRATEGIS & SISTEM INSENTIF: TEORI, REGULASI, DAN IMPLEMENTASI TEKNIS</h1>
 <h2>1. Dasar-Dasar dan Faktor Penentu Kompensasi</h2>
 Kompensasi karyawan mencakup semua bentuk pembayaran yang diberikan kepada karyawan dan timbul dari hubungan kerja mereka. Ini terdiri dari dua komponen utama: pembayaran finansial langsung (upah, gaji, insentif, komisi, dan bonus) dan pembayaran finansial tidak langsung (tunjangan seperti asuransi dan liburan yang dibayar pemberi kerja) .
 Tujuan utamanya adalah menciptakan Aligned Reward Strategy, yaitu paket kompensasi yang menghasilkan perilaku karyawan yang dibutuhkan perusahaan untuk mencapai strategi kompetitifnya. Sebagai contoh, Wegmans Food Markets menggunakan strategi SDM dan kompensasi yang unik untuk meningkatkan kinerja dan layanan pelanggan .
@@ -1601,7 +1601,7 @@ Panduan langkah demi langkah menggunakan sistem HRIS Hashmicro untuk mengelola b
 <bullet><b>Update Salary Structure:</b> Pada kontrak karyawan, ubah status dari Running ke New, perbarui struktur gaji, lalu kembalikan ke status Running.</bullet>
 <bullet><b>Employee Payslips:</b> Buat slip gaji. Isi nama, periode, bulan, referensi. Pastikan Salary Journal di tab Accounting sudah diisi sebelum klik Compute Sheet.</bullet>
 <bullet><b>Print:</b> Cetak slip gaji. Output akan menampilkan rincian pendapatan (Basic Salary + Yearly Bonus) dan total Take Home Pay dengan format profesional.</bullet>`,
-        modul2: `<h1>📘 MODUL 2: MANAJEMEN KESELAMATAN, KESEHATAN, DAN RISIKO KERJA KOMPREHENSIF</h1>
+        modul2: `<h1> MODUL 2: MANAJEMEN KESELAMATAN, KESEHATAN, DAN RISIKO KERJA KOMPREHENSIF</h1>
 <h2>1. Urgensi Keselamatan dan Peran Manajemen</h2>
 Keselamatan kerja memiliki dampak langsung terhadap profitabilitas organisasi. Statistik menunjukkan realitas yang serius: 5.190 pekerja di AS meninggal di tempat kerja dalam satu tahun, dan terjadi 2,9 juta cedera serta penyakit akibat kerja . Kecelakaan kerja membebani perusahaan dengan biaya tinggi, sehingga peningkatan keselamatan terbukti meningkatkan keuntungan (Improving Safety Boosts Profits) .
 <h3>Peran Manajemen</h3>
@@ -1687,7 +1687,7 @@ Penerapan SMK3 bertujuan untuk:
 <b>Bagi Perusahaan:</b> Menjaga produktivitas optimal, efisiensi finansial (kurangi biaya kesehatan/asuransi), serta meningkatkan citra positif di mata pemerintah dan masyarakat (kepercayaan & penghargaan) .
 <h3>Peran Digital</h3>
 Media sosial dan alat digital kini juga berperan dalam membantu isu keselamatan dalam organisasi .`,
-        modul3: `<h1>📘 MODUL 3: HUBUNGAN TENAGA KERJA DAN PERUNDINGAN KOLEKTIF</h1>
+        modul3: `<h1> MODUL 3: HUBUNGAN TENAGA KERJA DAN PERUNDINGAN KOLEKTIF</h1>
 <h2>1. Motivasi dan Dinamika Pengorganisasian Pekerja</h2>
 Mengapa pekerja memilih untuk berserikat? Memahami motivasi ini krusial bagi manajemen.
 <bullet><b>Kompensasi (Pay):</b> Keinginan mendapatkan "bagian kue yang adil" (fair share of the pie) .</bullet>
@@ -1743,7 +1743,7 @@ Jika terjadi jalan buntu (stalemate), intervensi pihak ketiga digunakan:
 <bullet><b>Kontrak:</b> Dokumen kesepakatan bisa setebal 20-30 halaman atau lebih. Tren saat ini mengarah pada kontrak yang lebih panjang (longer contract) yang berisi aturan detail .</bullet>
 <bullet><b>Strategi Serikat Saat Ini:</b> Menghadapi penurunan anggota, serikat pekerja kini: (1) Mengorganisasi secara agresif, (2) Menekan Kongres (Pushing Congress), dan (3) Menggunakan tuntutan hukum Class Action .</bullet>
 <bullet><b>Hubungan Kooperatif:</b> Beralih ke kemitraan kooperatif (cooperative partnership) antara manajemen dan buruh, bukan lagi hubungan bermusuhan .</bullet>`,
-        modul4: `<h1>📘 MODUL 4: TRANSFORMASI INFRASTRUKTUR HR: MODEL KOMPETENSI ULRICH DAN ANALITIK STRATEGIS</h1>
+        modul4: `<h1> MODUL 4: TRANSFORMASI INFRASTRUKTUR HR: MODEL KOMPETENSI ULRICH DAN ANALITIK STRATEGIS</h1>
 <h2>1. Model SDM David Ulrich: Redefinisi Peran HR</h2>
 Agar fungsi Sumber Daya Manusia (SDM) dapat memberikan nilai tambah nyata, organisasi memerlukan HR Model yang kokoh. Model ini didefinisikan sebagai kerangka kerja yang menghubungkan strategi HR, tujuan, proses, dan pekerjaan menjadi satu model operasi yang padu. Model ini bertindak sebagai matriks keputusan untuk menempatkan peran dan tanggung jawab yang tepat, baik secara eksternal maupun internal antar unit.
 <bullet><b>Prinsip Utama:</b> Setiap perubahan pada Agenda HR harus dimulai dengan perubahan pada Model HR itu sendiri.</bullet>
@@ -1799,7 +1799,7 @@ Bedah teknis metrik HR dan faktor pengaruhnya:
 <bullet><b>Faktor:</b> Kejelasan target (goals), kompetensi (skills), dukungan alat kerja, kualitas atasan, dan motivasi.</bullet>
 <b>Retensi Karyawan (Employee Retention):</b>
 <bullet><b>Faktor:</b> Peluang karir, hubungan dengan manajer, keadilan kompensasi, budaya kerja, dan work-life balance.</bullet>`,
-        modul5: `<h1>📘 MODUL 5: MANAJEMEN SDM DALAM KONTEKS KHUSUS: LINGKUP GLOBAL DAN BISNIS KECIL (SME)</h1>
+        modul5: `<h1> MODUL 5: MANAJEMEN SDM DALAM KONTEKS KHUSUS: LINGKUP GLOBAL DAN BISNIS KECIL (SME)</h1>
 <h2>BAGIAN 1: MANAJEMEN SDM GLOBAL (IHRM)</h2>
 <h3>1. Tantangan Manajerial Lintas Negara</h3>
 Tantangan utama dalam manajemen global adalah realitas bahwa apa yang berhasil di satu negara belum tentu efektif di negara lain. Manajemen Sumber Daya Manusia Internasional (IHRM) didefinisikan sebagai konsep dan teknik yang digunakan pemberi kerja untuk mengelola tantangan SDM dalam operasi internasional mereka .
@@ -1868,7 +1868,7 @@ Sistem Informasi SDM (HRIS) menyatukan proses manajemen ke dalam satu sistem oto
 <bullet><b>Manfaat:</b> Pemrosesan transaksi yang lebih baik (hemat waktu, self-processing online) dan kemampuan pelaporan yang ditingkatkan .</bullet>
 <bullet><b>Vendor Utama:</b> Automated Data Process, Inc. (ADP), Business Information Technology, Inc., HR Microsystems, Lawson Software, Oracle, SAP America, Workday, dan Odoo .</bullet>
 <bullet><b>Cloud:</b> Penggunaan media sosial dan HR berbasis cloud memberikan efisiensi biaya dan aksesibilitas bagi bisnis kecil .</bullet>`,
-        tambahan: `<h1>🔍 ADDENDUM FINAL: DETAIL MIKRO & TEKNIS PELENGKAP (MODUL 1-5)</h1>
+        tambahan: `<h1> ADDENDUM FINAL: DETAIL MIKRO & TEKNIS PELENGKAP (MODUL 1-5)</h1>
 Bagian ini memuat rincian teknis, daftar inventaris, dan formula hitungan yang disebutkan dalam slide sebagai materi "Diskusi" atau "Tabel Rincian" yang belum diurai per butir dalam narasi modul utama.
 
 <h2>A. PELENGKAP MODUL SATU (Kompensasi)</h2>
