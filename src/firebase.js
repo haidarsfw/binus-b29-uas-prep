@@ -1179,14 +1179,43 @@ export const logError = async (error, context = {}) => {
     }
 };
 
-// Log user activity
+// Log user activity (with stacking for consecutive same-user actions)
 export const logActivity = async (userName, action, details = '') => {
     try {
         const logRef = ref(db, 'activityLogs');
+
+        // Get the last log entry to check if we should stack
+        const snapshot = await get(logRef);
+        if (snapshot.exists()) {
+            const logs = snapshot.val();
+            const logEntries = Object.entries(logs);
+
+            // Sort by timestamp descending to get the most recent
+            logEntries.sort((a, b) => new Date(b[1].timestamp) - new Date(a[1].timestamp));
+
+            if (logEntries.length > 0) {
+                const [lastKey, lastLog] = logEntries[0];
+
+                // Check if same user and same action (stack them)
+                if (lastLog.userName === userName && lastLog.action === action) {
+                    // Increment the count
+                    const currentCount = lastLog.count || 1;
+                    await update(ref(db, `activityLogs/${lastKey}`), {
+                        count: currentCount + 1,
+                        timestamp: new Date().toISOString(), // Update timestamp to latest
+                        details: details || lastLog.details
+                    });
+                    return; // Don't create new entry
+                }
+            }
+        }
+
+        // Create new log entry (different user or action)
         const newLog = {
             userName,
-            action, // e.g., 'LOGIN', 'LOGOUT', 'UPDATE_PROFILE'
+            action,
             details,
+            count: 1,
             timestamp: new Date().toISOString()
         };
         await push(logRef, newLog);

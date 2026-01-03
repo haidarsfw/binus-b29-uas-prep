@@ -6363,7 +6363,14 @@ function AdminDashboard({ session, onClose }) {
                       {activityLogs.map(log => (
                         <div key={log.id} className="glass-card p-2 text-sm">
                           <div className="flex items-center justify-between">
-                            <span className="font-medium text-[var(--text)]">{log.userName}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-[var(--text)]">{log.userName}</span>
+                              {log.count > 1 && (
+                                <span className="text-[10px] px-1.5 py-0.5 bg-[var(--accent)] text-white rounded-full font-bold">
+                                  x{log.count}
+                                </span>
+                              )}
+                            </div>
                             <span className="text-[10px] text-[var(--text-muted)]">{new Date(log.timestamp).toLocaleString('id-ID')}</span>
                           </div>
                           <div className="text-[var(--text-secondary)]">
