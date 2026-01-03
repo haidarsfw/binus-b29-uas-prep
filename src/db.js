@@ -76,8 +76,52 @@ export const DB = {
                 { id: 4, title: 'Week 12: The Global Marketplace (Ch.19)', driveId: '1gKZH42cgwMT_QJHOBanaUtfN2VT54D1C6A1oj-baES8', type: 'slides', xp: 10 },
                 { id: 5, title: 'Week 13: Sustainable Marketing: Social Responsibility & Ethics (Ch.20)', driveId: '1pxfTiAYLtrqG9M6xAvRWsXyZCoLypoz6JKBeOhvVCz0', type: 'slides', xp: 10 },
             ],
-            kisiKisi: [],
-            kisiKisiNote: '⚠️ Kisi-kisi untuk Marketing Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 dan Addendum sebagai panduan belajar.',
+            kisiKisi: [
+                {
+                    topic: '1. AIDA Model',
+                    items: [
+                        'Jelaskan konsep AIDA Model (model komunikasi pemasaran yang menggambarkan tahapan kognitif konsumen)',
+                        'Attention: Cara memancing perhatian konsumen',
+                        'Interest: Cara membuat konsumen tertarik mempelajari lebih lanjut',
+                        'Desire: Cara memunculkan hasrat/keinginan untuk memiliki produk',
+                        'Action: Cara mendorong konsumen melakukan tindakan pembelian',
+                        'Berikan contoh konkret penerapan AIDA Model'
+                    ]
+                },
+                {
+                    topic: '2. Pricing Strategy (Strategi Penetapan Harga)',
+                    items: [
+                        'Cost Based: Penetapan harga berdasarkan akumulasi biaya produksi (cost of production)',
+                        'Value Based: Penetapan harga berdasarkan nilai yang dirasakan/diinginkan customer (customer value)',
+                        'Competition Based: Penetapan harga yang bereaksi terhadap apa yang dilakukan kompetitor',
+                        'Competitor Based: Penetapan harga berdasarkan harga pasar atau mengikuti kompetitor lainnya'
+                    ]
+                },
+                {
+                    topic: '3. Integrated Marketing Communication (IMC)',
+                    items: [
+                        'Konsep IMC: Mengintegrasikan berbagai saluran komunikasi untuk menyampaikan pesan yang konsisten',
+                        'Urgensi IMC: Mengapa perusahaan tidak bisa hanya mengandalkan 1 channel saja',
+                        'Kenapa tidak cukup satu saluran? Audiens tersebar dan butuh pendekatan holistik',
+                        'Promotion Tools: Advertising (Iklan), Sales Promotion (Promosi Penjualan), Public Relations, Direct Marketing, dll.'
+                    ]
+                },
+                {
+                    topic: '4. Marketing Communication Budget',
+                    items: [
+                        'Jelaskan jenis-jenis metode penganggaran komunikasi pemasaran',
+                        'Berikan contoh penerapan masing-masing metode'
+                    ]
+                },
+                {
+                    topic: '5. Market Entry Strategy',
+                    items: [
+                        'Jelaskan strategi untuk memasuki pasar baru (How to entry new market strategy)',
+                        'Berbagai opsi entry: export, licensing, joint venture, direct investment, dll.'
+                    ]
+                }
+            ],
+            kisiKisiNote: '⚠️ PENTING: Kisi-kisi di atas merupakan kisi-kisi UAS angkatan B28, bukan B29. Karena berasal dari angkatan sebelumnya, tidak menutup kemungkinan materi yang keluar di UAS B29 akan berbeda. Saat ini dosen B29 belum mengeluarkan kisi-kisi resmi. Gunakan sebagai referensi tambahan, dan tetap pelajari seluruh materi dari Rangkuman untuk persiapan yang lebih lengkap.',
             flashcards: [
                 // MODUL 1: Marketing Channels & Logistics
                 { id: 1, term: 'Filosofi Netflix: "Finding the Future by Abandoning the Past"', definition: 'Strategi berani meninggalkan model bisnis lama (DVD fisik) demi masa depan (Streaming) agar tidak tertinggal zaman seperti Blockbuster.' },
