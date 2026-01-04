@@ -2479,20 +2479,32 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.1.1";
+  const currentVersion = "1.2.0";
   const patchNotes = {
     current: {
-      version: "1.1.1",
-      date: "31 Des 2025",
+      version: "1.2.0",
+      date: "4 Jan 2026",
       changes: [
-        "- Jadwal UAS RESMI dari BINUSMAYA (5 mata kuliah lengkap)",
-        "- Keterangan tipe ujian: Onsite / Online",
-        "- CB Pancasila: Start 14 Jan, Deadline 21 Jan 17:01",
-        "- Countdown otomatis ke ujian terdekat",
-        "- Info tooltip: sumber jadwal resmi BINUSMAYA"
+        "- KISI-KISI LENGKAP: Marketing Management (B28) + HRM (B29 Resmi)",
+        "- Leaderboard & Jam Tersibuk di Admin Panel sudah aktif",
+        "- Tracking otomatis: Quiz Score + Online Time",
+        "- Log stacking: login berturut-turut ditumpuk (x2, x3, dst)",
+        "- Rangkuman: format bold/italic diperbaiki, emoji dihapus",
+        "- Instruksi kisi-kisi tampil sebagai teks biasa (tidak bullet)"
       ]
     },
     past: [
+      {
+        version: "1.1.1",
+        date: "31 Des 2025",
+        changes: [
+          "- Jadwal UAS RESMI dari BINUSMAYA (5 mata kuliah lengkap)",
+          "- Keterangan tipe ujian: Onsite / Online",
+          "- CB Pancasila: Start 14 Jan, Deadline 21 Jan 17:01",
+          "- Countdown otomatis ke ujian terdekat",
+          "- Info tooltip: sumber jadwal resmi BINUSMAYA"
+        ]
+      },
       {
         version: "1.1.0",
         date: "30 Des 2024",
