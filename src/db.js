@@ -405,8 +405,23 @@ export const DB = {
                 { id: 7, title: 'Session 25: Managing Global HR', driveId: '13FudOLqKTggQHxM6dPFEgvGhQx8R8KbzhqoL75jVe68', type: 'slides', xp: 10 },
                 { id: 8, title: 'Session 26: Managing HR in SME', driveId: '1ZVRcU56KB3Jg5ZVHQHgwxrzDA9xXw-shv0quXTq_teQ', type: 'slides', xp: 10 },
             ],
-            kisiKisi: [],
-            kisiKisiNote: '⚠️ Kisi-kisi untuk Human Resources Management saat ini belum tersedia. Berdasarkan riset dengan mahasiswa BINUS Bekasi, Kemanggisan, dan Alam Sutera, dosen belum mengeluarkan kisi-kisi resmi. Silakan gunakan Rangkuman Modul 1-5 dan Addendum sebagai panduan belajar.',
+            kisiKisi: [
+                {
+                    topic: 'Compensation & Benefit Program',
+                    instruction: 'Teori - Pembobotan: 20%',
+                    items: []
+                },
+                {
+                    topic: 'Safety, Health & Risk Management',
+                    instruction: 'Teori - Pembobotan: 20%',
+                    items: []
+                },
+                {
+                    topic: 'Labor Relation & Collective Bargaining',
+                    instruction: 'Case Study - Pembobotan: 60%',
+                    items: []
+                }
+            ],
             flashcards: [
                 // Legislasi Tambahan
                 { id: 1, term: 'Age Discrimination in Employment Act (ADEA)', definition: 'Undang-undang yang melindungi pekerja dari diskriminasi berdasarkan usia (disebutkan dalam daftar legislasi pelindung hak pekerja).' },
