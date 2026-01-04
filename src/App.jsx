@@ -634,12 +634,13 @@ export default function App() {
 
   // Track online time every 5 minutes for leaderboard
   useEffect(() => {
-    if (!session?.licenseKey) return;
+    const userKey = session?.licenseKey || session?.key;
+    if (!userKey) return;
     const interval = setInterval(() => {
-      updateOnlineTime(session.licenseKey, 5); // Add 5 minutes
+      updateOnlineTime(userKey, 5); // Add 5 minutes
     }, 5 * 60 * 1000); // Every 5 minutes
     return () => clearInterval(interval);
-  }, [session?.licenseKey]);
+  }, [session?.licenseKey, session?.key]);
 
   // Subscribe to announcements (realtime)
   useEffect(() => {
@@ -4199,8 +4200,9 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
         const percentage = Math.round(finalScore / shuffledModuleQuiz.length * 100);
         updateProgress(subjectId, 'quizScores', { ...(subjectProgress.quizScores || {}), [selectedModule]: percentage });
         // Track quiz score for leaderboard
-        if (session?.licenseKey) {
-          updateQuizScore(session.licenseKey, finalScore);
+        const userKey = session?.licenseKey || session?.key;
+        if (userKey) {
+          updateQuizScore(userKey, finalScore);
         }
       }
     }
@@ -6518,7 +6520,7 @@ function AdminDashboard({ session, onClose }) {
                             <div className="flex-1">
                               <p className="text-sm font-medium text-[var(--text)]">{user.userName}</p>
                               <p className="text-[10px] text-[var(--text-muted)]">
-                                Quiz: {user.totalScore} pts | Online: {Math.round(user.onlineMinutes / 60)}h
+                                Quiz: {user.totalScore} pts | Online: {Math.floor(user.onlineMinutes / 60)}h {user.onlineMinutes % 60}m
                               </p>
                             </div>
                           </div>
