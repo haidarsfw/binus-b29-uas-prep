@@ -422,6 +422,7 @@ export const DB = {
                     items: []
                 }
             ],
+            kisiKisiNote: 'Berdasarkan evaluasi terhadap pelaksanaan ujian sebelumnya, soal Ujian Akhir Semester (UAS) untuk mata kuliah ini diprediksi memiliki tingkat kesesuaian yang sangat tinggi (identik) dengan kisi-kisi yang telah diberikan. Mahasiswa disarankan untuk mempelajari poin-poin kisi-kisi secara mendalam karena kemungkinan besar materi tersebut akan keluar persis seperti yang tertulis.',
             flashcards: [
                 // Legislasi Tambahan
                 { id: 1, term: 'Age Discrimination in Employment Act (ADEA)', definition: 'Undang-undang yang melindungi pekerja dari diskriminasi berdasarkan usia (disebutkan dalam daftar legislasi pelindung hak pekerja).' },
