@@ -1422,8 +1422,16 @@ export const getUserLeaderboard = async () => {
                 isAdmin: data.isAdmin || false,
             }));
 
-        // Sort by totalScore descending
-        return users.sort((a, b) => b.totalScore - a.totalScore);
+        // Sort by: totalScore DESC, then onlineMinutes DESC
+        // Users with activity should rank higher than those with 0
+        return users.sort((a, b) => {
+            // First: sort by total score (descending)
+            if (b.totalScore !== a.totalScore) {
+                return b.totalScore - a.totalScore;
+            }
+            // Second: sort by online time (descending)
+            return b.onlineMinutes - a.onlineMinutes;
+        });
     } catch (e) {
         console.error('Failed to get leaderboard:', e);
         return [];
