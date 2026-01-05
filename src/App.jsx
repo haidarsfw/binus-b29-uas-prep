@@ -3128,7 +3128,14 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
-  const [expandedSections, setExpandedSections] = useState({ modulIntiUpdated: true, modulInti: false, addendumUpdated: true, addendum: false, mentorPPT: true });
+  // For marketing: modulInti/addendum collapsed (Lama). For others: expanded (normal)
+  const [expandedSections, setExpandedSections] = useState({
+    modulIntiUpdated: true,
+    modulInti: subjectId !== 'marketing',
+    addendumUpdated: true,
+    addendum: subjectId !== 'marketing',
+    mentorPPT: true
+  });
   const [viewerTheme, setViewerTheme] = useState('dark'); // 'dark', 'sepia', 'light'
   const viewerDarkMode = viewerTheme === 'dark'; // For backward compatibility
   const cycleViewerTheme = () => setViewerTheme(prev => prev === 'dark' ? 'sepia' : prev === 'sepia' ? 'light' : 'dark');
@@ -3835,6 +3842,50 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
           </div>
         )}
 
+        {/* Modul Inti - Normal layout for non-marketing subjects */}
+        {subjectId !== 'marketing' && rangkuman?.modulInti?.length > 0 && (
+          <div className="glass-card overflow-hidden">
+            <button
+              onClick={() => toggleSection('modulInti')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-[var(--accent)]" />
+                <span className="font-bold text-[var(--text)]">Modul Inti</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">{rangkuman.modulInti.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.modulInti ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.modulInti && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.modulInti)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Addendum - Normal layout for non-marketing subjects */}
+        {subjectId !== 'marketing' && rangkuman?.addendum?.length > 0 && (
+          <div className="glass-card overflow-hidden">
+            <button
+              onClick={() => toggleSection('addendum')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <PlusCircle className="w-5 h-5 text-green-500" />
+                <span className="font-bold text-[var(--text)]">Addendum / Tambahan</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/15 text-green-500">{rangkuman.addendum.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.addendum ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.addendum && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.addendum)}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Mentor PPT */}
         {rangkuman?.mentorPPT?.length > 0 && (
           <div className="glass-card overflow-hidden">
@@ -3876,8 +3927,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
 
         {/* === ARCHIVE: Old Version (Below Mentor PPT) === */}
 
-        {/* Modul Inti (Old/Archive) */}
-        {rangkuman?.modulInti?.length > 0 && (
+        {/* Modul Inti (Old/Archive) - Marketing Only */}
+        {subjectId === 'marketing' && rangkuman?.modulInti?.length > 0 && (
           <div className="glass-card overflow-hidden opacity-70">
             <button
               onClick={() => toggleSection('modulInti')}
@@ -3898,8 +3949,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
           </div>
         )}
 
-        {/* Addendum (Old/Archive) */}
-        {rangkuman?.addendum?.length > 0 && (
+        {/* Addendum (Old/Archive) - Marketing Only */}
+        {subjectId === 'marketing' && rangkuman?.addendum?.length > 0 && (
           <div className="glass-card overflow-hidden opacity-70">
             <button
               onClick={() => toggleSection('addendum')}
