@@ -78,6 +78,36 @@ export const DB = {
             ],
             kisiKisi: [
                 {
+                    topic: "Michael Porter's Basic Strategies",
+                    items: [
+                        'Cost Leadership',
+                        'Differentiation',
+                        'Focus'
+                    ]
+                },
+                {
+                    topic: 'Market Leader Strategies',
+                    items: []
+                },
+                {
+                    topic: 'Competitive Analysis',
+                    items: []
+                },
+                {
+                    topic: 'IMC (Integrated Marketing Communication)',
+                    items: [
+                        'Push Strategy',
+                        'Pull Strategy'
+                    ]
+                },
+                {
+                    topic: 'AIDA',
+                    items: []
+                }
+            ],
+            kisiKisiNote: 'INFO: Menurut info dari dosen, soal kemungkinan besar berisi teori saja, mirip dengan UTS. Ujian bersifat Close Book, tanpa kalkulator/gadget.',
+            kisiKisiTambahan: [
+                {
                     topic: 'AIDA Model',
                     instruction: 'Jelaskan konsep, jabarkan singkatan, dan berikan contoh konkret.',
                     items: [
@@ -119,7 +149,7 @@ export const DB = {
                     items: []
                 }
             ],
-            kisiKisiNote: '⚠️ PENTING: Kisi-kisi di atas merupakan kisi-kisi UAS angkatan B28, bukan B29. Karena berasal dari angkatan sebelumnya, tidak menutup kemungkinan bahwa materi yang keluar di UAS B29 akan berbeda. Saat ini belum ada kisi-kisi resmi untuk B29. Gunakan sebagai referensi tambahan, dan tetap pelajari seluruh materi dari Rangkuman untuk persiapan yang lebih lengkap.',
+            kisiKisiTambahanNote: 'Ini adalah kisi-kisi UAS B28, jangan dijadikan referensi utama.',
             flashcards: [
                 // MODUL 1: Marketing Channels & Logistics
                 { id: 1, term: 'Filosofi Netflix: "Finding the Future by Abandoning the Past"', definition: 'Strategi berani meninggalkan model bisnis lama (DVD fisik) demi masa depan (Streaming) agar tidak tertinggal zaman seperti Blockbuster.' },

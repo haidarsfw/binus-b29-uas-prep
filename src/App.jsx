@@ -2480,21 +2480,31 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.2.0";
+  const currentVersion = "1.2.1";
   const patchNotes = {
     current: {
-      version: "1.2.0",
-      date: "4 Jan 2026",
+      version: "1.2.1",
+      date: "5 Jan 2026",
       changes: [
-        "- KISI-KISI LENGKAP: Marketing Management (B28) + HRM (B29 Resmi)",
-        "- Leaderboard & Jam Tersibuk di Admin Panel sudah aktif",
-        "- Tracking otomatis: Quiz Score + Online Time",
-        "- Log stacking: login berturut-turut ditumpuk (x2, x3, dst)",
-        "- Rangkuman: format bold/italic diperbaiki, emoji dihapus",
-        "- Instruksi kisi-kisi tampil sebagai teks biasa (tidak bullet)"
+        "- KISI-KISI MM B29: Materi resmi dari dosen sudah tersedia",
+        "- Topik: Porter's Strategies, Market Leader, Competitive Analysis, IMC, AIDA",
+        "- Kisi-kisi B28 dipindahkan ke section Kisi-Kisi Tambahan",
+        "- Info: Ujian Close Book, tanpa kalkulator/gadget"
       ]
     },
     past: [
+      {
+        version: "1.2.0",
+        date: "4 Jan 2026",
+        changes: [
+          "- KISI-KISI LENGKAP: Marketing Management (B28) + HRM (B29 Resmi)",
+          "- Leaderboard & Jam Tersibuk di Admin Panel sudah aktif",
+          "- Tracking otomatis: Quiz Score + Online Time",
+          "- Log stacking: login berturut-turut ditumpuk (x2, x3, dst)",
+          "- Rangkuman: format bold/italic diperbaiki, emoji dihapus",
+          "- Instruksi kisi-kisi tampil sebagai teks biasa (tidak bullet)"
+        ]
+      },
       {
         version: "1.1.1",
         date: "31 Des 2025",
@@ -3091,7 +3101,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
       <div className="animate-fade" style={{ position: 'relative', minHeight: '300px' }}>
         {activeTab === 0 && <Materi materi={content.materi} subjectId={subject.id} progress={progress} updateProgress={updateProgress} isPreviewMode={isPreviewMode} />}
         {activeTab === 1 && <Rangkuman subjectId={subject.id} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} isPreviewMode={isPreviewMode} />}
-        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
+        {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiExamNotes={content.kisiKisiExamNotes} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} progress={progress} updateProgress={updateProgress} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} session={session} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
         {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />}
@@ -3986,7 +3996,7 @@ function Materi({ materi, subjectId, progress, updateProgress, isPreviewMode }) 
   );
 }
 
-function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNote, subjectId, isPreviewMode }) {
+function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiExamNotes, kisiKisiTambahan, kisiKisiTambahanNote, subjectId, isPreviewMode }) {
   // Check if kisiKisi is the old format (array of strings) or new format (array of objects with topic/items)
   const isNewFormat = kisiKisi?.length > 0 && typeof kisiKisi[0] === 'object' && kisiKisi[0].topic;
 
@@ -3996,7 +4006,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
       <div className="glass-card p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
           <List className="w-5 h-5 text-[var(--accent)]" />
-          <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Ujian {subjectId === 'marketing' && <span className="text-xs font-normal text-[var(--text-muted)] ml-1">(B28)</span>}</h3>
+          <h3 className="font-bold text-[var(--text)]">Kisi-Kisi Ujian</h3>
         </div>
 
         {isNewFormat ? (
@@ -4049,12 +4059,30 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiTambahan, kisiKisiTambahanNo
         )}
       </div>
 
+      {/* Exam Notes - format rules */}
+      {kisiKisiExamNotes && kisiKisiExamNotes.length > 0 && (
+        <div className="glass-card p-4 border-l-4 border-[var(--info)]">
+          <div className="flex items-center gap-2 mb-2">
+            <BookOpen className="w-4 h-4 text-[var(--info)]" />
+            <span className="font-bold text-[var(--text)] text-sm">Format Ujian</span>
+          </div>
+          <ul className="space-y-1">
+            {kisiKisiExamNotes.map((note, idx) => (
+              <li key={idx} className="text-[var(--text)] text-sm flex items-center gap-2">
+                <span className="text-[var(--info)]">•</span>
+                <span>{note}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Note - context-aware label */}
       {kisiKisiNote && (
-        <div className="glass-card p-4 border-l-4 border-[var(--warning)]">
+        <div className="glass-card p-4 border-l-4 border-[var(--accent)]">
           <div className="flex items-center gap-2 mb-1">
-            <AlertTriangle className="w-4 h-4 text-[var(--warning)]" />
-            <span className="font-bold text-[var(--text)] text-sm">{kisiKisi?.length > 0 ? 'Catatan Penting' : 'Informasi'}</span>
+            <MessageSquare className="w-4 h-4 text-[var(--accent)]" />
+            <span className="font-bold text-[var(--text)] text-sm">{kisiKisi?.length > 0 ? 'Catatan' : 'Informasi'}</span>
           </div>
           <p className="text-[var(--text)] text-sm">{kisiKisiNote}</p>
         </div>
