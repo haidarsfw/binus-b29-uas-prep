@@ -409,12 +409,22 @@ export const DB = {
                 { question: "Fungsi logistik 'Warehousing' modern lebih mengarah pada...", options: ["Distribution Centers (bergerak cepat/otomatis)", "Storage Warehouses (menyimpan lama)", "Gudang manual", "Penumpukan barang"], answer: 0, xp: 5 },
             ],
             rangkuman: {
+                modulIntiUpdated: [
+                    { title: 'Modul 1: Marketing Channels & Logistics (Updated)', contentKey: 'modul1_updated', type: 'native', driveId: '17-z0k_80y0J1BKMWj7napjgK3vlNLXuhCQOIoOqGCf8' },
+                    { title: 'Modul 2: Integrated Marketing Communication (Updated)', contentKey: 'modul2_updated', type: 'native', driveId: '10nXUYo_qBmv2aJa1yyIAw8-ofMTZk7s4LV6glV7kBZQ' },
+                    { title: 'Modul 3: Creating Competitive Advantage (Updated)', contentKey: 'modul3_updated', type: 'native', driveId: '1xzXIGBx95Oedfx8F3DFrG2VoBFbOcLPbDp7iQdCzaQ8' },
+                    { title: 'Modul 4: The Global Marketplace (Updated)', contentKey: 'modul4_updated', type: 'native', driveId: '1CN4t3yozNdbhdx8IVvPKkstl_R4AQpp_A6zq1jzUqrk' },
+                    { title: 'Modul 5: Sustainable Marketing (Updated)', contentKey: 'modul5_updated', type: 'native', driveId: '1u6nS8--Fr1ELddGt58AId0BrUgRPoH80M0HFBmLmWX0' },
+                ],
                 modulInti: [
                     { title: 'Modul 1: Marketing Channels & Logistics', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Integrated Marketing Communication Strategy', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Creating Competitive Advantage', contentKey: 'modul3', type: 'native' },
                     { title: 'Modul 4: The Global Marketplace', contentKey: 'modul4', type: 'native' },
                     { title: 'Modul 5: Sustainable Marketing', contentKey: 'modul5', type: 'native' },
+                ],
+                addendumUpdated: [
+                    { title: 'Addendum: Materi Pelengkap & Detail Teknis (Updated)', contentKey: 'tambahan_updated', type: 'native', driveId: '131-PQf0K0YuhTqx0MD_geMSGhEW-FtZzi9QfAekit94' },
                 ],
                 addendum: [
                     { title: 'Addendum: Materi Pelengkap & Detail Teknis', contentKey: 'tambahan', type: 'native' },

@@ -2480,19 +2480,30 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.2.1";
+  const currentVersion = "1.3.0";
   const patchNotes = {
     current: {
-      version: "1.2.1",
+      version: "1.3.0",
       date: "5 Jan 2026",
       changes: [
-        "- KISI-KISI MM B29: Materi resmi dari dosen sudah tersedia",
-        "- Topik: Porter's Strategies, Market Leader, Competitive Analysis, IMC, AIDA",
-        "- Kisi-kisi B28 dipindahkan ke section Kisi-Kisi Tambahan",
-        "- Info: Ujian Close Book, tanpa kalkulator/gadget"
+        "- RANGKUMAN MM UPDATED: 5 Modul + Addendum versi baru tersedia",
+        "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability",
+        "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah",
+        "- Fix: HTML tags tidak lagi muncul sebagai teks mentah",
+        "- Link Google Docs tersedia untuk setiap modul"
       ]
     },
     past: [
+      {
+        version: "1.2.1",
+        date: "5 Jan 2026",
+        changes: [
+          "- KISI-KISI MM B29: Materi resmi dari dosen sudah tersedia",
+          "- Topik: Porter's Strategies, Market Leader, Competitive Analysis, IMC, AIDA",
+          "- Kisi-kisi B28 dipindahkan ke section Kisi-Kisi Tambahan",
+          "- Info: Ujian Close Book, tanpa kalkulator/gadget"
+        ]
+      },
       {
         version: "1.2.0",
         date: "4 Jan 2026",
@@ -3117,7 +3128,7 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
   const content = DB.content[subjectId];
   const rangkuman = content?.rangkuman;
   const [viewFile, setViewFile] = useState(null);
-  const [expandedSections, setExpandedSections] = useState({ modulInti: true, addendum: true, mentorPPT: true });
+  const [expandedSections, setExpandedSections] = useState({ modulIntiUpdated: true, modulInti: false, addendumUpdated: true, addendum: false, mentorPPT: true });
   const [viewerTheme, setViewerTheme] = useState('dark'); // 'dark', 'sepia', 'light'
   const viewerDarkMode = viewerTheme === 'dark'; // For backward compatibility
   const cycleViewerTheme = () => setViewerTheme(prev => prev === 'dark' ? 'sepia' : prev === 'sepia' ? 'light' : 'dark');
@@ -3454,8 +3465,22 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
                       }
                     }, 100);
 
+                    // Pre-process: Join multi-line tags (bullet, warning) into single lines
+                    // This handles cases where content inside tags spans multiple lines
+                    let processedContent = moduleContent;
+
+                    // Join multi-line bullet tags
+                    processedContent = processedContent.replace(/<bullet>([\s\S]*?)<\/bullet>/g, (match, inner) => {
+                      return '<bullet>' + inner.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim() + '</bullet>';
+                    });
+
+                    // Join multi-line warning tags
+                    processedContent = processedContent.replace(/<warning>([\s\S]*?)<\/warning>/g, (match, inner) => {
+                      return '<warning>' + inner.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim() + '</warning>';
+                    });
+
                     // Split by lines and parse tags
-                    const lines = moduleContent.split('\n');
+                    const lines = processedContent.split('\n');
                     return (
                       <div style={{ lineHeight: '1.7' }}>
                         {lines.map((line, idx) => {
@@ -3766,45 +3791,45 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
         onCopy={e => e.preventDefault()}
         onCut={e => e.preventDefault()}
       >
-        {/* Modul Inti */}
-        {rangkuman?.modulInti?.length > 0 && (
-          <div className="glass-card overflow-hidden">
+        {/* Modul Inti (Updated) - New section */}
+        {rangkuman?.modulIntiUpdated?.length > 0 && (
+          <div className="glass-card overflow-hidden border-l-4 border-[var(--success)]">
             <button
-              onClick={() => toggleSection('modulInti')}
+              onClick={() => toggleSection('modulIntiUpdated')}
               className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
             >
               <div className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-[var(--accent)]" />
-                <span className="font-bold text-[var(--text)]">Modul Inti</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">{rangkuman.modulInti.length}</span>
+                <BookOpen className="w-5 h-5 text-[var(--success)]" />
+                <span className="font-bold text-[var(--text)]">Modul Inti (Updated)</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--success)]/15 text-[var(--success)]">NEW</span>
               </div>
-              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.modulInti ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.modulIntiUpdated ? 'rotate-180' : ''}`} />
             </button>
-            {expandedSections.modulInti && (
+            {expandedSections.modulIntiUpdated && (
               <div className="px-4 pb-4">
-                {renderFileList(rangkuman.modulInti)}
+                {renderFileList(rangkuman.modulIntiUpdated)}
               </div>
             )}
           </div>
         )}
 
-        {/* Addendum */}
-        {rangkuman?.addendum?.length > 0 && (
-          <div className="glass-card overflow-hidden">
+        {/* Addendum (Updated) - New section */}
+        {rangkuman?.addendumUpdated?.length > 0 && (
+          <div className="glass-card overflow-hidden border-l-4 border-[var(--success)]">
             <button
-              onClick={() => toggleSection('addendum')}
+              onClick={() => toggleSection('addendumUpdated')}
               className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
             >
               <div className="flex items-center gap-2">
-                <PlusCircle className="w-5 h-5 text-green-500" />
-                <span className="font-bold text-[var(--text)]">Addendum / Tambahan</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/15 text-green-500">{rangkuman.addendum.length}</span>
+                <PlusCircle className="w-5 h-5 text-[var(--success)]" />
+                <span className="font-bold text-[var(--text)]">Addendum / Tambahan (Updated)</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--success)]/15 text-[var(--success)]">NEW</span>
               </div>
-              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.addendum ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.addendumUpdated ? 'rotate-180' : ''}`} />
             </button>
-            {expandedSections.addendum && (
+            {expandedSections.addendumUpdated && (
               <div className="px-4 pb-4">
-                {renderFileList(rangkuman.addendum)}
+                {renderFileList(rangkuman.addendumUpdated)}
               </div>
             )}
           </div>
@@ -3846,6 +3871,52 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
               <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-yellow-200">{rangkuman.mentorPPTNote}</p>
             </div>
+          </div>
+        )}
+
+        {/* === ARCHIVE: Old Version (Below Mentor PPT) === */}
+
+        {/* Modul Inti (Old/Archive) */}
+        {rangkuman?.modulInti?.length > 0 && (
+          <div className="glass-card overflow-hidden opacity-70">
+            <button
+              onClick={() => toggleSection('modulInti')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-[var(--text-muted)]" />
+                <span className="font-bold text-[var(--text-muted)]">Modul Inti (Lama)</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--surface-hover)] text-[var(--text-muted)]">{rangkuman.modulInti.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.modulInti ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.modulInti && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.modulInti)}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Addendum (Old/Archive) */}
+        {rangkuman?.addendum?.length > 0 && (
+          <div className="glass-card overflow-hidden opacity-70">
+            <button
+              onClick={() => toggleSection('addendum')}
+              className="w-full p-4 flex items-center justify-between hover:bg-[var(--surface-hover)]"
+            >
+              <div className="flex items-center gap-2">
+                <PlusCircle className="w-5 h-5 text-[var(--text-muted)]" />
+                <span className="font-bold text-[var(--text-muted)]">Addendum / Tambahan (Lama)</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--surface-hover)] text-[var(--text-muted)]">{rangkuman.addendum.length}</span>
+              </div>
+              <ChevronDown className={`w-5 h-5 text-[var(--text-muted)] transition-transform ${expandedSections.addendum ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.addendum && (
+              <div className="px-4 pb-4">
+                {renderFileList(rangkuman.addendum)}
+              </div>
+            )}
           </div>
         )}
 

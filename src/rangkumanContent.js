@@ -804,6 +804,957 @@ Di slide Review, ada pertanyaan: "Explain the importance of micropayment systems
 <bullet><b>Contoh:</b> Pembayaran pakai Pulsa, GoPay, atau Apple Pay untuk beli skin di Mobile Legends.</bullet>`
         },
         marketing: {
+                modul1_updated: `<h1> MODUL 1: MARKETING CHANNELS & LOGISTICS</h1>
+<subtitle><b><i>(Reference: PPT Week 9 & Chapter 12: Delivering Customer Value)</i></b></subtitle>
+
+<h2> 1. INTRODUCTORY CASE: NETFLIX</h2>
+
+<h3>"Finding the Future by Abandoning the Past"</h3>
+Netflix adalah contoh sempurna dari perusahaan yang sukses merevolusi Marketing Channel.
+
+<bullet><b>The Innovation:</b> Netflix tidak takut untuk membunuh model bisnis lamanya sendiri. Mereka beralih dari mengirimkan DVD fisik via pos (Physical Distribution) menjadi layanan streaming digital instan (Digital Delivery), dan kini berkembang menjadi pembuat konten orisinil.</bullet>
+<bullet><b>Key Lesson:</b> Untuk bertahan hidup, perusahaan seringkali harus melakukan Disintermediation terhadap model bisnis mereka sendiri sebelum pesaing melakukannya. "Finding its future by abandoning its past."</bullet>
+
+<h2> 2. SUPPLY CHAINS VS VALUE DELIVERY NETWORK</h2>
+
+Dalam pandangan modern, perusahaan tidak bekerja sendirian. Terdapat pergeseran cara pandang:
+
+<bullet><b>Supply Chain:</b> Pandangan tradisional "Make-and-Sell". Fokusnya ke belakang, melihat bahan baku, input produktif, dan kapasitas pabrik.</bullet>
+<bullet><b>Demand Chain:</b> Pandangan "Sense-and-Respond". Perencanaan dimulai dari kebutuhan target pelanggan di pasar, baru kemudian menyusun sumber daya ke belakang untuk memenuhinya.</bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Value Delivery Network</warning>
+
+Konsep ini lebih luas daripada sekadar rantai pasokan.
+
+<bullet><b>Definition:</b> A network composed of the company, suppliers, distributors, and, ultimately, customers who partner with each other to improve the performance of the entire system in delivering customer value.</bullet>
+
+<b>Components:</b>
+<bullet><b>Upstream Partners:</b> Rangkaian perusahaan yang memasok bahan mentah, komponen, suku cadang, informasi, keuangan, dan keahlian yang dibutuhkan untuk membuat produk.
+<i>Example: Penambang lithium dan pembuat kaca layar untuk Apple iPhone.</i></bullet>
+<bullet><b>Downstream Partners:</b> Saluran pemasaran (Marketing Channels) seperti wholesalers dan retailers yang menghubungkan perusahaan dengan pelanggan. Fokus utama pemasar biasanya ada di sisi ini.
+<i>Example: iBox, Digimap, atau toko resmi Apple di Amazon.</i></bullet>
+
+<h2> 3. THE NATURE AND IMPORTANCE OF MARKETING CHANNELS</h2>
+
+<b>Marketing Channel (Distribution Channel):</b> A set of interdependent organizations that help make a product or service available for use or consumption by the consumer or business user.
+
+<h3>Why use Intermediaries?</h3>
+<bullet>Intermediaries create <b>Greater Efficiency</b> in making goods available to target markets.</bullet>
+<bullet>Mereka menawarkan kontak, pengalaman, spesialisasi, dan skala operasi yang tidak dimiliki produsen.</bullet>
+<bullet><b>Transforming Assortment:</b> Perantara mengubah huge quantity of a limited number of products (yang dibuat pabrik) menjadi broad assortment of products in small quantities (yang diinginkan konsumen).</bullet>
+
+<h3>How Channel Members Add Value (8 Key Functions)</h3>
+Anggota saluran melakukan fungsi kunci untuk menyelesaikan transaksi dan memenuhi pesanan:
+
+<bullet><b>Information:</b> Mengumpulkan dan mendistribusikan informasi intelijen dan riset pemasaran mengenai aktor dan kekuatan dalam lingkungan pemasaran.
+<i>Example: Alfamart memberikan data penjualan mingguan ke Unilever untuk melihat tren rasa sabun yang paling laku.</i></bullet>
+<bullet><b>Promotion:</b> Mengembangkan dan menyebarkan komunikasi persuasif tentang penawaran tersebut.
+<i>Example: Dealer Toyota memasang spanduk dan menyebarkan brosur promo cicilan ringan.</i></bullet>
+<bullet><b>Contact:</b> Menemukan dan berkomunikasi dengan calon pembeli.
+<i>Example: Agen asuransi menelpon calon nasabah potensial.</i></bullet>
+<bullet><b>Matching:</b> Membentuk dan menyesuaikan penawaran dengan kebutuhan pembeli, termasuk aktivitas manufaktur, perakitan, dan pengemasan.
+<i>Example: Toko komputer merakit PC sesuai spesifikasi gaming yang diminta pelanggan.</i></bullet>
+<bullet><b>Negotiation:</b> Mencapai kesepakatan harga dan syarat lain agar kepemilikan dapat berpindah.
+<i>Example: Negosiasi harga mobil di showroom.</i></bullet>
+<bullet><b>Physical Distribution:</b> Mengangkut dan menyimpan barang.
+<i>Example: Gudang Lazada menyimpan stok barang seller sebelum dikirim.</i></bullet>
+<bullet><b>Financing:</b> Mengakuisisi dan menggunakan dana untuk menutup biaya operasional saluran.
+<i>Example: Dealer mobil membeli stok dari pabrik secara kredit (floor plan financing).</i></bullet>
+<bullet><b>Risk Taking:</b> Menanggung risiko komersial dari pelaksanaan pekerjaan saluran.
+<i>Example: Department store menanggung rugi jika baju yang sudah dibeli dari desainer tidak laku terjual.</i></bullet>
+
+<h2> 4. CHANNEL LEVELS</h2>
+
+Jumlah perantara menentukan panjangnya saluran.
+
+<h3>A. Consumer Marketing Channels</h3>
+<bullet><b>Direct Marketing Channel (Channel 1):</b> Tidak ada perantara. Produsen menjual langsung ke konsumen.
+<i>Example: Penjual kue rumahan, Mary Kay Cosmetics, GEICO Insurance.</i></bullet>
+
+<b>Indirect Marketing Channel:</b>
+<bullet><b>Channel 2 (One Level):</b> Producer → Retailer → Consumer.
+<i>Example: Pakaian, kamera, atau mobil (Toyota → Dealer Auto2000 → Konsumen).</i></bullet>
+<bullet><b>Channel 3 (Two Levels):</b> Producer → Wholesaler → Retailer → Consumer.
+<i>Example: Obat-obatan atau makanan ringan.</i></bullet>
+<bullet><b>Channel 4 (Three Levels):</b> Producer → Wholesaler → Jobber → Retailer → Consumer.</bullet>
+
+<h3>B. Business Marketing Channels (B2B)</h3>
+<bullet><b>Direct:</b> Producer → Business Customer.</bullet>
+<bullet><b>Indirect:</b> Producer → Business Distributor → Business Customer.</bullet>
+
+<h2> 5. CHANNEL BEHAVIOR AND ORGANIZATION</h2>
+
+Saluran distribusi adalah sistem perilaku yang kompleks (Complex Behavioral Systems).
+
+<h3>Channel Conflict</h3>
+<bullet><b>Horizontal Conflict:</b> Terjadi antar perusahaan pada tingkat saluran yang sama.
+<i>Example: Satu dealer Ford di Bekasi mengeluh karena dealer Ford lain di Jakarta membanting harga atau beriklan di wilayahnya.</i></bullet>
+<bullet><b>Vertical Conflict:</b> Terjadi antara tingkat yang berbeda dalam saluran yang sama (lebih umum terjadi).
+<i>Example: McDonald's pusat berkonflik dengan pemegang franchise lokal karena gerai lokal tidak menjaga standar kebersihan, yang merusak citra merek secara keseluruhan.</i></bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Vertical Marketing Systems (VMS)</warning>
+
+Materi ini sangat sering keluar di ujian. Pahami perbedaan mendasar antara Conventional vs VMS.
+
+<bullet><b>Conventional Distribution Channel:</b> Terdiri dari produsen, grosir, dan pengecer independen. Masing-masing adalah entitas bisnis terpisah yang mencari laba sendiri-sendiri, bahkan jika merugikan sistem secara keseluruhan. Tidak ada anggota yang punya kontrol penuh atas anggota lain.</bullet>
+
+<bullet><b>Vertical Marketing System (VMS):</b> Struktur saluran di mana produsen, grosir, dan pengecer bertindak sebagai satu sistem terpadu (Unified System). Satu anggota saluran memiliki kepemilikan, kontrak, atau kekuatan yang begitu besar sehingga anggota lain bekerja sama.</bullet>
+
+<b>Tiga Tipe VMS:</b>
+<bullet><b>Corporate VMS:</b> Menggabungkan tahap produksi dan distribusi yang berurutan di bawah kepemilikan tunggal (Single Ownership).
+<i>Key Concept: Kepemimpinan ditetapkan melalui kepemilikan saham/aset.</i>
+<i>Example: Zara memiliki pabrik desain, pabrik tekstil, dan toko ritelnya sendiri. Luxottica membuat kacamata (Ray-Ban) dan memiliki toko penjualnya (Sunglass Hut).</i></bullet>
+
+<bullet><b>Contractual VMS:</b> Perusahaan independen di berbagai tingkat produksi dan distribusi bergabung melalui kontrak untuk memperoleh penghematan atau dampak penjualan.
+<i>Franchise Organization (Most Common): Produsen mensponsori pengecer.</i>
+<i>Example: McDonald's, Pizza Hut, Indomaret.</i></bullet>
+
+<bullet><b>Administered VMS:</b> Kepemimpinan diasumsikan bukan melalui kepemilikan atau kontrak, melainkan melalui ukuran dan kekuatan (Size and Power) dari salah satu anggota saluran.
+<i>Key Concept: Pihak yang dominan bisa mendikte syarat.</i>
+<i>Example: Walmart atau P&G. Walmart sangat besar sehingga bisa memaksa pemasok (seperti pembuat Clorox) untuk menurunkan harga atau mengubah kemasan jika ingin barangnya dijual di Walmart.</i></bullet>
+
+<h3>Horizontal Marketing System</h3>
+<bullet>Dua atau lebih perusahaan di satu level bergabung untuk mengejar peluang pemasaran baru.
+<i>Example: Starbucks membuka gerai di dalam supermarket Target. Target mendapatkan trafik pengunjung, Starbucks mendapatkan lokasi strategis.</i></bullet>
+
+<h3>Multichannel Distribution System</h3>
+<bullet>Satu perusahaan menggunakan dua atau lebih saluran pemasaran untuk mencapai satu atau lebih segmen pelanggan.
+<i>Example: John Deere menjual traktor besar via dealer resmi, tapi menjual mesin pemotong rumput kecil via Home Depot dan Lowe's.</i></bullet>
+
+<h2> 6. DISINTERMEDIATION</h2>
+
+<bullet><b>Definition:</b> The cutting out of marketing channel intermediaries by product or service producers or the displacement of traditional resellers by radical new types of intermediaries.</bullet>
+<bullet><b>Phenomenon:</b> Ini adalah fenomena matinya perantara lama karena inovasi baru.</bullet>
+
+<b>Example:</b>
+<bullet>Spotify menggantikan toko CD musik dan iTunes download.</bullet>
+<bullet>Traveloka/Tiket.com menggantikan agen perjalanan fisik (Travel Agent).</bullet>
+<bullet><b>Direct-to-Consumer (DTC):</b> Brand seperti Nike perlahan mengurangi stok di pengecer umum dan fokus menjual lewat website/aplikasi Nike sendiri.</bullet>
+
+<h2> 7. CHANNEL DESIGN DECISIONS</h2>
+
+Dalam merancang saluran, pemasar harus mengambil keputusan strategis berikut:
+
+<h3>Step 1: Analyzing Consumer Needs</h3>
+<bullet>Menyeimbangkan apa yang konsumen inginkan (lokasi dekat, beli online, variasi produk) dengan biaya yang harus dikeluarkan perusahaan (feasibility).</bullet>
+
+<h3>Step 2: Setting Channel Objectives</h3>
+<bullet>Menentukan level layanan yang ditargetkan dan meminimalkan biaya saluran. Keputusan juga dipengaruhi oleh sifat produk (mudah busuk vs tahan lama), pesaing, dan lingkungan ekonomi.</bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Step 3: Identifying Major Alternatives</warning>
+
+Bagian ini (Number of Marketing Intermediaries) adalah inti dari strategi distribusi. Wajib hafal mati!
+
+<bullet><b>Intensive Distribution:</b>
+<i>Strategy: Menyetok produk di sebanyak mungkin gerai (As many outlets as possible).</i>
+<i>Product Type: Convenience products dan bahan mentah umum. Konsumen ingin membeli barang ini dengan usaha minimal.</i>
+<i>Example: Pasta gigi Pepsodent, Coca-Cola, Sabun Lifebuoy, Permen. Harus ada di Alfamart, warung kecil, hingga supermarket besar.</i></bullet>
+
+<bullet><b>Exclusive Distribution:</b>
+<i>Strategy: Memberikan hak eksklusif kepada jumlah dealer yang sangat terbatas (Limited number of dealers) di wilayah tertentu.</i>
+<i>Product Type: Luxury goods atau produk dengan dukungan layanan tinggi. Tujuannya menjaga citra eksklusif.</i>
+<i>Example: Mobil Bentley, Jam tangan Rolex, Tas Hermes. Anda tidak akan menemukan Rolex dijual di sembarang toko jam di pasar.</i></bullet>
+
+<bullet><b>Selective Distribution:</b>
+<i>Strategy: Menggunakan lebih dari satu tetapi lebih sedikit dari semua (More than one but fewer than all) perantara yang bersedia menjual produk perusahaan.</i>
+<i>Product Type: Shopping goods.</i>
+<i>Example: Televisi Samsung, Sepatu Nike, Peralatan rumah tangga Electrolux. Tidak ada di warung, tapi ada di banyak toko elektronik resmi (Electronic City, Best Denki).</i></bullet>
+
+<h3>Step 4: Evaluating Major Alternatives</h3>
+<bullet><b>Economic Criteria:</b> Mana yang lebih menguntungkan?</bullet>
+<bullet><b>Control Issues:</b> Seberapa besar kendali yang hilang jika pakai perantara?</bullet>
+<bullet><b>Adaptability Criteria:</b> Apakah saluran ini fleksibel untuk jangka panjang?</bullet>
+
+<h2> 8. CHANNEL MANAGEMENT DECISIONS</h2>
+
+Setelah desain dipilih, manajemen harus mengelola saluran tersebut:
+
+<bullet><b>Selecting Channel Members:</b> Memilih partner yang punya reputasi baik dan lokasi strategis.</bullet>
+<bullet><b>Managing and Motivating:</b> Menggunakan Partner Relationship Management (PRM) untuk membangun hubungan jangka panjang, bukan sekadar transaksional.</bullet>
+<bullet><b>Evaluating:</b> Memonitor kinerja (kuota penjualan, rata-rata inventaris, waktu pengiriman).</bullet>
+
+<h2> 9. MARKETING LOGISTICS & SUPPLY CHAIN MANAGEMENT</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - Logistics Functions</warning>
+
+<bullet><b>Marketing Logistics (Physical Distribution):</b> Planning, implementing, and controlling the physical flow of materials, final goods, and related information from points of origin to points of consumption to meet customer requirements at a profit.</bullet>
+<bullet><b>Goal:</b> Targeted level of customer service at the least cost. (Ingat: Trade-off antara level layanan tinggi vs biaya rendah).</bullet>
+
+<h3>4 Fungsi Utama Logistik (Major Logistics Functions):</h3>
+
+<bullet><b>Warehousing (Pergudangan):</b>
+<i>Storage Warehouses: Menyimpan barang untuk jangka waktu sedang hingga lama.</i>
+<i>Distribution Centers (DC): Gudang otomatis besar yang dirancang untuk memindahkan barang, bukan menyimpannya. Menerima barang, memproses pesanan, dan mengirimkannya secepat mungkin.</i>
+<i>Example: Amazon Fulfillment Centers.</i></bullet>
+
+<bullet><b>Inventory Management:</b>
+<i>Menyeimbangkan biaya penyimpanan stok (carrying costs) vs risiko kehabisan stok (stockout).</i>
+<i>Just-in-Time (JIT) Logistics: Produsen dan pengecer hanya menyimpan stok sedikit, pemasok mengirim barang baru hanya saat diperlukan (tepat waktu).</i>
+<i>RFID (Radio Frequency Identification): Teknologi chip pintar untuk melacak lokasi barang secara real-time.</i></bullet>
+
+<bullet><b>Transportation:</b>
+Pilihan moda mempengaruhi harga produk, kinerja pengiriman, dan kondisi barang saat tiba.
+<i>Trucks: Fleksibel, rute darat, cepat untuk jarak dekat.</i>
+<i>Railroads: Hemat biaya untuk barang curah (batu bara, pasir) jarak jauh.</i>
+<i>Water Carriers: Paling murah tapi paling lambat (untuk ekspor/impor via kontainer).</i>
+<i>Pipelines: Khusus untuk minyak dan gas.</i>
+<i>Air Carriers: Paling mahal tapi paling cepat (untuk barang bernilai tinggi/mudah busuk).</i>
+<i>Multimodal Transportation: Menggabungkan dua atau lebih moda (contoh: Piggyback = Kereta + Truk, Fishyback = Kapal + Truk).</i></bullet>
+
+<bullet><b>Logistics Information Management:</b>
+<i>Mengelola aliran informasi pesanan, penagihan, dan inventaris.</i>
+<i>EDI (Electronic Data Interchange): Pertukaran data digital antar komputer perusahaan dan pemasok/pengecer.</i>
+<i>VMI (Vendor-Managed Inventory): Pemasok (bukan pengecer) yang bertanggung jawab memantau stok di toko dan mengisinya otomatis.</i></bullet>
+
+<h2> 10. CLOSING CASE: SOCIOLLA (OMNICHANNEL)</h2>
+
+<h3>Case: Sociolla menerapkan Omnichannel Retailing.</h3>
+<bullet><b>Strategy:</b> Mengintegrasikan pengalaman belanja fisik dan digital secara mulus. Konsumen bisa menggunakan aplikasi SOCO di dalam toko fisik Sociolla untuk scan barcode produk dan melihat review jujur dari pengguna lain sebelum membeli.</bullet>
+<bullet><b>Impact:</b> Menghilangkan keraguan konsumen dan meningkatkan kepercayaan (Trust) serta kenyamanan belanja.</bullet>`,
+                modul2_updated: `<h1> MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
+<subtitle><b><i>(Reference: PPT Week 10 & Chapter 14)</i></b></subtitle>
+
+<h2> 1. INTRODUCTORY CASE: BURGER KING</h2>
+
+<h3>"Anything but Traditional"</h3>
+Materi ini dibuka dengan analisis strategi komunikasi Burger King yang unik.
+
+<bullet><b>The Approach:</b> Kampanye pemasaran Burger King sering terlihat impulsif, aneh (wacky), atau bahkan nekat. Namun, di balik itu ada strategi yang disiplin.</bullet>
+<bullet><b>Brand Positioning:</b> Semua kampanye—mulai dari "Whopper Detour" hingga iklan TV—disatukan di bawah satu posisi merek yang konsisten: "Home of the Whopper".</bullet>
+<bullet><b>Differentiation:</b> Fokus komunikasi selalu pada keunggulan "Flame-Grilled" (dipanggang dengan api), membedakannya tajam dari kompetitor (McDonald's) yang menggoreng dagingnya (flat-top grills).</bullet>
+<bullet><b>Key Lesson:</b> Kreativitas eksekusi boleh liar, asalkan pesan intinya terintegrasi dan konsisten dengan identitas merek.</bullet>
+
+<h2> 2. THE PROMOTION MIX (MARKETING COMMUNICATIONS MIX)</h2>
+
+<b>Definition:</b> The specific blend of promotion tools that the company uses to persuasively communicate customer value and build customer relationships.
+
+Terdapat <b>lima alat utama (The Five Major Promotion Tools)</b> yang harus dipahami:
+
+<h3>A. Advertising (Periklanan)</h3>
+<bullet><b>Definition:</b> Any paid form of nonpersonal presentation and promotion of ideas, goods, or services by an identified sponsor.</bullet>
+<bullet><b>Characteristics:</b> Jangkauan luas (Mass Reach), biaya per paparan rendah, memungkinkan pengulangan pesan (repeat message). Namun, sifatnya impersonal dan satu arah (One-way communication).</bullet>
+<bullet><b>Example:</b> Iklan TV komersial Super Bowl, Billboard di jalan tol, Iklan Radio.</bullet>
+
+<h3>B. Sales Promotion (Promosi Penjualan)</h3>
+<bullet><b>Definition:</b> Short-term incentives to encourage the purchase or sale of a product or service.</bullet>
+<bullet><b>Characteristics:</b> Menarik perhatian cepat, memberikan insentif kuat untuk membeli sekarang ("Buy Now!"). Sifatnya jangka pendek dan tidak efektif membangun loyalitas jangka panjang.</bullet>
+<bullet><b>Example:</b> Diskon 50%, Voucher "Buy 1 Get 1 Free", Sampel gratis di supermarket.</bullet>
+
+<h3>C. Personal Selling (Penjualan Personal)</h3>
+<bullet><b>Definition:</b> Personal customer interactions by the firm's sales force for the purpose of engaging customers, making sales, and building customer relationships.</bullet>
+<bullet><b>Characteristics:</b> Alat paling efektif pada tahap akhir pembelian (membangun preferensi & keyakinan). Interaksi dua arah, bisa menyesuaikan pesan (customized). Namun, <b>biaya paling mahal per kontak</b> (most expensive promotion tool).</bullet>
+<bullet><b>Example:</b> Salesman mobil di showroom, Agen asuransi, Medical Representative (MedRep) yang mendatangi dokter.</bullet>
+
+<h3>D. Public Relations (PR)</h3>
+<bullet><b>Definition:</b> Building good relations with the company's various publics by obtaining favorable publicity, building up a good corporate image, and handling or heading off unfavorable rumors, stories, and events.</bullet>
+<bullet><b>Characteristics:</b> Sangat kredibel (terasa seperti berita/cerita, bukan iklan), bisa menjangkau prospek yang menghindari iklan.</bullet>
+<bullet><b>Example:</b> Konferensi pers peluncuran iPhone baru, Kegiatan CSR menanam pohon, Artikel berita positif di Kompas/CNN.</bullet>
+
+<h3>E. Direct and Digital Marketing</h3>
+<bullet><b>Definition:</b> Engaging directly with carefully targeted individual consumers and customer communities to both obtain an immediate response and build lasting customer relationships.</bullet>
+<bullet><b>Characteristics:</b> Segera (Immediate), Terpersonalisasi (Personalized), Interaktif (Interactive).</bullet>
+<bullet><b>Example:</b> Email marketing yang menyapa nama Anda, Iklan Instagram yang sesuai interest Anda, Telemarketing.</bullet>
+
+<h2> 3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - The Need for IMC</warning>
+
+Lanskap komunikasi berubah drastis karena fragmentasi media. Masalah muncul ketika pesan iklan TV berbeda dengan pesan di website, menciptakan "kebingungan merek" di benak konsumen.
+
+<bullet><b>Definition:</b> Carefully integrating and coordinating the company's many communications channels to deliver a <b>Clear, Consistent, and Compelling</b> message about the organization and its products.</bullet>
+<bullet><b>Key Concept:</b> Semua titik kontak (Brand Touchpoints) harus menyuarakan satu pesan yang sama.</bullet>
+
+<b>Shifting Model:</b> Pemasar kini berubah dari sekadar pembuat iklan menjadi Content Marketing Managers. Tugasnya adalah menciptakan, menginspirasi, dan membagikan pesan merek (shareable brand messages) di berbagai saluran:
+<bullet><b>Paid Media:</b> Media berbayar (TV, Iklan Web).</bullet>
+<bullet><b>Owned Media:</b> Media milik sendiri (Website, Akun IG Official).</bullet>
+<bullet><b>Earned Media:</b> Media sukarela (Review blogger, Word-of-Mouth).</bullet>
+<bullet><b>Shared Media:</b> Media sosial yang dibagikan konsumen (Retweet, Share).</bullet>
+
+<h2> 4. DEVELOPING EFFECTIVE MARKETING COMMUNICATION</h2>
+
+Proses ini melibatkan langkah-langkah strategis:
+
+<h3>Step 1: Identifying the Target Audience</h3>
+<bullet>Menentukan siapa penerima pesan (pembeli potensial, pengguna saat ini, penentu keputusan). Karakter audiens mendikte What, How, When, Where, dan Who will say it.</bullet>
+
+<h3>Step 2: Determining the Communication Objectives</h3>
+Pemasar harus tahu di mana posisi audiens dalam <b>Buyer-Readiness Stages</b> dan menggerakkan mereka ke tahap berikutnya:
+<bullet><b>Awareness</b> (Sadar merek itu ada).</bullet>
+<bullet><b>Knowledge</b> (Tahu fitur/fungsinya).</bullet>
+<bullet><b>Liking</b> (Suka/Positif terhadap merek).</bullet>
+<bullet><b>Preference</b> (Lebih memilih merek ini dibanding pesaing).</bullet>
+<bullet><b>Conviction</b> (Yakin ingin membeli).</bullet>
+<bullet><b>Purchase</b> (Tindakan membeli).</bullet>
+
+<h3>Step 3: Designing a Message (The AIDA Model)</h3>
+Pesan yang ideal harus mengikuti kerangka <b>AIDA</b>:
+<bullet><b>A</b>ttention: Menarik perhatian.</bullet>
+<bullet><b>I</b>nterest: Mempertahankan minat.</bullet>
+<bullet><b>D</b>esire: Membangkitkan keinginan.</bullet>
+<bullet><b>A</b>ction: Mendorong tindakan.</bullet>
+
+<b>Message Content (Isi Pesan) menggunakan 3 daya tarik:</b>
+<bullet><b>Rational Appeal:</b> Fokus pada manfaat fungsional (Kualitas, Hemat, Kinerja). <i>Contoh: Iklan Panadol meredakan sakit kepala dengan cepat.</i></bullet>
+<bullet><b>Emotional Appeal:</b> Membangkitkan emosi positif/negatif (Takut, Cinta, Humor, Bangga). <i>Contoh: Iklan Asuransi yang mengharukan tentang keluarga.</i></bullet>
+<bullet><b>Moral Appeal:</b> Fokus pada apa yang "benar" (Isu sosial). <i>Contoh: Iklan layanan masyarakat "Stop Merokok" atau "Hemat Air".</i></bullet>
+
+<h3>Step 4: Choosing Communication Channels and Media</h3>
+<bullet><b>Personal Communication Channels:</b> Dua orang atau lebih berkomunikasi langsung (Tatap muka, Telepon, Chat). Efektif karena ada personal feedback. Termasuk Word-of-Mouth dan Buzz Marketing.</bullet>
+<bullet><b>Nonpersonal Communication Channels:</b> Media tanpa kontak pribadi (Media massa, Atmosfer toko, Events).</bullet>
+
+<h3>Step 5: Selecting the Message Source</h3>
+<bullet>Dampak pesan bergantung pada kredibilitas komunikator. Sumber terpercaya (Dokter, Selebriti, Profesional) lebih persuasif.</bullet>
+
+<h2> 5. SETTING THE TOTAL PROMOTION BUDGET</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - 4 Budgeting Methods</warning>
+
+Bagian ini sangat krusial. Hafalkan perbedaan logika keempat metode ini.
+
+<bullet><b>Affordable Method:</b>
+<i>Logic: Menetapkan anggaran pada tingkat yang menurut manajemen "mampu dibayar" perusahaan (what they think they can afford).</i>
+<i>Flaw: Mengabaikan dampak promosi terhadap penjualan. Menempatkan promosi di urutan terakhir prioritas pengeluaran. Sering dipakai UMKM kecil.</i></bullet>
+
+<bullet><b>Percentage-of-Sales Method:</b>
+<i>Logic: Menetapkan anggaran sebesar persentase tertentu dari penjualan saat ini atau perkiraan penjualan (misal: 10% dari omzet).</i>
+<i>Flaw: Salah memandang penjualan sebagai penyebab promosi, padahal penjualan adalah hasil dari promosi. Jika penjualan turun, anggaran iklan malah dipotong, padahal seharusnya digenjot.</i></bullet>
+
+<bullet><b>Competitive-Parity Method:</b>
+<i>Logic: Menetapkan anggaran untuk menyamai pengeluaran pesaing (match competitors' outlays).</i>
+<i>Assumption: Pengeluaran pesaing dianggap mewakili kebijaksanaan industri. Mencegah perang promosi.</i></bullet>
+
+<bullet><b>Objective-and-Task Method (The Best/Most Logical Method):</b>
+<i>Logic: Perusahaan menetapkan anggaran berdasarkan tujuan spesifik yang ingin dicapai.</i>
+<i>Steps: (1) Mendefinisikan tujuan promosi spesifik (misal: Naikan awareness 20%). (2) Menentukan tugas-tugas yang harus dilakukan (misal: Iklan TV 50x, Iklan IG 100x). (3) Menghitung biaya dari tugas-tugas tersebut. Total biaya inilah yang menjadi anggaran.</i>
+<i>Advantage: Memaksa manajemen mengeja hubungan antara biaya yang dikeluarkan dengan hasil yang diharapkan.</i></bullet>
+
+<h2> 6. PROMOTION MIX STRATEGIES: PUSH VS PULL</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - Push vs Pull Strategy</warning>
+
+Wajib bisa membedakan arah aliran promosinya.
+
+<h3>A. Push Strategy (Strategi Dorong)</h3>
+<bullet><b>Concept:</b> Perusahaan "mendorong" produk melalui saluran pemasaran (Marketing Channels).</bullet>
+<bullet><b>Flow:</b> Producer → Retailers/Wholesalers → Consumers.</bullet>
+<bullet><b>Activity:</b> Produsen mempromosikan produk secara agresif kepada Resellers (Grosir/Ritel) agar mereka mau menyetok dan menjualnya.</bullet>
+<bullet><b>Tools:</b> Personal Selling (Salesman mendatangi toko), Trade Promotion (Diskon grosir).</bullet>
+<bullet><b>Example:</b> Perusahaan ban mobil (Dunlop/Bridgestone) jarang beriklan di TV, tapi mereka memberi insentif besar ke bengkel/toko ban agar mekanik merekomendasikan merek mereka ke pelanggan.</bullet>
+
+<h3>B. Pull Strategy (Strategi Tarik)</h3>
+<bullet><b>Concept:</b> Perusahaan menghabiskan banyak uang untuk membujuk Konsumen Akhir agar mencari produk tersebut.</bullet>
+<bullet><b>Flow:</b> Consumers → Retailers/Wholesalers → Producer.</bullet>
+<bullet><b>Activity:</b> Iklan langsung ke konsumen. Jika efektif, konsumen akan datang ke toko meminta produk itu. Toko (Retailer) kemudian akan memintanya ke Produsen.</bullet>
+<bullet><b>Tools:</b> Advertising (Iklan TV/YouTube), Consumer Sales Promotion (Voucher diskon).</bullet>
+<bullet><b>Example:</b> Unilever (Axe/Pepsodent). Anda melihat iklan Axe di TV, lalu Anda pergi ke Alfamart mencarinya. Jika tidak ada, Anda bertanya ke kasir. Alfamart "terpaksa" menyetok Axe karena permintaan Anda tinggi.</bullet>
+
+<h2> 7. SOCIALLY RESPONSIBLE MARKETING COMMUNICATION</h2>
+
+Pemasar harus sadar hukum dan etika.
+
+<h3>Advertising & Promotion:</h3>
+<bullet>Dilarang melakukan <b>False/Deceptive Advertising</b> (Iklan menipu).</bullet>
+<bullet>Dilarang <b>Bait-and-Switch</b> (Memancing konsumen dengan iklan barang murah, lalu bilang barang habis dan memaksa beli barang mahal).</bullet>
+
+<h3>Personal Selling:</h3>
+<bullet>Dilarang menyuap (<b>Bribes</b>) agen pembelian B2B.</bullet>
+<bullet>Dilarang menjelek-jelekkan (<b>Disparage</b>) pesaing dengan info palsu.</bullet>
+
+<h2> 8. CLOSING CASE: TOKOPEDIA</h2>
+
+<h3>"Impactful Marketing Campaign – Mulai Aja Dulu"</h3>
+<bullet><b>Objective:</b> Tokopedia ingin mengatasi hambatan psikologis masyarakat yang ragu memulai bisnis/mimpi.</bullet>
+<bullet><b>Strategy:</b> Pendekatan emosional (Emotional Appeal) yang menampilkan cerita sukses sederhana.</bullet>
+<bullet><b>Result:</b> Reposisi Tokopedia dari sekadar tempat belanja menjadi mitra pemberdaya (Enabler). Berhasil meningkatkan jumlah merchant (penjual) baru secara signifikan, membuktikan kekuatan komunikasi pemasaran yang strategis.</bullet>`,
+                modul3_updated: `<h1> MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
+<subtitle><b><i>(Reference: PPT Week 11 & Chapter 18)</i></b></subtitle>
+
+<h2> 1. INTRODUCTORY CASE: NORDSTROM</h2>
+
+<h3>"From Shoes to a Retail Powerhouse"</h3>
+Modul ini dibuka dengan sejarah Nordstrom, yang membuktikan bahwa keunggulan kompetitif tidak harus selalu soal harga murah.
+
+<bullet><b>The Strategy:</b> Nordstrom tidak bersaing di harga, melainkan melakukan diferensiasi ekstrem pada Customer Service.</bullet>
+<bullet><b>Core Philosophy:</b> "Taking care of customers no matter what it takes." Fokus mereka adalah Customer Lifetime Value, bukan transaksi sesaat.</bullet>
+<bullet><b>Evidence:</b> Cerita legendaris karyawan yang menghangatkan mobil pelanggan saat salju turun, atau menerima pengembalian ban mobil (padahal Nordstrom tidak jual ban). Ini membangun ikatan emosional yang sulit ditiru pesaing.</bullet>
+
+<h2> 2. COMPETITOR ANALYSIS</h2>
+
+Untuk merancang strategi pemasaran yang efektif, perusahaan harus melakukan analisis pesaing melalui tiga tahap sistematis:
+
+<h3>Step 1: Identifying Competitors</h3>
+Perusahaan harus mendefinisikan siapa pesaingnya dengan dua sudut pandang:
+
+<bullet><b>Industry Point of View:</b> Pesaing adalah perusahaan yang membuat produk atau kelas produk yang sama.
+<i>Example: Pepsi adalah pesaing Coca-Cola.</i></bullet>
+<bullet><b>Market Point of View:</b> Pesaing adalah semua perusahaan yang berusaha memuaskan kebutuhan pelanggan yang sama.
+<i>Example: Pesaing Coca-Cola bukan hanya Pepsi, tapi juga Teh Botol, jus buah, air mineral, atau bahkan minuman energi, karena sama-sama berfungsi sebagai "penghilang dahaga". Pandangan ini lebih luas dan mencegah Marketing Myopia.</i></bullet>
+
+<h3>Step 2: Assessing Competitors</h3>
+Setelah diidentifikasi, perusahaan harus menilai mereka:
+
+<bullet><b>Determining Objectives:</b> Apa yang dicari pesaing? Profitabilitas jangka pendek, pertumbuhan pangsa pasar, atau kepemimpinan teknologi?</bullet>
+<bullet><b>Identifying Strategies:</b> Masuk ke dalam Strategic Group mana mereka? (Kelompok perusahaan yang mengejar strategi yang sama di pasar sasaran tertentu).
+<i>Example: Di industri peralatan rumah tangga, GE dan Whirlpool ada di kelompok "Medium-price", sedangkan Sub-Zero dan Viking ada di kelompok "Premium/Luxury".</i></bullet>
+<bullet><b>Assessing Strengths & Weaknesses:</b> Melakukan Benchmarking (tolok ukur) untuk membandingkan produk dan proses perusahaan dengan pesaing.</bullet>
+<bullet><b>Estimating Reactions:</b> Bagaimana pesaing bereaksi jika kita menyerang (menurunkan harga/promo)?
+<i>The Laid-back Competitor: Lambat bereaksi (mungkin karena loyalitas pelanggan tinggi).</i>
+<i>The Selective Competitor: Bereaksi hanya pada serangan tertentu (misal: perang harga), tapi diam pada serangan lain (iklan).</i>
+<i>The Tiger Competitor: Bereaksi cepat dan kuat terhadap setiap serangan.</i></bullet>
+
+<h3>Step 3: Selecting Competitors to Attack and Avoid</h3>
+<bullet><b>Strong vs. Weak Competitors:</b> Menyerang pesaing lemah memang mudah, tapi hasilnya sedikit. Bersaing dengan pesaing kuat (Strong) justru menajamkan kemampuan perusahaan.</bullet>
+<bullet><b>Close vs. Distant Competitors:</b> Pesaing "Close" adalah yang paling mirip dengan kita.</bullet>
+<bullet><b>Warning:</b> Hati-hati menghancurkan pesaing dekat (Destroying close competitors). Ini bisa memaksa mereka menjual perusahaan ke raksasa yang lebih besar, atau membuat pelanggan mereka lari ke pesaing lain.</bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Blue Ocean Strategy</warning>
+
+Strategi ini sering menjadi kunci jawaban untuk inovasi pasar.
+
+<bullet><b>Definition:</b> Mencari ruang pasar yang tidak memiliki pesaing (uncontested market space) daripada bertarung di pasar yang padat.</bullet>
+<bullet><b>Red Ocean:</b> Pasar yang ada saat ini, batasannya jelas, persaingan berdarah-darah (cutthroat competition).</bullet>
+<bullet><b>Blue Ocean:</b> Menciptakan produk/jasa yang belum ada saingannya, membuat kompetisi menjadi tidak relevan.</bullet>
+<bullet><b>Example:</b> Cirque du Soleil (Menggabungkan sirkus dengan teater seni, tanpa binatang), Nintendo Wii (Menargetkan non-gamers dengan motion control).</bullet>
+
+<h2> 3. COMPETITIVE STRATEGIES (MICHAEL PORTER)</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - Porter's Basic Competitive Strategies</warning>
+
+Michael Porter menyarankan 4 strategi dasar posisi kompetitif (3 strategi menang, 1 strategi kalah):
+
+<h3>1. Overall Cost Leadership (Kepemimpinan Biaya)</h3>
+<bullet><b>Focus:</b> Perusahaan bekerja keras mencapai biaya produksi dan distribusi terendah.</bullet>
+<bullet><b>Goal:</b> Menetapkan harga lebih rendah dari pesaing untuk merebut pangsa pasar besar.</bullet>
+<bullet><b>Requirement:</b> Efisiensi tinggi, skala ekonomi besar, kontrol biaya ketat.</bullet>
+<bullet><b>Example:</b> Walmart, AirAsia, Lion Air.</bullet>
+
+<h3>2. Differentiation (Diferensiasi)</h3>
+<bullet><b>Focus:</b> Perusahaan mengkonsentrasikan usaha untuk menciptakan lini produk dan program pemasaran yang sangat unik/berbeda.</bullet>
+<bullet><b>Goal:</b> Agar dianggap superior di kelasnya, sehingga pelanggan menjadi Price Insensitive (tidak peduli harga mahal).</bullet>
+<bullet><b>Example:</b> Apple (Desain & Ekosistem), Nike (Image & Performance), Starbucks (Experience).</bullet>
+
+<h3>3. Focus (Fokus)</h3>
+<bullet><b>Focus:</b> Perusahaan memusatkan usaha pada segmen pasar yang sempit (Market Niche), baik itu kelompok pembeli tertentu, lini produk tertentu, atau wilayah geografis tertentu.</bullet>
+<bullet><b>Goal:</b> Melayani segmen kecil tersebut jauh lebih baik daripada pesaing yang melayani pasar luas.</bullet>
+<bullet><b>Example:</b> Ritz-Carlton (Fokus pada pelancong mewah top 5%), Hasselblad (Kamera khusus fotografer profesional).</bullet>
+
+<h3>4. Middle-of-the-Roaders (Strategi Gagal/Losing Strategy)</h3>
+<bullet><b>Condition:</b> Perusahaan yang mencoba menjadi segalanya bagi semua orang. Mereka tidak punya biaya terendah, tapi juga tidak punya keunikan produk yang menonjol.</bullet>
+<bullet><b>Result:</b> Mereka akan gagal dan kehilangan profitabilitas. Mereka akan "dimakan" oleh Cost Leader dari bawah dan Differentiator dari atas.</bullet>
+<bullet><b>Example:</b> Sears, Nokia (di era smartphone awal), Holiday Inn (sebelum rebranding).</bullet>
+
+<h2> 4. COMPETITIVE POSITIONS</h2>
+
+Pasar biasanya terbagi dalam proporsi 40-30-20-10. Setiap posisi memiliki strategi spesifik:
+
+<warning>[MATERI KISI-KISI RESMI] - Market Leader Strategies (40%)</warning>
+
+Pemimpin pasar (seperti Coca-Cola, McDonald's, Telkomsel) memiliki pangsa pasar terbesar.
+
+<bullet><b>Expanding Total Demand (Memperluas Total Pasar):</b>
+<i>New Users: Mencari orang yang belum pernah pakai produk. Contoh: Johnson & Johnson memasarkan sampo bayi untuk orang dewasa.</i>
+<i>New Uses: Mencari kegunaan baru. Contoh: Baking soda dipromosikan sebagai penghilang bau kulkas.</i>
+<i>More Usage: Membuat orang pakai lebih sering. Contoh: Kampanye "Sikat gigi pagi dan malam" atau Sampo "Bilas dan ulangi".</i></bullet>
+
+<bullet><b>Protecting Market Share (Melindungi Pangsa Pasar):</b>
+Melakukan Continuous Innovation. Pertahanan terbaik adalah serangan yang baik. Jangan biarkan ada celah yang bisa dimanfaatkan pesaing.
+<i>Example: P&G terus meluncurkan varian deterjen baru agar pesaing tidak bisa masuk.</i></bullet>
+
+<bullet><b>Expanding Market Share (Memperluas Pangsa Pasar):</b>
+Mengambil porsi pesaing. Profitabilitas biasanya naik seiring naiknya pangsa pasar.</bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Market Challenger Strategies (30%)</warning>
+
+Perusahaan runner-up yang agresif (seperti Pepsi, Burger King, XL Axiata).
+
+<bullet><b>Full Frontal Attack:</b> Menyerang langsung kekuatan lawan. Menandingi produk, iklan, dan harga pemimpin pasar. High risk, high reward.
+<i>Example: Pepsi meluncurkan "Pepsi Challenge" (uji rasa buta) untuk melawan Coca-Cola secara langsung.</i></bullet>
+
+<bullet><b>Indirect Attack:</b> Menyerang titik lemah pemimpin pasar atau menyerang pesaing kecil lainnya.
+<i>Example: Red Bull masuk ke pasar minuman AS bukan dengan melawan Coca-Cola di supermarket, tapi lewat bar dan event olahraga ekstrem (Niche yang diabaikan Coke).</i></bullet>
+
+<h3>Market Follower Strategies (20%)</h3>
+Perusahaan runner-up yang main aman.
+<bullet><b>Strategy:</b> Meniru pemimpin pasar (Copycat). Mereka mendapatkan keuntungan dari pasar tanpa menanggung beban biaya inovasi atau edukasi pasar yang mahal.</bullet>
+<bullet><b>Goal:</b> Profitabilitas stabil, bukan menjadi nomor satu.</bullet>
+
+<h3>Market Nicher Strategies (10%)</h3>
+Perusahaan kecil yang melayani segmen yang diabaikan.
+<bullet><b>Strategy:</b> Spesialisasi (Specialization).</bullet>
+<bullet><b>Key Concept:</b> Mengenal target pelanggan sangat dalam sehingga bisa menetapkan harga tinggi (High Margin). Sementara Mass Marketer mencapai volume besar, Nicher mencapai margin tinggi.</bullet>
+<bullet><b>Example:</b> Logitech (awalnya hanya fokus di mouse), YKK (fokus hanya di resleting).</bullet>
+
+<h2> 5. BALANCING CUSTOMER AND COMPETITOR ORIENTATIONS</h2>
+
+Perusahaan tidak boleh terjebak hanya pada satu fokus. Evolusi orientasi perusahaan:
+
+<bullet><b>Product-Oriented:</b> Hanya fokus membuat barang bagus (sedikit memperhatikan pesaing atau pelanggan).</bullet>
+<bullet><b>Customer-Centered:</b> Fokus total pada pelanggan. Bagus untuk identifikasi peluang baru, tetapi bisa lengah terhadap serangan pesaing.</bullet>
+<bullet><b>Competitor-Centered:</b> Fokus total mengawasi gerak-gerik pesaing. Perusahaan menjadi Fighter (petarung), tapi terlalu reaktif dan kehilangan visi sendiri.</bullet>
+<bullet><b>Market-Centered (The Ultimate Goal):</b> Menyeimbangkan fokus pada Pelanggan DAN Pesaing secara bersamaan.
+<i>Concept: Menonton pesaing, tapi tetap fokus memuaskan kebutuhan pelanggan.</i></bullet>
+
+<h2> 6. CLOSING CASE: AIRASIA</h2>
+
+<h3>"Cost Leadership Strategy Implementation"</h3>
+<bullet><b>Strategy:</b> AirAsia menerapkan strategi Overall Cost Leadership secara disiplin.</bullet>
+<bullet><b>Execution (No Frills):</b> Memangkas semua fitur non-esensial. Tidak ada makanan gratis, bagasi berbayar, tidak ada jembatan garbarata (jalan kaki ke pesawat).</bullet>
+<bullet><b>Operational Efficiency:</b> Menggunakan satu jenis pesawat (Single Aircraft Type - Airbus A320) untuk mengurangi biaya pelatihan pilot/mekanik dan stok suku cadang. Memaksimalkan waktu terbang dengan turnaround time (waktu parkir) yang sangat cepat (25 menit).</bullet>
+<bullet><b>Result:</b> Harga tiket sangat murah, menciptakan pasar baru (orang yang tadinya tidak mampu naik pesawat), dan mendisrupsi maskapai full-service.</bullet>`,
+                modul4_updated: `<h1> MODUL 4: THE GLOBAL MARKETPLACE</h1>
+<subtitle><b><i>(Reference: PPT Week 12 & Chapter 19)</i></b></subtitle>
+
+<h2> 1. INTRODUCTORY CASE: L'ORÉAL</h2>
+
+<h3>"Beauty for All. Beauty for Each Individual."</h3>
+L'Oréal adalah pemimpin absolut dalam industri kosmetik global.
+
+<bullet><b>The Strategy:</b> Kunci sukses mereka adalah <b>Universalisation</b>. Ini adalah strategi menyeimbangkan dua hal yang bertentangan:
+<i>Global Brand Impact: Kekuatan dan konsistensi merek global.</i>
+<i>Local Brand Responsiveness: Adaptasi mendalam terhadap kebutuhan budaya lokal.</i></bullet>
+
+<bullet><b>Execution:</b>
+<i>USA: Masuk melalui Joint Venture dengan Nestlé (1954) untuk berbagi risiko, kemudian membeli kembali sahamnya.</i>
+<i>Brazil: Mendirikan anak perusahaan (Subsidiary) sendiri agar bisa berekspansi cepat, lalu mengakuisisi merek lokal yang sudah mapan.</i>
+<i>China: Awalnya gagal karena hanya ekspor lewat agen, lalu sukses setelah memahami preferensi kulit Asia.</i></bullet>
+
+<h2> 2. GLOBAL MARKETING ENVIRONMENT</h2>
+
+Sebelum memutuskan Go Global, perusahaan harus membedah sistem perdagangan internasional.
+
+<h3>A. International Trade System</h3>
+Pemerintah negara tujuan mungkin memberlakukan hambatan perdagangan (Trade Barriers):
+
+<bullet><b>Tariffs (Tarif):</b> Pajak yang dikenakan pada barang impor (biasanya untuk melindungi industri lokal).
+<i>Impact: Harga barang impor jadi mahal di mata konsumen lokal.</i></bullet>
+<bullet><b>Quotas (Kuota):</b> Batasan jumlah fisik barang yang boleh masuk ke negara tersebut.
+<i>Impact: Membatasi suplai barang asing.</i></bullet>
+<bullet><b>Exchange Controls:</b> Pembatasan jumlah penukaran mata uang asing dan nilai tukar.</bullet>
+<bullet><b>Nontariff Trade Barriers (NTBs):</b> Hambatan non-pajak yang seringkali "halus" tapi mematikan.
+<i>Example: Standar produk yang bias (misal: "Barang harus sesuai SNI" yang prosedurnya dipersulit untuk asing), atau birokrasi yang berbelit-belit. Walmart gagal di Jerman sebagian karena regulasi lokal yang ketat.</i></bullet>
+
+<b>Fasilitator Perdagangan:</b>
+<bullet><b>WTO (World Trade Organization):</b> Polisi perdagangan dunia yang menegakkan aturan GATT.</bullet>
+<bullet><b>Free Trade Zones (Economic Communities):</b> Kelompok negara yang sepakat menghapus tarif antar sesama anggota.
+<i>Example: EU (Uni Eropa), USMCA (Ex-NAFTA: US, Mexico, Canada), ASEAN (AFTA).</i></bullet>
+
+<h3>B. Economic Environment</h3>
+Daya tarik pasar suatu negara sangat bergantung pada struktur industrinya:
+
+<bullet><b>Subsistence Economies:</b> Mayoritas penduduk bertani sederhana, ekonomi barter.
+<i>Market Potential: Sangat kecil. Hanya butuh barang pokok sederhana.</i></bullet>
+<bullet><b>Raw Material Exporting Economies:</b> Kaya sumber daya alam (minyak, tembaga, karet) tapi miskin industri manufaktur.
+<i>Market Potential: Pasar bagus untuk alat berat, truk, dan logistik. (Contoh: Chile, Arab Saudi).</i></bullet>
+<bullet><b>Emerging Economies (Industrializing):</b> Pertumbuhan manufaktur cepat, muncul kelas menengah baru.
+<i>Market Potential: Sangat besar untuk bahan mentah industri (baja/tekstil) dan barang konsumsi gaya hidup. (Contoh: BRIC - Brazil, Russia, India, China).</i></bullet>
+<bullet><b>Industrial Economies:</b> Pengekspor barang jadi dan jasa. Kelas menengahnya besar dan kaya.
+<i>Market Potential: Pasar untuk segala jenis barang konsumen kualitas tinggi. (Contoh: Jepang, AS, Jerman).</i></bullet>
+
+<h3>C. Political-Legal & Cultural Environment</h3>
+<bullet><b>Political Stability:</b> Apakah pemerintah sering ganti aturan? Apakah aset asing aman dari nasionalisasi?</bullet>
+<bullet><b>Cultural Environment:</b> Memahami norma bisnis dan perilaku konsumen.
+<i>Failure Case: Marriott pernah diblokir di China karena kuesionernya mencantumkan Tibet dan Taiwan sebagai "Negara".</i>
+<i>Success Case: IKEA di China menyesuaikan ukuran perabot untuk apartemen kecil dan menyediakan layanan antar (karena sedikit orang punya mobil besar).</i></bullet>
+
+<h2> 3. DECIDING WHICH MARKETS TO ENTER</h2>
+
+Perusahaan harus menetapkan indikator <b>Market Potential</b> sebelum masuk:
+
+<bullet><b>Demographic:</b> Ukuran populasi, tingkat pendidikan, pertumbuhan penduduk.</bullet>
+<bullet><b>Geographic:</b> Iklim (mempengaruhi produk pakaian/makanan), ukuran negara, kepadatan.</bullet>
+<bullet><b>Economic:</b> GDP per kapita, distribusi pendapatan.</bullet>
+<bullet><b>Sociocultural:</b> Bahasa, agama, gaya hidup.</bullet>
+<bullet><b>Political-Legal:</b> Prioritas nasional, stabilitas pemerintah.</bullet>
+
+<h2> 4. MARKET ENTRY STRATEGIES</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - 3 Major Entry Strategies</warning>
+
+Materi ini WAJIB HAFAL. Urutannya dari risiko terendah ke tertinggi.
+
+<h3>A. Exporting (Ekspor)</h3>
+Cara termudah untuk masuk pasar asing.
+
+<bullet><b>Indirect Exporting:</b> Bekerja lewat perantara independen (agen ekspor).
+<i>Pros: Risiko dan investasi paling kecil (tidak perlu tim sales di luar negeri).</i>
+<i>Cons: Margin keuntungan kecil, kontrol terhadap pasar rendah.</i></bullet>
+<bullet><b>Direct Exporting:</b> Perusahaan mengurus sendiri ekspornya.
+<i>Pros: Potensi untung lebih besar, belajar pasar lebih cepat.</i>
+<i>Cons: Risiko lebih tinggi.</i></bullet>
+
+<h3>B. Joint Venturing (Usaha Patungan)</h3>
+Bergabung dengan partner di negara tujuan untuk memproduksi atau memasarkan barang.
+
+<bullet><b>Licensing:</b> Menjual hak pakai merek, paten, atau proses produksi dengan bayaran royalti.
+<i>Example: Coca-Cola melisensikan pembotolan ke pabrik lokal di berbagai negara. Tokyo Disneyland adalah lisensi dari Disney ke Oriental Land Company.</i></bullet>
+
+<bullet><b>Contract Manufacturing:</b> Perusahaan mengontrak pabrik lokal untuk memproduksi barangnya.
+<i>Example: Nike atau Apple tidak punya pabrik sendiri, mereka mengontrak pabrik di Vietnam/China.</i>
+<i>Benefit: Mulai cepat, risiko aset kecil.</i></bullet>
+
+<bullet><b>Management Contracting:</b> Perusahaan menjual "keahlian manajemen", partner lokal menyediakan modal/hotel.
+<i>Example: Hilton atau Marriott. Gedung hotelnya milik investor lokal, tapi manajemen dan mereknya dipegang Hilton.</i></bullet>
+
+<bullet><b>Joint Ownership:</b> Membentuk perusahaan baru (PT) bersama investor lokal.
+<i>Reason: Seringkali karena regulasi pemerintah setempat mewajibkan kepemilikan lokal, atau butuh koneksi politik partner lokal.</i>
+<i>Example: KFC di Indonesia awalnya Joint Venture dengan Gelael.</i></bullet>
+
+<h3>C. Direct Investment (Investasi Langsung)</h3>
+Membangun fasilitas perakitan atau manufaktur sendiri 100% di luar negeri.
+
+<bullet><b>Pros:</b> Kontrol penuh, biaya tenaga kerja/bahan baku lebih murah, citra baik di negara tujuan (menciptakan lapangan kerja).</bullet>
+<bullet><b>Cons:</b> Risiko tertinggi (devaluasi mata uang, pasar memburuk, pengambilalihan aset oleh pemerintah).</bullet>
+
+<h2> 5. GLOBAL MARKETING PROGRAM (MARKETING MIX)</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - Standardized vs. Adapted</warning>
+
+Keputusan terbesar: Apakah menggunakan strategi yang sama di seluruh dunia atau menyesuaikannya?
+
+<bullet><b>Standardized Global Marketing:</b> Menggunakan strategi pemasaran (Produk, Harga, Distribusi, Promosi) yang SAMA di semua pasar.
+<i>Assumption: "Dunia makin sempit", selera konsumen makin mirip. Lebih hemat biaya (Skala Ekonomi).</i>
+<i>Example: Apple iPhone. Iklan dan produknya nyaris sama di seluruh dunia.</i></bullet>
+
+<bullet><b>Adapted Global Marketing:</b> Menyesuaikan elemen pemasaran untuk setiap target pasar internasional.
+<i>Assumption: Biaya lebih mahal, tapi diharapkan menghasilkan pangsa pasar dan return yang lebih besar.</i>
+<i>Example: McDonald's (Jual nasi di Indonesia, jual burger vegetarian di India).</i></bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Product & Promotion Strategies</warning>
+
+Ada 5 strategi adaptasi:
+
+<bullet><b>Straight Extension (Perluasan Langsung):</b>
+<i>Product: TETAP (Don't Change). Promotion: TETAP (Don't Change).</i>
+<i>Context: Jual apa adanya. Contoh: iPad, Parfum Chanel.</i></bullet>
+
+<bullet><b>Product Adaptation:</b>
+<i>Product: UBAH (Adapt). Promotion: TETAP.</i>
+<i>Context: Mengubah produk agar sesuai selera lokal atau regulasi, tapi pesan iklannya sama. Contoh: Oreo mengubah resep biskuitnya menjadi tidak terlalu manis di China, tapi slogan "diputer, dijilat, dicelup" tetap sama.</i></bullet>
+
+<bullet><b>Communication Adaptation:</b>
+<i>Product: TETAP. Promotion: UBAH.</i>
+<i>Context: Produk sama, tapi cara jualannya beda karena nilai budaya beda.</i></bullet>
+
+<bullet><b>Dual Adaptation:</b>
+<i>Product: UBAH. Promotion: UBAH.</i>
+<i>Context: Adaptasi total. Contoh: Pakaian yang ukurannya disesuaikan postur tubuh lokal, dan iklannya menggunakan model lokal dengan norma kesopanan setempat.</i></bullet>
+
+<bullet><b>Product Invention:</b>
+<i>Concept: Menciptakan produk BARU khusus untuk pasar tersebut.</i>
+<i>Example: Produsen mobil menciptakan mobil murah sederhana (low-cost simple cars) khusus untuk jalanan rusak di negara berkembang.</i></bullet>
+
+<h3>Global Pricing Strategy</h3>
+<bullet><b>Price Escalation:</b> Masalah utama ekspor. Harga produk di luar negeri bisa 2-5x lebih mahal karena akumulasi ongkos kirim, tarif impor, margin importir, dan margin grosir.
+<i>Solution: Membuat versi produk yang lebih murah/sederhana atau merakit produk di negara tujuan untuk menghindari bea masuk.</i></bullet>
+
+<h3>Whole-Channel View (Global Distribution)</h3>
+Mendesain saluran internasional itu rumit karena harus mengelola rantai utuh:
+<bullet>International Seller (Pusat).</bullet>
+<bullet>Channels between nations (Memindahkan produk ke perbatasan negara tujuan).</bullet>
+<bullet>Channels within nations (Memindahkan produk dari pelabuhan ke konsumen akhir).</bullet>
+<bullet><i>Note: Di Jepang, sistem distribusi sangat berlapis dan kompleks. Di negara berkembang, sistem distribusi seringkali tersebar dan sulit dijangkau.</i></bullet>
+
+<h2> 6. GLOBAL MARKETING ORGANIZATION</h2>
+
+Evolusi cara perusahaan mengelola bisnis internasional:
+
+<bullet><b>Export Department:</b> Hanya departemen kecil yang mengurus pengiriman barang.</bullet>
+<bullet><b>International Division:</b> Divisi terpisah yang menangani semua aktivitas internasional (bisa dibagi per Geografi atau per Produk).</bullet>
+<bullet><b>Global Organization:</b> Tidak lagi membedakan "domestik vs asing". Seluruh dunia dianggap satu pasar tanpa batas. Manajer dilatih dalam operasi global, bukan lokal.</bullet>
+
+<h2> 7. CLOSING CASE: GOJEK</h2>
+
+<h3>"Go Global with Local Adaptation"</h3>
+Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi Adapted Marketing yang sangat kuat.
+
+<bullet><b>Branding:</b> Awalnya tidak memaksakan nama "Gojek".
+<i>Vietnam: Menggunakan nama Go-Viet (warna merah, seragam beda).</i>
+<i>Thailand: Menggunakan nama GET (warna kuning).</i>
+<i>Tujuan: Agar terasa seperti merek lokal ("Local feel") dan memenangkan hati konsumen yang nasionalis.</i></bullet>
+
+<bullet><b>Service Adaptation:</b>
+<i>Di Singapura: Fokus ke layanan mobil (Go-Car) karena transportasi publik sudah bagus dan motor jarang dipakai untuk ojek.</i>
+<i>Di Vietnam: Fokus ke motor karena mirip kondisi Jakarta.</i></bullet>
+
+<bullet><b>Lesson:</b> Strategi Gojek membuktikan pentingnya "Think Globally, Act Locally". (Catatan: Belakangan Gojek menyatukan merek menjadi Gojek global untuk efisiensi aplikasi, namun strategi adaptasi layanan tetap berjalan).</bullet>`,
+                modul5_updated: `<h1> MODUL 5: SUSTAINABLE MARKETING</h1>
+<subtitle><b><i>(Reference: PPT Week 13 & Chapter 20)</i></b></subtitle>
+
+<h2> 1. INTRODUCTORY CASE: UNILEVER</h2>
+
+<h3>"Small Actions. Big Difference."</h3>
+Modul terakhir ini dibuka dengan visi besar Unilever melalui program <b>Unilever Sustainable Living Plan</b>.
+
+<bullet><b>The Vision:</b> Unilever ingin membuktikan bahwa perusahaan tidak harus memilih antara "profit" atau "planet". Mereka bisa melakukan keduanya.</bullet>
+<bullet><b>The Mission:</b> Menargetkan pertumbuhan bisnis dua kali lipat, namun secara bersamaan berkomitmen mengurangi separuh jejak lingkungan (environmental footprint) dan meningkatkan dampak sosial positif bagi 1 miliar orang.</bullet>
+<bullet><b>Implementation:</b> Mereka tidak hanya menjual produk, tetapi mengedukasi.
+<i>Example: Kampanye cuci tangan Lifebuoy untuk mencegah penyakit di negara berkembang.</i>
+<i>Example: Memastikan rantai pasok kelapa sawit diperoleh secara lestari (sustainable sourcing).</i></bullet>
+<bullet><b>Lesson:</b> Sustainability bukan beban biaya (cost), melainkan strategi inti untuk pertumbuhan jangka panjang.</bullet>
+
+<h2> 2. DEFINING SUSTAINABLE MARKETING</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - The Sustainable Marketing Matrix</warning>
+
+Pahami perbedaan konsep ini berdasarkan matriks "Needs of Consumers vs Needs of Business" (Figure 20.1). Ini sering muncul dalam ujian perbandingan konsep.
+
+<bullet><b>Marketing Concept (Konsep Pemasaran Biasa):</b>
+<i>Focus: Memenuhi kebutuhan konsumen saat ini (Now) untuk keuntungan bisnis saat ini (Now).</i>
+<i>Orientation: Jangka pendek (Short-term sales & profit).</i></bullet>
+
+<bullet><b>Societal Marketing Concept (Pemasaran Berwawasan Sosial):</b>
+<i>Focus: Memenuhi kebutuhan konsumen saat ini (Now), tetapi mempertimbangkan kesejahteraan konsumen/masyarakat di masa depan (Future).</i>
+<i>Example: Perusahaan makanan cepat saji yang mulai mengurangi garam/lemak agar konsumen tidak sakit jantung 10 tahun lagi.</i></bullet>
+
+<bullet><b>Strategic Planning Concept (Perencanaan Strategis):</b>
+<i>Focus: Memenuhi kebutuhan konsumen saat ini (Now), tetapi fokus utamanya adalah memastikan kelangsungan bisnis di masa depan (Future).</i>
+<i>Example: Perusahaan minyak berinvestasi pada energi terbarukan bukan karena peduli lingkungan, tapi karena takut minyak habis di masa depan (demi kelangsungan bisnis mereka sendiri).</i></bullet>
+
+<bullet><b>Sustainable Marketing Concept (Pemasaran Berkelanjutan):</b>
+<i>Level: Tingkatan tertinggi.</i>
+<i>Definition: Socially and environmentally responsible marketing that meets the present needs of consumers and businesses while also preserving or enhancing the ability of future generations to meet their needs. (Fokus: Future Consumers + Future Business).</i></bullet>
+
+<h2> 3. SOCIAL CRITICISMS OF MARKETING</h2>
+
+Pemasaran sering mendapat serangan kritik sosial. Kritik ini dibagi menjadi tiga dampak utama:
+
+<h3>A. Impact on Individual Consumers</h3>
+Kritikus menuduh pemasaran merugikan konsumen lewat cara:
+
+<bullet><b>High Prices (Harga Tinggi):</b>
+Harga barang dituduh mahal karena inefisiensi sistem:
+<i>High Costs of Distribution: Terlalu banyak perantara yang mengambil margin.</i>
+<i>High Advertising and Promotion Costs: Konsumen dipaksa membayar "nilai merek" (brand value), bukan fungsi produk. Contoh: Obat bermerek mahal vs obat generik murah, padahal isinya sama.</i>
+<i>Excessive Markups: Perusahaan mengambil untung terlalu besar.</i></bullet>
+
+<bullet><b>Deceptive Practices (Praktik Menipu):</b>
+<i>Deceptive Pricing: Menipu harga (misal: menaikkan harga dulu baru didiskon, atau harga grosir palsu).</i>
+<i>Deceptive Promotion: Melebih-lebihkan khasiat produk atau menutupi kekurangan lewat iklan.</i>
+<i>Deceptive Packaging: Kemasan dibuat besar tapi isinya sedikit (slack filling) untuk mengelabui mata konsumen.</i></bullet>
+
+<bullet><b>High-Pressure Selling:</b>
+Tenaga penjual memaksa konsumen membeli barang yang tidak mereka butuhkan. Sering terjadi pada penjualan asuransi, real estate, atau mobil bekas.</bullet>
+
+<bullet><b>Shoddy, Harmful, or Unsafe Products:</b>
+Keluhan tentang produk yang kualitasnya buruk, tidak aman, atau tidak memberikan manfaat yang dijanjikan.</bullet>
+
+<bullet><b>Planned Obsolescence (Keusangan Terencana):</b>
+Produsen sengaja membuat produk menjadi usang sebelum waktunya agar konsumen terpaksa membeli baru.
+<i>Example: Industri Fast Fashion (baju cepat rusak/ketinggalan tren) atau Smartphone (baterai tanam yang sulit diganti, update software yang memperlambat hp lama).</i></bullet>
+
+<bullet><b>Poor Service to Disadvantaged Consumers:</b>
+Perusahaan besar dituduh melakukan Redlining (menghindari membuka toko di daerah miskin/minoritas). Akibatnya, masyarakat miskin terpaksa belanja di toko kecil dengan harga lebih mahal.</bullet>
+
+<h3>B. Impact on Society as a Whole</h3>
+<bullet><b>False Wants and Too Much Materialism:</b> Pemasaran menciptakan budaya di mana orang dinilai dari apa yang mereka miliki, bukan siapa mereka.</bullet>
+<bullet><b>Too Few Social Goods:</b> Bisnis menjual barang pribadi (mobil) secara berlebihan tanpa memikirkan beban pada barang sosial (jalan raya macet, polusi udara).</bullet>
+<bullet><b>Cultural Pollution:</b> Indera masyarakat dikotori oleh gangguan komersial ("Commercial Noise"). Iklan ada di mana-mana mengganggu privasi.</bullet>
+
+<h3>C. Impact on Other Businesses</h3>
+<bullet><b>Acquisition of Competitors:</b> Perusahaan besar mencaplok pesaing untuk mematikan kompetisi.</bullet>
+<bullet><b>Barriers to Entry:</b> Anggaran iklan raksasa mempersulit pemain baru masuk.</bullet>
+<bullet><b>Predatory Competition:</b> Menetapkan harga di bawah modal untuk mematikan pesaing kecil (banting harga), lalu menaikkan harga kembali setelah pesaing bangkrut.</bullet>
+
+<h2> 4. CONSUMER ACTIONS TO PROMOTE SUSTAINABLE MARKETING</h2>
+
+Sebagai reaksi, muncul dua gerakan besar:
+
+<bullet><b>Consumerism:</b>
+Gerakan terorganisir dari warga negara dan pemerintah untuk memperkuat hak dan kekuatan pembeli.
+<i>Rights: Hak untuk tahu informasi produk (Ingredients label), hak keamanan, hak memilih.</i></bullet>
+
+<bullet><b>Environmentalism:</b>
+Gerakan terorganisir untuk melindungi dan meningkatkan lingkungan hidup.
+<i>Environmental Sustainability: Menghasilkan laba sambil menyelamatkan planet.</i></bullet>
+
+<warning>[MATERI KISI-KISI RESMI] - Environmental Sustainability Portfolio</warning>
+
+Perusahaan bisa memilih strategi lingkungan berdasarkan fokus Internal/Eksternal dan Hari Ini/Masa Depan:
+
+<bullet><b>Pollution Prevention (Internal - Today):</b> Menghilangkan atau mengurangi limbah sebelum diciptakan.
+<i>Example: Pabrik Nike menerapkan sistem zero-waste.</i></bullet>
+<bullet><b>Product Stewardship (External - Today):</b> Meminimalkan dampak lingkungan sepanjang siklus hidup produk (Design → Use → Disposal).
+<i>Example: Program daur ulang HP lama oleh Samsung.</i></bullet>
+<bullet><b>New Clean Technology (Internal - Tomorrow):</b> Mengembangkan kemampuan/teknologi baru untuk masa depan.
+<i>Example: Coca-Cola mengembangkan "PlantBottle" (botol plastik dari tanaman).</i></bullet>
+<bullet><b>Sustainability Vision (External - Tomorrow):</b> Panduan strategis masa depan tentang bagaimana perusahaan melayani kebutuhan dunia.</bullet>
+
+<h2> 5. BUSINESS ACTIONS TOWARD SUSTAINABLE MARKETING</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - 5 Sustainable Marketing Principles</warning>
+
+Agar perusahaan dapat bertahan jangka panjang dan etis, mereka harus mengadopsi lima prinsip ini (Wajib Hafal):
+
+<bullet><b>Consumer-Oriented Marketing:</b>
+Perusahaan harus memandang dan mengatur kegiatan pemasarannya dari sudut pandang konsumen. Ciptakan solusi nyata bagi masalah mereka, bukan sekadar jualan.</bullet>
+
+<bullet><b>Customer-Value Marketing:</b>
+Perusahaan harus menempatkan sumber dayanya pada investasi yang membangun nilai bagi pelanggan (kualitas, kenyamanan), bukan sekadar gimik promosi penjualan jangka pendek.</bullet>
+
+<bullet><b>Innovative Marketing:</b>
+Perusahaan harus terus mencari perbaikan produk dan pemasaran yang nyata (Real product and marketing improvements). Perusahaan yang berhenti berinovasi akan kehilangan pelanggannya.
+<i>Example: Samsung yang terus berinovasi di layar lipat.</i></bullet>
+
+<bullet><b>Sense-of-Mission Marketing:</b>
+Perusahaan harus mendefinisikan misinya dalam istilah sosial yang luas, bukan istilah produk yang sempit. Misi sosial memberi karyawan tujuan yang lebih jelas.
+<i>Example: Dove bukan sekadar jual sabun, tapi "Membangun kepercayaan diri wanita". Patagonia bukan sekadar jual jaket, tapi "We are in business to save our home planet".</i></bullet>
+
+<bullet><b>Societal Marketing:</b>
+Prinsip keseimbangan. Perusahaan membuat keputusan pemasaran dengan mempertimbangkan tiga hal sekaligus:
+<i>Consumers' Wants (Keinginan Konsumen).</i>
+<i>Company's Requirements (Profit Perusahaan).</i>
+<i>Consumers' and Society's Long-run Interests (Kesejahteraan Masyarakat).</i>
+<i>Example: The Body Shop (Produk bagus, Profit ada, Tanpa uji coba hewan).</i></bullet>
+
+<h2> 6. MARKETING ETHICS</h2>
+
+<bullet><b>Who guides policy?</b> Pasar bebas dan sistem hukum saja tidak cukup. Tanggung jawab ada di tangan Perusahaan dan Manajer Individu.</bullet>
+
+<b>Ethical Norms:</b>
+<bullet>Do no harm.</bullet>
+<bullet>Foster trust in the marketing system.</bullet>
+<bullet>Embrace ethical values.</bullet>
+
+<bullet><b>The Sustainable Company:</b> Perusahaan yang menciptakan nilai bagi pelanggan melalui cara-cara yang bertanggung jawab secara sosial, lingkungan, dan etika.</bullet>
+
+<h2> 7. CLOSING CASE: LEMONILO</h2>
+
+<h3>"Societal Marketing Implementation in Indonesia"</h3>
+
+<bullet><b>Context:</b> Mie instan adalah makanan favorit di Indonesia, namun sering dianggap "Guilty Pleasure" karena isu kesehatan (pengawet, MSG, gorengan).</bullet>
+<bullet><b>Dilemma:</b> Konsumen ingin makan enak, tapi takut sakit.</bullet>
+<bullet><b>Solution:</b> Lemonilo menerapkan konsep Societal Marketing.
+Mereka menciptakan mie instan yang dipanggang (bukan digoreng), tanpa pengawet buatan, dan tanpa pewarna sintetik.</bullet>
+
+<b>Analysis:</b>
+<bullet><b>Consumer:</b> Tetap dapat mie enak dan praktis.</bullet>
+<bullet><b>Company:</b> Bisnis tumbuh pesat (karena menjawab pain point pasar).</bullet>
+<bullet><b>Society:</b> Berkontribusi pada gaya hidup lebih sehat (Healthy Lifestyle Ecosystem).</bullet>`,
+                tambahan_updated: `<h1> ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
+<subtitle><b><i>(Wajib dibaca sebagai satu kesatuan dengan Modul 1-5)</i></b></subtitle>
+
+<h2> PELENGKAP MODUL 1 (Week 9 - Chapter 12)</h2>
+
+<h3>1. PUBLIC POLICY AND DISTRIBUTION DECISIONS</h3>
+Hati-hati, strategi distribusi tidak boleh sembarangan. Ada aspek hukum (Sherman Act & Clayton Act di teori aslinya) yang mengatur persaingan usaha. Pahami istilah-istilah ilegal/abu-abu ini:
+
+<bullet><b>Exclusive Dealing:</b>
+<i>Definition: Penjual menuntut dealer agar hanya menjual produknya dan dilarang menjual produk pesaing.</i>
+<i>Status: Legal selama tidak mengurangi persaingan secara substansial dan ada kesepakatan sukarela. Ilegal jika produsen besar memaksanya untuk mematikan pesaing kecil.</i>
+<i>Example: Produsen mobil mewajibkan dealernya hanya servis mobil merek tersebut (Legal demi standar mutu). Tapi jika Microsoft melarang produsen PC menginstall browser lain (Ilegal/Monopoli).</i></bullet>
+
+<bullet><b>Exclusive Territorial Agreements:</b>
+<i>Definition: Produsen membatasi wilayah jualan dealer.</i>
+<i>Status: Seringkali legal karena melindungi dealer dari kanibalisasi sesama dealer merek sama.</i></bullet>
+
+<bullet><b>Tying Agreements (Full-line Forcing):</b>
+<i>Definition: Produsen menjual merek kuat hanya jika dealer mau mengambil merek lain yang kurang laku. "Mau beli iPhone? Wajib stok casing jelek ini juga."</i>
+<i>Status: Sering dianggap Ilegal jika memaksa dealer mengambil barang yang tidak mereka inginkan.</i></bullet>
+
+<h3>2. REVERSE LOGISTICS</h3>
+Dalam SCM modern, aliran barang tidak cuma maju, tapi juga mundur.
+
+<bullet><b>Definition:</b> Process of moving goods from their typical final destination for the purpose of capturing value, or proper disposal.</bullet>
+<bullet><b>Activities:</b> Mengelola Retur Produk (pengembalian barang rusak/salah kirim), Recycling (daur ulang kemasan), Refurbishing (perbaikan ulang), dan Waste Disposal.</bullet>
+<bullet><b>Example:</b> Program tukar tambah HP lama di Samsung atau Apple. HP lama ditarik (reverse), diperbaiki, lalu dijual lagi atau didaur ulang.</bullet>
+
+<h2> PELENGKAP MODUL 2 (Week 10 - Chapter 14)</h2>
+
+<h3>1. MEASURING ADVERTISING EFFECTIVENESS</h3>
+Bagaimana cara tahu iklan kita berhasil? Manajemen harus mengevaluasi dua efek (Return on Advertising Investment):
+
+<bullet><b>Communication Effects:</b>
+<i>Apakah iklan dan media mengkomunikasikan pesan dengan baik?</i>
+<i>Metode: Pre-test (tanya konsumen sebelum iklan tayang) dan Post-test (seberapa ingat mereka setelah iklan tayang/Recall).</i></bullet>
+
+<bullet><b>Sales and Profit Effects:</b>
+<i>Apakah iklan tersebut benar-benar meningkatkan penjualan?</i>
+<i>Metode: Membandingkan penjualan masa lalu dengan pengeluaran iklan masa lalu, atau melakukan eksperimen (daerah A dikasih iklan banyak, daerah B sedikit, lihat bedanya).</i></bullet>
+
+<h3>2. CHECKLIST FOR INTEGRATING THE PROMOTION MIX</h3>
+Agar IMC berjalan sempurna, PPT menyarankan checklist manajemen berikut:
+
+<bullet><b>Analyze Trends:</b> Analisis tren internal & eksternal yang mempengaruhi kemampuan bisnis.</bullet>
+<bullet><b>Audit the Pockets:</b> Cek semua pengeluaran komunikasi di seluruh organisasi (agar tidak bocor/boros).</bullet>
+<bullet><b>Identify Touchpoints:</b> Petakan semua titik kontak pelanggan dengan merek.</bullet>
+<bullet><b>Team Planning:</b> Rencanakan komunikasi dalam tim (jangan silo/kerja sendiri-sendiri).</bullet>
+<bullet><b>Compatible Themes:</b> Ciptakan tema, nada, dan kualitas yang kompatibel di semua media.</bullet>
+<bullet><b>Appoint Responsibility:</b> Tunjuk MarCom Manager yang bertanggung jawab atas semua komunikasi persuasi perusahaan.</bullet>
+
+<h2> PELENGKAP MODUL 3 (Week 11 - Chapter 18)</h2>
+
+<h3>1. CUSTOMER VALUE ANALYSIS</h3>
+Ini adalah alat spesifik dalam tahap "Assessing Competitors".
+
+<bullet><b>Goal:</b> Menentukan manfaat apa yang dihargai target pelanggan dan bagaimana mereka memeringkat nilai penawaran kita vs pesaing.</bullet>
+
+<b>Steps (Langkah Teknis):</b>
+<bullet>Identifikasi atribut utama yang dihargai pelanggan (misal: Harga, Kecepatan, Ramah).</bullet>
+<bullet>Nilai tingkat kepentingan atribut tersebut (Mana yang paling penting?).</bullet>
+<bullet>Nilai kinerja perusahaan dan pesaing pada atribut tersebut.</bullet>
+<bullet>Bandingkan. Jika kita kalah di atribut penting → Bahaya (Wajib perbaiki). Jika kita menang di atribut tidak penting → Buang-buang uang.</bullet>
+
+<h3>2. BENEFITS OF COMPETITORS</h3>
+Pesaing tidak selamanya buruk. Menurut materi, keberadaan pesaing memberikan manfaat strategis:
+
+<bullet><b>Increase Total Demand:</b> Pesaing membantu mengedukasi pasar (iklan mereka membuat orang sadar kategori produk tersebut), sehingga total kue pasar membesar.</bullet>
+<bullet><b>Share Costs:</b> Berbagi biaya pengembangan pasar dan teknologi.</bullet>
+<bullet><b>Legitimacy:</b> Adanya pesaing membuat industri terlihat sah dan stabil.</bullet>
+<bullet><b>Serve Less Attractive Segments:</b> Pesaing bisa mengambil segmen pasar yang tidak ingin kita layani (segmen murah/rewel).</bullet>
+
+<h3>3. APPROACHES TO MARKETING STRATEGY</h3>
+Evolusi strategi pemasaran seiring kedewasaan perusahaan:
+
+<bullet><b>Entrepreneurial Marketing:</b> Dilakukan perusahaan baru. Mengandalkan intuisi, nekat, dan gerilya. (Contoh: Strategi awal Gojek).</bullet>
+<bullet><b>Formulated Marketing:</b> Saat perusahaan membesar. Mengembangkan strategi formal, aturan ketat, dan riset pasar. (Contoh: Gojek sekarang).</bullet>
+<bullet><b>Intrepreneurial Marketing:</b> Perusahaan besar yang "kaku" mencoba menghidupkan kembali jiwa kreatif/kewirausahaan di dalam internal mereka agar tidak mati inovasi.</bullet>
+
+<h2> PELENGKAP MODUL 4 (Week 12 - Chapter 19)</h2>
+
+<h3>1. GLOBAL PRICING ISSUES</h3>
+Dua masalah harga yang spesifik di pasar global (Sering keluar di soal kasus):
+
+<bullet><b>Dumping:</b>
+<i>Definition: Praktik menjual produk di pasar luar negeri dengan harga lebih murah dari biaya produksi atau lebih murah dari harga di negara asal.</i>
+<i>Goal: Mematikan pesaing lokal di negara tujuan demi merebut pangsa pasar monopoli. Praktik ini dilarang WTO.</i></bullet>
+
+<bullet><b>Transfer Pricing:</b>
+<i>Definition: Harga yang dibebankan antar cabang/divisi perusahaan yang sama di negara berbeda (misal: Google Ireland menjual lisensi ke Google Indonesia).</i>
+<i>Issue: Sering dimainkan untuk menghindari pajak (menggeser profit ke negara dengan pajak rendah).</i></bullet>
+
+<h3>2. WHOLE-CHANNEL VIEW (VISUALISASI)</h3>
+Distribusi internasional memiliki rantai yang lebih panjang.
+
+<bullet>International Seller → Channels Between Nations (Memindahkan produk ke perbatasan) → Channels Within Nations (Memindahkan produk dari pelabuhan ke konsumen) → Final User.</bullet>
+<bullet><b>Key Point:</b> Saluran "Within Nations" sering menjadi hambatan terbesar karena infrastruktur buruk atau sistem distribusi lokal yang terfragmentasi (banyak perantara kecil).</bullet>
+
+<h2> PELENGKAP MODUL 5 (Week 13 - Chapter 20)</h2>
+
+<warning>[MATERI KISI-KISI RESMI] - Societal Classification of Products</warning>
+
+Ini adalah konsep SANGAT PENTING untuk mengklasifikasikan produk berdasarkan "Kepuasan Segera" vs "Manfaat Jangka Panjang". (Sering muncul di ujian pilihan ganda/kasus).
+
+<bullet><b>Deficient Products (Produk Kurang):</b>
+<i>Tidak punya daya tarik segera, tidak punya manfaat jangka panjang.</i>
+<i>Example: Obat yang rasanya tidak enak dan tidak manjur.</i></bullet>
+
+<bullet><b>Pleasing Products (Produk Menyenangkan):</b>
+<i>Kepuasan segera TINGGI, tapi manfaat jangka panjang BURUK (bisa menyakiti).</i>
+<i>Example: Rokok, Junk Food, Minuman Keras. Enak sekarang, sakit nanti.</i></bullet>
+
+<bullet><b>Salutary Products (Produk Bermanfaat):</b>
+<i>Kepuasan segera RENDAH (tidak enak/membosankan), tapi manfaat jangka panjang TINGGI.</i>
+<i>Example: Helm pengaman, Asuransi jiwa, Sayur brokoli tanpa rasa.</i></bullet>
+
+<bullet><b>Desirable Products (Produk Yang Diinginkan/Ideal):</b>
+<i>Kepuasan segera TINGGI, manfaat jangka panjang TINGGI. (Tujuan Sustainable Marketing).</i>
+<i>Example: Makanan sehat yang lezat, Mobil listrik yang kencang dan hemat.</i></bullet>
+
+<h3>2. CRADLE-TO-CRADLE vs CRADLE-TO-GRAVE</h3>
+Istilah dalam desain produk berkelanjutan:
+
+<bullet><b>Cradle-to-Grave (Lahir ke Kubur):</b> Pola pikir lama. Bikin produk → Dipakai → Dibuang jadi sampah di TPA (Kubur).</bullet>
+<bullet><b>Cradle-to-Cradle (Lahir ke Lahir):</b> Pola pikir Sustainability. Produk didesain agar setelah rusak, komponennya bisa menjadi "nutrisi" atau bahan baku untuk produk baru. Tidak ada sampah, hanya siklus tertutup (Circular Economy).</bullet>`,
                 modul1: `<h1> MODUL 1: MARKETING CHANNELS & LOGISTICS</h1>
 <subtitle><b><i>(Chapter 12: Delivering Customer Value)</i></b></subtitle>
 
