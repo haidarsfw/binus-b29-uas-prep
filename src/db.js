@@ -839,12 +839,68 @@ export const DB = {
                 ],
             },
             kisiKisi: [
-                { topic: 'Social Media & Monitoring (Studi Kasus)', items: ['Studi kasus social media monitor performance (sosmed pengontrol dan pengawasan)'] },
-                { topic: 'Planning & Controlling', items: ['Planning controlling link (POAC)'] },
-                { topic: 'Motivation', items: ['Maslow Hierarchy (Hierarki Kebutuhan Maslow)'] },
-                { topic: 'Strategic Management (Manajemen Strategis)', items: ['Six steps strategic management process (6 langkah proses manajemen strategis)', 'Strategic Evaluation', 'Strategic Management (konsep umum)'] },
-                { topic: 'Entrepreneurship (Kewirausahaan)', items: ['Small business vs entrepreneurship - kunci perbedaan', 'Entrepreneurship (konsep umum)'] },
-                { topic: 'Risk Management (Manajemen Risiko)', items: ['Risk identification', 'Risk management'] },
+                {
+                    topic: 'A. STUDI KASUS (Total Bobot: 40%) - INFO',
+                    items: ['Bagian ini terdiri dari 2 soal studi kasus.']
+                },
+                {
+                    topic: '1. Social Media & Monitoring (Bobot: 20%)',
+                    subtitle: 'Topik: Social Media as a Control Tool',
+                    items: [
+                        'Studi kasus mengenai monitor performance (sosmed pengontrol dan pengawasan).',
+                        'How social media helps to monitor performance and gather feedback.',
+                        'Cakupan: LO2 & LO4.'
+                    ]
+                },
+                {
+                    topic: '2. Planning & Controlling (Bobot: 20%)',
+                    subtitle: 'Topik: Planning Controlling Link',
+                    items: [
+                        'Fungsi manajemen POLC (Planning, Organizing, Leading, Controlling).',
+                        'Hubungan perencanaan dan pengawasan (Planning controlling link / POAC).',
+                        'Cakupan: LO2 & LO4.'
+                    ]
+                },
+                {
+                    topic: 'B. ESSAY (Total Bobot: 60%) - INFO',
+                    items: ['Bagian ini terdiri dari soal-soal essay teori.']
+                },
+                {
+                    topic: '3. Motivation (Bobot: 25%)',
+                    subtitle: 'Topik: Theory Maslow Hierarchy of Needs',
+                    items: [
+                        'Hierarki Kebutuhan Maslow (Maslow Hierarchy).',
+                        'Cakupan: LO1 & LO2.'
+                    ]
+                },
+                {
+                    topic: '4. Strategic Management (Bobot: 20%)',
+                    subtitle: 'Topik: Strategic Management Process',
+                    items: [
+                        'Six steps strategic management process (6 langkah proses manajemen strategis).',
+                        'Strategic Evaluation (Evaluasi Strategis).',
+                        'Strategic Management (Konsep umum).',
+                        'Sumber: Sesi 25-26.'
+                    ]
+                },
+                {
+                    topic: '5. Entrepreneurship (Bobot: 15%)',
+                    subtitle: 'Topik: Kewirausahaan & Skala Usaha',
+                    items: [
+                        'Small business vs entrepreneurship - kunci perbedaan.',
+                        'Usaha besar vs usaha kecil.',
+                        'Entrepreneurship (Konsep umum).',
+                        'Sumber: Sesi 23-24. Cakupan: LO3 & LO4.'
+                    ]
+                },
+                {
+                    topic: '6. Risk Management (Materi Tambahan)',
+                    subtitle: 'Topik: Manajemen Risiko',
+                    items: [
+                        'Risk identification (Identifikasi risiko).',
+                        'Risk management (Pengelolaan risiko).'
+                    ]
+                }
             ],
             kisiKisiNote: 'Format Ujian: 5 soal esai semua analisis (Catatan dari Dosen LE86)',
             kisiKisiTambahan: [
