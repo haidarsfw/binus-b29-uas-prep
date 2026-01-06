@@ -840,73 +840,98 @@ export const DB = {
             },
             kisiKisi: [
                 {
-                    topic: 'A. STUDI KASUS (Total Bobot: 40%)',
+                    topic: 'A. TOPIK STUDI KASUS (Wajib Baca Berita/Info)',
                     isHeader: true,
-                    items: ['Info: Bagian ini terdiri dari 2 soal studi kasus.']
+                    items: ['Soal meminta analisis kasus nyata menggunakan teori.']
                 },
                 {
                     customNumber: '1',
-                    topic: 'Social Media & Monitoring (Bobot: 20%)',
-                    subtitle: 'Topik: Social Media as a Control Tool',
+                    topic: 'Bencana Alam (Sumatra)',
+                    subtitle: 'Fokus: Berita bencana Sumatra (awal Desember) & cara penanggulangannya.',
                     items: [
-                        'Studi kasus mengenai monitor performance (sosmed pengontrol dan pengawasan).',
-                        'How social media helps to monitor performance and gather feedback.',
-                        'Cakupan: LO2 & LO4.'
+                        'Analisis: Hubungkan dengan teori manajemen (pengorganisasian/penanggulangan risiko).'
                     ]
                 },
                 {
                     customNumber: '2',
-                    topic: 'Planning & Controlling (Bobot: 20%)',
-                    subtitle: 'Topik: Planning Controlling Link',
+                    topic: 'Starbucks (Risk & Strategy)',
+                    subtitle: 'Strategy Building: Strategi membangun bisnis.',
                     items: [
-                        'Fungsi manajemen POLC (Planning, Organizing, Leading, Controlling).',
-                        'Hubungan perencanaan dan pengawasan (Planning controlling link).',
-                        'Cakupan: LO2 & LO4.'
+                        'Risk Management: Kerangka kerja (framework), identifikasi, dan manajemen risiko secara umum.',
+                        'Mitigation & Fail-Safe: Cara mitigasi (pengurangan risiko) & protokol keamanan saat kegagalan (fail-safe protocols).'
                     ]
                 },
                 {
-                    topic: 'B. ESSAY (Total Bobot: 60%)',
+                    customNumber: '3',
+                    topic: 'Mixue (Strategic Evaluation)',
+                    subtitle: 'Induk Bisnis: Analisis induk perusahaan.',
+                    items: [
+                        'Evaluation: Tahapan Evaluasi Strategis 1 & 2.',
+                        'Performance Gap: Analisis celah kinerja antara strategi vs realisasi.',
+                        'Digital: Aspek digital dalam strategi Mixue.'
+                    ]
+                },
+                {
+                    topic: 'B. TEORI & KONSEP (Untuk Menjawab Esai/Kasus)',
                     isHeader: true,
-                    items: ['Info: Bagian ini terdiri dari soal-soal essay teori.']
+                    items: []
+                },
+                {
+                    customNumber: '1',
+                    topic: 'Social Media & Monitoring (Bobot 20%)',
+                    subtitle: 'Teori: Social Media as a Control Tool.',
+                    items: [
+                        'Poin Kunci:',
+                        'Studi kasus memonitor performa (monitor performance).',
+                        'Mengumpulkan umpan balik (gather feedback).'
+                    ]
+                },
+                {
+                    customNumber: '2',
+                    topic: 'Planning & Controlling (Bobot 20%)',
+                    subtitle: 'Teori: Planning Controlling Link.',
+                    items: [
+                        'Poin Kunci:',
+                        'Fungsi Manajemen: POLC (Planning, Organizing, Leading, Controlling) atau POAC.',
+                        'Hubungan erat antara perencanaan dan pengawasan.'
+                    ]
                 },
                 {
                     customNumber: '3',
-                    topic: 'Motivation (Bobot: 25%)',
-                    subtitle: 'Topik: Theory Maslow Hierarchy of Needs',
+                    topic: 'Motivation (Bobot 25%)',
+                    subtitle: 'Teori: Maslow Hierarchy of Needs.',
                     items: [
-                        'Hierarki Kebutuhan Maslow (Maslow Hierarchy).',
-                        'Cakupan: LO1 & LO2.'
+                        'Poin Kunci: Penjelasan tingkatan kebutuhan dalam teori Maslow.'
                     ]
                 },
                 {
                     customNumber: '4',
-                    topic: 'Strategic Management (Bobot: 20%)',
-                    subtitle: 'Topik: Strategic Management Process',
+                    topic: 'Strategic Management (Bobot 20%)',
+                    subtitle: 'Teori: Strategic Management Process.',
                     items: [
-                        'Six steps strategic management process (6 langkah proses manajemen strategis).',
-                        'Strategic Evaluation.',
-                        'Strategic Management (konsep umum).',
-                        'Sumber: Sesi 25-26.'
+                        'Poin Kunci:',
+                        '6 Langkah Proses Manajemen Strategis (Six steps).',
+                        'Evaluasi Strategis (Strategic Evaluation).',
+                        'Strategi Global Korporasi (Corporate Global Strategy).'
                     ]
                 },
                 {
                     customNumber: '5',
-                    topic: 'Entrepreneurship (Bobot: 15%)',
-                    subtitle: 'Topik: Kewirausahaan & Skala Usaha',
+                    topic: 'Entrepreneurship (Bobot 15%)',
+                    subtitle: 'Teori: Entrepreneurship vs Small Business.',
                     items: [
-                        'Small business vs entrepreneurship (kunci perbedaan).',
-                        'Usaha besar vs usaha kecil.',
-                        'Entrepreneurship (konsep umum).',
-                        'Sumber: Sesi 23-24. Cakupan: LO3 & LO4.'
+                        'Poin Kunci:',
+                        'Perbedaan kunci: Usaha Kecil vs Kewirausahaan.',
+                        'Perbedaan: Usaha Besar vs Usaha Kecil.',
+                        'Hubungan Entrepreneurship dengan UMKM (MSME).'
                     ]
                 },
                 {
                     customNumber: '6',
-                    topic: 'Risk Management (Materi Tambahan)',
-                    subtitle: 'Topik: Manajemen Risiko',
+                    topic: 'Risk Management (Tambahan)',
+                    subtitle: 'Poin Kunci:',
                     items: [
-                        'Risk identification.',
-                        'Risk management.'
+                        'Identifikasi Risiko (Risk Identification) & Pengelolaan Risiko (Risk Management).'
                     ]
                 }
             ],
