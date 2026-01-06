@@ -5,339 +5,400 @@
 
 export const RANGKUMAN_CONTENT = {
         intro: {
-                modul1: `<h1> MODUL 1: KEPEMIMPINAN (<i>LEADERSHIP</i>)</h1>
+                modul1_updated: `<h1>MODUL 1: KEPEMIMPINAN (LEADERSHIP)</h1>
 <subtitle><b><i>(Mencakup Session 15 & 16)</i></b></subtitle>
 
-Bagian ini membahas evolusi teori kepemimpinan, mulai dari pendekatan klasik yang melihat "sifat bawaan" hingga pendekatan kontemporer yang menekankan pada situasi dan hubungan antar manusia.
+Modul ini membahas evolusi teori kepemimpinan, dari Early Leadership Theories (Sifat & Perilaku) menuju Contingency Theories (Situasional) dan Contemporary Views (Modern).
 
-<h2> Session 15: Leadership Theory (Teori Kepemimpinan Klasik)</h2>
+<h2>Session 15: Leadership Theory (Teori Kepemimpinan Klasik)</h2>
 
-<h3>1. Definisi Pemimpin vs. Kepemimpinan</h3>
-Dalam konteks manajemen, kita membedakan antara subjek dan prosesnya. <b>Pemimpin (<i>Leader</i>)</b> adalah individu yang memiliki kemampuan untuk memengaruhi orang lain dan memegang otoritas manajerial. Sedangkan <b>Kepemimpinan (<i>Leadership</i>)</b> adalah proses memengaruhi sekelompok orang untuk mencapai tujuan bersama. Seorang manajer idealnya adalah seorang pemimpin, namun tidak semua pemimpin memegang jabatan manajer formal.
+<h3>1. Leader vs. Leadership</h3>
+Sering tertukar, namun memiliki definisi akademis yang berbeda:
+<bullet><b>Leader (Pemimpin):</b> Someone who can influence others and who has managerial authority. (Subjek/Orang).</bullet>
+<bullet><b>Leadership (Kepemimpinan):</b> It is a process of influencing a group to achieve goals. (Proses/Tindakan).</bullet>
+<bullet><i>Note: Idealnya, semua manajer harus menjadi leader. Namun, tidak semua leader harus memegang jabatan manajer formal (misal: Informal Leader dalam kelompok sosial).</i></bullet>
 
-<h3>2. Teori Sifat (<i>Trait Theories</i>)</h3>
-Pada era 1920-an hingga 1930-an, penelitian berfokus pada identifikasi karakteristik fisik atau kepribadian yang membedakan pemimpin dari bukan pemimpin. Hipotesis awalnya adalah "pemimpin itu dilahirkan, bukan dibentuk". Peneliti mencari atribut seperti tinggi badan, penampilan, kelas sosial, hingga stabilitas emosi.
+<h3>2. Early Leadership Theories: Trait Theories (Teori Sifat)</h3>
+<b>Era:</b> 1920s - 1930s
+<b>Konsep Dasar:</b> Teori ini berfokus pada isolasi karakteristik (traits) yang membedakan pemimpin dari bukan pemimpin. Hipotesis awalnya: "Leaders are born, not made" (Pemimpin itu dilahirkan).
 
-<bullet><b>Kesimpulan:</b> Teori ini dianggap kurang valid karena tidak ditemukan satu set sifat universal yang menjamin seseorang menjadi pemimpin sukses. Seseorang bisa saja memiliki inteligensi tinggi dan kepercayaan diri (sifat pemimpin), namun gagal memimpin karena tidak mampu menyesuaikan diri dengan situasi.</bullet>
+<b>8 Traits Associated with Leadership:</b>
+<bullet><b>Drive:</b> Usaha tinggi, ambisius, energi tak terbatas.</bullet>
+<bullet><b>Desire to Lead:</b> Keinginan kuat untuk memengaruhi orang lain.</bullet>
+<bullet><b>Honesty and Integrity:</b> Membangun kepercayaan lewat kebenaran.</bullet>
+<bullet><b>Self-confidence:</b> Keyakinan pada penilaian sendiri.</bullet>
+<bullet><b>Intelligence:</b> Kemampuan mengolah informasi kompleks.</bullet>
+<bullet><b>Job-relevant Knowledge:</b> Paham teknis industri/perusahaan.</bullet>
+<bullet><b>Extraversion:</b> Enerjik, aktif bersosialisasi.</bullet>
+<bullet><b>Proneness to Guilt:</b> Rasa tanggung jawab moral yang tinggi terhadap dampak keputusan mereka.</bullet>
 
-<h3>3. Teori Perilaku (<i>Behavioral Theories</i>)</h3>
-Karena kegagalan teori sifat, fokus penelitian beralih pada "apa yang dilakukan pemimpin".
+<warning>⚠️ Critical Analysis (Kelemahan Teori): Teori ini dianggap gagal/tidak lengkap karena hanya berfokus pada orangnya, dan mengabaikan Situasi. Seseorang dengan sifat pemimpin bisa sukses di situasi perang, tapi gagal total di situasi damai/bisnis kreatif.</warning>
 
-<b>Studi University of Iowa:</b> Mengidentifikasi tiga gaya kepemimpinan utama:
-<bullet><b>Gaya Autokratis:</b> Pemimpin memusatkan wewenang, mendikte metode kerja, dan membatasi partisipasi bawahan.</bullet>
-<bullet><b>Gaya Demokratis:</b> Pemimpin melibatkan karyawan dalam pengambilan keputusan dan mendelegasikan wewenang. Studi menunjukkan gaya ini seringkali menghasilkan kepuasan kerja yang lebih tinggi.</bullet>
-<bullet><b>Gaya Laissez-faire:</b> Pemimpin memberikan kebebasan total kepada kelompok untuk membuat keputusan. Gaya ini seringkali tidak efektif karena kurangnya arahan.</bullet>
+<h3>3. Behavioral Theories (Teori Perilaku)</h3>
+<b>Era:</b> 1940s - 1960s
+Karena Trait Theories gagal menjelaskan kesuksesan pemimpin, fokus beralih ke: "Apa yang dilakukan pemimpin?" (Perilaku). Jika perilaku bisa dipelajari, maka "Leaders can be trained" (Pemimpin bisa dibentuk).
 
-<b>Studi Ohio State & University of Michigan:</b> Menemukan dua dimensi utama perilaku pemimpin:
-<bullet><b>Orientasi Tugas (<i>Initiating Structure</i>):</b> Sejauh mana pemimpin mendefinisikan peran, menetapkan target, dan mengorganisir pekerjaan.</bullet>
-<bullet><b>Orientasi Hubungan (<i>Consideration</i>):</b> Sejauh mana pemimpin membangun hubungan kerja yang didasarkan pada kepercayaan timbal balik dan menghargai perasaan bawahan.</bullet>
+<b>A. University of Iowa Studies (Kurt Lewin)</b>
+Mengidentifikasi 3 Gaya Kepemimpinan (Leadership Styles):
+<bullet><b>Autocratic Style:</b> Memusatkan wewenang (centralize authority), mendikte metode kerja, membatasi partisipasi. <i>Real World Example: Chef di dapur restoran Michelin star yang sibuk.</i></bullet>
+<bullet><b>Democratic Style:</b> Melibatkan karyawan dalam keputusan (involve employees), mendelegasikan wewenang, menggunakan umpan balik. <i>Hasil Riset: Gaya ini menghasilkan kualitas kerja dan kepuasan karyawan yang lebih tinggi.</i></bullet>
+<bullet><b>Laissez-faire Style:</b> Memberikan kebebasan total (complete freedom) kepada grup. <i>Hasil Riset: Seringkali tidak efektif karena kurangnya arahan.</i></bullet>
 
-<h3>4. Teori Kontingensi: Situational Leadership Theory (SLT)</h3>
-Paul Hersey dan Ken Blanchard mengembangkan teori yang sangat relevan di dunia kerja saat ini. Teori ini berargumen bahwa kepemimpinan yang efektif bergantung pada penyesuaian gaya pemimpin dengan <b>Kesiapan (<i>Readiness</i>)</b> pengikut. Kesiapan didefinisikan sebagai sejauh mana seseorang memiliki kemampuan (<i>ability</i>) dan kemauan (<i>willingness</i>) untuk menyelesaikan tugas.
+<b>B. The Ohio State Studies</b>
+Mengidentifikasi 2 Dimensi Perilaku (Independent Dimensions):
+<bullet><b>Initiating Structure (Orientasi Tugas):</b> Sejauh mana pemimpin mendefinisikan peran, menetapkan target, dan mengorganisir kerja. Fokus pada "Getting the job done".</bullet>
+<bullet><b>Consideration (Orientasi Hubungan):</b> Sejauh mana pemimpin membangun hubungan kerja berdasarkan kepercayaan (trust) dan menghargai perasaan bawahan. Fokus pada "Employee's comfort".</bullet>
+<bullet><i>Hasil Riset: Pemimpin tipe High-High (Tinggi di kedua dimensi) seringkali menghasilkan kinerja dan kepuasan tertinggi, namun tidak selalu (tergantung situasi).</i></bullet>
 
-<bullet><b>R1 (Tidak Mampu & Tidak Mau):</b> Membutuhkan gaya <b>Telling</b>. Pemimpin memberikan instruksi spesifik dan pengawasan ketat.</bullet>
-<bullet><b>R2 (Tidak Mampu tapi Mau):</b> Membutuhkan gaya <b>Selling</b>. Pemimpin menjelaskan keputusan dan memberikan kesempatan bertanya untuk menjaga motivasi yang sudah ada.</bullet>
-<bullet><b>R3 (Mampu tapi Tidak Mau/Ragu):</b> Membutuhkan gaya <b>Participating</b>. Pemimpin berbagi ide dan memfasilitasi pengambilan keputusan untuk meningkatkan kepercayaan diri pengikut.</bullet>
-<bullet><b>R4 (Mampu & Mau):</b> Membutuhkan gaya <b>Delegating</b>. Pemimpin menyerahkan tanggung jawab keputusan dan pelaksanaan sepenuhnya kepada pengikut.</bullet>
+<b>C. University of Michigan Studies</b>
+<bullet><b>Production Oriented:</b> Menekankan pada aspek teknis pekerjaan (Serupa dengan Initiating Structure).</bullet>
+<bullet><b>Employee Oriented:</b> Menekankan pada hubungan antarmanusia (Serupa dengan Consideration).</bullet>
+<bullet><i>Kesimpulan: Studi ini menyimpulkan bahwa pemimpin yang Employee Oriented lebih unggul dalam produktivitas dan kepuasan kerja.</i></bullet>
 
-<h2> Session 16: Being Effective Leader (Teori Kepemimpinan Modern)</h2>
+<b>D. The Managerial Grid (Blake & Mouton)</b>
+Sebuah kerangka grafis (matrix 9x9) untuk menilai gaya kepemimpinan:
+<bullet><b>Country Club Management (1,9):</b> Fokus tinggi pada orang, rendah pada produksi.</bullet>
+<bullet><b>Task Management (9,1):</b> Fokus tinggi pada produksi, rendah pada orang.</bullet>
+<bullet><b>Impoverished Management (1,1):</b> Rendah di keduanya.</bullet>
+<bullet><b>Middle of the Road (5,5):</b> Penyeimbang (Kompromi).</bullet>
+<bullet><b>Team Management (9,9):</b> Tinggi di keduanya. Dianggap gaya paling ideal.</bullet>
 
-<h3>1. Path-Goal Theory</h3>
-Teori ini menyatakan bahwa tugas utama seorang pemimpin adalah membantu pengikut mencapai tujuan mereka dan memberikan arahan atau dukungan yang diperlukan untuk memastikan tujuan tersebut sejalan dengan tujuan organisasi. Pemimpin bertindak sebagai "pembuka jalan" dengan membersihkan hambatan yang dihadapi bawahan.
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 4. Situational Leadership Theory (SLT) - Hersey & Blanchard</warning>
+
+Ini adalah Contingency Theory yang paling sering keluar di ujian/kasus. Logikanya: Pemimpin yang efektif harus mengubah gayanya (Style) menyesuaikan dengan tingkat kesiapan (Readiness) pengikutnya.
+
+<b>Definisi Readiness (Kesiapan):</b> Kombinasi antara Ability (Kemampuan/Skill) dan Willingness (Kemauan/Motivasi).
+
+<b>PANDUAN HAFALAN MATRIKS (WAJIB INGAT PASANGANNYA):</b>
+<bullet><b>R1: Unable & Unwilling</b> → <b>S1: Telling</b> (High Task - Low Relationship). Tindakan: Berikan instruksi spesifik, awasi ketat.</bullet>
+<bullet><b>R2: Unable but Willing</b> → <b>S2: Selling</b> (High Task - High Relationship). Tindakan: Jelaskan keputusan, berikan arahan tapi beri kesempatan bertanya.</bullet>
+<bullet><b>R3: Able but Unwilling</b> → <b>S3: Participating</b> (Low Task - High Relationship). Tindakan: Ajak diskusi untuk membangkitkan motivasi.</bullet>
+<bullet><b>R4: Able & Willing</b> → <b>S4: Delegating</b> (Low Task - Low Relationship). Tindakan: Serahkan tanggung jawab sepenuhnya.</bullet>
+
+<h2>Session 16: Being Effective Leader (Teori Modern)</h2>
+
+<h3>1. Path-Goal Theory (Robert House)</h3>
+Tugas pemimpin adalah membantu pengikut mencapai tujuan mereka (goals) dan menyediakan arah (path) serta dukungan.
+<bullet><b>Directive Leader:</b> Memberi jadwal dan panduan spesifik. Cocok jika tugas ambigu.</bullet>
+<bullet><b>Supportive Leader:</b> Menunjukkan kepedulian pada kebutuhan bawahan. Cocok jika tugas stres.</bullet>
+<bullet><b>Participative Leader:</b> Konsultasi dengan bawahan. Cocok jika bawahan memiliki Locus of Control Internal.</bullet>
+<bullet><b>Achievement Oriented:</b> Menetapkan target menantang dan yakin bawahan bisa mencapainya.</bullet>
 
 <h3>2. Leader-Member Exchange (LMX) Theory</h3>
-Teori LMX menyoroti fakta bahwa pemimpin seringkali memperlakukan bawahan secara berbeda, menciptakan dua kelompok:
-<bullet><b>In-Group:</b> Kelompok yang dipercaya, mendapatkan perhatian lebih, dan sering mendapat tugas istimewa.</bullet>
-<bullet><b>Out-Group:</b> Kelompok yang hanya menjalankan tugas sesuai deskripsi pekerjaan formal dan memiliki hubungan terbatas dengan pemimpin. Penelitian menunjukkan bahwa anggota In-Group cenderung memiliki kinerja yang lebih tinggi dan tingkat pengunduran diri yang lebih rendah.</bullet>
+Pemimpin tidak memperlakukan semua bawahan sama rata. Karena tekanan waktu, pemimpin membentuk hubungan khusus:
+<bullet><b>In-Group:</b> Orang kepercayaan pemimpin. Mendapat perhatian lebih, tugas menantang, previlese khusus. Impact: Kinerja lebih tinggi, turnover rendah.</bullet>
+<bullet><b>Out-Group:</b> Hubungan sebatas deskripsi kerja formal. Komunikasi formal, hanya menjalankan instruksi.</bullet>
 
-<h3>3. Lima Sumber Kekuasaan (<i>Sources of Power</i>)</h3>
-Seorang pemimpin mampu memengaruhi orang lain karena memiliki basis kekuasaan berikut:
-<bullet><b>Legitimate Power:</b> Kekuasaan yang berasal dari posisi formal dalam hierarki organisasi.</bullet>
-<bullet><b>Coercive Power:</b> Kekuasaan yang didasarkan pada rasa takut atau kemampuan pemimpin untuk menghukum (misalnya: memecat atau menunda promosi).</bullet>
-<bullet><b>Reward Power:</b> Kekuasaan untuk memberikan penghargaan atau insentif yang bernilai bagi orang lain.</bullet>
-<bullet><b>Expert Power:</b> Kekuasaan yang didasarkan pada keahlian, keterampilan khusus, atau pengetahuan mendalam yang dimiliki seseorang.</bullet>
-<bullet><b>Referent Power:</b> Kekuasaan yang muncul karena orang lain mengagumi atau ingin meniru karakteristik pribadi pemimpin tersebut (karisma).</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. Five Sources of Power (French & Raven)</warning>
 
-<h3>4. Membangun Kepercayaan (<i>Trust</i>)</h3>
-Kepercayaan adalah fondasi utama kepemimpinan. Terdapat lima dimensi kunci kepercayaan:
-<bullet><b>Integritas:</b> Kejujuran dan kebenaran.</bullet>
-<bullet><b>Kompetensi:</b> Pengetahuan dan keterampilan teknis serta interpersonal.</bullet>
-<bullet><b>Konsistensi:</b> Keandalan, prediktabilitas, dan penilaian yang baik dalam menangani situasi.</bullet>
-<bullet><b>Loyalitas:</b> Kesediaan untuk melindungi dan menyelamatkan wajah orang lain.</bullet>
-<bullet><b>Keterbukaan:</b> Kesediaan untuk berbagi ide dan informasi secara bebas.</bullet>`,
+<bullet><b>Legitimate Power:</b> Kekuasaan karena posisi/jabatan formal dalam hierarki. <i>Example: Jenderal → Prajurit.</i></bullet>
+<bullet><b>Coercive Power:</b> Kekuasaan berbasis rasa takut. Kemampuan untuk menghukum. <i>Example: Ancaman PHK, SP.</i></bullet>
+<bullet><b>Reward Power:</b> Kemampuan memberikan sesuatu yang bernilai. <i>Example: Bonus, promosi, pujian.</i></bullet>
+<bullet><b>Expert Power:</b> Kekuasaan berbasis keahlian/skill khusus. <i>Example: Dokter spesialis di RS.</i></bullet>
+<bullet><b>Referent Power:</b> Kekuasaan karena karakteristik pribadi yang dikagumi (karisma). <i>Example: Soekarno, Steve Jobs.</i></bullet>
 
-                modul2: `<h1>️ MODUL 2: PENGENDALIAN (<i>CONTROLLING</i>)</h1>
+<h3>4. Building Trust (Membangun Kepercayaan)</h3>
+<b>5 Dimensi Kepercayaan:</b>
+<bullet><b>Integrity:</b> Kejujuran dan kebenaran. Paling kritis.</bullet>
+<bullet><b>Competence:</b> Pengetahuan teknis dan interpersonal.</bullet>
+<bullet><b>Consistency:</b> Keandalan, prediktabilitas.</bullet>
+<bullet><b>Loyalty:</b> Kesediaan melindungi bawahan.</bullet>
+<bullet><b>Openness:</b> Mau berbagi ide dan informasi secara bebas.</bullet>
+
+<b>Tipe Kepercayaan:</b>
+<bullet><b>Deterrence-based Trust:</b> Percaya karena takut konsekuensi (hubungan baru).</bullet>
+<bullet><b>Knowledge-based Trust:</b> Percaya karena sudah kenal lama (sebagian besar hubungan kerja).</bullet>
+<bullet><b>Identification-based Trust:</b> Level tertinggi. Percaya karena ikatan emosional dan nilai sama.</bullet>`,
+
+                modul2_updated: `<h1>MODUL 2: PENGENDALIAN (CONTROLLING)</h1>
 <subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
 
-Modul ini sangat krusial karena membahas bagaimana manajer memastikan bahwa rencana yang telah disusun benar-benar terlaksana dengan baik. Bagian ini memiliki banyak poin yang tercatat dalam kisi-kisi ujian.
+Modul ini membahas fungsi manajemen terakhir namun paling krusial: memastikan rencana menjadi realita. Tanpa Controlling, Planning hanyalah harapan kosong.
 
-<h2>️ Session 17: Monitoring and Controlling I</h2>
+<h2>Session 17: Monitoring and Controlling I</h2>
 
-<warning>️ [Keluar UAS: Definisi & Pentingnya Controlling] Berdasarkan Rangkuman Mentor Hal. 2, poin-poin di bawah ini wajib dipahami secara mendalam.</warning>
+<h3>1. What is Controlling? (Definisi & Konsep)</h3>
+<b>Definition:</b> The process of monitoring, comparing, and correcting work performance.
+<b>Tujuan:</b> Memastikan aktivitas dilakukan sesuai rencana dan tujuan organisasi tercapai.
 
-<h3>1. Definisi Pengendalian (<i>Controlling</i>)</h3>
-<b>Pengendalian</b> adalah proses manajemen yang melibatkan pemantauan (<i>monitoring</i>), perbandingan (<i>comparing</i>), dan perbaikan (<i>correcting</i>) kinerja kerja. Tanpa pengendalian, manajemen tidak dapat mengetahui apakah tujuan organisasi tercapai atau tidak. Ini adalah mata rantai terakhir dalam fungsi manajemen.
+<h3>2. Why is Control Important?</h3>
+<bullet><b>Planning-Controlling Link:</b> Planning menetapkan tujuan, Controlling adalah satu-satunya cara mengetahui apakah tujuan tercapai. <i>Analogi: Planning = menetapkan rute Google Maps, Controlling = melihat posisi GPS.</i></bullet>
+<bullet><b>Empowering Employees:</b> Sistem kontrol yang efektif memungkinkan manajer mendelegasikan wewenang tanpa takut kehilangan kendali.</bullet>
+<bullet><b>Protecting the Workplace:</b> Melindungi organisasi dari ancaman internal/eksternal seperti bencana alam, skandal keuangan, kekerasan di tempat kerja.</bullet>
 
-<h3>2. Mengapa Pengendalian Sangat Penting?</h3>
-Terdapat tiga alasan fundamental mengapa pengendalian wajib dilakukan:
-<bullet><b>Hubungan dengan Perencanaan (<i>Planning Link</i>):</b> Rencana terbaik sekalipun tidak akan berarti tanpa pengawasan. Pengendalian memberikan umpan balik (<i>feedback</i>) kepada manajer apakah rencana tersebut realistis dan apakah strategi yang digunakan efektif.</bullet>
-<bullet><b>Pemberdayaan Karyawan (<i>Empowering Employees</i>):</b> Banyak manajer takut mendelegasikan wewenang karena takut karyawan membuat kesalahan. Dengan sistem pengendalian yang efektif, manajer dapat memberikan otonomi kepada karyawan karena mereka memiliki mekanisme untuk memantau hasil kerja tanpa harus mengawasi setiap detik.</bullet>
-<bullet><b>Melindungi Tempat Kerja (<i>Protecting the Workplace</i>):</b> Pengendalian berfungsi untuk melindungi aset organisasi dari ancaman internal maupun eksternal, seperti pencurian, pemborosan, kekerasan di tempat kerja, hingga memastikan kepatuhan terhadap standar keselamatan kerja (K3).</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. The Control Process</warning>
 
-<h3>3. Proses Pengendalian (<i>The Control Process</i>)</h3>
-Proses ini terdiri dari tiga langkah sistematis:
+<b>Step 1: Measuring Actual Performance (Mengukur)</b>
+Sources of Information:
+<bullet><b>Personal Observation / MBWA:</b> Manajer turun langsung ke lapangan. <i>Pros: Info unfiltered. Cons: Bias subjektif, memakan waktu.</i></bullet>
+<bullet><b>Statistical Reports:</b> Grafik, diagram, data numerik. <i>Pros: Mudah visualisasi tren. Cons: Mengabaikan faktor kualitatif.</i></bullet>
+<bullet><b>Oral Reports:</b> Rapat, diskusi one-on-one. <i>Pros: Cepat, ada feedback langsung. Cons: Sulit didokumentasikan.</i></bullet>
+<bullet><b>Written Reports:</b> Laporan resmi. <i>Pros: Lengkap, akurat, terdokumentasi. Cons: Lambat penyiapannya.</i></bullet>
 
-<b>Langkah 1: Mengukur Kinerja Aktual (<i>Measuring</i>)</b>
-Manajer harus mendapatkan data kinerja yang akurat. Metode pengukuran bisa berupa observasi langsung (<i>Management by Walking Around</i>), laporan statistik, laporan lisan, atau laporan tertulis. Yang diukur bisa berupa kepuasan pelanggan, efisiensi biaya, atau tingkat absensi.
+<b>Step 2: Comparing Actual Performance Against Standard (Membandingkan)</b>
+<bullet><b>Range of Variation:</b> Penyimpangan (deviation) itu wajar, asalkan masih dalam batas toleransi (acceptable range).</bullet>
+<bullet><i>Example: Target 100 unit. Range toleransi +/- 5 unit. Jual 102 = Acceptable. Jual 90 = Significant Deviation.</i></bullet>
 
-<b>Langkah 2: Membandingkan (<i>Comparing</i>)</b>
-Langkah ini membandingkan kinerja aktual dengan standar yang ditetapkan. Penting untuk menentukan <b>Kisaran Variasi (<i>Range of Variation</i>)</b> yang dapat diterima. Penyimpangan kecil mungkin wajar, namun penyimpangan signifikan memerlukan perhatian khusus.
-<bullet><b><i>Contoh:</i></b> Jika target penjualan 100 unit dan realisasi 95 unit, mungkin masih dalam batas toleransi. Namun jika realisasi hanya 60 unit, ini adalah penyimpangan serius.</bullet>
+<b>Step 3: Taking Managerial Action (Mengambil Tindakan)</b>
+<bullet><b>"Do Nothing":</b> Jika penyimpangan masih dalam Range of Variation.</bullet>
+<bullet><b>Correct Actual Performance:</b> <i>Immediate Corrective Action</i> (padamkan masalah saat itu) vs <i>Basic Corrective Action</i> (telusuri akar masalah).</bullet>
+<bullet><b>Revise the Standard:</b> Dilakukan jika standar tidak realistis, bukan kinerja yang buruk.</bullet>
 
-<b>Langkah 3: Mengambil Tindakan Manajerial (<i>Taking Managerial Action</i>)</b>
-Ada tiga opsi tindakan:
-<bullet><b>Do Nothing:</b> Jika kinerja sesuai dengan standar.</bullet>
-<bullet><b>Correct Performance:</b> Memperbaiki kinerja. Bisa berupa tindakan korektif segera (<i>immediate</i>) untuk memadamkan masalah saat itu juga, atau tindakan korektif mendasar (<i>basic</i>) yang menganalisis akar penyebab masalah agar tidak terulang.</bullet>
-<bullet><b>Revise Standard:</b> Jika kinerja secara konsisten melampaui target, mungkin targetnya terlalu rendah. Sebaliknya, jika target tidak pernah tercapai meski usaha sudah maksimal, mungkin targetnya yang tidak realistis dan perlu diturunkan.</bullet>
+<h2>Session 18: Monitoring and Controlling II</h2>
 
-<h2>️ Session 18: Monitoring and Controlling II</h2>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 1. Organizational Performance Measures</warning>
 
-<warning>️ [Keluar UAS: Alat Ukur Organisasi & Studi Kasus] Bagian ini sering muncul dalam analisis kasus terkait efektivitas perusahaan.</warning>
+<b>A. Financial Controls (Rasio Keuangan)</b>
+<bullet><b>Liquidity Ratios:</b> Mengukur kemampuan membayar utang jangka pendek. <i>Example: Current Ratio.</i></bullet>
+<bullet><b>Leverage Ratios:</b> Mengukur penggunaan utang untuk membiayai aset. <i>Example: Debt to Assets Ratio.</i></bullet>
+<bullet><b>Activity Ratios:</b> Mengukur efisiensi penggunaan aset. <i>Example: Inventory Turnover.</i></bullet>
+<bullet><b>Profitability Ratios:</b> Mengukur efisiensi menghasilkan laba. <i>Example: ROI.</i></bullet>
 
-<h3>1. Kendali Keuangan (<i>Financial Controls</i>)</h3>
-Setiap bisnis bertujuan mencari keuntungan, sehingga rasio keuangan adalah alat kontrol utama.
-<bullet><b>Rasio Likuiditas (<i>Liquidity</i>):</b> Mengukur kemampuan perusahaan membayar utang jangka pendek. <i>Contoh: Current Ratio.</i></bullet>
-<bullet><b>Rasio Leverage:</b> Mengukur penggunaan utang untuk membiayai aset perusahaan. <i>Contoh: Debt to Assets Ratio.</i></bullet>
-<bullet><b>Rasio Aktivitas:</b> Mengukur efisiensi perusahaan dalam menggunakan asetnya. <i>Contoh: Inventory Turnover.</i></bullet>
-<bullet><b>Rasio Profitabilitas:</b> Mengukur seberapa efektif perusahaan menghasilkan laba. <i>Contoh: Return on Investment (ROI).</i></bullet>
+<b>B. The Balanced Scorecard</b>
+Metode modern yang menilai kinerja dari 4 perspektif seimbang:
+<bullet><b>Financial:</b> How do we look to shareholders?</bullet>
+<bullet><b>Customer:</b> How do customers see us?</bullet>
+<bullet><b>Internal Business Processes:</b> What must we excel at?</bullet>
+<bullet><b>Learning and Growth:</b> Can we continue to improve?</bullet>
 
-<h3>2. Balanced Scorecard</h3>
-Pendekatan tradisional hanya melihat kinerja keuangan. <b>Balanced Scorecard</b> memperbaiki ini dengan mengevaluasi perusahaan dari empat perspektif yang seimbang:
-<bullet><b>Keuangan:</b> Bagaimana pandangan pemegang saham terhadap kinerja kita?</bullet>
-<bullet><b>Pelanggan:</b> Bagaimana pelanggan melihat kita?</bullet>
-<bullet><b>Proses Internal:</b> Pada proses bisnis apa kita harus unggul?</bullet>
-<bullet><b>Pembelajaran & Pertumbuhan (<i>People/Innovation</i>):</b> Bisakah kita terus meningkatkan nilai dan menciptakan inovasi?</bullet>
+<h3>2. Benchmarking of Best Practices</h3>
+<b>Definisi:</b> Proses mencari standar terbaik (best practices) dari kompetitor atau non-kompetitor.
+<bullet><i>Example: RS Siloam bisa benchmarking ke Hotel Bintang 5 untuk proses check-in yang efisien.</i></bullet>
 
-<h3>3. Tolok Ukur (<i>Benchmarking</i>)</h3>
-<b>Benchmarking</b> adalah proses pencarian praktik terbaik (<i>best practices</i>) dari pesaing atau non-pesaing yang menghasilkan kinerja unggul. Manajemen mengidentifikasi standar terbaik di industri, lalu membandingkan proses internal mereka dengan standar tersebut untuk menemukan celah perbaikan.
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. Contemporary Issues in Control</warning>
 
-<h3>4. Isu Pengendalian Kontemporer</h3>
-Manajer masa kini menghadapi tantangan pengendalian yang unik:
-<bullet><b>Perbedaan Lintas Budaya:</b> Metode pengendalian di perusahaan multinasional harus disesuaikan. Di beberapa negara, pengawasan langsung lebih efektif, sementara di negara maju, pengendalian berbasis teknologi lebih umum.</bullet>
-<bullet><b>Privasi Tempat Kerja:</b> Perusahaan berhak memantau aktivitas karyawan (email, internet) untuk mencegah penyalahgunaan sumber daya dan kebocoran data, namun hal ini sering memicu perdebatan mengenai privasi.</bullet>
-<bullet><b>Pencurian Karyawan (<i>Employee Theft</i>):</b> Didefinisikan sebagai pengambilan properti perusahaan tanpa izin. Ini tidak hanya berupa uang, tetapi juga barang kantor, perlengkapan, hingga "pencurian waktu" (bermain media sosial saat jam kerja). Solusinya melibatkan sistem keamanan yang lebih baik dan penanaman budaya kejujuran.</bullet>`,
-                modul3: `<h1> MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO</h1>
+<bullet><b>Workplace Privacy:</b> Manajer memantau email, telepon, komputer untuk mencegah lost productivity dan kebocoran rahasia.</bullet>
+<bullet><b>Employee Theft:</b> Pengambilan properti perusahaan tanpa izin. Solusi: Pre-employment screening, CCTV, budaya jujur.</bullet>
+<bullet><b>Workplace Violence:</b> Kekerasan di tempat kerja. Control: EAP, Zero Tolerance policy.</bullet>
+
+<h3>4. Types of Discipline Problems</h3>
+<bullet><b>Attendance:</b> Absenteism, tardiness, penyalahgunaan izin sakit.</bullet>
+<bullet><b>On-the-Job Behaviors:</b> Mabuk saat kerja, gagal mencapai target, tidur saat jam kerja.</bullet>
+<bullet><b>Dishonesty:</b> Mencuri, memalsukan dokumen/CV.</bullet>
+<bullet><b>Outside Activities:</b> Bekerja untuk kompetitor, aktivitas kriminal.</bullet>`,
+
+                modul3_updated: `<h1>MODUL 3: KEWIRAUSAHAAN & MANAJEMEN RISIKO</h1>
 <subtitle><b><i>(Mencakup Session 19, 20, 21, & 22)</i></b></subtitle>
 
-Modul ini menjawab pertanyaan fundamental: Bagaimana mengubah sebuah ide menjadi bisnis yang legal dan layak? Bagaimana mengelola risiko di dalamnya? Dan bagaimana memotivasi orang-orang yang bekerja di dalamnya?
+Modul ini menjawab pertanyaan fundamental: Bagaimana mengubah ide menjadi bisnis yang legal? Bagaimana mengelola risiko? Dan bagaimana memotivasi tim?
 
-<h2>️ Session 19: Identifying Risk (Identifikasi Risiko & Kewirausahaan)</h2>
+<h2>Session 19: Identifying Risk & Entrepreneurship</h2>
 
-<warning>️ [Keluar UAS: Entrepreneurship & Legal Forms] Topik ini adalah pondasi utama kisi-kisi "Entrepreneurship" dan "Identification".</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 1. Entrepreneurship vs. Small Business</warning>
 
-<h3>1. Perbedaan Small Business vs. Entrepreneurship</h3>
-Meskipun sering dianggap sama, kedua istilah ini memiliki pola pikir yang berbeda secara fundamental:
-<bullet><b>Usaha Kecil (<i>Small Business</i>):</b> Organisasi yang dimiliki dan dikelola secara independen. Pemilik usaha kecil cenderung melihat risiko sebagai ancaman. Tujuan utama mereka biasanya adalah stabilitas pendapatan dan "menciptakan lapangan kerja untuk diri sendiri" (misalnya: membuka toko kelontong atau binatu keluarga).</bullet>
-<bullet><b>Kewirausahaan (<i>Entrepreneurship</i>):</b> Seorang entrepreneur melihat risiko sebagai peluang. Fokus mereka adalah inovasi dan pertumbuhan (<i>growth</i>). Mereka tidak sekadar berdagang, tetapi berusaha mengubah tatanan pasar atau menciptakan nilai baru yang belum pernah ada sebelumnya.</bullet>
+<bullet><b>Small Business:</b> Bisnis yang dimiliki & dikelola independen, tidak mendominasi pasar, tidak menekankan inovasi. <i>Goal: Stable sales, profits. Risk = Ancaman. Example: Toko kelontong, laundry.</i></bullet>
+<bullet><b>Entrepreneurship:</b> Proses mengejar peluang melalui inovasi, tanpa memperhatikan sumber daya saat ini. <i>Goal: Innovation, rapid growth. Risk = Peluang. Example: Nadiem Makarim + Gojek.</i></bullet>
 
-<h3>2. Proses Kewirausahaan</h3>
-Perjalanan seorang entrepreneur tidak terjadi secara acak, melainkan melalui tahapan sistematis:
-<bullet><b>Eksplorasi Konteks:</b> Memahami situasi pasar saat ini.</bullet>
-<bullet><b>Identifikasi Peluang:</b> Mencari celah atau masalah yang belum terselesaikan.</bullet>
-<bullet><b>Memulai Usaha (<i>Start the Venture</i>):</b> Tahap eksekusi, termasuk mengurus legalitas dan operasional.</bullet>
-<bullet><b>Mengelola Usaha (<i>Manage the Venture</i>):</b> Fase pertumbuhan dan keberlanjutan.</bullet>
+<h3>2. The Entrepreneurial Process</h3>
+<bullet>Explore the Entrepreneurial Context</bullet>
+<bullet>Identify Opportunities</bullet>
+<bullet>Start the Venture</bullet>
+<bullet>Manage the Venture</bullet>
 
-<h3>3. Studi Kelayakan (<i>Feasibility Study</i>)</h3>
-Sebelum uang diinvestasikan, ide harus diuji kelayakannya. Analisis ini mencakup:
-<bullet><b>Kompetitor:</b> Siapa yang sudah bermain di pasar ini? Apa kelebihan dan kekurangan produk mereka? Kita harus menawarkan sesuatu yang berbeda (<i>differentiation</i>).</bullet>
-<bullet><b>Pembiayaan:</b> Dari mana modal berasal? Apakah dari dana pribadi (<i>bootstrapping</i>), <b>Angel Investor</b> (individu kaya yang berinvestasi di tahap awal), atau <b>Venture Capital</b> (perusahaan investasi profesional).</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. Legal Forms of Organization</warning>
 
-<h3>4. Bentuk Kepemilikan Bisnis (<i>Legal Forms of Organization</i>)</h3>
-<warning>️ [Keluar UAS: Hafalkan Kelebihan & Kekurangan Tiap Bentuk] Pemilihan badan hukum sangat krusial karena menentukan beban pajak dan tanggung jawab hukum pemilik.</warning>
+<b>A. Sole Proprietorship (Perusahaan Perseorangan)</b>
+<bullet><b>Pros:</b> Mudah & murah didirikan, kontrol total, pajak sekali.</bullet>
+<bullet><b>Cons:</b> <u>Unlimited Personal Liability</u> - Harta pribadi bisa disita jika bisnis bangkrut.</bullet>
 
-<b>Perusahaan Perseorangan (<i>Sole Proprietorship</i>):</b>
-<bullet><b>Konsep:</b> Bisnis dimiliki satu orang.</bullet>
-<bullet><b>Kelebihan:</b> Paling mudah didirikan, biaya rendah, kontrol penuh di tangan satu orang.</bullet>
-<bullet><b>Kekurangan Utama:</b> <b>Tanggung Jawab Tidak Terbatas (<i>Unlimited Liability</i>)</b>. Artinya, hukum tidak memisahkan harta bisnis dan harta pribadi. Jika bisnis bangkrut dan berutang miliaran, rumah dan mobil pribadi pemilik bisa disita bank.</bullet>
+<b>B. Partnership (Persekutuan)</b>
+<bullet><b>General Partnership:</b> Semua mitra Unlimited Liability.</bullet>
+<bullet><b>Limited Partnership:</b> Mitra pasif dengan Limited Liability tapi tidak boleh ikut manajemen.</bullet>
 
-<b>Persekutuan (<i>Partnership</i>):</b>
-<bullet><b>Konsep:</b> Dimiliki dua orang atau lebih.</bullet>
-<bullet><b>Kelebihan:</b> Pengumpulan modal lebih mudah dibanding perseorangan, adanya kombinasi keahlian (misal: satu jago teknis, satu jago marketing).</bullet>
-<bullet><b>Kekurangan:</b> Potensi konflik antar mitra sangat tinggi. Pada <i>General Partnership</i>, semua mitra juga menanggung <i>unlimited liability</i>.</bullet>
+<b>C. Corporation / C-Corp (Perseroan Terbatas)</b>
+<bullet><b>Pros:</b> <u>Limited Liability</u> - Harta pribadi pemegang saham AMAN.</bullet>
+<bullet><b>Cons:</b> Biaya mahal, Double Taxation (pajak perusahaan + pajak dividen).</bullet>
 
-<b>Korporasi / Perseroan Terbatas (<i>Corporation/C-Corp</i>):</b>
-<bullet><b>Konsep:</b> Badan hukum yang terpisah dari pemiliknya.</bullet>
-<bullet><b>Kelebihan Utama:</b> <b>Tanggung Jawab Terbatas (<i>Limited Liability</i>)</b>. Pemegang saham hanya bertanggung jawab sebesar modal yang disetor. Harta pribadi aman.</bullet>
-<bullet><b>Kekurangan:</b> Biaya pendirian mahal, regulasi rumit, dan terkena <b>Pajak Ganda (<i>Double Taxation</i>)</b>—perusahaan dipajaki atas laba, dan pemegang saham dipajaki lagi atas dividen yang diterima.</bullet>
+<b>D. Limited Liability Company (LLC)</b>
+<bullet>Hybrid: Limited Liability seperti Corporation, tapi pajak fleksibel seperti Partnership.</bullet>
 
-<b>Limited Liability Company (LLC):</b>
-<bullet><b>Konsep:</b> Bentuk hybrid yang mencoba mengambil kelebihan Partnership (pajak fleksibel) dan Corporation (perlindungan hukum).</bullet>
+<h3>4. Feasibility Study & Business Plan</h3>
+Struktur standar Business Plan:
+<bullet>1. Executive Summary (Dibuat terakhir, taruh depan)</bullet>
+<bullet>2. Company Description</bullet>
+<bullet>3. Industry Analysis</bullet>
+<bullet>4. Management Team</bullet>
+<bullet>5. Service/Product Operation</bullet>
+<bullet>6. Marketing Strategy</bullet>
+<bullet>7. Financial Plan</bullet>
 
-<h2>️ Session 20: Evaluating I (Evaluasi Ide & Risiko)</h2>
+<h2>Session 20: Evaluating I (Evaluasi Risiko & Peluang)</h2>
 
-<warning>️ [Keluar UAS: Strategic Evaluation & Sources of Opportunity]</warning>
+<h3>1. Risk Perception</h3>
+<bullet><b>Risk Avoider:</b> Fokus pada sisi negatif (loss). Mencari keamanan, status quo.</bullet>
+<bullet><b>Risk Seeker:</b> Fokus pada sisi positif (gain). Melihat ketidakpastian sebagai peluang.</bullet>
 
-<h3>1. Persepsi Risiko (<i>Risk Perception</i>)</h3>
-Dalam mengevaluasi ide bisnis, sikap pengambil keputusan terhadap risiko sangat menentukan:
-<bullet><b>Risk Avoider (Penghindar Risiko):</b> Cenderung fokus pada sisi negatif dan kemungkinan kegagalan. Mereka mencari keamanan dan meminimalkan perubahan.</bullet>
-<bullet><b>Risk Seeker (Pencari Risiko):</b> Fokus pada potensi keuntungan positif. Mereka melihat ketidakpastian sebagai ladang cuan.</bullet>
-<bullet><b>Kunci Manajemen:</b> Bukan menghindari risiko sepenuhnya, tetapi mengelola risiko tersebut (<b>Calculated Risk</b>).</bullet>
+<h3>2. Sources of Opportunity (Peter Drucker)</h3>
+<bullet><b>The Unexpected:</b> Sukses/gagal yang tak diduga. <i>Example: Viagra awalnya obat jantung.</i></bullet>
+<bullet><b>The Incongruous:</b> Ketidakcocokan antara "seharusnya" vs "realita".</bullet>
+<bullet><b>The Process Need:</b> Penemuan karena "kepepet". <i>Example: Waze/Google Maps.</i></bullet>
+<bullet><b>Industry/Market Structures:</b> Perubahan struktur pasar. <i>Example: Netflix mematikan Blockbuster.</i></bullet>
 
-<h3>2. Sumber Peluang Bisnis (Peter Drucker)</h3>
-Dari mana datangnya ide bisnis brilian? Peter Drucker merumuskan beberapa sumber utama:
-<bullet><b>The Unexpected:</b> Sukses atau gagal yang tidak diduga. <i>Contoh: Post-it Note ditemukan karena kegagalan menciptakan lem super kuat.</i></bullet>
-<bullet><b>The Incongruous:</b> Ketidakcocokan antara "apa yang seharusnya" dengan realita. <i>Contoh: Layanan streaming muncul karena ketidaknyamanan menyewa DVD fisik.</i></bullet>
-<bullet><b>Demographics:</b> Perubahan struktur penduduk. <i>Contoh: Populasi menua membuka peluang bisnis kesehatan lansia.</i></bullet>
-<bullet><b>Changes in Perception:</b> Perubahan cara pandang masyarakat. <i>Contoh: Gaya hidup sehat kini dianggap keren, memicu bisnis katering diet.</i></bullet>
+<h2>Session 21: Risk Management (Politik Organisasi)</h2>
 
-<h2>️ Session 21: Risk Management (Manajemen Risiko & Politik Organisasi)</h2>
+<h3>1. The Reality of Organizational Politics</h3>
+Organisasi itu Politis karena <b>Resource Scarcity</b> - Anggaran, jabatan, fasilitas terbatas.
 
-<warning>️ [Keluar UAS: Risk Management] Sesuai kisi-kisi, bagian ini membahas sisi internal manajemen risiko, yaitu konflik manusia.</warning>
+<h3>2. Political Strategies</h3>
+<bullet><b>Networking:</b> Bangun aliansi. Informasi mengalir di jalur informal.</bullet>
+<bullet><b>Avoid "Tainted" Members:</b> Jauhi orang yang performanya buruk.</bullet>
+<bullet><b>Support Your Boss:</b> Buat atasan sukses, maka Anda akan ikut terangkat.</bullet>
 
-<h3>1. Realita Politik Organisasi</h3>
-Banyak mahasiswa berpikir dunia kerja itu ideal: siapa yang pintar, dia yang naik jabatan. Faktanya, organisasi adalah entitas politis. Mengapa? Karena adanya <b>Potensi Konflik atas Sumber Daya</b>.
-<bullet>Anggaran terbatas, posisi jabatan terbatas, dan fasilitas terbatas.</bullet>
-<bullet>Keputusan alokasi sumber daya ini seringkali ambigu dan subjektif. Di sinilah perilaku politik masuk untuk memengaruhi keputusan tersebut.</bullet>
+<h2>Session 22: Evaluating II (Teori Motivasi)</h2>
 
-<h3>2. Strategi Bertahan dalam Politik Kantor</h3>
-Untuk sukses (dan memitigasi risiko karir), seorang profesional harus cerdas berpolitik:
-<bullet><b>Networking:</b> Bangun aliansi dengan orang-orang berpengaruh, baik atasan, rekan sejawat, maupun bawahan. Informasi seringkali mengalir lewat jalur informal ini.</bullet>
-<bullet><b>Hindari "Tainted Members":</b> Jangan terlalu dekat dengan orang yang punya reputasi buruk atau kinerja rendah. Asosiasi dengan mereka bisa merusak citra profesional Anda.</bullet>
-<bullet><b>Dukung Atasan (<i>Support Your Boss</i>):</b> Karir Anda seringkali bergantung pada rekomendasi atasan. Bantulah mereka sukses, jangan menjelekkan mereka di belakang. Jika atasan sukses, biasanya timnya juga akan terbawa naik.</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI - HIGH PRIORITY] Teori Motivasi</warning>
 
-<h2> Session 22: Evaluating II (Teori Motivasi)</h2>
+<h3>1. Maslow's Hierarchy of Needs</h3>
+<bullet><b>Physiological:</b> Fisik (Gaji pokok, AC kantor).</bullet>
+<bullet><b>Safety:</b> Rasa aman (Kontrak permanen, asuransi).</bullet>
+<bullet><b>Social:</b> Diterima teman (Tim solid, gathering).</bullet>
+<bullet><b>Esteem:</b> Dihargai (Jabatan, pujian, penghargaan).</bullet>
+<bullet><b>Self-Actualization:</b> Pengembangan diri (Tantangan baru, beasiswa S2).</bullet>
 
-<warning>️ [Keluar UAS: Teori Motivasi untuk Evaluasi SDM] Materi ini sering digunakan untuk menganalisis studi kasus: "Mengapa kinerja karyawan X menurun?"</warning>
+<h3>2. Herzberg's Two-Factor Theory</h3>
+"Lawan dari kepuasan (Satisfaction) BUKAN ketidakpuasan (Dissatisfaction)."
+<bullet><b>Hygiene Factors (Ekstrinsik):</b> Gaji, kebijakan, kondisi kantor. Jika jelek = Tidak Puas. Jika bagus = Netral (belum tentu termotivasi).</bullet>
+<bullet><b>Motivators (Intrinsik):</b> Prestasi, pengakuan, tanggung jawab. Ini yang membuat PUAS & TERMOTIVASI.</bullet>
 
-<h3>1. Teori Hierarki Kebutuhan Maslow</h3>
-Manusia termotivasi berdasarkan tingkatan kebutuhan. Kita tidak akan peduli pada kebutuhan tinggi jika kebutuhan dasar belum terpenuhi.
-<bullet><b>Fisiologis:</b> Makan, minum, tempat tinggal.</bullet>
-<bullet><b>Keamanan (<i>Safety</i>):</b> Rasa aman dari PHK, asuransi kesehatan.</bullet>
-<bullet><b>Sosial:</b> Rasa diterima oleh rekan kerja, persahabatan.</bullet>
-<bullet><b>Penghargaan (<i>Esteem</i>):</b> Jabatan, status, pengakuan prestasi.</bullet>
-<bullet><b>Aktualisasi Diri:</b> Pengembangan potensi maksimal diri.</bullet>
+<h3>3. Equity Theory (Teori Keadilan)</h3>
+Karyawan selalu membandingkan rasio Input/Output dirinya dengan orang lain.
+<bullet><b>Under-rewarded Inequity:</b> Kerja lebih keras tapi gaji sama/kecil → Reaksi: malas, minta naik gaji, resign.</bullet>
 
-<h3>2. Teori Dua Faktor Herzberg (Sangat Penting!)</h3>
-Herzberg mematahkan anggapan bahwa "lawan dari kepuasan adalah ketidakpuasan". Menurutnya, ada dua dimensi terpisah:
-<bullet><b>Faktor Higiene (<i>Hygiene Factors</i>):</b> Faktor ekstrinsik (gaji, kondisi kerja, kebijakan perusahaan).</bullet>
-<bullet><b>Unik:</b> Jika faktor ini jelek, karyawan tidak puas. Tapi jika faktor ini bagus, karyawan hanya "tidak kecewa" (netral), belum tentu termotivasi bekerja keras.</bullet>
-<bullet><b>Faktor Motivator:</b> Faktor intrinsik (prestasi, tanggung jawab, pekerjaan itu sendiri).</bullet>
-<bullet><b>Unik:</b> Inilah yang benar-benar membuat karyawan semangat memberikan kinerja ekstra.</bullet>
+<h3>4. Expectancy Theory (Vroom)</h3>
+<b>Motivation = Expectancy x Instrumentality x Valence</b>
+<bullet><b>Expectancy:</b> "Kalau berusaha keras, PASTI BISA capai target?"</bullet>
+<bullet><b>Instrumentality:</b> "Kalau target tercapai, PASTI DAPAT bonus?"</bullet>
+<bullet><b>Valence:</b> "Apakah bonusnya MENARIK buat aku?"</bullet>`,
 
-<h3>3. Teori Keadilan (<i>Equity Theory</i>)</h3>
-Karyawan selalu berhitung dan membandingkan. Rumusnya: <b>(Input Saya : Output Saya) vs (Input Orang Lain : Output Orang Lain)</b>.
-<bullet><b>Input:</b> Kerja keras, lembur, skill.</bullet>
-<bullet><b>Output:</b> Gaji, bonus, pujian.</bullet>
-<bullet>Jika karyawan merasa dia bekerja lebih keras dari si A, tapi gajinya sama atau lebih kecil, dia akan merasa tidak adil. Responnya bisa bermacam-macam: malas bekerja, sering absen, atau resign.</bullet>
-
-<h3>4. Teori Harapan (<i>Expectancy Theory</i>)</h3>
-Seorang karyawan akan termotivasi jika dia percaya pada tiga hal berturut-turut:
-<bullet><b>Expectancy:</b> "Kalau aku berusaha keras, aku PASTI BISA mencapai target." (Keyakinan pada kemampuan diri).</bullet>
-<bullet><b>Instrumentality:</b> "Kalau target tercapai, perusahaan PASTI kasih bonus." (Keyakinan pada sistem reward).</bullet>
-<bullet><b>Valence:</b> "Bonusnya menarik buat aku." (Ketertarikan pada nilai hadiah).</bullet>
-<bullet><b>Aplikasi:</b> Manajer harus memastikan target realistis, janji ditepati, dan hadiahnya relevan.</bullet>`,
-                modul4: `<h1> MODUL 4: STRATEGI & PRAKTIK MANAJEMEN</h1>
+                modul4_updated: `<h1>MODUL 4: STRATEGI & PRAKTIK MANAJEMEN</h1>
 <subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
 
-Jika Modul 1 bicara soal "Orang" (<i>Leadership</i>) dan Modul 2 bicara soal "Risiko" (<i>Risk</i>), maka Modul 4 ini bicara soal "Arah" (<i>Strategy</i>). Bagaimana kita membawa kapal besar bernama perusahaan ini menuju tujuan di tengah badai persaingan global?
+Jika Modul 1 bicara "Orang" (Leadership), Modul 2 bicara "Risiko" (Risk), maka Modul 4 bicara "Arah" (Strategy). Bagaimana membawa perusahaan memenangkan persaingan global?
 
-<h2> Session 25: Management Practice (Isu Global & Studi Kasus)</h2>
+<h2>Session 25: Management Practice (Isu Global & Rantai Nilai)</h2>
 
-Pada sesi ini, kita melihat penerapan teori manajemen dalam dunia nyata, khususnya menghadapi tantangan ekonomi global dan standar operasional perusahaan kelas dunia.
+<h3>1. Global Sourcing Strategies</h3>
+<bullet><b>Outsourcing:</b> Memindahkan aktivitas non-inti ke pihak eksternal. Focus: "Who does the work?" <i>Example: Bank BCA pakai PT ISS untuk kebersihan.</i></bullet>
+<bullet><b>Offshoring:</b> Memindahkan lokasi operasional ke negara lain. Focus: "Where is the work done?" <i>Example: Apple produksi iPhone di China (Foxconn).</i></bullet>
 
-<h3>1. Dinamika Ekonomi Global: Outsourcing vs Offshoring</h3>
-Dalam upaya efisiensi, perusahaan sering memindahkan pekerjaan ke pihak lain. Mahasiswa wajib membedakan dua istilah yang sering tertukar ini:
+<h3>2. Value Chain Management (Manajemen Rantai Nilai)</h3>
+<b>Definisi:</b> Proses mengelola urutan aktivitas untuk menciptakan nilai bagi pelanggan.
+<bullet><i>Studi Kasus Starbucks: Inbound Logistics (biji kopi premium) → Operations (roasting standar ketat) → Service (barista personalized) = Harga Rp 60.000 untuk kopi HPP Rp 5.000.</i></bullet>
 
-<b>Outsourcing:</b> Memindahkan aktivitas non-inti perusahaan ke pihak eksternal (pihak ketiga) yang lebih ahli.
-<bullet><b><i>Contoh:</i></b> Sebuah bank menyewa perusahaan jasa keamanan (Satpam) atau jasa kebersihan (<i>Cleaning Service</i>). Bank tidak perlu pusing mengurus gaji dan pelatihan satpam karena itu bukan bisnis inti mereka.</bullet>
+<h2>Session 26: Strategic Management (Manajemen Strategis)</h2>
 
-<b>Offshoring:</b> Memindahkan proses bisnis atau produksi ke negara lain (biasanya yang biaya tenaga kerjanya lebih murah), namun operasionalnya bisa tetap milik sendiri atau diserahkan ke pihak lain.
-<bullet><b><i>Contoh:</i></b> Perusahaan sepatu Amerika menutup pabrik di negaranya dan membuka pabrik baru di Vietnam untuk menekan biaya produksi.</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 1. The Strategic Management Process</warning>
 
-<h3>2. Studi Kasus: Starbucks (Controlling the Coffee Experience)</h3>
-Materi ini menggunakan Starbucks sebagai contoh emas penerapan <b>Value Chain Management</b> (Rantai Nilai). Bagaimana Starbucks memastikan rasa kopi di New York sama persis dengan di Jakarta?
+<b>Step 1: Identify Mission, Goals, and Strategies</b>
+<bullet><b>Mission:</b> Alasan keberadaan perusahaan. "What business are we in?"</bullet>
+<bullet><b>Vision:</b> Apa yang ingin dicapai di masa depan.</bullet>
 
-<bullet><b>Kontrol Kualitas dari Hulu ke Hilir:</b> Starbucks tidak hanya membeli biji kopi sembarangan. Mereka mengontrol proses dari pemilihan biji kopi Arabika terbaik di petani (Amerika Latin, Afrika, Asia), proses pemanggangan (<i>roasting</i>) di fasilitas khusus, hingga penyeduhan oleh Barista. Inilah yang disebut <b>Integrated Value Chain</b>.</bullet>
-<bullet><b>Standar Lingkungan (CSR):</b> Praktik manajemen modern tidak bisa lepas dari isu lingkungan. Starbucks menerapkan strategi pengurangan sedotan plastik dan sertifikasi toko ramah lingkungan (<i>Greener Stores</i>). Ini bukan sekadar amal, tapi strategi bisnis untuk menjaga citra merek di mata konsumen modern yang peduli lingkungan.</bullet>
+<b>Step 2: External Analysis (Opportunities & Threats)</b>
+<bullet>Menganalisis lingkungan luar yang TIDAK BISA kita kontrol.</bullet>
+<bullet>Tools: PESTLE (Political, Economic, Social, Tech, Legal, Env).</bullet>
 
-<h2>️ Session 26: Strategic Management (Manajemen Strategis)</h2>
+<b>Step 3: Internal Analysis (Strengths & Weaknesses)</b>
+<bullet><b>Resources:</b> Aset apa yang kita punya?</bullet>
+<bullet><b>Capabilities:</b> Apa yang bisa kita lakukan dengan aset itu?</bullet>
+<bullet><b>Core Competencies:</b> Kekuatan unik yang menjadi senjata utama.</bullet>
 
-<warning>️ [Keluar UAS: Proses Manajemen Strategis & Analisis SWOT] Berdasarkan file Rangkuman Mentor (Hal. 22), bagan proses ini ditandai "KELUAR UAS". Anda wajib menghafal urutannya.</warning>
+<b>Note:</b> Gabungan Step 2 & 3 = <b>SWOT Analysis</b>
 
-<h3>1. Apa itu Manajemen Strategis?</h3>
-<b>Manajemen strategis</b> adalah apa yang dilakukan manajer untuk mengembangkan strategi organisasi. Ini adalah "cetak biru" (<i>blueprint</i>) tentang bagaimana perusahaan akan berbisnis, bagaimana cara menang bersaing, dan bagaimana menarik serta memuaskan pelanggan untuk mencapai tujuan.
+<b>Step 4: Formulating Strategies</b>
+<b>Step 5: Implementing Strategies</b>
+<b>Step 6: Evaluating Results</b>
 
-<h3>2. Enam Langkah Proses Manajemen Strategis</h3>
-Proses ini harus dilakukan secara berurutan, tidak boleh melompat:
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 2. Types of Organizational Strategies</warning>
 
-<b>Langkah 1: Identifikasi Misi, Tujuan, dan Strategi Saat Ini</b>
-Kita harus tahu siapa kita.
-<bullet><b>Misi:</b> Alasan keberadaan perusahaan. <i>(Contoh: Misi Google adalah mengorganisir informasi dunia).</i></bullet>
-<bullet><b>Visi:</b> Apa yang ingin dicapai di masa depan.</bullet>
+<b>A. Corporate Strategy (Level Korporasi)</b>
+<bullet><b>Growth Strategy:</b> Vertical Integration, Diversification. <i>Example: Gojek masuk GoFood.</i></bullet>
+<bullet><b>Stability Strategy:</b> Status Quo, melakukan apa yang sudah dilakukan.</bullet>
+<bullet><b>Renewal Strategy:</b> Retrenchment - PHK, tutup cabang rugi.</bullet>
 
-<b>Langkah 2: Analisis Eksternal (Peluang & Ancaman)</b>
-Manajer harus melihat keluar jendela. Apa tren pasar? Apa yang dilakukan kompetitor? Apakah ada undang-undang baru?
-<bullet><b>Opportunities (Peluang):</b> Tren positif <i>(misal: naiknya pengguna internet).</i></bullet>
-<bullet><b>Threats (Ancaman):</b> Tren negatif <i>(misal: resesi ekonomi atau pandemi).</i></bullet>
+<b>B. Competitive Strategy (Porter's Generic Strategies)</b>
+<bullet><b>Cost Leadership:</b> Produsen dengan biaya termurah. <i>Example: Walmart, Lion Air.</i></bullet>
+<bullet><b>Differentiation:</b> Produk unik bernilai tinggi. <i>Example: Apple, Hermes.</i></bullet>
+<bullet><b>Focus Strategy:</b> Membidik niche market. <i>Example: Ferrari, Alienware.</i></bullet>
 
-<b>Langkah 3: Analisis Internal (Kekuatan & Kelemahan)</b>
-Manajer harus bercermin.
-<bullet><b>Strengths (Kekuatan):</b> Apa yang kita miliki yang orang lain tidak punya? (Aset, paten, budaya kerja solid).</bullet>
-<bullet><b>Weaknesses (Kelemahan):</b> Apa kekurangan kita? (Teknologi jadul, utang banyak).</bullet>
-<bullet><b>Core Competencies:</b> Kekuatan unik yang menjadi senjata utama perusahaan untuk menang.</bullet>
-<bullet><b>Catatan:</b> Gabungan Langkah 2 dan 3 inilah yang disebut <b>Analisis SWOT</b> (<i>Strengths, Weaknesses, Opportunities, Threats</i>).</bullet>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. Porter's Five Forces Model</warning>
 
-<b>Langkah 4: Merumuskan Strategi (<i>Formulating Strategies</i>)</b>
-Setelah tahu posisi kita (SWOT), manajer merancang strategi:
-<bullet><b>Corporate Strategy:</b> Bisnis apa yang mau kita masuki? (Tumbuh, stabil, atau perampingan).</bullet>
-<bullet><b>Competitive Strategy:</b> Bagaimana kita mengalahkan lawan di bisnis tersebut?</bullet>
+<bullet><b>Threat of New Entrants:</b> Seberapa mudah orang bikin bisnis saingan?</bullet>
+<bullet><b>Threat of Substitutes:</b> Produk beda jenis tapi fungsi sama. <i>Example: Musuh Garuda = Kereta Cepat Whoosh.</i></bullet>
+<bullet><b>Bargaining Power of Buyers:</b> Kalau pembeli banyak pilihan, mereka bisa tekan harga.</bullet>
+<bullet><b>Bargaining Power of Suppliers:</b> Kalau pemasok langka, mereka bisa main harga.</bullet>
+<bullet><b>Current Rivalry:</b> Seberapa "berdarah-darah" persaingan saat ini?</bullet>
 
-<b>Langkah 5: Implementasi Strategi</b>
-Rencana bagus tidak berguna tanpa eksekusi. Langkah ini melibatkan restrukturisasi organisasi, alokasi anggaran, dan memotivasi karyawan untuk menjalankan strategi baru.
+<h3>4. Sustaining Competitive Advantage</h3>
+Warren Buffett menyebutnya <b>Economic Moat</b> (Parit Ekonomi).
+<bullet>Bentuk Parit: Brand kuat (Coca-Cola), Paten (Pfizer), Switching Cost tinggi (Microsoft Office).</bullet>`,
 
-<b>Langkah 6: Evaluasi Hasil</b>
-Terakhir, kita cek hasilnya. Apakah strategi berhasil? Apakah perlu penyesuaian? (Di sinilah fungsi <i>Controlling</i> yang kita bahas di Modul 2 masuk kembali).
+                tambahan_updated: `<h1>MODUL ADDENDUM: MISSING LINKS & DEEP DIVE</h1>
+<subtitle><b><i>(Materi Tambahan Vital dari PPT Resmi yang Wajib Dikuasai)</i></b></subtitle>
 
-<h3>3. Keunggulan Kompetitif (<i>Competitive Advantage</i>)</h3>
-Tujuan akhir strategi adalah menciptakan <b>keunggulan kompetitif</b>, yaitu sesuatu yang membedakan organisasi dari pesaingnya.
-<bullet><b>Kualitas:</b> Menjadi yang terbaik.</bullet>
-<bullet><b>Biaya Rendah:</b> Menjadi yang termurah (tanpa mengorbankan kualitas terlalu jauh).</bullet>
-<bullet><b>Teknologi/Inovasi:</b> Menjadi yang terdepan.</bullet>
+Modul ini berisi materi-materi yang ada di slide PPT Resmi namun belum tercover di modul sebelumnya. Anggap ini sebagai "Senjata Rahasia" untuk nilai High-Distinction.
 
-<h3>4. Mempertahankan Keunggulan (<i>Sustaining Advantage</i>)</h3>
-Warren Buffett mempopulerkan istilah <b>Economic Moat</b> (Parit Ekonomi). Bayangkan perusahaan adalah sebuah kastil. Agar tidak diserang musuh (kompetitor), kita perlu menggali parit yang lebar di sekelilingnya. Parit ini bisa berupa merek yang sangat kuat (seperti Coca-Cola), paten teknologi, atau biaya <i>switching</i> yang tinggi (seperti ekosistem Apple), sehingga pesaing sulit merebut pangsa pasar kita.
+<h2>Tambahan Session 17: Types of Control (Tipe Pengendalian)</h2>
 
-<h3>5. Strategi First Mover</h3>
-Siapa cepat, dia dapat. Organisasi yang pertama kali membawa inovasi produk ke pasar disebut <b>First Mover</b>.
-<bullet><b>Keuntungan:</b> Menguasai pasar lebih dulu, membangun loyalitas merek, menetapkan standar industri.</bullet>
-<bullet><b>Kerugian:</b> Biaya riset mahal, risiko produk gagal tinggi, dan kompetitor bisa meniru lalu menyempurnakan produk kita dengan biaya lebih murah (<b>Second Mover Advantage</b>).</bullet>`,
-                tambahan: `<h1> TAMBAHAN DETAIL TEKNIS (Hafalan Slide)</h1>
+<b>1. Feedforward Control (Pengendalian Awal/Input)</b>
+<bullet><b>Konsep:</b> Mengantisipasi masalah sebelum kegiatan dimulai.</bullet>
+<bullet><b>Fokus:</b> Inputs (Bahan baku, SDM, Modal).</bullet>
+<bullet><b>Tujuan:</b> Mencegah masalah terjadi (Prevent problems).</bullet>
+<bullet><i>Contoh: McDonald's memeriksa kualitas daging sebelum dikirim. Pilot melakukan pre-flight check.</i></bullet>
+<bullet><b>Note:</b> Ini adalah tipe kontrol yang paling efektif karena proaktif.</bullet>
 
-<h3>1. Lima Kekuatan Porter (<i>Porter's Five Forces</i>) - Session 26</h3>
-Di Bagian 3, saya membahas <b>Competitive Advantage</b>. Di slide Session 26, ada model spesifik untuk menganalisis persaingan industri yang wajib dihafal poinnya:
-<bullet><b>Threat of New Entrants:</b> Ancaman pendatang baru (seberapa mudah orang bikin bisnis saingan?).</bullet>
-<bullet><b>Threat of Substitutes:</b> Ancaman produk pengganti (misal: kopi diganti teh).</bullet>
-<bullet><b>Bargaining Power of Buyers:</b> Kekuatan tawar pembeli (kalau pembeli sensitif harga, profit kita tipis).</bullet>
-<bullet><b>Bargaining Power of Suppliers:</b> Kekuatan tawar pemasok (kalau pemasok bahan baku cuma satu, dia bisa main harga).</bullet>
-<bullet><b>Current Rivalry:</b> Persaingan sesama pemain lama.</bullet>
+<b>2. Concurrent Control (Pengendalian Berjalan/Proses)</b>
+<bullet><b>Konsep:</b> Mengoreksi masalah saat kegiatan sedang berlangsung.</bullet>
+<bullet><b>Fokus:</b> Processes.</bullet>
+<bullet><b>Tujuan:</b> Memperbaiki masalah secara langsung (Direct supervision).</bullet>
+<bullet><i>Contoh: Manajer restoran berkeliling, Spell-check di Word.</i></bullet>
 
-<img src="/porter-five-forces.png" alt="Porter's Five Forces Diagram" />
-<h3>2. Struktur Rencana Bisnis (<i>Business Plan Major Areas</i>) - Session 24</h3>
-Di Bagian 2, kita bahas Studi Kelayakan. Namun, di PPT Session 24 ada daftar isi standar <b>Business Plan</b> yang mungkin ditanya urutannya:
-<bullet><b>Executive Summary:</b> Ringkasan eksekutif (dibuat terakhir, ditaruh paling depan).</bullet>
-<bullet><b>Company Description:</b> Visi, misi, sejarah.</bullet>
-<bullet><b>Industry Analysis:</b> Analisis pasar.</bullet>
-<bullet><b>Management Team:</b> Siapa yang menjalankan bisnis.</bullet>
-<bullet><b>Service/Product Operation:</b> Detail produk.</bullet>
-<bullet><b>Marketing Strategy:</b> Cara jualan (4P).</bullet>
-<bullet><b>Financial Plan:</b> Proyeksi keuangan (Rugi/Laba).</bullet>
+<b>3. Feedback Control (Pengendalian Akhir/Output)</b>
+<bullet><b>Konsep:</b> Mengoreksi masalah setelah kegiatan selesai.</bullet>
+<bullet><b>Fokus:</b> Outputs (Barang jadi, Laporan).</bullet>
+<bullet><i>Contoh: Laporan Laba Rugi, Survei Kepuasan Pelanggan, Nilai Ujian.</i></bullet>
+<bullet><b>Kelemahan:</b> Masalah sudah terjadi, kerugian sudah dialami.</bullet>
 
-<h3>3. Jenis Masalah Disiplin Karyawan - Session 18</h3>
-Di Bagian 1 (<i>Controlling</i>), saya sebutkan soal <b>Employee Theft</b>. Di slide Session 18, masalah disiplin dibagi jadi 4 kategori spesifik:
-<bullet><b>Attendance (Kehadiran):</b> Telat, bolos, sakit palsu.</bullet>
-<bullet><b>On-the-Job Behaviors:</b> Mabuk, main judi di kantor, gagal capai target.</bullet>
-<bullet><b>Dishonesty (Ketidakjujuran):</b> Mencuri, bohong di CV.</bullet>
-<bullet><b>Outside Activities:</b> Mogok kerja ilegal, aktivitas kriminal di luar kantor.</bullet>`
+<h2>Tambahan Session 22: Advanced Motivation Theories</h2>
+
+<b>1. Three-Needs Theory (David McClelland)</b>
+<bullet><b>Need for Achievement (nAch):</b> Dorongan untuk sukses. Cocok jadi Entrepreneur.</bullet>
+<bullet><b>Need for Power (nPow):</b> Keinginan memengaruhi orang lain. Cocok jadi Top Manager.</bullet>
+<bullet><b>Need for Affiliation (nAff):</b> Keinginan hubungan dekat. Cocok di Customer Service/HR.</bullet>
+
+<b>2. Goal-Setting Theory</b>
+<bullet>Tujuan yang spesifik dan menantang (tapi realistis) → Kinerja lebih tinggi.</bullet>
+<bullet>Syarat: Goal Acceptance, Feedback, Self-Efficacy.</bullet>
+
+<b>3. Reinforcement Theory</b>
+<bullet><b>Positive Reinforcement:</b> Beri hadiah setelah perilaku bagus → Perilaku diulang.</bullet>
+<bullet><b>Punishment:</b> Beri hukuman setelah perilaku buruk → Perilaku dihentikan.</bullet>
+<bullet><b>Extinction:</b> Cuekin perilaku tidak diinginkan → Lama-lama hilang.</bullet>
+
+<h2>Tambahan Session 16: Modern Leadership Perspectives</h2>
+
+<b>1. Transactional vs. Transformational Leaders</b>
+<bullet><b>Transactional Leader:</b> Memimpin dengan pertukaran sosial (transaksi). "Kamu kerja, saya gaji." Fokus: kepatuhan, tugas rutin.</bullet>
+<bullet><b>Transformational Leader:</b> Menginspirasi pengikut melampaui kepentingan pribadi. <i>Example: Bill Gates, Steve Jobs.</i></bullet>
+
+<b>2. Charismatic vs. Visionary Leaders</b>
+<bullet><b>Charismatic Leader:</b> Pesona magnetis. Risiko: Kalau pemimpin pergi, organisasi goyah.</bullet>
+<bullet><b>Visionary Leader:</b> Mampu menciptakan visi masa depan yang menarik.</bullet>
+
+<h2>Tambahan Session 26: Strategic Tools (BCG Matrix)</h2>
+
+<b>The BCG Matrix (Boston Consulting Group)</b>
+<bullet><b>Cash Cows:</b> Low Growth, High Market Share. Strategi: Milk it. <i>Example: Indomie.</i></bullet>
+<bullet><b>Stars:</b> High Growth, High Market Share. Strategi: Invest. <i>Example: Cloud Computing.</i></bullet>
+<bullet><b>Question Marks:</b> High Growth, Low Market Share. Strategi: Invest besar atau Divest.</bullet>
+<bullet><b>Dogs:</b> Low Growth, Low Market Share. Strategi: Liquidate/Tutup.</bullet>
+
+<h2>Tambahan Session 23: Entrepreneurial Context</h2>
+
+<b>Harvesting Strategy (Strategi Panen/Keluar)</b>
+<bullet><b>Selling the Venture:</b> Menjual putus ke perusahaan lain (Akuisisi).</bullet>
+<bullet><b>IPO:</b> Menjual saham ke publik di bursa saham (Go Public).</bullet>
+<bullet><b>Merger:</b> Menggabungkan diri dengan perusahaan lain.</bullet>
+<bullet><b>Liquidation:</b> Menjual aset dan menutup bisnis.</bullet>`,
         },
         mis: {
                 modul1: `<h1> MODUL 1: MANAJEMEN PENGETAHUAN & KECERDASAN BUATAN</h1>

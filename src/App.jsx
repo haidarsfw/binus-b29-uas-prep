@@ -5034,10 +5034,53 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     setShowMentions(false);
   };
 
+  // Track seen forum comment IDs to avoid duplicate notifications
+  const seenForumMentionsRef = useRef(new Set());
+  const currentUserName = session?.userName || session?.name || 'Anonymous';
+  const currentDeviceId = getDeviceId();
+
   useEffect(() => {
-    const unsub = subscribeToComments(subjectId, thread.id, setComments);
+    const unsub = subscribeToComments(subjectId, thread.id, (newComments) => {
+      // Check for mentions in new comments
+      newComments.forEach(comment => {
+        const contentLower = comment.content?.toLowerCase() || '';
+        const userNameLower = currentUserName.toLowerCase();
+        const mentionsMe = contentLower.includes(`@${userNameLower}`);
+        const mentionsAll = contentLower.includes('@all');
+        const isNewComment = !seenForumMentionsRef.current.has(comment.id);
+        const isFromOthers = comment.authorId !== currentDeviceId;
+        const isRecent = Date.now() - comment.timestamp < 60000;
+
+        if ((mentionsMe || mentionsAll) && isFromOthers && isNewComment && isRecent) {
+          console.log('[FORUM MENTION] Detected:', { from: comment.authorName, content: comment.content?.slice(0, 30) });
+          showToast(`📢 ${comment.authorName} mention kamu di forum: "${comment.content?.slice(0, 40)}..."`, 'info', 5000);
+          seenForumMentionsRef.current.add(comment.id);
+        }
+
+        // Also check replies
+        if (comment.replies) {
+          Object.values(comment.replies).forEach(reply => {
+            const replyLower = reply.content?.toLowerCase() || '';
+            const replyMentionsMe = replyLower.includes(`@${userNameLower}`);
+            const replyMentionsAll = replyLower.includes('@all');
+            const replyIsNew = !seenForumMentionsRef.current.has(reply.id);
+            const replyFromOthers = reply.authorId !== currentDeviceId;
+            const replyIsRecent = Date.now() - reply.timestamp < 60000;
+
+            if ((replyMentionsMe || replyMentionsAll) && replyFromOthers && replyIsNew && replyIsRecent) {
+              console.log('[FORUM REPLY MENTION] Detected:', { from: reply.authorName, content: reply.content?.slice(0, 30) });
+              showToast(`📢 ${reply.authorName} mention kamu: "${reply.content?.slice(0, 40)}..."`, 'info', 5000);
+              seenForumMentionsRef.current.add(reply.id);
+            }
+          });
+        }
+      });
+
+      // Always update comments state
+      setComments(newComments);
+    });
     return () => unsub();
-  }, [subjectId, thread.id]);
+  }, [subjectId, thread.id, currentUserName, currentDeviceId]);
 
   const handlePost = async () => {
     const rateCheck = checkRateLimit('postComment', 10000);
@@ -5831,16 +5874,20 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
       // Check for new mentions that haven't been seen
       msgs.forEach(m => {
-        // Check for @username or @all mentions
-        const mentionsMe = m.content?.includes(`@${currentUserName}`);
-        const mentionsAll = m.content?.includes('@all');
+        // Check for @username or @all mentions (CASE-INSENSITIVE)
+        const contentLower = m.content?.toLowerCase() || '';
+        const userNameLower = currentUserName.toLowerCase();
+        const mentionsMe = contentLower.includes(`@${userNameLower}`);
+        const mentionsAll = contentLower.includes('@all');
         const isNewMessage = !currentSeen.has(m.id);
         const isFromOthers = m.authorId !== currentDeviceId;
-        // Only notify for messages in last 30 seconds (avoid old message spam)
-        const isRecent = Date.now() - m.timestamp < 30000;
+        // Only notify for messages in last 60 seconds (avoid old message spam)
+        const isRecent = Date.now() - m.timestamp < 60000;
 
         if ((mentionsMe || mentionsAll) && isFromOthers && isNewMessage && isRecent) {
           const notifTitle = mentionsAll ? 'Pengumuman untuk Semua' : 'Kamu di-mention!';
+
+          console.log('[MENTION] Detected:', { from: m.authorName, content: m.content?.slice(0, 30), mentionsMe, mentionsAll });
 
           addNotification?.({ type: 'mention', title: notifTitle, message: `${m.authorName}: ${m.content.slice(0, 50)}` });
 

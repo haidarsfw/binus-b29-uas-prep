@@ -816,6 +816,15 @@ export const DB = {
                 { id: 12, title: 'Sesi 26: Strategic Management', driveId: '1OsUUicgtzVA9tcXWhCT29ClNIuPROxWD_vQVnI49dsA', type: 'gslides', xp: 15 },
             ],
             rangkuman: {
+                modulIntiUpdated: [
+                    { title: 'Modul 1: Kepemimpinan (Leadership)', contentKey: 'modul1_updated', type: 'native', driveId: '1U73WuPrVLv2G_X1HYqpzodVre44KzOp2ED7_iRST190' },
+                    { title: 'Modul 2: Pengendalian (Controlling)', contentKey: 'modul2_updated', type: 'native', driveId: '18MTH_3MfNQTZnXqJl6Wwbg20_f4o2bTHwnDLVQPIRtY' },
+                    { title: 'Modul 3: Kewirausahaan & Manajemen Risiko', contentKey: 'modul3_updated', type: 'native', driveId: '1wMdQvh0S0xhpSNmnVBVUgEKqYt-RcW078WmPwQo8pY8' },
+                    { title: 'Modul 4: Strategi & Praktik Manajemen', contentKey: 'modul4_updated', type: 'native', driveId: '13zWTN6Y9qNPOPqIUZb7CH3bDOq92c105u-qnQMW2gvw' },
+                ],
+                addendumUpdated: [
+                    { title: 'Addendum: Missing Links & Deep Dive', contentKey: 'tambahan_updated', type: 'native', driveId: '1BfCw-a4X1UV9aUfNDzbVEfih6zZKpc-j2qIzxbR-mOs' },
+                ],
                 modulInti: [
                     { title: 'Modul 1: Kepemimpinan (Leadership)', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Pengendalian (Controlling)', contentKey: 'modul2', type: 'native' },
