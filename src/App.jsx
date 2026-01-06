@@ -2481,29 +2481,37 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.4.0";
+  const currentVersion = "1.4.1";
   const patchNotes = {
     current: {
-      version: "1.4.0",
+      version: "1.4.1",
       date: "6 Jan 2026",
       changes: [
-        "- HRM RANGKUMAN UPDATED: 5 Modul + Addendum versi terbaru",
-        "- Business Mathematics: Jadwal ujian baru ditambahkan (16-23 Jan)",
-        "- Fix: Admin rename sekarang propagate ke Chat, Forum, Online View",
-        "- MIS Kisi-Kisi: Added Sesi 9 annotation untuk Knowledge Management",
-        "- Addendum HRM: Dipindahkan ke section terpisah (seperti MM)"
+        "- ITM RANGKUMAN UPDATED: 5 Modul + Addendum konten lengkap 100%",
+        "- Modul 1: Kepemimpinan (Leadership) - Session 15 & 16",
+        "- Modul 2: Pengendalian (Controlling) - Session 17 & 18",
+        "- Modul 3: Kewirausahaan & Manajemen Risiko - Session 19-22",
+        "- Modul 4: Strategi & Praktik Manajemen - Session 25 & 26",
+        "- Addendum: Missing Links & Deep Dive (BCG Matrix, dll)"
       ]
     },
     past: [
+      {
+        version: "1.4.0",
+        date: "6 Jan 2026",
+        changes: [
+          "- HRM RANGKUMAN UPDATED: 5 Modul + Addendum versi terbaru",
+          "- Business Mathematics: Jadwal ujian baru ditambahkan (16-23 Jan)",
+          "- Fix: Admin rename sekarang propagate ke Chat, Forum, Online View"
+        ]
+      },
       {
         version: "1.3.0",
         date: "5 Jan 2026",
         changes: [
           "- RANGKUMAN MM UPDATED: 5 Modul + Addendum versi baru tersedia",
           "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability",
-          "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah",
-          "- Fix: HTML tags tidak lagi muncul sebagai teks mentah",
-          "- Link Google Docs tersedia untuk setiap modul"
+          "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah"
         ]
       },
       {
