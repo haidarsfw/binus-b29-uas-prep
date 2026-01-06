@@ -840,11 +840,13 @@ export const DB = {
             },
             kisiKisi: [
                 {
-                    topic: 'A. STUDI KASUS (Total Bobot: 40%) - INFO',
-                    items: ['Bagian ini terdiri dari 2 soal studi kasus.']
+                    topic: 'A. STUDI KASUS (Total Bobot: 40%)',
+                    isHeader: true,
+                    items: ['Info: Bagian ini terdiri dari 2 soal studi kasus.']
                 },
                 {
-                    topic: '1. Social Media & Monitoring (Bobot: 20%)',
+                    customNumber: '1',
+                    topic: 'Social Media & Monitoring (Bobot: 20%)',
                     subtitle: 'Topik: Social Media as a Control Tool',
                     items: [
                         'Studi kasus mengenai monitor performance (sosmed pengontrol dan pengawasan).',
@@ -853,20 +855,23 @@ export const DB = {
                     ]
                 },
                 {
-                    topic: '2. Planning & Controlling (Bobot: 20%)',
+                    customNumber: '2',
+                    topic: 'Planning & Controlling (Bobot: 20%)',
                     subtitle: 'Topik: Planning Controlling Link',
                     items: [
                         'Fungsi manajemen POLC (Planning, Organizing, Leading, Controlling).',
-                        'Hubungan perencanaan dan pengawasan (Planning controlling link / POAC).',
+                        'Hubungan perencanaan dan pengawasan (Planning controlling link).',
                         'Cakupan: LO2 & LO4.'
                     ]
                 },
                 {
-                    topic: 'B. ESSAY (Total Bobot: 60%) - INFO',
-                    items: ['Bagian ini terdiri dari soal-soal essay teori.']
+                    topic: 'B. ESSAY (Total Bobot: 60%)',
+                    isHeader: true,
+                    items: ['Info: Bagian ini terdiri dari soal-soal essay teori.']
                 },
                 {
-                    topic: '3. Motivation (Bobot: 25%)',
+                    customNumber: '3',
+                    topic: 'Motivation (Bobot: 25%)',
                     subtitle: 'Topik: Theory Maslow Hierarchy of Needs',
                     items: [
                         'Hierarki Kebutuhan Maslow (Maslow Hierarchy).',
@@ -874,31 +879,34 @@ export const DB = {
                     ]
                 },
                 {
-                    topic: '4. Strategic Management (Bobot: 20%)',
+                    customNumber: '4',
+                    topic: 'Strategic Management (Bobot: 20%)',
                     subtitle: 'Topik: Strategic Management Process',
                     items: [
                         'Six steps strategic management process (6 langkah proses manajemen strategis).',
-                        'Strategic Evaluation (Evaluasi Strategis).',
-                        'Strategic Management (Konsep umum).',
+                        'Strategic Evaluation.',
+                        'Strategic Management (konsep umum).',
                         'Sumber: Sesi 25-26.'
                     ]
                 },
                 {
-                    topic: '5. Entrepreneurship (Bobot: 15%)',
+                    customNumber: '5',
+                    topic: 'Entrepreneurship (Bobot: 15%)',
                     subtitle: 'Topik: Kewirausahaan & Skala Usaha',
                     items: [
-                        'Small business vs entrepreneurship - kunci perbedaan.',
+                        'Small business vs entrepreneurship (kunci perbedaan).',
                         'Usaha besar vs usaha kecil.',
-                        'Entrepreneurship (Konsep umum).',
+                        'Entrepreneurship (konsep umum).',
                         'Sumber: Sesi 23-24. Cakupan: LO3 & LO4.'
                     ]
                 },
                 {
-                    topic: '6. Risk Management (Materi Tambahan)',
+                    customNumber: '6',
+                    topic: 'Risk Management (Materi Tambahan)',
                     subtitle: 'Topik: Manajemen Risiko',
                     items: [
-                        'Risk identification (Identifikasi risiko).',
-                        'Risk management (Pengelolaan risiko).'
+                        'Risk identification.',
+                        'Risk management.'
                     ]
                 }
             ],

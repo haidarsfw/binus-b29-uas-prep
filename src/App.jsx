@@ -4203,33 +4203,51 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiExamNotes, kisiKisiTambahan,
         {isNewFormat ? (
           // New format with topics and items
           <div className="space-y-4">
-            {kisiKisi.map((section, idx) => (
-              <div key={idx} className="space-y-2">
-                <h4 className="font-semibold text-[var(--text)] text-sm flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[var(--accent-soft)] text-[var(--accent)] text-xs flex items-center justify-center font-bold">
-                    {idx + 1}
-                  </span>
-                  {section.topic}
-                </h4>
-                {/* Instruction as plain text (italic) */}
-                {section.instruction && (
-                  <p className="ml-8 text-[var(--text-secondary)] text-sm italic mb-2">
-                    {section.instruction}
-                  </p>
-                )}
-                {/* Items with bullet points */}
-                {section.items?.length > 0 && (
-                  <ul className="ml-8 space-y-1">
-                    {section.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
-                        <span className="text-[var(--accent)] mt-1">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+            {kisiKisi.map((section, idx) => {
+              // Header handling (e.g., A. STUDI KASUS, B. ESSAY)
+              if (section.isHeader) {
+                return (
+                  <div key={idx} className="mt-6 mb-3 first:mt-0">
+                    <h4 className="font-bold text-[var(--accent)] text-lg mb-1">{section.topic}</h4>
+                    {section.items && section.items.length > 0 && (
+                      <p className="text-sm text-[var(--text-secondary)] italic mb-2">{section.items[0]}</p>
+                    )}
+                  </div>
+                );
+              }
+
+              // Normal Item handling
+              return (
+                <div key={idx} className="space-y-2 pl-2">
+                  <h4 className="font-semibold text-[var(--text)] text-sm flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[var(--accent-soft)] text-[var(--accent)] text-xs flex items-center justify-center font-bold shrink-0">
+                      {section.customNumber || idx + 1}
+                    </span>
+                    <span>{section.topic}</span>
+                  </h4>
+                  {section.subtitle && (
+                    <p className="text-xs font-medium text-[var(--accent)] ml-8 -mt-1 mb-1">
+                      {section.subtitle}
+                    </p>
+                  )}
+                  {section.instruction && (
+                    <p className="ml-8 text-[var(--text-secondary)] text-sm italic mb-2">
+                      {section.instruction}
+                    </p>
+                  )}
+                  {section.items && section.items.length > 0 && (
+                    <ul className="ml-8 space-y-1">
+                      {section.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
+                          <span className="text-[var(--accent)] mt-1 shrink-0">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </div>
         ) : kisiKisi?.length > 0 ? (
           // Old format - simple list of strings
