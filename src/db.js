@@ -17,43 +17,49 @@ export const DB = {
         'LA86': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
         'LB86': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
         'LC86': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
         'LD86': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
         'LE86': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
         'Other': {
             'Introduction to Management and Business': { date: '2026-01-12T13:00:00', end: '2026-01-12T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Marketing Management': { date: '2026-01-13T08:00:00', end: '2026-01-13T09:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
-            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Character Building: Pancasila': { date: '2026-01-14T00:00:00', due: '2026-01-21T17:01:00', type: 'online', note: 'Online Exam - Final Project (Start: 14 Jan, Due: 21 Jan 17:01)' },
+            'Business Mathematics': { date: '2026-01-16T00:00:00', due: '2026-01-23T13:00:00', type: 'online', note: 'Online Exam - Group Project (Start: 16 Jan, Due: 23 Jan 13:00)' },
+            'Management Information Systems for Leader': { date: '2026-01-20T10:00:00', end: '2026-01-20T12:00:00', type: 'onsite', note: 'Onsite Exam (Theory)' },
             'Human Resources Management': { date: '2026-01-22T13:00:00', end: '2026-01-22T14:40:00', type: 'onsite', note: 'Onsite Exam (Theory)' }
         },
     },
@@ -614,12 +620,22 @@ export const DB = {
                 { question: "Apa pendekatan 'Polycentric' dalam penyusunan staf global?", options: ['Posisi kunci di luar negeri diisi oleh penduduk setempat (Locals)', 'Posisi kunci diisi oleh warga negara asal', 'Mencari orang terbaik tanpa melihat negara', 'Memindahkan pabrik ke negara berkembang'], answer: 0, xp: 5 },
             ],
             rangkuman: {
+                modulIntiUpdated: [
+                    { title: 'Modul 1: Manajemen Kompensasi Strategis & Sistem Insentif', contentKey: 'modul1_updated', type: 'native', driveId: '1bSa6d-ka4fP68h0VXYx0aYtxUImPQAVwMf1jwIjlEH0' },
+                    { title: 'Modul 2: Manajemen Keselamatan, Kesehatan, dan Risiko Kerja', contentKey: 'modul2_updated', type: 'native', driveId: '1VkAxW46apLIgDxRWI8WQswfpbumtZWsf1EVNo93_Uts' },
+                    { title: 'Modul 3: Hubungan Tenaga Kerja dan Perundingan Kolektif', contentKey: 'modul3_updated', type: 'native', driveId: '1o1-gUJ8dwmKlYJ5IDXmq-2q2RAMR7GPoNyT1EU4uzt4' },
+                    { title: 'Modul 4: Transformasi Infrastruktur HR (Model Ulrich & HR Analytics)', contentKey: 'modul4_updated', type: 'native', driveId: '1LAvY83j_6MT5eQ4IzRmujKVA50ZA1d7yKIzmmRMZM_M' },
+                    { title: 'Modul 5: Manajemen SDM Global & Bisnis Kecil (SME)', contentKey: 'modul5_updated', type: 'native', driveId: '122yziPxTCSyEFo_i7QoncCdKBmq0V1vcuKb_m7pLJWg' },
+                ],
                 modulInti: [
                     { title: 'Modul 1: Manajemen Kompensasi Strategis & Sistem Insentif', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Manajemen Keselamatan, Kesehatan, dan Risiko Kerja', contentKey: 'modul2', type: 'native' },
                     { title: 'Modul 3: Hubungan Tenaga Kerja dan Perundingan Kolektif', contentKey: 'modul3', type: 'native' },
                     { title: 'Modul 4: Transformasi Infrastruktur HR (Model Ulrich & HR Analytics)', contentKey: 'modul4', type: 'native' },
                     { title: 'Modul 5: Manajemen SDM Global & Bisnis Kecil (SME)', contentKey: 'modul5', type: 'native' },
+                ],
+                addendumUpdated: [
+                    { title: 'Addendum: Detail Mikro & Teknis Pelengkap (Case Study Cheat Sheet)', contentKey: 'tambahan_updated', type: 'native', driveId: '1eSR8D_BF242xt0XO917fIJYYncoUdEo70FTWOHOX1hI' },
                 ],
                 addendum: [
                     { title: 'Addendum: Detail Mikro & Teknis Pelengkap (Modul 1-5)', contentKey: 'tambahan', type: 'native' },
@@ -640,7 +656,7 @@ export const DB = {
                 {
                     topic: 'A. MINI CASE (3 Soal)', items: [
                         'Soal No. 1: E-Commerce - Business Model (E-Commerce: Digital Markets, Digital Goods)',
-                        'Soal No. 2: Knowledge Management (Managing Knowledge and Artificial Intelligence)',
+                        'Soal No. 2: Knowledge Management (Managing Knowledge and Artificial Intelligence) — Sesi 9',
                         'Soal No. 3: Decision Making (Enhancing Decision Making)'
                     ]
                 },

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, updateQuizScore, updateOnlineTime, recordSession } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, updateQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -2477,23 +2477,35 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const classSchedule = schedules[selectedClass] || schedules['Other'] || {};
   const [showScheduleInfo, setShowScheduleInfo] = useState(false);
   const [showPatchNotes, setShowPatchNotes] = useState(false);
+  const [showOnlineUsersPopup, setShowOnlineUsersPopup] = useState(false);
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.3.0";
+  const currentVersion = "1.4.0";
   const patchNotes = {
     current: {
-      version: "1.3.0",
-      date: "5 Jan 2026",
+      version: "1.4.0",
+      date: "6 Jan 2026",
       changes: [
-        "- RANGKUMAN MM UPDATED: 5 Modul + Addendum versi baru tersedia",
-        "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability",
-        "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah",
-        "- Fix: HTML tags tidak lagi muncul sebagai teks mentah",
-        "- Link Google Docs tersedia untuk setiap modul"
+        "- HRM RANGKUMAN UPDATED: 5 Modul + Addendum versi terbaru",
+        "- Business Mathematics: Jadwal ujian baru ditambahkan (16-23 Jan)",
+        "- Fix: Admin rename sekarang propagate ke Chat, Forum, Online View",
+        "- MIS Kisi-Kisi: Added Sesi 9 annotation untuk Knowledge Management",
+        "- Addendum HRM: Dipindahkan ke section terpisah (seperti MM)"
       ]
     },
     past: [
+      {
+        version: "1.3.0",
+        date: "5 Jan 2026",
+        changes: [
+          "- RANGKUMAN MM UPDATED: 5 Modul + Addendum versi baru tersedia",
+          "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability",
+          "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah",
+          "- Fix: HTML tags tidak lagi muncul sebagai teks mentah",
+          "- Link Google Docs tersedia untuk setiap modul"
+        ]
+      },
       {
         version: "1.2.1",
         date: "5 Jan 2026",
@@ -2691,7 +2703,12 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                   </motion.div>
                 ))}
                 {uniqueUsers.length > 4 && (
-                  <span className="text-xs text-[var(--text-muted)]">+{uniqueUsers.length - 4} lainnya</span>
+                  <button
+                    onClick={() => setShowOnlineUsersPopup(true)}
+                    className="text-xs text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline cursor-pointer transition-colors"
+                  >
+                    +{uniqueUsers.length - 4} lainnya
+                  </button>
                 )}
               </div>
             ) : (
@@ -2726,7 +2743,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
                     className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-[var(--surface-solid)] border border-[var(--border)] rounded-lg shadow-lg z-50 text-xs text-[var(--text-secondary)] min-w-[200px]"
                   >
                     ✅ Jadwal ini adalah jadwal <strong className="text-[var(--success)]">resmi</strong> dari aplikasi <strong>BINUSMAYA</strong>.
-                    <br />Diperbarui: 31 Des 2025
+                    <br />Diperbarui: 6 Jan 2026
                     <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--border)]"></div>
                   </motion.div>
                 )}
@@ -2882,6 +2899,50 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
             </motion.div>
           </motion.div>
         )}
+      </AnimatePresence>
+
+      {/* Online Users Popup */}
+      <AnimatePresence>
+        {showOnlineUsersPopup && (() => {
+          const visibleOnlineUsers = session?.isAdmin ? onlineUsers : onlineUsers.filter(u => !u.hideStatus);
+          const grouped = visibleOnlineUsers.reduce((acc, u) => {
+            const name = u.userName || 'Unknown';
+            if (!acc[name]) acc[name] = { userName: name, devices: [], hideStatus: u.hideStatus };
+            acc[name].devices.push(u.deviceType || 'desktop');
+            return acc;
+          }, {});
+          const allUniqueUsers = Object.values(grouped);
+          const deviceEmoji = (type) => type === 'mobile' ? '📱' : type === 'tablet' ? '📲' : '💻';
+          const getDeviceEmojis = (devices) => {
+            if (devices.length === 1) return deviceEmoji(devices[0]);
+            const counts = devices.reduce((acc, d) => { acc[d] = (acc[d] || 0) + 1; return acc; }, {});
+            let str = '';
+            if (counts.desktop) str += counts.desktop > 1 ? `(${counts.desktop}) 💻` : '💻';
+            if (counts.mobile) str += counts.mobile > 1 ? ` (${counts.mobile}) 📱` : ' 📱';
+            if (counts.tablet) str += counts.tablet > 1 ? ` (${counts.tablet}) 📲` : ' 📲';
+            return str.trim();
+          };
+          return (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.5)' }} onClick={() => setShowOnlineUsersPopup(false)}>
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="glass-strong rounded-2xl max-w-sm w-full max-h-[70vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+                <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
+                  <div className="flex items-center gap-2"><Users className="w-5 h-5 text-[var(--accent)]" /><h3 className="font-bold text-[var(--text)]">User Online ({allUniqueUsers.length})</h3></div>
+                  <button onClick={() => setShowOnlineUsersPopup(false)} className="p-1.5 rounded-lg hover:bg-[var(--surface-hover)]"><X className="w-4 h-4 text-[var(--text-muted)]" /></button>
+                </div>
+                <div className="p-4 overflow-y-auto max-h-[50vh] space-y-2">
+                  {allUniqueUsers.map((u, i) => (
+                    <motion.div key={u.userName} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="flex items-center gap-3 p-2 rounded-lg hover:bg-[var(--surface-hover)] transition-colors">
+                      <div className="avatar text-sm w-8 h-8 shrink-0">{u.userName?.charAt(0) || '?'}</div>
+                      <div className="flex-1 min-w-0"><p className="text-sm text-[var(--text)] font-medium truncate">{u.userName}</p><p className="text-xs text-[var(--text-muted)]">{getDeviceEmojis(u.devices)}</p></div>
+                      {session?.isAdmin && u.hideStatus && <span className="text-xs" title="Status tersembunyi">🔒</span>}
+                    </motion.div>
+                  ))}
+                  {allUniqueUsers.length === 0 && <p className="text-center text-[var(--text-muted)] text-sm py-4">Tidak ada user online</p>}
+                </div>
+              </motion.div>
+            </motion.div>
+          );
+        })()}
       </AnimatePresence>
     </div>
   );
@@ -3842,8 +3903,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
           </div>
         )}
 
-        {/* Modul Inti - Normal layout for non-marketing subjects */}
-        {subjectId !== 'marketing' && rangkuman?.modulInti?.length > 0 && (
+        {/* Modul Inti - Normal layout for subjects WITHOUT modulIntiUpdated */}
+        {!rangkuman?.modulIntiUpdated?.length && rangkuman?.modulInti?.length > 0 && (
           <div className="glass-card overflow-hidden">
             <button
               onClick={() => toggleSection('modulInti')}
@@ -3864,8 +3925,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
           </div>
         )}
 
-        {/* Addendum - Normal layout for non-marketing subjects */}
-        {subjectId !== 'marketing' && rangkuman?.addendum?.length > 0 && (
+        {/* Addendum - Normal layout for subjects WITHOUT modulIntiUpdated */}
+        {!rangkuman?.modulIntiUpdated?.length && rangkuman?.addendum?.length > 0 && (
           <div className="glass-card overflow-hidden">
             <button
               onClick={() => toggleSection('addendum')}
@@ -3927,8 +3988,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
 
         {/* === ARCHIVE: Old Version (Below Mentor PPT) === */}
 
-        {/* Modul Inti (Old/Archive) - Marketing Only */}
-        {subjectId === 'marketing' && rangkuman?.modulInti?.length > 0 && (
+        {/* Modul Inti (Old/Archive) - For subjects WITH modulIntiUpdated */}
+        {rangkuman?.modulIntiUpdated?.length > 0 && rangkuman?.modulInti?.length > 0 && (
           <div className="glass-card overflow-hidden opacity-70">
             <button
               onClick={() => toggleSection('modulInti')}
@@ -3949,8 +4010,8 @@ function Rangkuman({ subjectId, searchTarget, onClearSearch, isPreviewMode }) {
           </div>
         )}
 
-        {/* Addendum (Old/Archive) - Marketing Only */}
-        {subjectId === 'marketing' && rangkuman?.addendum?.length > 0 && (
+        {/* Addendum (Old/Archive) - For subjects WITH modulIntiUpdated */}
+        {rangkuman?.modulIntiUpdated?.length > 0 && rangkuman?.addendum?.length > 0 && (
           <div className="glass-card overflow-hidden opacity-70">
             <button
               onClick={() => toggleSection('addendum')}
@@ -5691,6 +5752,8 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [seenMentionIds, setSeenMentionIds] = useState(() => JSON.parse(localStorage.getItem('seenMentions') || '[]'));
+  const [lastReadMessageId, setLastReadMessageId] = useState(null);
+  const [lastReadLoaded, setLastReadLoaded] = useState(false); // Track if Firebase data loaded
   const seenMentionIdsRef = useRef(seenMentionIds); // Ref to track latest seen IDs
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -5701,6 +5764,43 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const currentUserName = session?.userName || session?.name || 'Anonymous';
   const isAdmin = session?.isAdmin === true;
   const isTester = session?.isTester === true;
+
+  // Calculate unread count (messages from others after lastReadMessageId)
+  const unreadCount = useMemo(() => {
+    // Don't show unread count until Firebase has loaded the lastReadMessageId
+    if (!lastReadLoaded) return 0;
+    if (!lastReadMessageId || messages.length === 0) {
+      // If no lastRead AND data is loaded, count all messages from others (excluding own)
+      return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+    }
+    const lastReadIndex = messages.findIndex(m => m.id === lastReadMessageId);
+    if (lastReadIndex === -1) return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+    // Count messages after lastReadIndex from other users
+    return messages.slice(lastReadIndex + 1).filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+  }, [messages, lastReadMessageId, currentDeviceId, lastReadLoaded]);
+
+  // Subscribe to lastReadMessageId from Firebase (sync across devices)
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+    const unsub = subscribeToLastReadMessageId(session.licenseKey, (id) => {
+      setLastReadMessageId(id);
+      setLastReadLoaded(true); // Mark as loaded after Firebase returns
+    });
+    return () => unsub();
+  }, [session?.licenseKey]);
+
+  // When chat opens, mark all as read immediately (local + Firebase)
+  useEffect(() => {
+    if (isOpen && messages.length > 0 && session?.licenseKey) {
+      const latestMessage = messages[messages.length - 1];
+      if (latestMessage && latestMessage.id !== lastReadMessageId) {
+        // Update local state immediately for instant UI feedback
+        setLastReadMessageId(latestMessage.id);
+        // Then persist to Firebase for cross-device sync
+        saveLastReadMessageId(session.licenseKey, latestMessage.id);
+      }
+    }
+  }, [isOpen, messages, session?.licenseKey, lastReadMessageId]);
 
   // Sync ref with state
   useEffect(() => {
@@ -5764,12 +5864,12 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   }, [currentUserName, currentDeviceId]);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
+    if (messagesEndRef.current && isOpen) {
       // Use instant on first load, smooth on subsequent updates
       messagesEndRef.current.scrollIntoView({ behavior: isFirstLoad.current ? 'instant' : 'smooth' });
       isFirstLoad.current = false;
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   useEffect(() => {
     const match = input.match(/@(\w*)$/);
@@ -5883,6 +5983,16 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     <>
       <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setIsOpen(true)} className="fixed bottom-20 sm:bottom-24 right-5 z-50 w-10 h-10 sm:w-14 sm:h-14 gradient-accent rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl glow">
         <MessageSquare className="w-6 h-6 text-white" />
+        {/* Red dot badge for unread messages */}
+        {unreadCount > 0 && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-red-500 rounded-full flex items-center justify-center shadow-lg"
+          >
+            <span className="text-[10px] font-bold text-white">{unreadCount > 99 ? '99+' : unreadCount}</span>
+          </motion.div>
+        )}
       </motion.button>
 
       <AnimatePresence>
@@ -6145,7 +6255,16 @@ function AdminDashboard({ session, onClose }) {
       };
 
       if (editingKey) {
+        // Get old name from licenseKeys before update
+        const oldKeyData = licenseKeys.find(k => k.key === editingKey);
+        const oldName = oldKeyData?.name;
+
         await updateLicenseKey(editingKey, dataToSave);
+
+        // If name changed, propagate to all Firebase locations (chat, forum, presence)
+        if (oldName && oldName !== keyForm.name) {
+          await adminUpdateDisplayName(editingKey, oldName, keyForm.name);
+        }
       } else {
         await createLicenseKey(dataToSave);
       }

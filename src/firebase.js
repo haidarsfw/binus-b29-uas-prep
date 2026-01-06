@@ -254,6 +254,95 @@ export const updateLicenseKey = async (originalKey, keyData) => {
     }
 };
 
+// Admin function to update user's display name across all Firebase locations
+// This propagates name changes to: licenses, presence, chat messages, forum threads/comments
+export const adminUpdateDisplayName = async (licenseKey, oldName, newName) => {
+    if (!licenseKey || !newName || oldName === newName) return;
+
+    const updates = {};
+    const keyUpper = licenseKey.toUpperCase();
+
+    try {
+        // 1. Update licenses activation data
+        const activationRef = ref(db, `licenses/${keyUpper}`);
+        const activationSnap = await get(activationRef);
+        if (activationSnap.exists()) {
+            const data = activationSnap.val();
+            if (data.userName === oldName) {
+                updates[`licenses/${keyUpper}/userName`] = newName;
+            }
+        }
+
+        // 2. Update presence system
+        const presenceRef = ref(db, 'presence');
+        const presenceSnap = await get(presenceRef);
+        if (presenceSnap.exists()) {
+            const presenceData = presenceSnap.val();
+            Object.entries(presenceData).forEach(([userId, userData]) => {
+                if (userData.userName === oldName) {
+                    updates[`presence/${userId}/userName`] = newName;
+                }
+            });
+        }
+
+        // 3. Update global chat messages
+        const chatRef = ref(db, 'globalChat');
+        const chatSnap = await get(chatRef);
+        if (chatSnap.exists()) {
+            const messages = chatSnap.val();
+            Object.entries(messages).forEach(([msgId, msg]) => {
+                if (msg.authorName === oldName) {
+                    updates[`globalChat/${msgId}/authorName`] = newName;
+                }
+            });
+        }
+
+        // 4. Update forum threads and comments
+        const forumRef = ref(db, 'forum');
+        const forumSnap = await get(forumRef);
+        if (forumSnap.exists()) {
+            const subjects = forumSnap.val();
+            Object.entries(subjects).forEach(([subjectId, threads]) => {
+                if (threads) {
+                    Object.entries(threads).forEach(([threadId, thread]) => {
+                        // Update thread author
+                        if (thread.authorName === oldName) {
+                            updates[`forum/${subjectId}/${threadId}/authorName`] = newName;
+                        }
+                        // Update comments
+                        if (thread.comments) {
+                            Object.entries(thread.comments).forEach(([commentId, comment]) => {
+                                if (comment.authorName === oldName) {
+                                    updates[`forum/${subjectId}/${threadId}/comments/${commentId}/authorName`] = newName;
+                                }
+                                // Update replies
+                                if (comment.replies) {
+                                    Object.entries(comment.replies).forEach(([replyId, reply]) => {
+                                        if (reply.authorName === oldName) {
+                                            updates[`forum/${subjectId}/${threadId}/comments/${commentId}/replies/${replyId}/authorName`] = newName;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // 5. Apply all updates atomically
+        if (Object.keys(updates).length > 0) {
+            await update(ref(db), updates);
+            console.log(`Updated ${Object.keys(updates).length} entries for name change: ${oldName} → ${newName}`);
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Error updating display name across Firebase:', error);
+        throw error;
+    }
+};
+
 // Delete a license key (admin only)
 export const deleteLicenseKey = async (key) => {
     const licenseKeyRef = ref(db, `licenseKeys/${key.toUpperCase()}`);
@@ -1109,6 +1198,43 @@ export const deleteGlobalMessage = async (messageId) => {
     }
 };
 
+// ============================================
+// CHAT UNREAD TRACKING (Sync across devices)
+// ============================================
+
+// Save last read message ID for a user (call when user opens chat)
+export const saveLastReadMessageId = async (licenseKey, messageId) => {
+    if (!licenseKey || !messageId) return;
+    const readRef = ref(db, `users/${licenseKey}/lastReadChatMessageId`);
+    try {
+        await set(readRef, { messageId, timestamp: new Date().toISOString() });
+    } catch (error) {
+        console.error('Error saving last read message:', error);
+    }
+};
+
+// Get last read message ID for a user
+export const getLastReadMessageId = async (licenseKey) => {
+    if (!licenseKey) return null;
+    const readRef = ref(db, `users/${licenseKey}/lastReadChatMessageId`);
+    try {
+        const snapshot = await get(readRef);
+        return snapshot.val()?.messageId || null;
+    } catch (error) {
+        console.error('Error getting last read message:', error);
+        return null;
+    }
+};
+
+// Subscribe to last read message ID changes (realtime sync across devices)
+export const subscribeToLastReadMessageId = (licenseKey, callback) => {
+    if (!licenseKey) return () => { };
+    const readRef = ref(db, `users/${licenseKey}/lastReadChatMessageId`);
+    return onValue(readRef, (snapshot) => {
+        callback(snapshot.val()?.messageId || null);
+    });
+};
+
 // Compress audio to smaller size
 export const compressAudio = async (blob) => {
     // Return original for now - audio compression is complex
@@ -1422,16 +1548,8 @@ export const getUserLeaderboard = async () => {
                 isAdmin: data.isAdmin || false,
             }));
 
-        // Sort by: totalScore DESC, then onlineMinutes DESC
-        // Users with activity should rank higher than those with 0
-        return users.sort((a, b) => {
-            // First: sort by total score (descending)
-            if (b.totalScore !== a.totalScore) {
-                return b.totalScore - a.totalScore;
-            }
-            // Second: sort by online time (descending)
-            return b.onlineMinutes - a.onlineMinutes;
-        });
+        // Sort by: onlineMinutes DESC only (hours-based ranking)
+        return users.sort((a, b) => b.onlineMinutes - a.onlineMinutes);
     } catch (e) {
         console.error('Failed to get leaderboard:', e);
         return [];
