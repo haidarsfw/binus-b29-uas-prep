@@ -4226,7 +4226,7 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiExamNotes, kisiKisiTambahan,
                     <span>{section.topic}</span>
                   </h4>
                   {section.subtitle && (
-                    <p className="text-xs text-[var(--text-muted)] ml-7 -mt-1 mb-1">
+                    <p className="text-xs text-[var(--accent)] ml-7 -mt-1 mb-1">
                       {section.subtitle}
                     </p>
                   )}
