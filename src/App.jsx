@@ -4207,8 +4207,8 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiExamNotes, kisiKisiTambahan,
               // Header handling (e.g., A. STUDI KASUS, B. ESSAY)
               if (section.isHeader) {
                 return (
-                  <div key={idx} className="mt-6 mb-3 first:mt-0">
-                    <h4 className="font-bold text-[var(--accent)] text-lg mb-1">{section.topic}</h4>
+                  <div key={idx} className="mt-5 mb-2 first:mt-0">
+                    <h4 className="font-bold text-[var(--text)] text-base mb-1">{section.topic}</h4>
                     {section.items && section.items.length > 0 && (
                       <p className="text-sm text-[var(--text-secondary)] italic mb-2">{section.items[0]}</p>
                     )}
@@ -4218,28 +4218,28 @@ function KisiKisi({ kisiKisi, kisiKisiNote, kisiKisiExamNotes, kisiKisiTambahan,
 
               // Normal Item handling
               return (
-                <div key={idx} className="space-y-2 pl-2">
-                  <h4 className="font-semibold text-[var(--text)] text-sm flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-[var(--accent-soft)] text-[var(--accent)] text-xs flex items-center justify-center font-bold shrink-0">
+                <div key={idx} className="space-y-1 pl-2">
+                  <h4 className="font-medium text-[var(--text)] text-sm flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-secondary)] text-[10px] flex items-center justify-center font-bold shrink-0">
                       {section.customNumber || idx + 1}
                     </span>
                     <span>{section.topic}</span>
                   </h4>
                   {section.subtitle && (
-                    <p className="text-xs font-medium text-[var(--accent)] ml-8 -mt-1 mb-1">
+                    <p className="text-xs text-[var(--text-muted)] ml-7 -mt-1 mb-1">
                       {section.subtitle}
                     </p>
                   )}
                   {section.instruction && (
-                    <p className="ml-8 text-[var(--text-secondary)] text-sm italic mb-2">
+                    <p className="ml-7 text-[var(--text-secondary)] text-xs italic mb-2">
                       {section.instruction}
                     </p>
                   )}
                   {section.items && section.items.length > 0 && (
-                    <ul className="ml-8 space-y-1">
+                    <ul className="ml-7 space-y-1">
                       {section.items.map((item, itemIdx) => (
-                        <li key={itemIdx} className="text-[var(--text-secondary)] text-sm flex items-start gap-2">
-                          <span className="text-[var(--accent)] mt-1 shrink-0">•</span>
+                        <li key={itemIdx} className="text-[var(--text-secondary)] text-xs flex items-start gap-2">
+                          <span className="text-[var(--text-muted)] mt-1 shrink-0">•</span>
                           <span>{item}</span>
                         </li>
                       ))}
