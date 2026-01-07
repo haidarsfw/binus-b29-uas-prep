@@ -2481,28 +2481,36 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.4.1";
+  const currentVersion = "1.5.0";
   const patchNotes = {
     current: {
-      version: "1.4.1",
-      date: "6 Jan 2026",
+      version: "1.5.0",
+      date: "7 Jan 2026",
       changes: [
-        "- ITM RANGKUMAN UPDATED: 5 Modul + Addendum konten lengkap 100%",
-        "- Modul 1: Kepemimpinan (Leadership) - Session 15 & 16",
-        "- Modul 2: Pengendalian (Controlling) - Session 17 & 18",
-        "- Modul 3: Kewirausahaan & Manajemen Risiko - Session 19-22",
-        "- Modul 4: Strategi & Praktik Manajemen - Session 25 & 26",
-        "- Addendum: Missing Links & Deep Dive (BCG Matrix, dll)"
+        "- MAJOR UPDATE: 4 Mata Kuliah RANGKUMAN UPDATED 100%",
+        "- IBM: 4 Modul + Addendum + Kisi-Kisi Resmi (Format Baru!)",
+        "- Marketing: 5 Modul + Addendum",
+        "- HRM: 5 Modul + Addendum",
+        "- MIS: 5 Modul + Addendum (BARU LENGKAP!)",
+        "- Semua materi disesuaikan dengan Kisi-Kisi Resmi",
+        "- Rangkuman Legacy tetap tersedia bagi yang suka format lama"
       ]
     },
     past: [
+      {
+        version: "1.4.1",
+        date: "6 Jan 2026",
+        changes: [
+          "- IBM RANGKUMAN UPDATED: 4 Modul + Addendum konten lengkap",
+          "- Modul: Leadership, Controlling, Entrepreneurship, Strategy"
+        ]
+      },
       {
         version: "1.4.0",
         date: "6 Jan 2026",
         changes: [
           "- HRM RANGKUMAN UPDATED: 5 Modul + Addendum versi terbaru",
-          "- Business Mathematics: Jadwal ujian baru ditambahkan (16-23 Jan)",
-          "- Fix: Admin rename sekarang propagate ke Chat, Forum, Online View"
+          "- Business Mathematics: Jadwal ujian baru ditambahkan (16-23 Jan)"
         ]
       },
       {
@@ -2510,18 +2518,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
         date: "5 Jan 2026",
         changes: [
           "- RANGKUMAN MM UPDATED: 5 Modul + Addendum versi baru tersedia",
-          "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability",
-          "- UI Rangkuman: Modul baru di atas dengan badge 'NEW', modul lama di bawah"
-        ]
-      },
-      {
-        version: "1.2.1",
-        date: "5 Jan 2026",
-        changes: [
-          "- KISI-KISI MM B29: Materi resmi dari dosen sudah tersedia",
-          "- Topik: Porter's Strategies, Market Leader, Competitive Analysis, IMC, AIDA",
-          "- Kisi-kisi B28 dipindahkan ke section Kisi-Kisi Tambahan",
-          "- Info: Ujian Close Book, tanpa kalkulator/gadget"
+          "- Konten lengkap: Marketing Channels, IMC, Competitive Advantage, Global, Sustainability"
         ]
       },
       {

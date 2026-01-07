@@ -785,6 +785,16 @@ export const DB = {
                 { id: 53, question: "Model bisnis yang menyediakan 'pintu gerbang' masuk ke web dengan paket layanan lengkap seperti berita, email, dan pencarian (contoh: Yahoo, MSN) disebut:", options: ['Portal', 'E-tailer', 'Community Provider', 'Service Provider'], answer: 0, xp: 5, category: 'Modul 5: E-Commerce' },
             ],
             rangkuman: {
+                modulIntiUpdated: [
+                    { title: 'Modul 1: Manajemen Pengetahuan & AI', contentKey: 'modul1_updated', type: 'native', driveId: '1RJ3n1kkrTn-CbkRL6H2Sjmzzg3ubgw9xIibqTf-3yOI' },
+                    { title: 'Modul 2: Peningkatan Pengambilan Keputusan', contentKey: 'modul2_updated', type: 'native', driveId: '127aYAGOQSRB8SXJ-08NJi1QGuDqgF2_T8zsS5_fHs3k' },
+                    { title: 'Modul 3: Membangun Sistem Informasi', contentKey: 'modul3_updated', type: 'native', driveId: '1KaOXr554c0Eb3Mo1HUAoJ7wr8-njTIX4ftka156u3Y4' },
+                    { title: 'Modul 4: Keunggulan Operasional & Intimasi Pelanggan', contentKey: 'modul4_updated', type: 'native', driveId: '12-1gABNPsQ1GfYFebMw0C-pn5bx82QVcm3TxXxmP74c' },
+                    { title: 'Modul 5: E-Commerce & Pasar Digital', contentKey: 'modul5_updated', type: 'native', driveId: '1P8SJni6O3FJK1djY24nxWvMLnKIxvt8k5hDoiZ5Y_tM' },
+                ],
+                addendumUpdated: [
+                    { title: 'Addendum: Detail Teknis & Safety Net', contentKey: 'tambahan_updated', type: 'native', driveId: '15qn8NrkKrTIxUVT1LyVSTM7S41CbJR9cU7_icRDRAwg' },
+                ],
                 modulInti: [
                     { title: 'Modul 1: Manajemen Pengetahuan & AI', contentKey: 'modul1', type: 'native' },
                     { title: 'Modul 2: Peningkatan Pengambilan Keputusan', contentKey: 'modul2', type: 'native' },

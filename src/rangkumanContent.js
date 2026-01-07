@@ -1516,7 +1516,593 @@ Di slide Review, ada pertanyaan: "Explain the importance of micropayment systems
 <b>Sistem Mikropayment (Micropayment Systems):</b>
 <bullet><b>Definisi:</b> Sistem pembayaran untuk transaksi yang nilainya sangat kecil (receh), biasanya di bawah $10 atau bahkan di bawah Rp 10.000.</bullet>
 <bullet><b>Pentingnya:</b> Tanpa sistem ini, orang malas beli barang murah digital (seperti beli 1 lagu atau 1 item game) karena biaya admin bank mahal.</bullet>
-<bullet><b>Contoh:</b> Pembayaran pakai Pulsa, GoPay, atau Apple Pay untuk beli skin di Mobile Legends.</bullet>`
+<bullet><b>Contoh:</b> Pembayaran pakai Pulsa, GoPay, atau Apple Pay untuk beli skin di Mobile Legends.</bullet>`,
+                modul1_updated: `<h1>MODUL 1: MANAJEMEN PENGETAHUAN & KECERDASAN BUATAN</h1>
+<subtitle><b><i>(Mencakup Session 17 & 18)</i></b></subtitle>
+
+Topik Utama: Transformasi data menjadi wawasan bisnis (Business Insights) dan penerapan kecerdasan mesin untuk otomatisasi keputusan.
+
+Relevansi Ujian: Materi ini adalah kunci jawaban mutlak untuk Soal No. 2 (Mini Case). Kisi-kisi secara eksplisit mencantumkan "AI and Knowledge Management".
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 17: Managing Knowledge - Status: CRITICAL. Kisi-kisi Resmi poin E mewajibkan pemahaman mendalam tentang bagaimana perusahaan mengelola aset intelektualnya.</warning>
+
+<h2>1. The Knowledge Management Landscape</h2>
+
+Dalam ekonomi informasi, aset terbesar perusahaan bukan lagi inventaris fisik, melainkan Intellectual Property dan pengetahuan karyawan. Knowledge Management Systems (KMS) adalah infrastruktur TI yang dirancang untuk mengumpulkan, menyimpan, dan menyebarkan pengetahuan tersebut.
+
+Untuk menjawab studi kasus, Anda wajib membedakan hierarki nilai data:
+
+<bullet><b>Data:</b> Fakta mentah yang belum diolah dan tidak memiliki konteks langsung.
+<i>Contoh: Catatan kasir "Transaksi #101: Latte, Rp 50.000, 10:00 AM".</i></bullet>
+
+<bullet><b>Information:</b> Data yang telah diproses menjadi pola yang bermakna.
+<i>Contoh: "Penjualan Latte naik 20% setiap jam 10 pagi di cabang Jakarta Selatan."</i></bullet>
+
+<bullet><b>Knowledge:</b> Konsep, pengalaman, dan wawasan yang dapat ditindaklanjuti (actionable).
+<i>Contoh: "Kita harus menjadwalkan barista senior di jam 10 pagi untuk menjaga kecepatan layanan (Operational Excellence)."</i></bullet>
+
+<h2>2. Dimensions of Knowledge: Tacit vs. Explicit</h2>
+
+Konsep ini sering muncul dalam analisis masalah "Brain Drain" (karyawan ahli keluar, perusahaan lumpuh).
+
+<bullet><b>Tacit Knowledge (Pengetahuan Tersirat):</b>
+<i>Definisi: Pengetahuan yang "hidup" di dalam benak karyawan, berbasis pengalaman, intuisi, dan know-how. Sulit didokumentasikan.</i>
+<i>Karakteristik: Unstructured, sticky, subjective.</i>
+<i>Contoh: Seorang Sales Manager veteran tahu persis kapan harus diam dan kapan harus menekan harga saat negosiasi hanya dengan melihat tatapan mata klien. Hal ini tidak tertulis di buku SOP manapun.</i></bullet>
+
+<bullet><b>Explicit Knowledge (Pengetahuan Tersurat):</b>
+<i>Definisi: Pengetahuan yang telah dikodifikasi, didokumentasikan, dan dapat ditransfer dengan mudah.</i>
+<i>Karakteristik: Structured, documented, objective.</i>
+<i>Contoh: Dokumen SOP (Standar Operasional Prosedur), Resep rahasia KFC yang tertulis, Laporan Keuangan Tahunan, atau Database pelanggan.</i></bullet>
+
+<bullet><b>Pro Tip:</b> Tantangan utama KM adalah mengubah Tacit menjadi Explicit. Jika studi kasus membahas karyawan senior yang mau pensiun, solusinya adalah Knowledge Capture (mentoring/wawancara) untuk mendokumentasikan keahlian mereka sebelum mereka pergi.</bullet>
+
+<h2>3. The Knowledge Management Value Chain</h2>
+
+Manajemen pengetahuan adalah proses siklus yang tidak boleh putus. Jika satu rantai hilang, sistem gagal. Hafalkan 4 langkah ini:
+
+<bullet><b>Knowledge Acquisition (Akuisisi):</b>
+Langkah pertama adalah "berburu" pengetahuan. Perusahaan melakukan Data Mining (menggali pola dari data transaksi), Collaborating (riset dengan partner), atau menyewa konsultan ahli.
+<i>Contoh: Perusahaan farmasi membeli hasil riset laboratorium universitas untuk mengembangkan obat baru.</i></bullet>
+
+<bullet><b>Knowledge Storage (Penyimpanan):</b>
+Pengetahuan harus disimpan dalam Knowledge Database yang terstruktur agar aman dan bisa dicari. Dokumen fisik harus melalui proses Digitizing.
+<i>Teknologi: Content Management Systems (CMS) untuk dokumen tak terstruktur (PDF, Email).</i></bullet>
+
+<bullet><b>Knowledge Dissemination (Penyebaran):</b>
+Informasi di database tidak berguna jika tidak sampai ke otak karyawan. Gunakan Push Strategy (Email/Notifikasi) atau Pull Strategy (Portal Intranet/Search Engine).
+<i>Contoh: Portal internal perusahaan (Wiki) di mana karyawan bisa mencari solusi masalah teknis yang pernah dihadapi cabang lain.</i></bullet>
+
+<bullet><b>Knowledge Application (Penerapan):</b>
+Tahap paling krusial. Pengetahuan harus digunakan untuk menciptakan nilai bisnis, seperti memperbaiki proses kerja atau menciptakan produk baru.
+<i>Contoh: Menggunakan data komplain pelanggan bulan lalu untuk mendesain ulang kemasan produk agar tidak mudah pecah.</i></bullet>
+
+<h2>4. Specialized Systems (Tambahan Teknis)</h2>
+
+<bullet><b>Knowledge Work Systems (KWS):</b> Sistem khusus untuk Knowledge Workers (Insinyur, Arsitek, Ilmuwan) untuk menciptakan pengetahuan baru.
+<i>Contoh: CAD (Computer Aided Design) untuk arsitek, atau VR (Virtual Reality) untuk simulasi medis.</i></bullet>
+
+<bullet><b>Enterprise Content Management (ECM):</b> Sistem untuk mengelola data tak terstruktur perusahaan dalam skala besar.
+<i>Contoh: Mengelola arsip kontrak hukum, video promosi, dan email korporat.</i></bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 18: Artificial Intelligence - Status: CRITICAL. Soal studi kasus sering meminta Anda memilih Teknik AI mana yang paling tepat untuk memecahkan masalah spesifik.</warning>
+
+<h2>1. Definition & Scope</h2>
+
+Artificial Intelligence (AI) adalah upaya sistem berbasis komputer untuk meniru fungsi kognitif manusia, seperti belajar (learning), mengenali pola (pattern recognition), memahami bahasa (natural language), dan memecahkan masalah.
+
+<bullet><b>Studi Kasus PPT (Mammograms):</b> AI digunakan untuk mendeteksi kanker payudara. Manusia sering melakukan False Negative (salah baca normal padahal ada kanker) atau False Positive. AI membantu mengurangi error ini dengan akurasi lebih tinggi daripada radiolog manusia.</bullet>
+
+<h2>2. Major AI Techniques (Wajib Hafal)</h2>
+
+Pahami perbedaan cara kerja masing-masing teknik ini untuk menjawab soal kasus:
+
+<h3>A. Expert Systems (Sistem Pakar)</h3>
+<bullet><b>Konsep:</b> Bentuk AI tertua yang meniru kemampuan pengambilan keputusan seorang ahli manusia dalam domain yang sangat spesifik dan terbatas.</bullet>
+<bullet><b>Cara Kerja:</b> Menggunakan ribuan aturan logika "If-Then Rules" (Jika-Maka).</bullet>
+<bullet><b>Komponen:</b> Knowledge Base (kumpulan aturan) + Inference Engine (mesin pelacak yang mencocokkan fakta dengan aturan).</bullet>
+<bullet><b>Kelemahan:</b> Kaku. Jika masalahnya di luar aturan yang diprogram, sistem macet (brittle).</bullet>
+<bullet><b>Contoh Konkret:</b>
+<i>Sistem Diagnosa Mobil: "JIKA mesin tidak menyala DAN lampu indikator mati, MAKA periksa aki."</i>
+<i>WebMD Symptom Checker: "JIKA demam tinggi DAN bintik merah, MAKA potensi Demam Berdarah."</i></bullet>
+
+<h3>B. Machine Learning (Pembelajaran Mesin)</h3>
+<bullet><b>Konsep:</b> Berbeda dengan Sistem Pakar yang "diajari" aturan kaku, Machine Learning "belajar sendiri" dari data.</bullet>
+<bullet><b>Cara Kerja:</b> Anda memberi sistem ribuan contoh data masa lalu (Training Data), dan algoritma akan menemukan pola statistik tersembunyi tanpa diprogram secara eksplisit.</bullet>
+<bullet><b>Contoh Konkret:</b>
+<i>Netflix/Spotify Recommendation: Sistem tidak diprogram "Jika nonton Film A, tawarkan B". Tapi sistem melihat pola jutaan user: "80% orang yang nonton Drakor A, juga menyukai Drakor B".</i></bullet>
+
+<h3>C. Neural Networks (Jaringan Syaraf Tiruan)</h3>
+<bullet><b>Konsep:</b> Meniru arsitektur biologis otak manusia (neuron dan sinapsis) untuk memproses data yang sangat kompleks, visual, dan tidak linear.</bullet>
+<bullet><b>Cara Kerja:</b> Menggunakan lapisan-lapisan (layers) node buatan untuk mengklasifikasikan input. Sangat kuat untuk Pattern Recognition.</bullet>
+<bullet><b>Contoh Konkret:</b>
+<i>Fraud Detection: Mendeteksi pola aneh pada jutaan transaksi kartu kredit dalam milidetik (misal: kartu dipakai di Jakarta, 5 menit kemudian dipakai di London).</i>
+<i>Computer Vision: Fitur Face ID di iPhone atau diagnosa X-Ray medis.</i></bullet>
+
+<h3>D. Genetic Algorithms (Algoritma Genetika)</h3>
+<bullet><b>Konsep:</b> Meniru proses evolusi biologi (seleksi alam, mutasi, reproduksi) untuk mencari solusi paling optimal dari jutaan kemungkinan kombinasi.</bullet>
+<bullet><b>Kunci Jawaban:</b> Gunakan ini jika soal bertanya tentang "Optimasi", "Jadwal", atau "Desain Terbaik".</bullet>
+<bullet><b>Contoh Konkret:</b>
+<i>Logistics Optimization: Bagaimana cara truk FedEx mengantar 100 paket ke 100 alamat berbeda dengan rute terpendek dan bensin paling hemat? Algoritma akan "mengawinkan" ribuan rute sampai ketemu yang terbaik.</i></bullet>
+
+<h3>E. Intelligent Agents</h3>
+<bullet><b>Konsep:</b> Program perangkat lunak yang bekerja di latar belakang (background) tanpa intervensi manusia langsung untuk melaksanakan tugas spesifik, berulang, dan terprediksi.</bullet>
+<bullet><b>Contoh Konkret:</b>
+<i>Chatbots: Otomatis menjawab pertanyaan dasar pelanggan di website.</i>
+<i>Automated Trading: Bot saham yang otomatis menjual saham jika harga turun di bawah level tertentu.</i>
+<i>Siri/Google Assistant: Menjadwalkan rapat otomatis.</i></bullet>`,
+                modul2_updated: `<h1>MODUL 2: PENINGKATAN PENGAMBILAN KEPUTUSAN (ENHANCING DECISION MAKING)</h1>
+<subtitle><b><i>(Mencakup Session 19 & 20)</i></b></subtitle>
+
+Topik Utama: Transformasi manajer dari "pengambil keputusan insting" menjadi "Data-Driven Decision Maker" menggunakan sistem intelijen bisnis.
+
+Relevansi Ujian: Materi ini adalah kunci jawaban mutlak untuk Soal No. 3 (Mini Case). Kisi-kisi menyoroti Simon's Model dan Balanced Scorecard.
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 19: The Decision Making Process - Status: CRITICAL. Kisi-kisi Poin C secara spesifik menyebutkan level manajemen dan tahapan pengambilan keputusan (Intelligence, Design).</warning>
+
+<h2>1. Types of Decisions & Management Levels</h2>
+
+Sistem informasi harus disesuaikan dengan siapa yang memakainya. Dalam studi kasus, identifikasi dulu level manajer yang bermasalah untuk menentukan jenis keputusannya:
+
+<bullet><b>Unstructured Decisions (Keputusan Tidak Terstruktur):</b>
+<i>User: Senior Management (C-Level).</i>
+<i>Karakteristik: Masalah baru, non-rutin, dan penting. Tidak ada prosedur baku. Membutuhkan Judgment, Evaluation, dan Insight.</i>
+<i>Contoh: "Should we exit the Asian market?" atau "Apakah kita harus investasi Rp 1 Triliun untuk pabrik mobil listrik?" (Tidak ada rumus pasti, butuh intuisi dan data eksternal).</i></bullet>
+
+<bullet><b>Semi-Structured Decisions (Keputusan Semi-Terstruktur):</b>
+<i>User: Middle Management.</i>
+<i>Karakteristik: Sebagian prosedur jelas, sebagian butuh analisis manusia.</i>
+<i>Contoh: "Why did sales drop in West Jakarta?" (Data penjualan ada di sistem, tapi alasan penurunannya butuh analisis: apakah karena banjir, pesaing, atau promosi gagal?).</i></bullet>
+
+<bullet><b>Structured Decisions (Keputusan Terstruktur):</b>
+<i>User: Operational Management (Supervisor/Staff).</i>
+<i>Karakteristik: Rutin, berulang, dan sudah ada SOP (Standar Operasional Prosedur).</i>
+<i>Contoh: "Restock Inventory." (SOP: Jika stok < 10, otomatis pesan 100 unit. Bisa diotomatisasi penuh oleh komputer).</i></bullet>
+
+<h2>2. The Decision Making Process (Simon's Model)</h2>
+
+Herbert Simon merumuskan 4 tahapan pemecahan masalah. Dalam ujian Essay atau Kasus, Anda WAJIB menjelaskan alur ini secara berurutan:
+
+<bullet><b>Intelligence (Kecerdasan/Penelusuran):</b>
+<i>Aktivitas: Memindai lingkungan untuk menemukan masalah. "Dimana masalahnya?"</i>
+<i>Peran Sistem: Memberikan sinyal peringatan (Alerts) jika kinerja turun.</i>
+<i>Contoh: Lampu indikator Dashboard menyala merah karena penjualan Q3 turun 15%.</i></bullet>
+
+<bullet><b>Design (Perancangan):</b>
+<i>Aktivitas: Menemukan, mengembangkan, dan menganalisis berbagai kemungkinan solusi. "Apa opsi kita?"</i>
+<i>Peran Sistem: DSS (Decision Support System) membantu simulasi.</i>
+<i>Contoh: Manajer mensimulasikan 2 opsi: "Opsi A: Turunkan harga (Margin tipis tapi volume naik)" vs "Opsi B: Tambah iklan (Biaya naik tapi harga tetap)".</i></bullet>
+
+<bullet><b>Choice (Pemilihan):</b>
+<i>Aktivitas: Memilih satu alternatif solusi terbaik.</i>
+<i>Peran Sistem: Memberikan peringkat prioritas berdasarkan data prediksi.</i>
+<i>Contoh: Memilih Opsi A karena sistem memprediksi profit totalnya lebih tinggi 5% dibanding Opsi B.</i></bullet>
+
+<bullet><b>Implementation (Implementasi):</b>
+<i>Aktivitas: Menjalankan keputusan dan memantau hasilnya (Reporting).</i>
+<i>Peran Sistem: Laporan monitoring pasca-implementasi untuk memastikan solusi bekerja.</i></bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 20: Business Intelligence & Analytics - Status: CRITICAL. Kisi-kisi Poin C secara eksplisit menulis "BALANCE SCORECARD FRAMEWORK". Ini adalah alat analisis strategi yang paling sering keluar di ujian.</warning>
+
+<h2>1. Business Intelligence (BI) Environment</h2>
+
+Business Intelligence adalah payung istilah untuk infrastruktur (gudang data), alat analisis, dan aplikasi untuk membantu pengambilan keputusan.
+
+<b>6 Elemen Ekosistem BI (PPT):</b>
+<bullet><b>Data:</b> Sumber dari operasional, IoT, pasar.</bullet>
+<bullet><b>BI Infrastructure:</b> Basis data pusat (Data Warehouse).</bullet>
+<bullet><b>Analytics Toolset:</b> Software pengolah data (Data Mining, OLAP).</bullet>
+<bullet><b>Managerial Methods:</b> Cara manajer menggunakan data (misal: Balanced Scorecard).</bullet>
+<bullet><b>Delivery Platform:</b> MIS, DSS, ESS.</bullet>
+<bullet><b>User Interface:</b> Dashboards, Visualisasi.</bullet>
+
+<h2>2. BI Analytics Capabilities (Fitur BI)</h2>
+
+Sistem BI modern harus bisa melakukan:
+
+<bullet><b>Production Reports:</b> Laporan rutin standar (misal: Laporan Harian).</bullet>
+<bullet><b>Parameterized Reports:</b> Laporan yang bisa difilter (misal: Penjualan hanya wilayah Bandung).</bullet>
+<bullet><b>Dashboards/Scorecards:</b> Tampilan visual satu layar penuh (Visual Overview) untuk melihat kinerja sekilas.</bullet>
+<bullet><b>Drill-down:</b> Kemampuan melihat detail dari umum ke khusus.
+<i>Contoh: Klik grafik "Penjualan Nasional" -> pecah jadi "Provinsi" -> pecah jadi "Toko".</i></bullet>
+<bullet><b>Forecasts, Scenarios, Models:</b> Kemampuan prediksi "What-if Analysis".
+<i>Contoh: "Apa yang terjadi pada stok gudang jika penjualan lebaran naik 20%?"</i></bullet>
+
+<h2>3. Balanced Scorecard (BSC) Method</h2>
+
+Metode tradisional hanya menilai perusahaan dari Financial Report (masa lalu). BSC menyeimbangkan 4 dimensi untuk melihat kesehatan perusahaan secara utuh:
+
+<bullet><b>Financial (Keuangan):</b>
+<i>Fokus: Past Performance (Masa lalu). "Bagaimana kita terlihat di mata pemegang saham?"</i>
+<i>KPI: Cash flow, ROI (Return on Investment), Revenue Growth.</i></bullet>
+
+<bullet><b>Customer (Pelanggan):</b>
+<i>Fokus: Eksternal. "Bagaimana pelanggan melihat kita?"</i>
+<i>KPI: Customer Satisfaction Score (CSAT), Customer Retention, Market Share.</i></bullet>
+
+<bullet><b>Internal Business Process (Proses Bisnis):</b>
+<i>Fokus: Internal. "Dalam proses apa kita harus unggul?"</i>
+<i>KPI: Production Cycle Time (Kecepatan produksi), Defect Rate (Tingkat cacat), Cost Efficiency.</i></bullet>
+
+<bullet><b>Learning & Growth (Pembelajaran & Pertumbuhan):</b>
+<i>Fokus: Future (Masa depan). "Bisakah kita terus berinovasi?"</i>
+<i>KPI: Employee Satisfaction, Staff Turnover (Retensi karyawan), Training Hours.</i></bullet>
+
+<bullet><b>Analisis Kasus:</b> Jika Soal Kasus menunjukkan perusahaan untung besar (Financial Bagus) tapi karyawannya stres dan resign massal (Learning & Growth Buruk), maka Balanced Scorecard akan memberi sinyal bahaya. Perusahaan itu akan kolaps di masa depan karena kehilangan aset SDM.</bullet>
+
+<h2>4. Group Decision Support Systems (GDSS)</h2>
+
+(Materi Tambahan dari PPT Sesi 20)
+
+<bullet><b>Definisi:</b> Sistem interaktif untuk memfasilitasi pemecahan masalah tidak terstruktur oleh sekelompok pengambil keputusan.</bullet>
+<bullet><b>Tujuan:</b> Meningkatkan kualitas rapat dan kolaborasi.</bullet>
+<bullet><b>Fitur:</b> Ruang rapat virtual, Electronic Voting (Voting elektronik), Kuesioner Anonim.</bullet>
+<bullet><b>Manfaat:</b> Mencegah dominasi satu orang dalam rapat dan menjamin kerahasiaan pendapat (Anonymity).</bullet>`,
+                modul3_updated: `<h1>MODUL 3: MEMBANGUN SISTEM INFORMASI (BUILDING INFORMATION SYSTEMS)</h1>
+<subtitle><b><i>(Mencakup Session 21 & 22)</i></b></subtitle>
+
+Topik Utama: Metodologi penciptaan sistem baru (SDLC), keputusan strategis "Beli atau Buat" (Make or Buy), dan analisis As-Is vs To-Be.
+
+Relevansi Ujian: Materi ini adalah kunci jawaban mutlak untuk Soal No. 1 (Study Case). Kisi-kisi menyoroti konsep perubahan proses bisnis (Business Process Redesign).
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 21: Systems Development Life Cycle (SDLC) - Status: CRITICAL. Kisi-kisi menyebutkan "AS IS VS TO BE BUSINESS", yang merupakan inti dari tahap Analisis Sistem.</warning>
+
+<h2>1. The Core Concept: Waterfall Method</h2>
+
+SDLC (Systems Development Life Cycle) adalah metode tradisional berbasis tahapan untuk membangun sistem informasi.
+<bullet><b>Karakteristik:</b> Kaku, formal, dan berurutan (Sequential).</bullet>
+<bullet><b>Analogi:</b> Seperti air terjun; Anda harus menyelesaikan satu tahap 100% sebelum "jatuh" ke tahap berikutnya. Tidak bisa kembali ke atas tanpa biaya mahal.</bullet>
+
+<h2>2. The Six Stages of SDLC (Hafalkan Berurutan)</h2>
+
+Dalam studi kasus, Anda sering diminta merancang tahapan solusi. Jangan sampai terbalik urutannya:
+
+<h3>A. Systems Analysis (Analisis Sistem)</h3>
+<bullet><b>Fokus:</b> Mendiagnosis masalah. "Apa masalahnya?"</bullet>
+<bullet><b>Konsep Kunci (Kisi-Kisi):</b> "As-Is vs To-Be Analysis"
+<i>As-Is Process: Memetakan bagaimana proses bisnis berjalan saat ini (yang seringkali manual, lambat, dan penuh error).</i>
+<i>To-Be Process: Merancang bagaimana proses bisnis seharusnya berjalan dengan sistem baru (lebih efisien).</i></bullet>
+<bullet><b>Feasibility Study:</b> Studi kelayakan untuk menentukan apakah sistem layak dibuat secara Teknis, Ekonomi, dan Operasional.</bullet>
+<bullet><b>Output:</b> System Requirements (Dokumen Kebutuhan).</bullet>
+
+<h3>B. System Design (Desain Sistem)</h3>
+<bullet><b>Fokus:</b> Menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis (Blueprint). "Bagaimana cara kerjanya?"</bullet>
+<bullet><b>Analogi:</b> Arsitek menggambar denah rumah secara detail sebelum tukang mulai bekerja.</bullet>
+<bullet><b>Output:</b> Design Specifications (Logical & Physical Design).</bullet>
+
+<h3>C. Programming (Pemrograman)</h3>
+<bullet><b>Fokus:</b> Tahap penulisan kode (Coding).</bullet>
+<bullet><b>Aktivitas:</b> Spesifikasi desain diterjemahkan ke dalam bahasa pemrograman (Software Code).</bullet>
+
+<h3>D. Testing (Pengujian) - Sangat Penting!</h3>
+Sering keluar di soal isian pendek. Anda harus membedakan 3 jenis tes ini:
+<bullet><b>Unit Testing:</b> Menguji program per modul kecil secara terpisah (misal: hanya tes tombol "Login").</bullet>
+<bullet><b>System Testing:</b> Menguji fungsi sistem secara keseluruhan sebagai satu kesatuan.</bullet>
+<bullet><b>Acceptance Testing (UAT):</b> Pengujian akhir oleh User asli. Apakah mereka "menerima" sistem ini? Apakah sistem sesuai kebutuhan bisnis? Ini adalah lampu hijau terakhir sebelum Go-Live.</bullet>
+
+<h3>E. Conversion (Konversi)</h3>
+Proses memindahkan operasi dari sistem lama (Legacy System) ke sistem baru. Pilih strategi yang paling tepat untuk kasus Anda:
+<bullet><b>Parallel Strategy:</b> Sistem lama dan baru dijalankan bersamaan.
+<i>Kelebihan: Paling aman (ada backup).</i>
+<i>Kekurangan: Mahal (biaya ganda).</i></bullet>
+<bullet><b>Direct Cutover:</b> Mematikan sistem lama dan langsung menyalakan sistem baru pada tanggal tertentu.
+<i>Kelebihan: Murah & cepat.</i>
+<i>Kekurangan: Risiko Tinggi. Jika sistem baru gagal, operasional lumpuh total.</i></bullet>
+<bullet><b>Pilot Study:</b> Sistem baru diterapkan di satu area terbatas dulu (misal: hanya Cabang Jakarta). Jika sukses, baru disebar nasional.</bullet>
+<bullet><b>Phased Approach:</b> Menerapkan sistem per modul bertahap (misal: Modul Gaji dulu bulan ini, Modul Absensi bulan depan).</bullet>
+
+<h3>F. Production & Maintenance</h3>
+<bullet><b>Fokus:</b> Sistem sudah berjalan (Go-Live). Tim IT melakukan perbaikan bug, patching, dan audit pasca-implementasi.</bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 22: Alternative Systems-Building Approaches - Status: HIGH PRIORITY. Soal kasus sering bertanya: "Saran apa yang Anda berikan jika perusahaan butuh sistem cepat tapi tidak punya tim IT?"</warning>
+
+<h2>1. Prototyping (Pembuatan Prototipe)</h2>
+<bullet><b>Konsep:</b> Metode iteratif (berulang) di mana sistem dibuat secara cepat dan kasar, lalu diperbaiki terus-menerus berdasarkan masukan user.</bullet>
+<bullet><b>Proses:</b> Identify Req -> Develop Prototype -> Use & Evaluate -> Revise -> Enhance.</bullet>
+<bullet><b>Kapan dipakai?</b> Jika kebutuhan pengguna belum jelas, abstrak, atau sering berubah.</bullet>
+<bullet><b>Kelebihan:</b> User lebih puas karena terlibat langsung (User Involvement).</bullet>
+<bullet><b>Kekurangan:</b> Dokumentasi sering buruk dan sistem jadi "tambal sulam".</bullet>
+
+<h2>2. End-User Development</h2>
+<bullet><b>Konsep:</b> Pengguna bisnis (non-IT) membuat sistem sendiri menggunakan alat sederhana (Excel, Access, Low-code platform).</bullet>
+<bullet><b>Risiko Utama:</b> Shadow IT. Munculnya sistem liar yang tidak terkelola oleh departemen IT pusat, menyebabkan data tidak standar dan celah keamanan.</bullet>
+
+<h2>3. Purchasing Solutions (Membeli Paket Software)</h2>
+<bullet><b>Konsep:</b> Membeli Commercial Off-The-Shelf (COTS) software seperti SAP, Oracle, atau Microsoft Dynamics.</bullet>
+<bullet><b>RFP (Request for Proposal):</b> Dokumen formal berisi daftar spesifikasi kebutuhan yang dikirim ke vendor untuk dinilai.</bullet>
+<bullet><b>Customization Features:</b>
+<i>Kelebihan: Cepat (langsung pakai), vendor yang maintain.</i>
+<i>Kekurangan: Mungkin tidak 100% cocok dengan bisnis unik perusahaan. Perusahaan harus mengubah cara kerjanya mengikuti software.</i></bullet>
+
+<h2>4. Outsourcing (Alih Daya)</h2>
+<bullet><b>Konsep:</b> Menyewa vendor eksternal untuk membangun sistem.</bullet>
+<bullet><b>Types:</b>
+<i>Domestic Outsourcing: Vendor lokal.</i>
+<i>Offshore Outsourcing: Vendor luar negeri (misal: India/Vietnam) karena biaya tenaga kerja murah (Labor Cost).</i></bullet>
+
+<h2>5. Analisis Keputusan: Make vs. Buy (Critical Thinking)</h2>
+
+Gunakan logika ini untuk menjawab rekomendasi solusi:
+<bullet><b>Pilih BUILD (In-house):</b> Jika sistem tersebut adalah Core Competency (rahasia dapur/keunggulan unik) yang membedakan perusahaan dari pesaing.
+<i>Contoh: Algoritma rekomendasi Gojek/Tokopedia.</i></bullet>
+<bullet><b>Pilih BUY/OUTSOURCE:</b> Jika sistem tersebut adalah fungsi umum (Utility) yang bukan keunggulan kompetitif.
+<i>Contoh: Sistem Penggajian (Payroll) atau HR. Tidak ada orang yang belanja di Tokopedia karena sistem penggajian karyawannya bagus.</i></bullet>
+
+<h2>ADDENDUM TEKNIS: Mobile Application Development</h2>
+
+(Materi Tambahan dari PPT Sesi 21 - Relevan untuk studi kasus modern)
+
+Jika studi kasus meminta Anda merancang aplikasi untuk pelanggan (Customer Facing App), Anda harus memilih:
+<bullet><b>Native App:</b>
+Aplikasi yang di-download dari AppStore/PlayStore.
+<i>Pros: Cepat, bisa akses fitur HP (Kamera, GPS, Kontak), bisa jalan offline.</i>
+<i>Cons: Mahal (harus buat versi iOS dan Android terpisah).</i></bullet>
+<bullet><b>Mobile Web App:</b>
+Website yang tampilannya dioptimalkan untuk HP.
+<i>Pros: Murah, tidak perlu install.</i>
+<i>Cons: Fitur terbatas, harus online.</i></bullet>
+<bullet><b>Responsive Web Design:</b>
+Teknik desain web agar layout-nya otomatis berubah menyesuaikan ukuran layar (Desktop, Tablet, HP) tanpa perlu membuat situs terpisah.</bullet>`,
+                modul4_updated: `<h1>MODUL 4: KEUNGGULAN OPERASIONAL & INTIMASI PELANGGAN</h1>
+<subtitle><b><i>(Mencakup Session 23 & 24)</i></b></subtitle>
+
+Topik Utama: Integrasi ribuan proses bisnis yang terpisah menjadi satu kesatuan mesin yang efisien menggunakan Enterprise Applications.
+
+Relevansi Ujian: Kunci jawaban mutlak untuk Soal No. 2 (Study Case) tentang efisiensi operasional dan strategi pelanggan.
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 23: Enterprise Systems (ERP) & SCM - Status: CRITICAL. Kisi-kisi Poin D mewajibkan pemahaman tentang Supply Chain Management (Produktivitas Total) dan integrasi sistem.</warning>
+
+<h2>1. Enterprise Resource Planning (ERP) Systems</h2>
+
+Masalah klasik perusahaan besar adalah "Information Silos" (Silo Informasi). Departemen Keuangan, Gudang, dan Penjualan memiliki database yang terpisah dan tidak saling bicara.
+
+<bullet><b>Solusi:</b> Enterprise Systems (ERP) hadir untuk menghancurkan silo tersebut. ERP adalah suite perangkat lunak terintegrasi dengan satu database pusat (Centralized Database).</bullet>
+
+<b>Business Value:</b>
+<bullet><b>Operational Efficiency:</b> Menghilangkan duplikasi data.</bullet>
+<bullet><b>Real-time Decision Making:</b> Manajer tahu posisi stok detik ini juga.</bullet>
+
+<bullet><b>Contoh Integrasi (Flow):</b>
+Saat Sales input pesanan -> Stok di Gudang otomatis berkurang -> Jadwal Produksi otomatis diperbarui -> Keuangan otomatis cetak faktur.</bullet>
+
+<h2>2. Supply Chain Management (SCM) Systems</h2>
+
+SCM mengelola hubungan perusahaan dengan pemasok (suppliers), perusahaan pembelian, distributor, dan perusahaan logistik. Tujuannya: Mengirim produk yang tepat, ke tempat yang tepat, waktu yang tepat, dengan biaya terendah.
+
+<h3>A. Structure of Supply Chain (Wajib Hafal untuk Studi Kasus)</h3>
+
+Anda harus bisa membedakan bagian "Hulu" dan "Hilir" rantai pasok:
+
+<bullet><b>Upstream Supply Chain (Hulu):</b>
+<i>Fokus: Hubungan dengan Suppliers (Pemasok).</i>
+<i>Aktivitas: Mengelola pesanan bahan baku, negosiasi vendor, pembayaran ke supplier.</i>
+<i>Contoh: Pabrik Nike di Indonesia mengelola kiriman karet dan kain dari pemasok.</i></bullet>
+
+<bullet><b>Downstream Supply Chain (Hilir):</b>
+<i>Fokus: Hubungan dengan Distributors & Customers.</i>
+<i>Aktivitas: Distribusi barang jadi, manajemen gudang ritel, pengiriman ke pelanggan akhir.</i>
+<i>Contoh: Mengirim sepatu Nike yang sudah jadi ke toko Sport Station atau langsung ke pembeli online.</i></bullet>
+
+<h3>B. The Bullwhip Effect (Efek Cambuk)</h3>
+<bullet><b>Masalah:</b> Distorsi informasi permintaan. Perubahan kecil pada permintaan pelanggan di toko ritel bisa menyebabkan fluktuasi stok yang sangat besar (meledak) di tingkat distributor dan pabrik.</bullet>
+<bullet><b>Penyebab:</b> Masing-masing pihak melakukan "Panic Buying" atau menimbun Safety Stock karena tidak punya data akurat.</bullet>
+<bullet><b>Solusi:</b> Sistem SCM memungkinkan semua pihak melihat data permintaan yang sama secara real-time, sehingga menghilangkan ketidakpastian.</bullet>
+
+<h3>C. Push-Based vs. Pull-Based Models (Sangat Sering Keluar)</h3>
+
+Strategi produksi ini sering ditanyakan dalam konteks efisiensi:
+
+<bullet><b>Push-Based Model (Build-to-Stock):</b>
+<i>Pemicu: Berdasarkan Forecast/Ramalan.</i>
+<i>Konsep: "Buat dulu, baru dorong ke pasar."</i>
+<i>Risiko: Gudang penuh barang tidak laku jika ramalan salah (Overstock).</i>
+<i>Contoh: Supermarket (stok barang di rak menunggu pembeli).</i></bullet>
+
+<bullet><b>Pull-Based Model (Demand-Driven):</b>
+<i>Pemicu: Berdasarkan Pesanan Nyata (Order).</i>
+<i>Konsep: "Ada yang beli, baru dibuat."</i>
+<i>Risiko: Kehabisan stok jika supply macet.</i>
+<i>Contoh: Dell Computer (rakit laptop setelah Anda bayar di web).</i></bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 24: Customer Relationship Management (CRM) - Status: CRITICAL. Kisi-kisi Poin D & E-Commerce Section menekankan perbedaan Operational dan Analytical CRM.</warning>
+
+<h2>1. Core Concept: Customer Intimacy</h2>
+
+Mendapatkan pelanggan baru biayanya 6x lebih mahal daripada mempertahankan pelanggan lama.
+<bullet><b>Tujuan CRM:</b> Mengelola hubungan pelanggan di semua Touch Points (titik kontak: email, telepon, web, toko) untuk memaksimalkan loyalitas.</bullet>
+
+<h2>2. Types of CRM (Bedakan Fungsinya!)</h2>
+
+<h3>A. Operational CRM (CRM Operasional)</h3>
+<bullet><b>Definisi:</b> Aplikasi yang berhadapan langsung dengan pelanggan (Customer-facing applications).</bullet>
+<bullet><b>Komponen Utama:</b>
+<i>Sales Force Automation (SFA): Membantu sales mengelola prospek/leads.</i>
+<i>Customer Service: Modul untuk Call Center agar agen tahu sejarah masalah pelanggan saat menjawab telepon.</i>
+<i>Marketing Automation: Otomatisasi kampanye email/promosi.</i></bullet>
+<bullet><i>Contoh: Chatbot di Tokopedia atau CS HaloBCA yang menyapa nama Anda saat menelepon.</i></bullet>
+
+<h3>B. Analytical CRM (CRM Analitis)</h3>
+<bullet><b>Definisi:</b> Aplikasi yang menganalisis data pelanggan yang dihasilkan oleh CRM operasional. Tujuannya bukan melayani, tapi memahami perilaku.</bullet>
+<bullet><b>Metrics Penting (Wajib Hafal):</b>
+<i>CLV (Customer Lifetime Value): Menghitung total cuan dari satu pelanggan seumur hidup. Digunakan untuk menentukan siapa "Pelanggan VIP".</i>
+<i>Churn Rate: Menganalisis tingkat pelanggan yang kabur/berhenti berlangganan.</i></bullet>
+<bullet><b>Teknologi:</b> Menggunakan Data Mining dan OLAP.</bullet>
+
+<h3>C. Social CRM (Tambahan Penting)</h3>
+<bullet><b>Definisi:</b> Menghubungkan percakapan pelanggan di Media Sosial (Twitter/X, Instagram) langsung ke dalam sistem CRM perusahaan.</bullet>
+<bullet><b>Manfaat:</b> Perusahaan bisa merespons komplain viral dengan cepat dan datanya terekam di sistem pusat.</bullet>
+
+<h2>3. Implementation Challenges</h2>
+
+Kenapa proyek ERP/CRM sering gagal? (Gunakan ini untuk analisis risiko di studi kasus):
+<bullet><b>Cost:</b> Biaya lisensi dan konsultan sangat mahal.</bullet>
+<bullet><b>Technological Changes:</b> Infrastruktur TI kompleks.</bullet>
+<bullet><b>Organizational Resistance:</b> Karyawan menolak sistem baru (Resistance to Change) karena enggan belajar cara kerja baru. Solusinya adalah Change Management dan pelatihan intensif.</bullet>`,
+                modul5_updated: `<h1>MODUL 5: E-COMMERCE & PASAR DIGITAL</h1>
+<subtitle><b><i>(Mencakup Session 25 & 26)</i></b></subtitle>
+
+Topik Utama: Transformasi bisnis dari fisik ke digital, model bisnis internet, dan karakteristik unik barang digital.
+
+Relevansi Ujian: Kunci jawaban mutlak untuk Soal No. 1 (Mini Case) tentang strategi E-Commerce.
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 25: E-Commerce Features & Concepts - Status: CRITICAL. Kisi-kisi Poin A.1 mewajibkan Anda menghafal fitur unik E-Commerce. Soal kasus sering bertanya: "Jelaskan karakteristik unik E-Commerce yang diterapkan oleh perusahaan X!".</warning>
+
+<h2>1. The 8 Unique Features of E-Commerce (Wajib Hafal)</h2>
+
+Perdagangan elektronik bukan sekadar memindahkan katalog ke website. Ada 8 dimensi teknis yang membuatnya revolusioner:
+
+<bullet><b>Ubiquity (Ada di mana-mana):</b>
+<i>Konsep: Pasar dibebaskan dari batasan waktu dan ruang geografis. "Marketplace is everywhere."</i>
+<i>Aplikasi Kasus: Pelanggan bisa belanja dari kasur jam 2 pagi lewat HP (M-Commerce). Tidak perlu fisik ke toko.</i></bullet>
+
+<bullet><b>Global Reach (Jangkauan Global):</b>
+<i>Konsep: Teknologi melintasi batas negara (National Boundaries) tanpa hambatan berarti.</i>
+<i>Aplikasi Kasus: UMKM pengrajin perak di Bali bisa menjual langsung ke pembeli di New York tanpa harus membuka cabang fisik di AS.</i></bullet>
+
+<bullet><b>Universal Standards (Standar Universal):</b>
+<i>Konsep: Standar teknis internet (TCP/IP) sama di seluruh dunia. Ini menekan Market Entry Cost.</i>
+<i>Aplikasi Kasus: Berbeda dengan colokan listrik yang beda tiap negara, website buatan Indonesia pasti bisa dibuka sempurna di laptop Jepang.</i></bullet>
+
+<bullet><b>Richness (Kekayaan Konten):</b>
+<i>Konsep: Kemampuan menyajikan pesan yang kompleks (teks, audio, video) secara bersamaan ke audiens massal.</i>
+<i>Aplikasi Kasus: Toko baju online menampilkan video model berjalan (catwalk), fitur zoom serat kain, dan live shopping.</i></bullet>
+
+<bullet><b>Interactivity (Interaktivitas):</b>
+<i>Konsep: Komunikasi dua arah (Two-way communication) antara penjual dan pembeli.</i>
+<i>Aplikasi Kasus: Fitur Live Chat dengan CS, atau kolom komentar di mana penjual langsung membalas pertanyaan pembeli.</i></bullet>
+
+<bullet><b>Information Density (Kepadatan Informasi):</b>
+<i>Konsep: Biaya pencarian informasi menjadi sangat murah, akurat, dan berlimpah. Menciptakan Price Transparency.</i>
+<i>Aplikasi Kasus: Konsumen bisa membandingkan harga iPhone di 10 toko berbeda dalam 5 detik. Penjual tidak bisa lagi mematok harga mahal sembarangan.</i></bullet>
+
+<bullet><b>Personalization/Customization:</b>
+<i>Personalization: Menyesuaikan pesan pemasaran (Misal: Halaman depan Amazon Anda beda dengan teman Anda berdasarkan history belanja).</i>
+<i>Customization: Mengubah produk fisik/jasa (Misal: Pesan sepatu Nike dengan nama Anda di solnya).</i></bullet>
+
+<bullet><b>Social Technology (Teknologi Sosial):</b>
+<i>Konsep: Pengguna memproduksi konten sendiri (User Generated Content) dan membagikannya.</i>
+<i>Aplikasi Kasus: Review/Ulasan pembeli di Tokopedia/Shopee yang sangat memengaruhi keputusan pembeli lain.</i></bullet>
+
+<h2>2. Key Concepts in Digital Markets</h2>
+
+Kisi-kisi Poin A.2 menyoroti efisiensi pasar digital. Pahami istilah ini untuk analisis:
+
+<bullet><b>Information Asymmetry:</b> Di pasar tradisional, penjual tahu lebih banyak dari pembeli (asimetri tinggi). Di pasar digital, asimetri ini berkurang drastis karena transparansi.</bullet>
+
+<bullet><b>Disintermediation (Penghapusan Perantara):</b> E-Commerce memotong jalur distribusi (distributor/grosir). Produsen jual langsung ke konsumen -> Harga lebih murah.</bullet>
+
+<bullet><b>Micropayment Systems:</b> Sistem pembayaran untuk transaksi "receh" (di bawah $10) yang memungkinkan penjualan barang digital eceran (seperti 1 lagu atau 1 skin game) tanpa terbebani biaya admin bank mahal.</bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Session 26: Business & Revenue Models - Status: HIGH PRIORITY. Soal studi kasus biasanya meminta Anda mengidentifikasi: "Apa model bisnis dan model pendapatan perusahaan ini?".</warning>
+
+<h2>1. E-Commerce Business Models (Positioning)</h2>
+
+Bagaimana cara perusahaan memposisikan dirinya?
+
+<bullet><b>E-tailer:</b> Toko ritel versi online. Menjual produk fisik. (Amazon, Lazada).</bullet>
+<bullet><b>Transaction Broker:</b> Memproses transaksi dan mengambil fee. (Traveloka, Gojek).</bullet>
+<bullet><b>Market Creator:</b> Menyediakan platform tempat bertemunya penjual dan pembeli. Tidak punya stok barang. (Tokopedia, Shopee, eBay).</bullet>
+<bullet><b>Content Provider:</b> Mendistribusikan konten informasi, musik, video. (Netflix, Spotify, Detik).</bullet>
+<bullet><b>Community Provider:</b> Lingkungan online untuk berkumpul. (Facebook, LinkedIn).</bullet>
+<bullet><b>Portal:</b> Pintu gerbang web dengan layanan lengkap. (Yahoo, MSN).</bullet>
+<bullet><b>Service Provider:</b> Menjual jasa/aplikasi online (SaaS). (Google Drive, Salesforce).</bullet>
+
+<h2>2. E-Commerce Revenue Models (Monetization)</h2>
+
+Bagaimana cara perusahaan cari uang?
+
+<bullet><b>Advertising Revenue Model:</b> Konten gratis, uang dari pengiklan. (Google, Facebook).</bullet>
+<bullet><b>Sales Revenue Model:</b> Uang dari menjual barang/jasa. (Amazon, Apple Store).</bullet>
+<bullet><b>Subscription Revenue Model:</b> Biaya langganan rutin. (Netflix, Spotify Premium).</bullet>
+<bullet><b>Free/Freemium Revenue Model:</b> Dasar gratis, fitur canggih bayar. (Spotify Free, LinkedIn, Mobile Legends).</bullet>
+<bullet><b>Transaction Fee Revenue Model:</b> Komisi sekian persen dari transaksi. (eBay, Tokopedia Power Merchant).</bullet>
+<bullet><b>Affiliate Revenue Model:</b> Komisi dari merujuk pengunjung ke situs lain (Referral). (Program Afiliasi Blogger/Influencer).</bullet>
+
+<h2>3. Digital Goods (Barang Digital)</h2>
+
+Kisi-kisi Poin A.3 secara spesifik menyebut karakteristik ini:
+
+<bullet><b>Definisi:</b> Barang yang bisa dikirim melalui jaringan (Musik, Video, Software, E-book).</bullet>
+
+<b>Karakteristik Unik (Kisi-Kisi):</b>
+<bullet><b>Non-Rivalry:</b> Barang digital bisa digunakan banyak orang bersamaan tanpa mengurangi kualitas.</bullet>
+<bullet><b>Zero Marginal Cost:</b> Biaya produksi unit pertama mahal, tapi biaya produksi unit kedua (salinan/copy) hampir NOL.</bullet>
+<bullet><b>Implikasi:</b> Keuntungan sangat besar jika volume penjualan tinggi (High leverage).</bullet>`,
+                tambahan_updated: `<h1>ADDENDUM FINAL: DETAIL TEKNIS & SAFETY NET</h1>
+<subtitle><b><i>(Mencakup Materi Tambahan Teknis dari Semua Sesi)</i></b></subtitle>
+
+Tujuan: Melengkapi detail-detail kecil namun fatal yang sering muncul di Pilihan Ganda atau esai teknis.
+Sumber: Sinkronisasi PPT Resmi Sesi 17-26 & Kisi-Kisi.
+
+<warning>⚠️ [MATERI TAMBAHAN PPT] - Sesi 17 & 18: Advanced AI Concepts - Status: Materi ini ada di slide PPT namun sering terlewat karena dianggap "terlalu teknis". Pelajari untuk pembeda jawaban.</warning>
+
+<h2>1. Fuzzy Logic (Logika Samar)</h2>
+<bullet><b>Definisi:</b> Teknik AI yang berbasis aturan (rule-based) yang dapat mentolerir ketidaktepatan/ambiguitas. Berbeda dengan logika komputer biasa (0 atau 1 / Hitam atau Putih), Fuzzy Logic bisa memahami konsep samar seperti "Sedikit Dingin", "Lumayan Tinggi", atau "Hampir Habis".</bullet>
+<bullet><b>Aplikasi Kasus:</b>
+<i>Autofocus Kamera: Mengatur lensa agar gambar "lumayan tajam" meskipun objek bergerak.</i>
+<i>AC Pintar: Menyesuaikan suhu ruangan berdasarkan "jumlah orang" (sedikit/banyak) bukan hitungan angka pasti.</i></bullet>
+
+<h2>2. Intelligent Agents (Detail Tambahan)</h2>
+<bullet><b>Konsep:</b> Perangkat lunak yang bekerja di latar belakang (background) untuk tugas spesifik, berulang, dan terprediksi.</bullet>
+<bullet><b>Istilah Kunci PPT:</b> "Shopping Bots".</bullet>
+<bullet><i>Contoh: Bot yang menjelajahi internet untuk mencari harga tiket pesawat termurah dari semua maskapai dan melaporkannya kepada Anda (Traveloka/Skyscanner).</i></bullet>
+
+<warning>⚠️ [MATERI TAMBAHAN PPT] - Sesi 19 & 20: Advanced Decision Support - Status: Kisi-kisi Poin C menekankan "Enhancing Decision Making". Dua teknologi ini sering keluar sebagai solusi kasus.</warning>
+
+<h2>1. Geographic Information Systems (GIS)</h2>
+<bullet><b>Definisi:</b> Sistem khusus untuk menangkap, menyimpan, memanipulasi, dan menampilkan data yang terkait dengan posisi geografis (Peta Digital).</bullet>
+<bullet><b>Kegunaan Bisnis (Location Analytics):</b>
+<i>Perbankan: Memutuskan lokasi pembukaan cabang baru berdasarkan kepadatan penduduk kaya di peta.</i>
+<i>Logistik: Melacak armada truk secara real-time dan memvisualisasikan rute macet.</i></bullet>
+<bullet><b>Kata Kunci:</b> Spatial Data, Visualization, Maps.</bullet>
+
+<h2>2. Sensitivity Analysis (Analisis Sensitivitas)</h2>
+<bullet><b>Definisi:</b> Fitur dalam DSS (Decision Support System) yang bertanya: "Seberapa besar perubahan pada X akan mempengaruhi Y?".</bullet>
+<bullet><b>Fungsi:</b> Menguji ketahanan sebuah keputusan.</bullet>
+<bullet><i>Contoh: "Jika biaya bahan baku naik 5% (X), seberapa drastis keuntungan bersih kita akan turun (Y)?"</i></bullet>
+<bullet><b>Goal:</b> Menemukan variabel mana yang paling sensitif/berisiko.</bullet>
+
+<h2>3. Big Data Analytics (Hadoop)</h2>
+<bullet><b>Definisi:</b> Menangani data dengan volume super besar, variasi tinggi (teks, video, angka), dan kecepatan tinggi (3V: Volume, Variety, Velocity).</bullet>
+<bullet><b>Teknologi:</b> Hadoop (Kerangka kerja open-source untuk memproses data besar secara terdistribusi).</bullet>
+
+<warning>⚠️ [MATERI TAMBAHAN PPT] - Sesi 21 & 22: Modern System Methodologies - Status: Alternatif SDLC ini WAJIB dipahami karena SDLC dianggap "Kuno" untuk startup digital.</warning>
+
+<h2>1. Agile Methodologies (Metode Lincah)</h2>
+<bullet><b>Konsep:</b> Fokus pada pengiriman perangkat lunak yang berfungsi dengan cepat dalam bagian-bagian kecil, bukan satu sistem raksasa sekaligus.</bullet>
+<bullet><b>Karakteristik:</b> Iteratif (berulang), fleksibel terhadap perubahan, dan kolaboratif.</bullet>
+<bullet><b>Kata Kunci:</b> Sprints (siklus kerja pendek 2-4 minggu), Scrum.</bullet>
+<bullet><b>Kapan Dipakai?</b> Saat kebutuhan bisnis berubah sangat cepat (misal: Startup Aplikasi).</bullet>
+
+<h2>2. Rapid Application Development (RAD)</h2>
+<bullet><b>Konsep:</b> Proses pembuatan sistem yang menekankan kecepatan. Mengurangi penulisan kode manual dengan menggunakan tools visual (drag-and-drop).</bullet>
+<bullet><b>Fokus:</b> Membuat User Interface secepat mungkin agar user bisa langsung mencoba.</bullet>
+
+<h2>3. Component-Based Development</h2>
+<bullet><b>Konsep:</b> Membangun sistem dengan cara "merakit" komponen-komponen perangkat lunak yang sudah jadi (seperti menyusun LEGO).</bullet>
+<bullet><b>Keuntungan:</b> Menghemat waktu dan biaya karena tidak perlu menulis kode dari nol.</bullet>
+
+<warning>⚠️ [REKAP KISI-KISI & ADDENDUM ORIGINAL] - Technical Checklist - Status: Poin-poin ini berasal dari file "Tambahan Detail" dan "Kisi-Kisi" Anda. Saya kumpulkan di sini agar tidak ada yang terlewat (Quadruple Check).</warning>
+
+<h2>1. Supply Chain Details (Sesi 23-24)</h2>
+<bullet><b>Upstream (Hulu):</b> Hubungan dengan Supplier (Bahan baku, Vendor).</bullet>
+<bullet><b>Downstream (Hilir):</b> Hubungan dengan Distributor & Pelanggan (Barang jadi).</bullet>
+<bullet><b>Bullwhip Effect:</b> Masalah distorsi informasi stok yang meledak dari hilir ke hulu. Solusinya: Berbagi data real-time.</bullet>
+
+<h2>2. Mobile Strategy (Sesi 21-22)</h2>
+<bullet><b>Native App:</b> Aplikasi download (PlayStore). Cepat, akses kamera/GPS, mahal.</bullet>
+<bullet><b>Mobile Web:</b> Website biasa yang dibuka di HP. Murah, fitur terbatas.</bullet>
+<bullet><b>Responsive Design:</b> Satu website yang layout-nya otomatis menyesuaikan layar (HP/Tablet/PC).</bullet>
+
+<h2>3. E-Commerce Specifics (Sesi 25-26)</h2>
+<bullet><b>Micropayment Systems:</b> Sistem pembayaran untuk transaksi "receh" (<$10) yang memungkinkan penjualan konten digital eceran (lagu, game item) secara efisien.</bullet>
+<bullet><b>Disintermediation:</b> Grafik yang menunjukkan penghapusan distributor membuat harga ke konsumen lebih murah.</bullet>
+<bullet><b>Digital Goods:</b> Biaya produksi unit pertama mahal, unit kedua NOL. (High leverage).</bullet>
+
+<h2>4. Knowledge Types (Sesi 17-18)</h2>
+<bullet><b>Tacit Knowledge:</b> Di kepala (Pengalaman, Intuisi). Susah ditransfer.</bullet>
+<bullet><b>Explicit Knowledge:</b> Di dokumen (SOP, Buku). Mudah ditransfer.</bullet>
+<bullet><b>Solusi:</b> Ubah Tacit menjadi Explicit sebelum karyawan ahli resign.</bullet>`,
         },
         marketing: {
                 modul1_updated: `<h1>MODUL 1: MARKETING CHANNELS & LOGISTICS</h1>
@@ -1719,10 +2305,10 @@ Mengelola aliran informasi pesanan, penagihan, dan inventaris.
 <h3>Case: Sociolla menerapkan Omnichannel Retailing.</h3>
 <bullet><b>Strategy:</b> Mengintegrasikan pengalaman belanja fisik dan digital secara mulus. Konsumen bisa menggunakan aplikasi SOCO di dalam toko fisik Sociolla untuk scan barcode produk dan melihat review jujur dari pengguna lain sebelum membeli.</bullet>
 <bullet><b>Impact:</b> Menghilangkan keraguan konsumen dan meningkatkan kepercayaan (Trust) serta kenyamanan belanja.</bullet>`,
-                modul2_updated: `<h1> MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
+                modul2_updated: `<h1>MODUL 2: INTEGRATED MARKETING COMMUNICATION STRATEGY</h1>
 <subtitle><b><i>(Reference: PPT Week 10 & Chapter 14)</i></b></subtitle>
 
-<h2> 1. INTRODUCTORY CASE: BURGER KING</h2>
+<h2>1. INTRODUCTORY CASE: BURGER KING</h2>
 
 <h3>"Anything but Traditional"</h3>
 Materi ini dibuka dengan analisis strategi komunikasi Burger King yang unik.
@@ -1732,44 +2318,44 @@ Materi ini dibuka dengan analisis strategi komunikasi Burger King yang unik.
 <bullet><b>Differentiation:</b> Fokus komunikasi selalu pada keunggulan "Flame-Grilled" (dipanggang dengan api), membedakannya tajam dari kompetitor (McDonald's) yang menggoreng dagingnya (flat-top grills).</bullet>
 <bullet><b>Key Lesson:</b> Kreativitas eksekusi boleh liar, asalkan pesan intinya terintegrasi dan konsisten dengan identitas merek.</bullet>
 
-<h2> 2. THE PROMOTION MIX (MARKETING COMMUNICATIONS MIX)</h2>
+<h2>2. THE PROMOTION MIX (MARKETING COMMUNICATIONS MIX)</h2>
 
 <b>Definition:</b> The specific blend of promotion tools that the company uses to persuasively communicate customer value and build customer relationships.
 
-Terdapat <b>lima alat utama (The Five Major Promotion Tools)</b> yang harus dipahami:
+Terdapat lima alat utama (The Five Major Promotion Tools) yang harus dipahami:
 
-<h3>A. Advertising (Periklanan)</h3>
-<bullet><b>Definition:</b> Any paid form of nonpersonal presentation and promotion of ideas, goods, or services by an identified sponsor.</bullet>
-<bullet><b>Characteristics:</b> Jangkauan luas (Mass Reach), biaya per paparan rendah, memungkinkan pengulangan pesan (repeat message). Namun, sifatnya impersonal dan satu arah (One-way communication).</bullet>
-<bullet><b>Example:</b> Iklan TV komersial Super Bowl, Billboard di jalan tol, Iklan Radio.</bullet>
+<bullet><b>Advertising (Periklanan):</b>
+<i>Definition: Any paid form of nonpersonal presentation and promotion of ideas, goods, or services by an identified sponsor.</i>
+<i>Characteristics: Jangkauan luas (Mass Reach), biaya per paparan rendah, memungkinkan pengulangan pesan (repeat message). Namun, sifatnya impersonal dan satu arah (One-way communication).</i>
+<i>Example: Iklan TV komersial Super Bowl, Billboard di jalan tol, Iklan Radio.</i></bullet>
 
-<h3>B. Sales Promotion (Promosi Penjualan)</h3>
-<bullet><b>Definition:</b> Short-term incentives to encourage the purchase or sale of a product or service.</bullet>
-<bullet><b>Characteristics:</b> Menarik perhatian cepat, memberikan insentif kuat untuk membeli sekarang ("Buy Now!"). Sifatnya jangka pendek dan tidak efektif membangun loyalitas jangka panjang.</bullet>
-<bullet><b>Example:</b> Diskon 50%, Voucher "Buy 1 Get 1 Free", Sampel gratis di supermarket.</bullet>
+<bullet><b>Sales Promotion (Promosi Penjualan):</b>
+<i>Definition: Short-term incentives to encourage the purchase or sale of a product or service.</i>
+<i>Characteristics: Menarik perhatian cepat, memberikan insentif kuat untuk membeli sekarang ("Buy Now!"). Sifatnya jangka pendek dan tidak efektif membangun loyalitas jangka panjang.</i>
+<i>Example: Diskon 50%, Voucher "Buy 1 Get 1 Free", Sampel gratis di supermarket.</i></bullet>
 
-<h3>C. Personal Selling (Penjualan Personal)</h3>
-<bullet><b>Definition:</b> Personal customer interactions by the firm's sales force for the purpose of engaging customers, making sales, and building customer relationships.</bullet>
-<bullet><b>Characteristics:</b> Alat paling efektif pada tahap akhir pembelian (membangun preferensi & keyakinan). Interaksi dua arah, bisa menyesuaikan pesan (customized). Namun, <b>biaya paling mahal per kontak</b> (most expensive promotion tool).</bullet>
-<bullet><b>Example:</b> Salesman mobil di showroom, Agen asuransi, Medical Representative (MedRep) yang mendatangi dokter.</bullet>
+<bullet><b>Personal Selling (Penjualan Personal):</b>
+<i>Definition: Personal customer interactions by the firm's sales force for the purpose of engaging customers, making sales, and building customer relationships.</i>
+<i>Characteristics: Alat paling efektif pada tahap akhir pembelian (membangun preferensi & keyakinan). Interaksi dua arah, bisa menyesuaikan pesan (customized). Namun, biaya paling mahal per kontak (most expensive promotion tool).</i>
+<i>Example: Salesman mobil di showroom, Agen asuransi, Medical Representative (MedRep) yang mendatangi dokter.</i></bullet>
 
-<h3>D. Public Relations (PR)</h3>
-<bullet><b>Definition:</b> Building good relations with the company's various publics by obtaining favorable publicity, building up a good corporate image, and handling or heading off unfavorable rumors, stories, and events.</bullet>
-<bullet><b>Characteristics:</b> Sangat kredibel (terasa seperti berita/cerita, bukan iklan), bisa menjangkau prospek yang menghindari iklan.</bullet>
-<bullet><b>Example:</b> Konferensi pers peluncuran iPhone baru, Kegiatan CSR menanam pohon, Artikel berita positif di Kompas/CNN.</bullet>
+<bullet><b>Public Relations (PR):</b>
+<i>Definition: Building good relations with the company's various publics by obtaining favorable publicity, building up a good corporate image, and handling or heading off unfavorable rumors, stories, and events.</i>
+<i>Characteristics: Sangat kredibel (terasa seperti berita/cerita, bukan iklan), bisa menjangkau prospek yang menghindari iklan.</i>
+<i>Example: Konferensi pers peluncuran iPhone baru, Kegiatan CSR menanam pohon, Artikel berita positif di Kompas/CNN.</i></bullet>
 
-<h3>E. Direct and Digital Marketing</h3>
-<bullet><b>Definition:</b> Engaging directly with carefully targeted individual consumers and customer communities to both obtain an immediate response and build lasting customer relationships.</bullet>
-<bullet><b>Characteristics:</b> Segera (Immediate), Terpersonalisasi (Personalized), Interaktif (Interactive).</bullet>
-<bullet><b>Example:</b> Email marketing yang menyapa nama Anda, Iklan Instagram yang sesuai interest Anda, Telemarketing.</bullet>
+<bullet><b>Direct and Digital Marketing:</b>
+<i>Definition: Engaging directly with carefully targeted individual consumers and customer communities to both obtain an immediate response and build lasting customer relationships.</i>
+<i>Characteristics: Segera (Immediate), Terpersonalisasi (Personalized), Interaktif (Interactive).</i>
+<i>Example: Email marketing yang menyapa nama Anda, Iklan Instagram yang sesuai interest Anda, Telemarketing.</i></bullet>
 
-<h2> 3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
+<h2>3. INTEGRATED MARKETING COMMUNICATIONS (IMC)</h2>
 
-<warning>[MATERI KISI-KISI RESMI] - The Need for IMC</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - The Need for IMC</warning>
 
 Lanskap komunikasi berubah drastis karena fragmentasi media. Masalah muncul ketika pesan iklan TV berbeda dengan pesan di website, menciptakan "kebingungan merek" di benak konsumen.
 
-<bullet><b>Definition:</b> Carefully integrating and coordinating the company's many communications channels to deliver a <b>Clear, Consistent, and Compelling</b> message about the organization and its products.</bullet>
+<bullet><b>Definition:</b> Carefully integrating and coordinating the company's many communications channels to deliver a Clear, Consistent, and Compelling message about the organization and its products.</bullet>
 <bullet><b>Key Concept:</b> Semua titik kontak (Brand Touchpoints) harus menyuarakan satu pesan yang sama.</bullet>
 
 <b>Shifting Model:</b> Pemasar kini berubah dari sekadar pembuat iklan menjadi Content Marketing Managers. Tugasnya adalah menciptakan, menginspirasi, dan membagikan pesan merek (shareable brand messages) di berbagai saluran:
@@ -1778,15 +2364,15 @@ Lanskap komunikasi berubah drastis karena fragmentasi media. Masalah muncul keti
 <bullet><b>Earned Media:</b> Media sukarela (Review blogger, Word-of-Mouth).</bullet>
 <bullet><b>Shared Media:</b> Media sosial yang dibagikan konsumen (Retweet, Share).</bullet>
 
-<h2> 4. DEVELOPING EFFECTIVE MARKETING COMMUNICATION</h2>
+<h2>4. DEVELOPING EFFECTIVE MARKETING COMMUNICATION</h2>
 
 Proses ini melibatkan langkah-langkah strategis:
 
 <h3>Step 1: Identifying the Target Audience</h3>
-<bullet>Menentukan siapa penerima pesan (pembeli potensial, pengguna saat ini, penentu keputusan). Karakter audiens mendikte What, How, When, Where, dan Who will say it.</bullet>
+Menentukan siapa penerima pesan (pembeli potensial, pengguna saat ini, penentu keputusan). Karakter audiens mendikte What, How, When, Where, dan Who will say it.
 
 <h3>Step 2: Determining the Communication Objectives</h3>
-Pemasar harus tahu di mana posisi audiens dalam <b>Buyer-Readiness Stages</b> dan menggerakkan mereka ke tahap berikutnya:
+Pemasar harus tahu di mana posisi audiens dalam Buyer-Readiness Stages dan menggerakkan mereka ke tahap berikutnya:
 <bullet><b>Awareness</b> (Sadar merek itu ada).</bullet>
 <bullet><b>Knowledge</b> (Tahu fitur/fungsinya).</bullet>
 <bullet><b>Liking</b> (Suka/Positif terhadap merek).</bullet>
@@ -1795,27 +2381,25 @@ Pemasar harus tahu di mana posisi audiens dalam <b>Buyer-Readiness Stages</b> da
 <bullet><b>Purchase</b> (Tindakan membeli).</bullet>
 
 <h3>Step 3: Designing a Message (The AIDA Model)</h3>
-Pesan yang ideal harus mengikuti kerangka <b>AIDA</b>:
-<bullet><b>A</b>ttention: Menarik perhatian.</bullet>
-<bullet><b>I</b>nterest: Mempertahankan minat.</bullet>
-<bullet><b>D</b>esire: Membangkitkan keinginan.</bullet>
-<bullet><b>A</b>ction: Mendorong tindakan.</bullet>
+Pesan yang ideal harus mengikuti kerangka AIDA:
+<bullet><b>Attention:</b> Menarik perhatian.</bullet>
+<bullet><b>Interest:</b> Mempertahankan minat.</bullet>
+<bullet><b>Desire:</b> Membangkitkan keinginan.</bullet>
+<bullet><b>Action:</b> Mendorong tindakan.</bullet>
 
-<b>Message Content (Isi Pesan) menggunakan 3 daya tarik:</b>
-<bullet><b>Rational Appeal:</b> Fokus pada manfaat fungsional (Kualitas, Hemat, Kinerja). <i>Contoh: Iklan Panadol meredakan sakit kepala dengan cepat.</i></bullet>
-<bullet><b>Emotional Appeal:</b> Membangkitkan emosi positif/negatif (Takut, Cinta, Humor, Bangga). <i>Contoh: Iklan Asuransi yang mengharukan tentang keluarga.</i></bullet>
-<bullet><b>Moral Appeal:</b> Fokus pada apa yang "benar" (Isu sosial). <i>Contoh: Iklan layanan masyarakat "Stop Merokok" atau "Hemat Air".</i></bullet>
+<b>Message Content (Isi Pesan)</b> menggunakan 3 daya tarik:
+<bullet><b>Rational Appeal:</b> Fokus pada manfaat fungsional (Kualitas, Hemat, Kinerja). Contoh: Iklan Panadol meredakan sakit kepala dengan cepat.</bullet>
+<bullet><b>Emotional Appeal:</b> Membangkitkan emosi positif/negatif (Takut, Cinta, Humor, Bangga). Contoh: Iklan Asuransi yang mengharukan tentang keluarga.</bullet>
+<bullet><b>Moral Appeal:</b> Fokus pada apa yang "benar" (Isu sosial). Contoh: Iklan layanan masyarakat "Stop Merokok" atau "Hemat Air".</bullet>
 
 <h3>Step 4: Choosing Communication Channels and Media</h3>
 <bullet><b>Personal Communication Channels:</b> Dua orang atau lebih berkomunikasi langsung (Tatap muka, Telepon, Chat). Efektif karena ada personal feedback. Termasuk Word-of-Mouth dan Buzz Marketing.</bullet>
 <bullet><b>Nonpersonal Communication Channels:</b> Media tanpa kontak pribadi (Media massa, Atmosfer toko, Events).</bullet>
 
 <h3>Step 5: Selecting the Message Source</h3>
-<bullet>Dampak pesan bergantung pada kredibilitas komunikator. Sumber terpercaya (Dokter, Selebriti, Profesional) lebih persuasif.</bullet>
+Dampak pesan bergantung pada kredibilitas komunikator. Sumber terpercaya (Dokter, Selebriti, Profesional) lebih persuasif.
 
-<h2> 5. SETTING THE TOTAL PROMOTION BUDGET</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - 4 Budgeting Methods</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 5. SETTING THE TOTAL PROMOTION BUDGET - 4 Budgeting Methods</warning>
 
 Bagian ini sangat krusial. Hafalkan perbedaan logika keempat metode ini.
 
@@ -1833,12 +2417,13 @@ Bagian ini sangat krusial. Hafalkan perbedaan logika keempat metode ini.
 
 <bullet><b>Objective-and-Task Method (The Best/Most Logical Method):</b>
 <i>Logic: Perusahaan menetapkan anggaran berdasarkan tujuan spesifik yang ingin dicapai.</i>
-<i>Steps: (1) Mendefinisikan tujuan promosi spesifik (misal: Naikan awareness 20%). (2) Menentukan tugas-tugas yang harus dilakukan (misal: Iklan TV 50x, Iklan IG 100x). (3) Menghitung biaya dari tugas-tugas tersebut. Total biaya inilah yang menjadi anggaran.</i>
+<i>Steps:</i>
+<i>1. Mendefinisikan tujuan promosi spesifik (misal: Naikan awareness 20%).</i>
+<i>2. Menentukan tugas-tugas yang harus dilakukan (misal: Iklan TV 50x, Iklan IG 100x).</i>
+<i>3. Menghitung biaya dari tugas-tugas tersebut. Total biaya inilah yang menjadi anggaran.</i>
 <i>Advantage: Memaksa manajemen mengeja hubungan antara biaya yang dikeluarkan dengan hasil yang diharapkan.</i></bullet>
 
-<h2> 6. PROMOTION MIX STRATEGIES: PUSH VS PULL</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - Push vs Pull Strategy</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 6. PROMOTION MIX STRATEGIES: PUSH VS PULL</warning>
 
 Wajib bisa membedakan arah aliran promosinya.
 
@@ -1856,28 +2441,28 @@ Wajib bisa membedakan arah aliran promosinya.
 <bullet><b>Tools:</b> Advertising (Iklan TV/YouTube), Consumer Sales Promotion (Voucher diskon).</bullet>
 <bullet><b>Example:</b> Unilever (Axe/Pepsodent). Anda melihat iklan Axe di TV, lalu Anda pergi ke Alfamart mencarinya. Jika tidak ada, Anda bertanya ke kasir. Alfamart "terpaksa" menyetok Axe karena permintaan Anda tinggi.</bullet>
 
-<h2> 7. SOCIALLY RESPONSIBLE MARKETING COMMUNICATION</h2>
+<h2>7. SOCIALLY RESPONSIBLE MARKETING COMMUNICATION</h2>
 
 Pemasar harus sadar hukum dan etika.
 
-<h3>Advertising & Promotion:</h3>
-<bullet>Dilarang melakukan <b>False/Deceptive Advertising</b> (Iklan menipu).</bullet>
-<bullet>Dilarang <b>Bait-and-Switch</b> (Memancing konsumen dengan iklan barang murah, lalu bilang barang habis dan memaksa beli barang mahal).</bullet>
+<b>Advertising & Promotion:</b>
+<bullet>Dilarang melakukan False/Deceptive Advertising (Iklan menipu).</bullet>
+<bullet>Dilarang Bait-and-Switch (Memancing konsumen dengan iklan barang murah, lalu bilang barang habis dan memaksa beli barang mahal).</bullet>
 
-<h3>Personal Selling:</h3>
-<bullet>Dilarang menyuap (<b>Bribes</b>) agen pembelian B2B.</bullet>
-<bullet>Dilarang menjelek-jelekkan (<b>Disparage</b>) pesaing dengan info palsu.</bullet>
+<b>Personal Selling:</b>
+<bullet>Dilarang menyuap (Bribes) agen pembelian B2B.</bullet>
+<bullet>Dilarang menjelek-jelekkan (Disparage) pesaing dengan info palsu.</bullet>
 
-<h2> 8. CLOSING CASE: TOKOPEDIA</h2>
+<h2>8. CLOSING CASE: TOKOPEDIA</h2>
 
 <h3>"Impactful Marketing Campaign – Mulai Aja Dulu"</h3>
 <bullet><b>Objective:</b> Tokopedia ingin mengatasi hambatan psikologis masyarakat yang ragu memulai bisnis/mimpi.</bullet>
 <bullet><b>Strategy:</b> Pendekatan emosional (Emotional Appeal) yang menampilkan cerita sukses sederhana.</bullet>
 <bullet><b>Result:</b> Reposisi Tokopedia dari sekadar tempat belanja menjadi mitra pemberdaya (Enabler). Berhasil meningkatkan jumlah merchant (penjual) baru secara signifikan, membuktikan kekuatan komunikasi pemasaran yang strategis.</bullet>`,
-                modul3_updated: `<h1> MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
+                modul3_updated: `<h1>MODUL 3: CREATING COMPETITIVE ADVANTAGE</h1>
 <subtitle><b><i>(Reference: PPT Week 11 & Chapter 18)</i></b></subtitle>
 
-<h2> 1. INTRODUCTORY CASE: NORDSTROM</h2>
+<h2>1. INTRODUCTORY CASE: NORDSTROM</h2>
 
 <h3>"From Shoes to a Retail Powerhouse"</h3>
 Modul ini dibuka dengan sejarah Nordstrom, yang membuktikan bahwa keunggulan kompetitif tidak harus selalu soal harga murah.
@@ -1886,7 +2471,7 @@ Modul ini dibuka dengan sejarah Nordstrom, yang membuktikan bahwa keunggulan kom
 <bullet><b>Core Philosophy:</b> "Taking care of customers no matter what it takes." Fokus mereka adalah Customer Lifetime Value, bukan transaksi sesaat.</bullet>
 <bullet><b>Evidence:</b> Cerita legendaris karyawan yang menghangatkan mobil pelanggan saat salju turun, atau menerima pengembalian ban mobil (padahal Nordstrom tidak jual ban). Ini membangun ikatan emosional yang sulit ditiru pesaing.</bullet>
 
-<h2> 2. COMPETITOR ANALYSIS</h2>
+<h2>2. COMPETITOR ANALYSIS</h2>
 
 Untuk merancang strategi pemasaran yang efektif, perusahaan harus melakukan analisis pesaing melalui tiga tahap sistematis:
 
@@ -1895,6 +2480,7 @@ Perusahaan harus mendefinisikan siapa pesaingnya dengan dua sudut pandang:
 
 <bullet><b>Industry Point of View:</b> Pesaing adalah perusahaan yang membuat produk atau kelas produk yang sama.
 <i>Example: Pepsi adalah pesaing Coca-Cola.</i></bullet>
+
 <bullet><b>Market Point of View:</b> Pesaing adalah semua perusahaan yang berusaha memuaskan kebutuhan pelanggan yang sama.
 <i>Example: Pesaing Coca-Cola bukan hanya Pepsi, tapi juga Teh Botol, jus buah, air mineral, atau bahkan minuman energi, karena sama-sama berfungsi sebagai "penghilang dahaga". Pandangan ini lebih luas dan mencegah Marketing Myopia.</i></bullet>
 
@@ -1902,9 +2488,12 @@ Perusahaan harus mendefinisikan siapa pesaingnya dengan dua sudut pandang:
 Setelah diidentifikasi, perusahaan harus menilai mereka:
 
 <bullet><b>Determining Objectives:</b> Apa yang dicari pesaing? Profitabilitas jangka pendek, pertumbuhan pangsa pasar, atau kepemimpinan teknologi?</bullet>
+
 <bullet><b>Identifying Strategies:</b> Masuk ke dalam Strategic Group mana mereka? (Kelompok perusahaan yang mengejar strategi yang sama di pasar sasaran tertentu).
 <i>Example: Di industri peralatan rumah tangga, GE dan Whirlpool ada di kelompok "Medium-price", sedangkan Sub-Zero dan Viking ada di kelompok "Premium/Luxury".</i></bullet>
+
 <bullet><b>Assessing Strengths & Weaknesses:</b> Melakukan Benchmarking (tolok ukur) untuk membandingkan produk dan proses perusahaan dengan pesaing.</bullet>
+
 <bullet><b>Estimating Reactions:</b> Bagaimana pesaing bereaksi jika kita menyerang (menurunkan harga/promo)?
 <i>The Laid-back Competitor: Lambat bereaksi (mungkin karena loyalitas pelanggan tinggi).</i>
 <i>The Selective Competitor: Bereaksi hanya pada serangan tertentu (misal: perang harga), tapi diam pada serangan lain (iklan).</i>
@@ -1912,10 +2501,11 @@ Setelah diidentifikasi, perusahaan harus menilai mereka:
 
 <h3>Step 3: Selecting Competitors to Attack and Avoid</h3>
 <bullet><b>Strong vs. Weak Competitors:</b> Menyerang pesaing lemah memang mudah, tapi hasilnya sedikit. Bersaing dengan pesaing kuat (Strong) justru menajamkan kemampuan perusahaan.</bullet>
-<bullet><b>Close vs. Distant Competitors:</b> Pesaing "Close" adalah yang paling mirip dengan kita.</bullet>
-<bullet><b>Warning:</b> Hati-hati menghancurkan pesaing dekat (Destroying close competitors). Ini bisa memaksa mereka menjual perusahaan ke raksasa yang lebih besar, atau membuat pelanggan mereka lari ke pesaing lain.</bullet>
 
-<warning>[MATERI KISI-KISI RESMI] - Blue Ocean Strategy</warning>
+<bullet><b>Close vs. Distant Competitors:</b> Pesaing "Close" adalah yang paling mirip dengan kita.
+<i>Warning: Hati-hati menghancurkan pesaing dekat (Destroying close competitors). Ini bisa memaksa mereka menjual perusahaan ke raksasa yang lebih besar, atau membuat pelanggan mereka lari ke pesaing lain.</i></bullet>
+
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Blue Ocean Strategy</warning>
 
 Strategi ini sering menjadi kunci jawaban untuk inovasi pasar.
 
@@ -1924,9 +2514,7 @@ Strategi ini sering menjadi kunci jawaban untuk inovasi pasar.
 <bullet><b>Blue Ocean:</b> Menciptakan produk/jasa yang belum ada saingannya, membuat kompetisi menjadi tidak relevan.</bullet>
 <bullet><b>Example:</b> Cirque du Soleil (Menggabungkan sirkus dengan teater seni, tanpa binatang), Nintendo Wii (Menargetkan non-gamers dengan motion control).</bullet>
 
-<h2> 3. COMPETITIVE STRATEGIES (MICHAEL PORTER)</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - Porter's Basic Competitive Strategies</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 3. COMPETITIVE STRATEGIES (MICHAEL PORTER) - Porter's Basic Competitive Strategies</warning>
 
 Michael Porter menyarankan 4 strategi dasar posisi kompetitif (3 strategi menang, 1 strategi kalah):
 
@@ -1951,11 +2539,11 @@ Michael Porter menyarankan 4 strategi dasar posisi kompetitif (3 strategi menang
 <bullet><b>Result:</b> Mereka akan gagal dan kehilangan profitabilitas. Mereka akan "dimakan" oleh Cost Leader dari bawah dan Differentiator dari atas.</bullet>
 <bullet><b>Example:</b> Sears, Nokia (di era smartphone awal), Holiday Inn (sebelum rebranding).</bullet>
 
-<h2> 4. COMPETITIVE POSITIONS</h2>
+<h2>4. COMPETITIVE POSITIONS</h2>
 
 Pasar biasanya terbagi dalam proporsi 40-30-20-10. Setiap posisi memiliki strategi spesifik:
 
-<warning>[MATERI KISI-KISI RESMI] - Market Leader Strategies (40%)</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Market Leader Strategies (40%)</warning>
 
 Pemimpin pasar (seperti Coca-Cola, McDonald's, Telkomsel) memiliki pangsa pasar terbesar.
 
@@ -1965,13 +2553,13 @@ Pemimpin pasar (seperti Coca-Cola, McDonald's, Telkomsel) memiliki pangsa pasar 
 <i>More Usage: Membuat orang pakai lebih sering. Contoh: Kampanye "Sikat gigi pagi dan malam" atau Sampo "Bilas dan ulangi".</i></bullet>
 
 <bullet><b>Protecting Market Share (Melindungi Pangsa Pasar):</b>
-Melakukan Continuous Innovation. Pertahanan terbaik adalah serangan yang baik. Jangan biarkan ada celah yang bisa dimanfaatkan pesaing.
+<i>Melakukan Continuous Innovation. Pertahanan terbaik adalah serangan yang baik. Jangan biarkan ada celah yang bisa dimanfaatkan pesaing.</i>
 <i>Example: P&G terus meluncurkan varian deterjen baru agar pesaing tidak bisa masuk.</i></bullet>
 
 <bullet><b>Expanding Market Share (Memperluas Pangsa Pasar):</b>
 Mengambil porsi pesaing. Profitabilitas biasanya naik seiring naiknya pangsa pasar.</bullet>
 
-<warning>[MATERI KISI-KISI RESMI] - Market Challenger Strategies (30%)</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Market Challenger Strategies (30%)</warning>
 
 Perusahaan runner-up yang agresif (seperti Pepsi, Burger King, XL Axiata).
 
@@ -1992,7 +2580,7 @@ Perusahaan kecil yang melayani segmen yang diabaikan.
 <bullet><b>Key Concept:</b> Mengenal target pelanggan sangat dalam sehingga bisa menetapkan harga tinggi (High Margin). Sementara Mass Marketer mencapai volume besar, Nicher mencapai margin tinggi.</bullet>
 <bullet><b>Example:</b> Logitech (awalnya hanya fokus di mouse), YKK (fokus hanya di resleting).</bullet>
 
-<h2> 5. BALANCING CUSTOMER AND COMPETITOR ORIENTATIONS</h2>
+<h2>5. BALANCING CUSTOMER AND COMPETITOR ORIENTATIONS</h2>
 
 Perusahaan tidak boleh terjebak hanya pada satu fokus. Evolusi orientasi perusahaan:
 
@@ -2002,22 +2590,22 @@ Perusahaan tidak boleh terjebak hanya pada satu fokus. Evolusi orientasi perusah
 <bullet><b>Market-Centered (The Ultimate Goal):</b> Menyeimbangkan fokus pada Pelanggan DAN Pesaing secara bersamaan.
 <i>Concept: Menonton pesaing, tapi tetap fokus memuaskan kebutuhan pelanggan.</i></bullet>
 
-<h2> 6. CLOSING CASE: AIRASIA</h2>
+<h2>6. CLOSING CASE: AIRASIA</h2>
 
 <h3>"Cost Leadership Strategy Implementation"</h3>
 <bullet><b>Strategy:</b> AirAsia menerapkan strategi Overall Cost Leadership secara disiplin.</bullet>
 <bullet><b>Execution (No Frills):</b> Memangkas semua fitur non-esensial. Tidak ada makanan gratis, bagasi berbayar, tidak ada jembatan garbarata (jalan kaki ke pesawat).</bullet>
 <bullet><b>Operational Efficiency:</b> Menggunakan satu jenis pesawat (Single Aircraft Type - Airbus A320) untuk mengurangi biaya pelatihan pilot/mekanik dan stok suku cadang. Memaksimalkan waktu terbang dengan turnaround time (waktu parkir) yang sangat cepat (25 menit).</bullet>
 <bullet><b>Result:</b> Harga tiket sangat murah, menciptakan pasar baru (orang yang tadinya tidak mampu naik pesawat), dan mendisrupsi maskapai full-service.</bullet>`,
-                modul4_updated: `<h1> MODUL 4: THE GLOBAL MARKETPLACE</h1>
+                modul4_updated: `<h1>MODUL 4: THE GLOBAL MARKETPLACE</h1>
 <subtitle><b><i>(Reference: PPT Week 12 & Chapter 19)</i></b></subtitle>
 
-<h2> 1. INTRODUCTORY CASE: L'ORÉAL</h2>
+<h2>1. INTRODUCTORY CASE: L'ORÉAL</h2>
 
 <h3>"Beauty for All. Beauty for Each Individual."</h3>
 L'Oréal adalah pemimpin absolut dalam industri kosmetik global.
 
-<bullet><b>The Strategy:</b> Kunci sukses mereka adalah <b>Universalisation</b>. Ini adalah strategi menyeimbangkan dua hal yang bertentangan:
+<bullet><b>The Strategy:</b> Kunci sukses mereka adalah Universalisation. Ini adalah strategi menyeimbangkan dua hal yang bertentangan:
 <i>Global Brand Impact: Kekuatan dan konsistensi merek global.</i>
 <i>Local Brand Responsiveness: Adaptasi mendalam terhadap kebutuhan budaya lokal.</i></bullet>
 
@@ -2026,7 +2614,7 @@ L'Oréal adalah pemimpin absolut dalam industri kosmetik global.
 <i>Brazil: Mendirikan anak perusahaan (Subsidiary) sendiri agar bisa berekspansi cepat, lalu mengakuisisi merek lokal yang sudah mapan.</i>
 <i>China: Awalnya gagal karena hanya ekspor lewat agen, lalu sukses setelah memahami preferensi kulit Asia.</i></bullet>
 
-<h2> 2. GLOBAL MARKETING ENVIRONMENT</h2>
+<h2>2. GLOBAL MARKETING ENVIRONMENT</h2>
 
 Sebelum memutuskan Go Global, perusahaan harus membedah sistem perdagangan internasional.
 
@@ -2035,9 +2623,12 @@ Pemerintah negara tujuan mungkin memberlakukan hambatan perdagangan (Trade Barri
 
 <bullet><b>Tariffs (Tarif):</b> Pajak yang dikenakan pada barang impor (biasanya untuk melindungi industri lokal).
 <i>Impact: Harga barang impor jadi mahal di mata konsumen lokal.</i></bullet>
+
 <bullet><b>Quotas (Kuota):</b> Batasan jumlah fisik barang yang boleh masuk ke negara tersebut.
 <i>Impact: Membatasi suplai barang asing.</i></bullet>
+
 <bullet><b>Exchange Controls:</b> Pembatasan jumlah penukaran mata uang asing dan nilai tukar.</bullet>
+
 <bullet><b>Nontariff Trade Barriers (NTBs):</b> Hambatan non-pajak yang seringkali "halus" tapi mematikan.
 <i>Example: Standar produk yang bias (misal: "Barang harus sesuai SNI" yang prosedurnya dipersulit untuk asing), atau birokrasi yang berbelit-belit. Walmart gagal di Jerman sebagian karena regulasi lokal yang ketat.</i></bullet>
 
@@ -2051,22 +2642,26 @@ Daya tarik pasar suatu negara sangat bergantung pada struktur industrinya:
 
 <bullet><b>Subsistence Economies:</b> Mayoritas penduduk bertani sederhana, ekonomi barter.
 <i>Market Potential: Sangat kecil. Hanya butuh barang pokok sederhana.</i></bullet>
+
 <bullet><b>Raw Material Exporting Economies:</b> Kaya sumber daya alam (minyak, tembaga, karet) tapi miskin industri manufaktur.
 <i>Market Potential: Pasar bagus untuk alat berat, truk, dan logistik. (Contoh: Chile, Arab Saudi).</i></bullet>
+
 <bullet><b>Emerging Economies (Industrializing):</b> Pertumbuhan manufaktur cepat, muncul kelas menengah baru.
 <i>Market Potential: Sangat besar untuk bahan mentah industri (baja/tekstil) dan barang konsumsi gaya hidup. (Contoh: BRIC - Brazil, Russia, India, China).</i></bullet>
+
 <bullet><b>Industrial Economies:</b> Pengekspor barang jadi dan jasa. Kelas menengahnya besar dan kaya.
 <i>Market Potential: Pasar untuk segala jenis barang konsumen kualitas tinggi. (Contoh: Jepang, AS, Jerman).</i></bullet>
 
 <h3>C. Political-Legal & Cultural Environment</h3>
 <bullet><b>Political Stability:</b> Apakah pemerintah sering ganti aturan? Apakah aset asing aman dari nasionalisasi?</bullet>
+
 <bullet><b>Cultural Environment:</b> Memahami norma bisnis dan perilaku konsumen.
 <i>Failure Case: Marriott pernah diblokir di China karena kuesionernya mencantumkan Tibet dan Taiwan sebagai "Negara".</i>
 <i>Success Case: IKEA di China menyesuaikan ukuran perabot untuk apartemen kecil dan menyediakan layanan antar (karena sedikit orang punya mobil besar).</i></bullet>
 
-<h2> 3. DECIDING WHICH MARKETS TO ENTER</h2>
+<h2>3. DECIDING WHICH MARKETS TO ENTER</h2>
 
-Perusahaan harus menetapkan indikator <b>Market Potential</b> sebelum masuk:
+Perusahaan harus menetapkan indikator Market Potential sebelum masuk:
 
 <bullet><b>Demographic:</b> Ukuran populasi, tingkat pendidikan, pertumbuhan penduduk.</bullet>
 <bullet><b>Geographic:</b> Iklim (mempengaruhi produk pakaian/makanan), ukuran negara, kepadatan.</bullet>
@@ -2074,9 +2669,7 @@ Perusahaan harus menetapkan indikator <b>Market Potential</b> sebelum masuk:
 <bullet><b>Sociocultural:</b> Bahasa, agama, gaya hidup.</bullet>
 <bullet><b>Political-Legal:</b> Prioritas nasional, stabilitas pemerintah.</bullet>
 
-<h2> 4. MARKET ENTRY STRATEGIES</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - 3 Major Entry Strategies</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 4. MARKET ENTRY STRATEGIES - 3 Major Entry Strategies</warning>
 
 Materi ini WAJIB HAFAL. Urutannya dari risiko terendah ke tertinggi.
 
@@ -2086,6 +2679,7 @@ Cara termudah untuk masuk pasar asing.
 <bullet><b>Indirect Exporting:</b> Bekerja lewat perantara independen (agen ekspor).
 <i>Pros: Risiko dan investasi paling kecil (tidak perlu tim sales di luar negeri).</i>
 <i>Cons: Margin keuntungan kecil, kontrol terhadap pasar rendah.</i></bullet>
+
 <bullet><b>Direct Exporting:</b> Perusahaan mengurus sendiri ekspornya.
 <i>Pros: Potensi untung lebih besar, belajar pasar lebih cepat.</i>
 <i>Cons: Risiko lebih tinggi.</i></bullet>
@@ -2113,9 +2707,7 @@ Membangun fasilitas perakitan atau manufaktur sendiri 100% di luar negeri.
 <bullet><b>Pros:</b> Kontrol penuh, biaya tenaga kerja/bahan baku lebih murah, citra baik di negara tujuan (menciptakan lapangan kerja).</bullet>
 <bullet><b>Cons:</b> Risiko tertinggi (devaluasi mata uang, pasar memburuk, pengambilalihan aset oleh pemerintah).</bullet>
 
-<h2> 5. GLOBAL MARKETING PROGRAM (MARKETING MIX)</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - Standardized vs. Adapted</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 5. GLOBAL MARKETING PROGRAM (MARKETING MIX) - Standardized vs. Adapted</warning>
 
 Keputusan terbesar: Apakah menggunakan strategi yang sama di seluruh dunia atau menyesuaikannya?
 
@@ -2127,24 +2719,28 @@ Keputusan terbesar: Apakah menggunakan strategi yang sama di seluruh dunia atau 
 <i>Assumption: Biaya lebih mahal, tapi diharapkan menghasilkan pangsa pasar dan return yang lebih besar.</i>
 <i>Example: McDonald's (Jual nasi di Indonesia, jual burger vegetarian di India).</i></bullet>
 
-<warning>[MATERI KISI-KISI RESMI] - Product & Promotion Strategies</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Product & Promotion Strategies</warning>
 
-Ada 5 strategi adaptasi:
+Ada 5 strategi adaptasi (Slide 35-37):
 
 <bullet><b>Straight Extension (Perluasan Langsung):</b>
-<i>Product: TETAP (Don't Change). Promotion: TETAP (Don't Change).</i>
+<i>Product: TETAP (Don't Change).</i>
+<i>Promotion: TETAP (Don't Change).</i>
 <i>Context: Jual apa adanya. Contoh: iPad, Parfum Chanel.</i></bullet>
 
 <bullet><b>Product Adaptation:</b>
-<i>Product: UBAH (Adapt). Promotion: TETAP.</i>
+<i>Product: UBAH (Adapt).</i>
+<i>Promotion: TETAP.</i>
 <i>Context: Mengubah produk agar sesuai selera lokal atau regulasi, tapi pesan iklannya sama. Contoh: Oreo mengubah resep biskuitnya menjadi tidak terlalu manis di China, tapi slogan "diputer, dijilat, dicelup" tetap sama.</i></bullet>
 
 <bullet><b>Communication Adaptation:</b>
-<i>Product: TETAP. Promotion: UBAH.</i>
+<i>Product: TETAP.</i>
+<i>Promotion: UBAH.</i>
 <i>Context: Produk sama, tapi cara jualannya beda karena nilai budaya beda.</i></bullet>
 
 <bullet><b>Dual Adaptation:</b>
-<i>Product: UBAH. Promotion: UBAH.</i>
+<i>Product: UBAH.</i>
+<i>Promotion: UBAH.</i>
 <i>Context: Adaptasi total. Contoh: Pakaian yang ukurannya disesuaikan postur tubuh lokal, dan iklannya menggunakan model lokal dengan norma kesopanan setempat.</i></bullet>
 
 <bullet><b>Product Invention:</b>
@@ -2152,17 +2748,18 @@ Ada 5 strategi adaptasi:
 <i>Example: Produsen mobil menciptakan mobil murah sederhana (low-cost simple cars) khusus untuk jalanan rusak di negara berkembang.</i></bullet>
 
 <h3>Global Pricing Strategy</h3>
-<bullet><b>Price Escalation:</b> Masalah utama ekspor. Harga produk di luar negeri bisa 2-5x lebih mahal karena akumulasi ongkos kirim, tarif impor, margin importir, dan margin grosir.
-<i>Solution: Membuat versi produk yang lebih murah/sederhana atau merakit produk di negara tujuan untuk menghindari bea masuk.</i></bullet>
+<bullet><b>Price Escalation:</b> Masalah utama ekspor. Harga produk di luar negeri bisa 2-5x lebih mahal karena akumulasi ongkos kirim, tarif impor, margin importir, dan margin grosir.</bullet>
+<bullet><b>Solution:</b> Membuat versi produk yang lebih murah/sederhana atau merakit produk di negara tujuan untuk menghindari bea masuk.</bullet>
 
 <h3>Whole-Channel View (Global Distribution)</h3>
 Mendesain saluran internasional itu rumit karena harus mengelola rantai utuh:
 <bullet>International Seller (Pusat).</bullet>
 <bullet>Channels between nations (Memindahkan produk ke perbatasan negara tujuan).</bullet>
 <bullet>Channels within nations (Memindahkan produk dari pelabuhan ke konsumen akhir).</bullet>
-<bullet><i>Note: Di Jepang, sistem distribusi sangat berlapis dan kompleks. Di negara berkembang, sistem distribusi seringkali tersebar dan sulit dijangkau.</i></bullet>
 
-<h2> 6. GLOBAL MARKETING ORGANIZATION</h2>
+<b>Note:</b> Di Jepang, sistem distribusi sangat berlapis dan kompleks. Di negara berkembang, sistem distribusi seringkali tersebar dan sulit dijangkau.
+
+<h2>6. GLOBAL MARKETING ORGANIZATION</h2>
 
 Evolusi cara perusahaan mengelola bisnis internasional:
 
@@ -2170,7 +2767,7 @@ Evolusi cara perusahaan mengelola bisnis internasional:
 <bullet><b>International Division:</b> Divisi terpisah yang menangani semua aktivitas internasional (bisa dibagi per Geografi atau per Produk).</bullet>
 <bullet><b>Global Organization:</b> Tidak lagi membedakan "domestik vs asing". Seluruh dunia dianggap satu pasar tanpa batas. Manajer dilatih dalam operasi global, bukan lokal.</bullet>
 
-<h2> 7. CLOSING CASE: GOJEK</h2>
+<h2>7. CLOSING CASE: GOJEK</h2>
 
 <h3>"Go Global with Local Adaptation"</h3>
 Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi Adapted Marketing yang sangat kuat.
@@ -2185,24 +2782,25 @@ Gojek berekspansi ke Vietnam, Thailand, dan Singapura dengan strategi Adapted Ma
 <i>Di Vietnam: Fokus ke motor karena mirip kondisi Jakarta.</i></bullet>
 
 <bullet><b>Lesson:</b> Strategi Gojek membuktikan pentingnya "Think Globally, Act Locally". (Catatan: Belakangan Gojek menyatukan merek menjadi Gojek global untuk efisiensi aplikasi, namun strategi adaptasi layanan tetap berjalan).</bullet>`,
-                modul5_updated: `<h1> MODUL 5: SUSTAINABLE MARKETING</h1>
+                modul5_updated: `<h1>MODUL 5: SUSTAINABLE MARKETING</h1>
 <subtitle><b><i>(Reference: PPT Week 13 & Chapter 20)</i></b></subtitle>
 
-<h2> 1. INTRODUCTORY CASE: UNILEVER</h2>
+<h2>1. INTRODUCTORY CASE: UNILEVER</h2>
 
 <h3>"Small Actions. Big Difference."</h3>
-Modul terakhir ini dibuka dengan visi besar Unilever melalui program <b>Unilever Sustainable Living Plan</b>.
+Modul terakhir ini dibuka dengan visi besar Unilever melalui program Unilever Sustainable Living Plan.
 
 <bullet><b>The Vision:</b> Unilever ingin membuktikan bahwa perusahaan tidak harus memilih antara "profit" atau "planet". Mereka bisa melakukan keduanya.</bullet>
+
 <bullet><b>The Mission:</b> Menargetkan pertumbuhan bisnis dua kali lipat, namun secara bersamaan berkomitmen mengurangi separuh jejak lingkungan (environmental footprint) dan meningkatkan dampak sosial positif bagi 1 miliar orang.</bullet>
+
 <bullet><b>Implementation:</b> Mereka tidak hanya menjual produk, tetapi mengedukasi.
 <i>Example: Kampanye cuci tangan Lifebuoy untuk mencegah penyakit di negara berkembang.</i>
 <i>Example: Memastikan rantai pasok kelapa sawit diperoleh secara lestari (sustainable sourcing).</i></bullet>
+
 <bullet><b>Lesson:</b> Sustainability bukan beban biaya (cost), melainkan strategi inti untuk pertumbuhan jangka panjang.</bullet>
 
-<h2> 2. DEFINING SUSTAINABLE MARKETING</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - The Sustainable Marketing Matrix</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 2. DEFINING SUSTAINABLE MARKETING - The Sustainable Marketing Matrix</warning>
 
 Pahami perbedaan konsep ini berdasarkan matriks "Needs of Consumers vs Needs of Business" (Figure 20.1). Ini sering muncul dalam ujian perbandingan konsep.
 
@@ -2222,7 +2820,7 @@ Pahami perbedaan konsep ini berdasarkan matriks "Needs of Consumers vs Needs of 
 <i>Level: Tingkatan tertinggi.</i>
 <i>Definition: Socially and environmentally responsible marketing that meets the present needs of consumers and businesses while also preserving or enhancing the ability of future generations to meet their needs. (Fokus: Future Consumers + Future Business).</i></bullet>
 
-<h2> 3. SOCIAL CRITICISMS OF MARKETING</h2>
+<h2>3. SOCIAL CRITICISMS OF MARKETING</h2>
 
 Pemasaran sering mendapat serangan kritik sosial. Kritik ini dibagi menjadi tiga dampak utama:
 
@@ -2263,7 +2861,7 @@ Perusahaan besar dituduh melakukan Redlining (menghindari membuka toko di daerah
 <bullet><b>Barriers to Entry:</b> Anggaran iklan raksasa mempersulit pemain baru masuk.</bullet>
 <bullet><b>Predatory Competition:</b> Menetapkan harga di bawah modal untuk mematikan pesaing kecil (banting harga), lalu menaikkan harga kembali setelah pesaing bangkrut.</bullet>
 
-<h2> 4. CONSUMER ACTIONS TO PROMOTE SUSTAINABLE MARKETING</h2>
+<h2>4. CONSUMER ACTIONS TO PROMOTE SUSTAINABLE MARKETING</h2>
 
 Sebagai reaksi, muncul dua gerakan besar:
 
@@ -2275,21 +2873,22 @@ Gerakan terorganisir dari warga negara dan pemerintah untuk memperkuat hak dan k
 Gerakan terorganisir untuk melindungi dan meningkatkan lingkungan hidup.
 <i>Environmental Sustainability: Menghasilkan laba sambil menyelamatkan planet.</i></bullet>
 
-<warning>[MATERI KISI-KISI RESMI] - Environmental Sustainability Portfolio</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Environmental Sustainability Portfolio</warning>
 
 Perusahaan bisa memilih strategi lingkungan berdasarkan fokus Internal/Eksternal dan Hari Ini/Masa Depan:
 
 <bullet><b>Pollution Prevention (Internal - Today):</b> Menghilangkan atau mengurangi limbah sebelum diciptakan.
 <i>Example: Pabrik Nike menerapkan sistem zero-waste.</i></bullet>
+
 <bullet><b>Product Stewardship (External - Today):</b> Meminimalkan dampak lingkungan sepanjang siklus hidup produk (Design → Use → Disposal).
 <i>Example: Program daur ulang HP lama oleh Samsung.</i></bullet>
+
 <bullet><b>New Clean Technology (Internal - Tomorrow):</b> Mengembangkan kemampuan/teknologi baru untuk masa depan.
 <i>Example: Coca-Cola mengembangkan "PlantBottle" (botol plastik dari tanaman).</i></bullet>
+
 <bullet><b>Sustainability Vision (External - Tomorrow):</b> Panduan strategis masa depan tentang bagaimana perusahaan melayani kebutuhan dunia.</bullet>
 
-<h2> 5. BUSINESS ACTIONS TOWARD SUSTAINABLE MARKETING</h2>
-
-<warning>[MATERI KISI-KISI RESMI] - 5 Sustainable Marketing Principles</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - 5. BUSINESS ACTIONS TOWARD SUSTAINABLE MARKETING - 5 Sustainable Marketing Principles</warning>
 
 Agar perusahaan dapat bertahan jangka panjang dan etis, mereka harus mengadopsi lima prinsip ini (Wajib Hafal):
 
@@ -2314,9 +2913,9 @@ Prinsip keseimbangan. Perusahaan membuat keputusan pemasaran dengan mempertimban
 <i>Consumers' and Society's Long-run Interests (Kesejahteraan Masyarakat).</i>
 <i>Example: The Body Shop (Produk bagus, Profit ada, Tanpa uji coba hewan).</i></bullet>
 
-<h2> 6. MARKETING ETHICS</h2>
+<h2>6. MARKETING ETHICS</h2>
 
-<bullet><b>Who guides policy?</b> Pasar bebas dan sistem hukum saja tidak cukup. Tanggung jawab ada di tangan Perusahaan dan Manajer Individu.</bullet>
+<b>Who guides policy?</b> Pasar bebas dan sistem hukum saja tidak cukup. Tanggung jawab ada di tangan Perusahaan dan Manajer Individu.
 
 <b>Ethical Norms:</b>
 <bullet>Do no harm.</bullet>
@@ -2325,10 +2924,9 @@ Prinsip keseimbangan. Perusahaan membuat keputusan pemasaran dengan mempertimban
 
 <bullet><b>The Sustainable Company:</b> Perusahaan yang menciptakan nilai bagi pelanggan melalui cara-cara yang bertanggung jawab secara sosial, lingkungan, dan etika.</bullet>
 
-<h2> 7. CLOSING CASE: LEMONILO</h2>
+<h2>7. CLOSING CASE: LEMONILO</h2>
 
 <h3>"Societal Marketing Implementation in Indonesia"</h3>
-
 <bullet><b>Context:</b> Mie instan adalah makanan favorit di Indonesia, namun sering dianggap "Guilty Pleasure" karena isu kesehatan (pengawet, MSG, gorengan).</bullet>
 <bullet><b>Dilemma:</b> Konsumen ingin makan enak, tapi takut sakit.</bullet>
 <bullet><b>Solution:</b> Lemonilo menerapkan konsep Societal Marketing.
@@ -2338,10 +2936,10 @@ Mereka menciptakan mie instan yang dipanggang (bukan digoreng), tanpa pengawet b
 <bullet><b>Consumer:</b> Tetap dapat mie enak dan praktis.</bullet>
 <bullet><b>Company:</b> Bisnis tumbuh pesat (karena menjawab pain point pasar).</bullet>
 <bullet><b>Society:</b> Berkontribusi pada gaya hidup lebih sehat (Healthy Lifestyle Ecosystem).</bullet>`,
-                tambahan_updated: `<h1> ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
+                tambahan_updated: `<h1>ADDENDUM: MATERI PELENGKAP & DETAIL TEKNIS</h1>
 <subtitle><b><i>(Wajib dibaca sebagai satu kesatuan dengan Modul 1-5)</i></b></subtitle>
 
-<h2> PELENGKAP MODUL 1 (Week 9 - Chapter 12)</h2>
+<h2>PELENGKAP MODUL 1 (Week 9 - Chapter 12)</h2>
 
 <h3>1. PUBLIC POLICY AND DISTRIBUTION DECISIONS</h3>
 Hati-hati, strategi distribusi tidak boleh sembarangan. Ada aspek hukum (Sherman Act & Clayton Act di teori aslinya) yang mengatur persaingan usaha. Pahami istilah-istilah ilegal/abu-abu ini:
@@ -2366,17 +2964,17 @@ Dalam SCM modern, aliran barang tidak cuma maju, tapi juga mundur.
 <bullet><b>Activities:</b> Mengelola Retur Produk (pengembalian barang rusak/salah kirim), Recycling (daur ulang kemasan), Refurbishing (perbaikan ulang), dan Waste Disposal.</bullet>
 <bullet><b>Example:</b> Program tukar tambah HP lama di Samsung atau Apple. HP lama ditarik (reverse), diperbaiki, lalu dijual lagi atau didaur ulang.</bullet>
 
-<h2> PELENGKAP MODUL 2 (Week 10 - Chapter 14)</h2>
+<h2>PELENGKAP MODUL 2 (Week 10 - Chapter 14)</h2>
 
 <h3>1. MEASURING ADVERTISING EFFECTIVENESS</h3>
 Bagaimana cara tahu iklan kita berhasil? Manajemen harus mengevaluasi dua efek (Return on Advertising Investment):
 
 <bullet><b>Communication Effects:</b>
-<i>Apakah iklan dan media mengkomunikasikan pesan dengan baik?</i>
+Apakah iklan dan media mengkomunikasikan pesan dengan baik?
 <i>Metode: Pre-test (tanya konsumen sebelum iklan tayang) dan Post-test (seberapa ingat mereka setelah iklan tayang/Recall).</i></bullet>
 
 <bullet><b>Sales and Profit Effects:</b>
-<i>Apakah iklan tersebut benar-benar meningkatkan penjualan?</i>
+Apakah iklan tersebut benar-benar meningkatkan penjualan?
 <i>Metode: Membandingkan penjualan masa lalu dengan pengeluaran iklan masa lalu, atau melakukan eksperimen (daerah A dikasih iklan banyak, daerah B sedikit, lihat bedanya).</i></bullet>
 
 <h3>2. CHECKLIST FOR INTEGRATING THE PROMOTION MIX</h3>
@@ -2389,7 +2987,7 @@ Agar IMC berjalan sempurna, PPT menyarankan checklist manajemen berikut:
 <bullet><b>Compatible Themes:</b> Ciptakan tema, nada, dan kualitas yang kompatibel di semua media.</bullet>
 <bullet><b>Appoint Responsibility:</b> Tunjuk MarCom Manager yang bertanggung jawab atas semua komunikasi persuasi perusahaan.</bullet>
 
-<h2> PELENGKAP MODUL 3 (Week 11 - Chapter 18)</h2>
+<h2>PELENGKAP MODUL 3 (Week 11 - Chapter 18)</h2>
 
 <h3>1. CUSTOMER VALUE ANALYSIS</h3>
 Ini adalah alat spesifik dalam tahap "Assessing Competitors".
@@ -2417,7 +3015,7 @@ Evolusi strategi pemasaran seiring kedewasaan perusahaan:
 <bullet><b>Formulated Marketing:</b> Saat perusahaan membesar. Mengembangkan strategi formal, aturan ketat, dan riset pasar. (Contoh: Gojek sekarang).</bullet>
 <bullet><b>Intrepreneurial Marketing:</b> Perusahaan besar yang "kaku" mencoba menghidupkan kembali jiwa kreatif/kewirausahaan di dalam internal mereka agar tidak mati inovasi.</bullet>
 
-<h2> PELENGKAP MODUL 4 (Week 12 - Chapter 19)</h2>
+<h2>PELENGKAP MODUL 4 (Week 12 - Chapter 19)</h2>
 
 <h3>1. GLOBAL PRICING ISSUES</h3>
 Dua masalah harga yang spesifik di pasar global (Sering keluar di soal kasus):
@@ -2436,26 +3034,26 @@ Distribusi internasional memiliki rantai yang lebih panjang.
 <bullet>International Seller → Channels Between Nations (Memindahkan produk ke perbatasan) → Channels Within Nations (Memindahkan produk dari pelabuhan ke konsumen) → Final User.</bullet>
 <bullet><b>Key Point:</b> Saluran "Within Nations" sering menjadi hambatan terbesar karena infrastruktur buruk atau sistem distribusi lokal yang terfragmentasi (banyak perantara kecil).</bullet>
 
-<h2> PELENGKAP MODUL 5 (Week 13 - Chapter 20)</h2>
+<h2>PELENGKAP MODUL 5 (Week 13 - Chapter 20)</h2>
 
-<warning>[MATERI KISI-KISI RESMI] - Societal Classification of Products</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI] - Societal Classification of Products</warning>
 
 Ini adalah konsep SANGAT PENTING untuk mengklasifikasikan produk berdasarkan "Kepuasan Segera" vs "Manfaat Jangka Panjang". (Sering muncul di ujian pilihan ganda/kasus).
 
 <bullet><b>Deficient Products (Produk Kurang):</b>
-<i>Tidak punya daya tarik segera, tidak punya manfaat jangka panjang.</i>
+Tidak punya daya tarik segera, tidak punya manfaat jangka panjang.
 <i>Example: Obat yang rasanya tidak enak dan tidak manjur.</i></bullet>
 
 <bullet><b>Pleasing Products (Produk Menyenangkan):</b>
-<i>Kepuasan segera TINGGI, tapi manfaat jangka panjang BURUK (bisa menyakiti).</i>
+Kepuasan segera TINGGI, tapi manfaat jangka panjang BURUK (bisa menyakiti).
 <i>Example: Rokok, Junk Food, Minuman Keras. Enak sekarang, sakit nanti.</i></bullet>
 
 <bullet><b>Salutary Products (Produk Bermanfaat):</b>
-<i>Kepuasan segera RENDAH (tidak enak/membosankan), tapi manfaat jangka panjang TINGGI.</i>
+Kepuasan segera RENDAH (tidak enak/membosankan), tapi manfaat jangka panjang TINGGI.
 <i>Example: Helm pengaman, Asuransi jiwa, Sayur brokoli tanpa rasa.</i></bullet>
 
 <bullet><b>Desirable Products (Produk Yang Diinginkan/Ideal):</b>
-<i>Kepuasan segera TINGGI, manfaat jangka panjang TINGGI. (Tujuan Sustainable Marketing).</i>
+Kepuasan segera TINGGI, manfaat jangka panjang TINGGI. (Tujuan Sustainable Marketing).
 <i>Example: Makanan sehat yang lezat, Mobil listrik yang kencang dan hemat.</i></bullet>
 
 <h3>2. CRADLE-TO-CRADLE vs CRADLE-TO-GRAVE</h3>
@@ -3607,14 +4205,13 @@ Daftar spesifik vendor perangkat lunak yang disebutkan dalam materi untuk refere
 <bullet>SAP America, Inc.</bullet>
 <bullet>Workday</bullet>
 <bullet>Odoo</bullet>`,
-                modul1_updated: `<h1>MODUL 1: MANAJEMEN KOMPENSASI STRATEGIS & SISTEM INSENTIF</h1>
-<subtitle><b><i>(Theory, Regulation, & Technical Implementation)</i></b></subtitle>
+                modul1_updated: `<h1>MODUL 1: MANAJEMEN KOMPENSASI STRATEGIS & SISTEM INSENTIF (THEORY, REGULATION, & TECHNICAL IMPLEMENTATION)</h1>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Compensation & Benefit Program - Teori (Bobot 20%)] Bagian ini adalah fondasi teori yang disorot dalam kisi-kisi. Pelajari definisi, hukum, dan metode evaluasi jabatan secara mendalam.</warning>
 
-<h2>1. BASIC FACTORS IN DETERMINING PAY RATES</h2>
+<h2>1. Basic Factors in Determining Pay Rates (Dasar Penentuan Tingkat Upah)</h2>
 
-<b>Employee Compensation</b> mencakup semua bentuk pembayaran yang diberikan kepada karyawan sebagai akibat dari hubungan kerja mereka. Kompensasi terbagi menjadi dua komponen utama:
+Employee Compensation mencakup semua bentuk pembayaran yang diberikan kepada karyawan sebagai akibat dari hubungan kerja mereka. Kompensasi terbagi menjadi dua komponen utama:
 
 <bullet><b>Direct Financial Payments:</b> Pembayaran dalam bentuk upah (wages), gaji (salaries), insentif (incentives), komisi (commissions), dan bonus (bonuses).
 <i>Contoh: Seorang Sales Manager menerima gaji pokok bulanan sebesar Rp 15.000.000 (Salary) ditambah komisi penjualan 5% (Commission).</i></bullet>
@@ -3623,7 +4220,7 @@ Daftar spesifik vendor perangkat lunak yang disebutkan dalam materi untuk refere
 <i>Contoh: Perusahaan membayarkan premi BPJS Kesehatan dan memberikan cuti tahunan berbayar selama 12 hari.</i></bullet>
 
 <h3>Aligned Reward Strategy</h3>
-Tujuan utamanya adalah menciptakan <b>Aligned Reward Strategy</b>, yaitu paket kompensasi yang menghasilkan perilaku karyawan yang dibutuhkan perusahaan untuk mencapai strategi kompetitifnya.
+Tujuan utamanya adalah menciptakan Aligned Reward Strategy, yaitu paket kompensasi yang menghasilkan perilaku karyawan yang dibutuhkan perusahaan untuk mencapai strategi kompetitifnya.
 <bullet><i>Contoh: Wegmans Food Markets menggunakan strategi SDM dan kompensasi yang unik untuk meningkatkan kinerja dan layanan pelanggan.</i></bullet>
 
 <h3>Equity Theory of Motivation (Teori Keadilan)</h3>
@@ -3643,8 +4240,7 @@ Teori ini menyatakan bahwa jika seseorang merasakan ketidakadilan (perceives an 
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Legal Considerations] Hafalkan nama undang-undang, tahun, dan esensi utamanya. Ini sering muncul dalam soal teori.</warning>
 
-<h2>LEGAL CONSIDERATIONS IN COMPENSATION</h2>
-
+<h3>Legal Considerations in Compensation</h3>
 Keputusan kompensasi sangat dipengaruhi oleh regulasi pemerintah:
 
 <bullet><b>Davis-Bacon Act (1931):</b> Mengatur tingkat upah untuk pekerja pada proyek pemerintah (public works).</bullet>
@@ -3658,23 +4254,23 @@ Keputusan kompensasi sangat dipengaruhi oleh regulasi pemerintah:
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Job Evaluation] Metode evaluasi jabatan adalah inti dari penentuan struktur gaji yang adil secara internal.</warning>
 
-<h2>2. JOB EVALUATION METHODS</h2>
+<h2>2. Job Evaluation Methods (Metode Evaluasi Jabatan)</h2>
 
-<b>Job Evaluation</b> adalah perbandingan sistematis dan formal untuk menentukan nilai relatif satu pekerjaan terhadap pekerjaan lain untuk menetapkan hierarki gaji.
+Job Evaluation adalah perbandingan sistematis dan formal untuk menentukan nilai relatif satu pekerjaan terhadap pekerjaan lain untuk menetapkan hierarki gaji.
 
-Evaluasi ini didasarkan pada <b>Compensable Factors</b>, yaitu elemen dasar pekerjaan yang dapat dikompensasi, seperti: <i>Skill (keterampilan), Effort (usaha), Responsibility (tanggung jawab), dan Working Conditions (kondisi kerja).</i>
+Evaluasi ini didasarkan pada Compensable Factors, yaitu elemen dasar pekerjaan yang dapat dikompensasi, seperti: Skill (keterampilan), Effort (usaha), Responsibility (tanggung jawab), dan Working Conditions (kondisi kerja).
 
 <h3>A. Ranking Method (Metode Pemeringkatan)</h3>
 Metode paling sederhana dengan memeringkat setiap jabatan relatif terhadap jabatan lain.
 
 <b>Steps (Langkah-langkah):</b>
-<bullet>1. Obtain job information (Dapatkan informasi jabatan).</bullet>
-<bullet>2. Select and group jobs (Pilih dan kelompokkan jabatan).</bullet>
-<bullet>3. Select compensable factors (Pilih faktor kompensasi).</bullet>
-<bullet>4. Rank jobs (Peringkatkan jabatan).</bullet>
-<bullet>5. Combine ratings (Gabungkan penilaian).</bullet>
-<bullet>6. Compare current pay with salary surveys (Bandingkan gaji saat ini dengan survei pasar).</bullet>
-<bullet>7. Assign a new pay scale (Tetapkan skala gaji baru).</bullet>
+<bullet>Obtain job information (Dapatkan informasi jabatan).</bullet>
+<bullet>Select and group jobs (Pilih dan kelompokkan jabatan).</bullet>
+<bullet>Select compensable factors (Pilih faktor kompensasi).</bullet>
+<bullet>Rank jobs (Peringkatkan jabatan).</bullet>
+<bullet>Combine ratings (Gabungkan penilaian).</bullet>
+<bullet>Compare current pay with salary surveys (Bandingkan gaji saat ini dengan survei pasar).</bullet>
+<bullet>Assign a new pay scale (Tetapkan skala gaji baru).</bullet>
 
 <bullet><b>Case Study (Jackson Hospital):</b> Dalam tabel pemeringkatan, jabatan "Office Manager" diperingkat 1 (Gaji saat ini $43,000, Pasar $45,000, Ditetapkan $44,000), "Chief Nurse" peringkat 2, hingga "Orderly" peringkat 7.</bullet>
 
@@ -3685,54 +4281,54 @@ Mengategorikan jabatan ke dalam kelas-kelas (classes) atau tingkatan (grades) be
 <h3>C. Point Method (Metode Poin)</h3>
 Metode evaluasi jabatan di mana sejumlah faktor kompensasi diidentifikasi, dan kemudian derajat keberadaan faktor tersebut dalam pekerjaan ditentukan dan diberi poin.
 
-<h2>3. ESTABLISHING A MARKET-COMPETITIVE PAY PLAN</h2>
+<h2>3. Establishing a Market-Competitive Pay Plan (Membangun Rencana Bayaran Kompetitif Pasar)</h2>
 
 Proses ini menggabungkan data internal (Job Evaluation) dan eksternal (Salary Survey) melalui 16 langkah presisi berikut:
 
-<bullet>1. <b>Choose Benchmark Jobs:</b> Pilih jabatan standar yang umum dan mudah dibandingkan di pasar.</bullet>
-<bullet>2. <b>Select Compensable Factors:</b> Tentukan faktor penentu nilai.</bullet>
-<bullet>3. <b>Assign Weights to Compensable Factors:</b> Berikan bobot pada setiap faktor.</bullet>
-<bullet>4. <b>Convert Percentages to Points for Each Factor:</b> Ubah bobot menjadi poin.</bullet>
-<bullet>5. <b>Define Each Factor's Degrees:</b> Tentukan level untuk setiap faktor.</bullet>
-<bullet>6. <b>Determine For Each Factor Its Factor Degrees' Points:</b> Hitung poin per level.</bullet>
-<bullet>7. <b>Review Job Descriptions and Job Specifications:</b> Tinjau ulang deskripsi kerja.</bullet>
-<bullet>8. <b>Evaluate the Jobs:</b> Lakukan evaluasi jabatan.</bullet>
-<bullet>9. <b>Draw the Current (Internal) Wage Curve:</b> Gambar kurva upah internal.</bullet>
-<bullet>10. <b>Conduct a Market Analysis: Salary Survey:</b> Lakukan survei gaji.</bullet>
-<bullet>11. <b>Draw the Market (External) Wage Curve:</b> Gambar kurva upah pasar.</bullet>
-<bullet>12. <b>Compare and Adjust Current and Market Rates for Jobs:</b> Bandingkan kurva internal dan eksternal.</bullet>
-<bullet>13. <b>Develop Pay Grades:</b> Kelompokkan jabatan dengan nilai poin serupa ke dalam grade.</bullet>
-<bullet>14. <b>Establish Rate Ranges:</b> Buat rentang tarif (Minimum, Midpoint, Maximum) untuk setiap grade.</bullet>
-<bullet>15. <b>Address Remaining Jobs:</b> Atur jabatan yang tersisa.</bullet>
-<bullet>16. <b>Correct Out-of-Line Rates:</b> Sesuaikan tarif yang Underpaid (Green circle) atau Overpaid (Red circle).</bullet>
+<bullet><b>1.</b> Choose Benchmark Jobs: Pilih jabatan standar yang umum dan mudah dibandingkan di pasar.</bullet>
+<bullet><b>2.</b> Select Compensable Factors: Tentukan faktor penentu nilai.</bullet>
+<bullet><b>3.</b> Assign Weights to Compensable Factors: Berikan bobot pada setiap faktor.</bullet>
+<bullet><b>4.</b> Convert Percentages to Points for Each Factor: Ubah bobot menjadi poin.</bullet>
+<bullet><b>5.</b> Define Each Factor's Degrees: Tentukan level untuk setiap faktor.</bullet>
+<bullet><b>6.</b> Determine For Each Factor Its Factor Degrees' Points: Hitung poin per level.</bullet>
+<bullet><b>7.</b> Review Job Descriptions and Job Specifications: Tinjau ulang deskripsi kerja.</bullet>
+<bullet><b>8.</b> Evaluate the Jobs: Lakukan evaluasi jabatan.</bullet>
+<bullet><b>9.</b> Draw the Current (Internal) Wage Curve: Gambar kurva upah internal.</bullet>
+<bullet><b>10.</b> Conduct a Market Analysis: Salary Survey: Lakukan survei gaji.</bullet>
+<bullet><b>11.</b> Draw the Market (External) Wage Curve: Gambar kurva upah pasar.</bullet>
+<bullet><b>12.</b> Compare and Adjust Current and Market Rates for Jobs: Bandingkan kurva internal dan eksternal.</bullet>
+<bullet><b>13.</b> Develop Pay Grades: Kelompokkan jabatan dengan nilai poin serupa ke dalam grade.</bullet>
+<bullet><b>14.</b> Establish Rate Ranges: Buat rentang tarif (Minimum, Midpoint, Maximum) untuk setiap grade.</bullet>
+<bullet><b>15.</b> Address Remaining Jobs: Atur jabatan yang tersisa.</bullet>
+<bullet><b>16.</b> Correct Out-of-Line Rates: Sesuaikan tarif yang Underpaid (Green circle) atau Overpaid (Red circle).</bullet>
 
-<h2>4. CONTEMPORARY TOPICS IN COMPENSATION</h2>
+<h2>4. Contemporary Topics in Compensation (Topik Kontemporer)</h2>
 
-<h3>Competency-Based Pay</h3>
+<bullet><b>Competency-Based Pay:</b>
 Membayar karyawan berdasarkan jangkauan, kedalaman, dan jenis keterampilan atau pengetahuan (competencies) yang mereka miliki, bukan berdasarkan judul jabatan (job title).
-<bullet><i>Contoh: Seorang programmer dibayar lebih tinggi karena menguasai 5 bahasa pemrograman, meskipun jabatannya sama dengan yang hanya menguasai 2 bahasa.</i></bullet>
+<i>Contoh: Seorang programmer dibayar lebih tinggi karena menguasai 5 bahasa pemrograman, meskipun jabatannya sama dengan yang hanya menguasai 2 bahasa.</i></bullet>
 
-<h3>Broadbanding</h3>
+<bullet><b>Broadbanding:</b>
 Mengonsolidasikan tingkatan gaji (pay grades) yang banyak menjadi beberapa "pita" yang lebih lebar (bands).
-<bullet><i>Contoh: Menggabungkan Grade 1-5 menjadi "Band A", dan Grade 6-10 menjadi "Band B".</i></bullet>
+<i>Contoh: Menggabungkan Grade 1-5 menjadi "Band A", dan Grade 6-10 menjadi "Band B".</i></bullet>
 
-<h3>Comparable Worth</h3>
+<bullet><b>Comparable Worth:</b>
 Persyaratan untuk membayar upah yang setara bagi pria dan wanita untuk pekerjaan yang berbeda namun memiliki nilai yang sebanding (comparable value) bagi pemberi kerja.
-<bullet><b>Legal Case: County of Washington v. Gunther.</b> Mahkamah Agung memutuskan terkait diskriminasi seks di bawah Title VII.</bullet>
+<i>Legal Case: County of Washington v. Gunther. Mahkamah Agung memutuskan terkait diskriminasi seks di bawah Title VII.</i></bullet>
 
-<h3>Board Oversight of Executive Pay</h3>
+<bullet><b>Board Oversight of Executive Pay:</b>
 Pengawasan ketat terhadap gaji eksekutif melalui regulasi:
-<bullet><b>Sarbanes-Oxley Act:</b> Mempengaruhi bagaimana pemberi kerja merumuskan program insentif eksekutif.</bullet>
-<bullet><b>Dodd-Frank Law:</b> Mengatur transparansi gaji eksekutif.</bullet>
+<i>Sarbanes-Oxley Act: Mempengaruhi bagaimana pemberi kerja merumuskan program insentif eksekutif.</i>
+<i>Dodd-Frank Law: Mengatur transparansi gaji eksekutif.</i></bullet>
 
-<h3>Total Rewards</h3>
-Program imbalan total untuk meningkatkan keterlibatan karyawan (employee engagement), yang mencakup tidak hanya gaji tapi juga pengakuan dan peluang karir.
+<bullet><b>Total Rewards:</b>
+Program imbalan total untuk meningkatkan keterlibatan karyawan (employee engagement), yang mencakup tidak hanya gaji tapi juga pengakuan dan peluang karir.</bullet>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Pay for Performance Theories] Bagian ini wajib dikuasai untuk menjelaskan "Mengapa" insentif diberikan.</warning>
 
-<h2>5. PAY FOR PERFORMANCE & INCENTIVES</h2>
+<h2>5. Pay for Performance & Incentives (Insentif Berbasis Kinerja)</h2>
 
-<b>Pay-for-Performance</b> (atau Variable Pay) adalah mengaitkan gaji karyawan secara langsung dengan kinerja karyawan tersebut.
+Pay-for-Performance (atau Variable Pay) adalah mengaitkan gaji karyawan secara langsung dengan kinerja karyawan tersebut.
 
 <h3>Motivation Theories in Incentive Design</h3>
 Teori psikologi yang mendasari desain insentif:
@@ -3745,8 +4341,9 @@ Teori psikologi yang mendasari desain insentif:
 
 <b>1. Individual Incentives:</b>
 <bullet><b>Piecework:</b> Penghasilan dikaitkan langsung dengan apa yang diproduksi pekerja.
-<i>Straight piecework: Tarif tetap per unit. Standard hour plan: Tarif berdasarkan waktu standar penyelesaian.</i></bullet>
-<bullet><b>Merit Pay:</b> Kenaikan gaji permanen berbasis kinerja (merit pay increase). Opsi lain adalah <b>Lump-sum merit</b> (bonus sekali bayar).</bullet>
+<i>Straight piecework: Tarif tetap per unit.</i>
+<i>Standard hour plan: Tarif berdasarkan waktu standar penyelesaian.</i></bullet>
+<bullet><b>Merit Pay:</b> Kenaikan gaji permanen berbasis kinerja (merit pay increase). Opsi lain adalah Lump-sum merit (bonus sekali bayar).</bullet>
 
 <b>2. Incentives for Professionals:</b>
 <bullet><b>Dual-Career Ladders:</b> Menyediakan satu jalur untuk manajer dan satu lagi untuk ahli teknis (technical experts), agar ahli teknis bisa naik gaji tanpa harus masuk manajemen.</bullet>
@@ -3764,55 +4361,56 @@ Teori psikologi yang mendasari desain insentif:
 <bullet><b>Profit-sharing plans:</b> Rencana bagi laba.</bullet>
 <bullet><b>Scanlon plans:</b> Rencana bagi penghematan.</bullet>
 <bullet><b>ESOPs (Employee Stock Ownership Plans):</b> Rencana kepemilikan saham oleh karyawan.</bullet>
-<bullet><b>Studi Kasus Nucor:</b> Karyawan berpartisipasi dalam 4 rencana insentif dan bisa mendapat bonus >100% dari gaji dasar.</bullet>
+<bullet><i>Studi Kasus Nucor: Karyawan berpartisipasi dalam 4 rencana insentif dan bisa mendapat bonus >100% dari gaji dasar.</i></bullet>
 
 <h3>Non-Financial and Recognition-Based Awards</h3>
 Penghargaan tidak harus selalu uang. Social recognition program seperti feedback kinerja sangat efektif.
-<bullet><b>Contoh (Daftar Bob Nelson):</b> Tugas yang menantang, otonomi memilih aktivitas kerja, rotasi kerja, pujian di depan umum (expression of appreciation in front of others), surat ucapan terima kasih (note of thanks), hingga fasilitas fisik seperti meja yang lebih besar (bigger desk).</bullet>
+<bullet><i>Contoh (Daftar Bob Nelson): Tugas yang menantang, otonomi memilih aktivitas kerja, rotasi kerja, pujian di depan umum (expression of appreciation in front of others), surat ucapan terima kasih (note of thanks), hingga fasilitas fisik seperti meja yang lebih besar (bigger desk).</i></bullet>
 
-<h2>6. TECHNICAL IMPLEMENTATION: HASHMICRO HRIS GUIDE</h2>
+<h2>6. Technical Implementation: Hashmicro HRIS Guide</h2>
 
 Panduan teknis penggunaan software Hashmicro untuk pengelolaan bonus dan struktur gaji secara otomatis sesuai materi praktikum Session 19-20.
 
 <bullet><b>Other Inputs:</b> Masuk ke menu ini. Buat input bonus tahunan dengan kode YB (Yearly Bonus) dan pastikan statusnya "CONFIRM".</bullet>
 <bullet><b>Payslip Periods:</b> Buat periode gaji (misal: 01/01/2022 - 12/31/2022). Ubah status ke "Open Periods" agar bisa diproses.</bullet>
 <bullet><b>Generate Other Inputs:</b> Pilih karyawan (misal: Chris Evans), masukkan jenis input (Yearly Bonus), kode YB, bulan, dan jumlah (misal: 1.000.000).</bullet>
-<bullet><b>Salary Rules:</b> Buat aturan gaji baru. Nama: Yearly Bonus, Kategori: Other Allowance, Kode: YB. <b>Penting:</b> Isi kolom Debit Account dan Credit Account pada tab Accounting untuk integrasi akuntansi.</bullet>
+<bullet><b>Salary Rules:</b> Buat aturan gaji baru. Nama: Yearly Bonus, Kategori: Other Allowance, Kode: YB.
+<i>Penting: Isi kolom Debit Account dan Credit Account pada tab Accounting untuk integrasi akuntansi.</i></bullet>
 <bullet><b>Salary Structures:</b> Buat struktur yang menggabungkan Basic Salary dan Yearly Bonus. Update akun debit/kredit pada aturan Basic Salary juga.</bullet>
 <bullet><b>Update Salary Structure:</b> Pada kontrak karyawan, ubah status dari Running ke New, perbarui struktur gaji, lalu kembalikan ke status Running.</bullet>
-<bullet><b>Employee Payslips:</b> Buat slip gaji. Isi nama, periode, bulan, referensi. <b>Note:</b> Pastikan Salary Journal di tab Accounting sudah diisi sebelum klik Compute Sheet.</bullet>
+<bullet><b>Employee Payslips:</b> Buat slip gaji. Isi nama, periode, bulan, referensi.
+<i>Note: Pastikan Salary Journal di tab Accounting sudah diisi sebelum klik Compute Sheet.</i></bullet>
 <bullet><b>Print:</b> Cetak slip gaji. Output akan menampilkan rincian pendapatan (Basic Salary + Yearly Bonus) dan total Take Home Pay dengan format profesional.</bullet>`,
-                modul2_updated: `<h1>MODUL 2: MANAJEMEN KESELAMATAN, KESEHATAN, DAN RISIKO KERJA</h1>
-<subtitle><b><i>(Safety, Health, and Risk Management)</i></b></subtitle>
+                modul2_updated: `<h1>MODUL 2: MANAJEMEN KESELAMATAN, KESEHATAN, DAN RISIKO KERJA (SAFETY, HEALTH, AND RISK MANAGEMENT)</h1>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Safety, Health & Risk Management - Teori (Bobot 20%)] Topik ini memiliki bobot teori yang signifikan. Fokus hafalan Anda harus pada tiga pilar: Penyebab Kecelakaan (Causes), Pencegahan (Prevention), dan Regulasi K3 Indonesia (UU No. 1 Tahun 1970 & PP No. 50 Tahun 2012).</warning>
 
-<h2>1. URGENCY OF SAFETY AND MANAGEMENT'S ROLE</h2>
+<h2>1. Urgency of Safety and Management's Role (Urgensi Keselamatan dan Peran Manajemen)</h2>
 
-Keselamatan kerja bukan hanya masalah kemanusiaan, tetapi juga profitabilitas. Statistik menunjukkan realitas serius: <b>5.190 pekerja di AS meninggal di tempat kerja dalam satu tahun</b>, dan terjadi <b>2,9 juta cedera serta penyakit akibat kerja</b>. Prinsip utamanya adalah <b>"Improving Safety Boosts Profits"</b> (Meningkatkan Keselamatan Meningkatkan Keuntungan).
+Keselamatan kerja bukan hanya masalah kemanusiaan, tetapi juga profitabilitas. Statistik menunjukkan realitas serius: 5.190 pekerja di AS meninggal di tempat kerja dalam satu tahun, dan terjadi 2,9 juta cedera serta penyakit akibat kerja. Prinsip utamanya adalah "Improving Safety Boosts Profits" (Meningkatkan Keselamatan Meningkatkan Keuntungan).
 
 <h3>Management's Role</h3>
-Komitmen keselamatan dimulai dari puncak. <b>Management's attitude</b> (sikap manajemen) adalah penentu utama budaya keselamatan di organisasi.
-<bullet><b>Supervisor's Role:</b> Bertanggung jawab atas pencegahan kecelakaan harian, termasuk melakukan <b>inspeksi harian (daily walk-through)</b> untuk mengidentifikasi bahaya.</bullet>
+Komitmen keselamatan dimulai dari puncak. Management's attitude (sikap manajemen) adalah penentu utama budaya keselamatan di organisasi.
+<bullet><b>Supervisor's Role:</b> Bertanggung jawab atas pencegahan kecelakaan harian, termasuk melakukan inspeksi harian (daily walk-through) untuk mengidentifikasi bahaya.</bullet>
 
 <h3>Rights and Responsibilities</h3>
 <bullet><b>Employers (Pengusaha):</b> Wajib menyediakan tempat kerja yang bebas dari bahaya yang diketahui (recognized hazards), memahami standar wajib (seperti standar OSHA), dan memeriksa kondisi tempat kerja secara rutin.</bullet>
 <bullet><b>Employees (Karyawan):</b> Berhak atas keselamatan dan kesehatan kerja tanpa rasa takut akan hukuman (fear of punishment), namun seringkali manajemen menghadapi resistensi karyawan terhadap prosedur keselamatan.</bullet>
 
-<h2>⚠️ 2. WHAT CAUSES ACCIDENTS?</h2>
+<h2>2. What Causes Accidents? (Apa Penyebab Kecelakaan?)</h2>
 
 Manajer harus memahami tiga kategori utama penyebab kecelakaan untuk merumuskan strategi pencegahan yang tepat:
 
 <bullet><b>Chance Occurrences (Kejadian Kebetulan):</b> Peristiwa yang berada di luar kendali manajemen (beyond management's control), seperti bencana alam atau kejadian acak.
 <i>Contoh: Pohon tumbang menimpa gudang saat badai besar.</i></bullet>
 
-<bullet><b>Unsafe Conditions (Kondisi Tidak Aman):</b> Penyebab fisik atau lingkungan kerja yang berbahaya. Ini adalah <b>garis pertahanan pertama pemberi kerja (employer's first line of defense)</b> karena lebih mudah diperbaiki secara teknis.
+<bullet><b>Unsafe Conditions (Kondisi Tidak Aman):</b> Penyebab fisik atau lingkungan kerja yang berbahaya. Ini adalah garis pertahanan pertama pemberi kerja (employer's first line of defense) karena lebih mudah diperbaiki secara teknis.
 <i>Contoh: Peralatan yang pelindungnya rusak, lantai licin, pencahayaan buruk, atau ventilasi yang tidak memadai.</i></bullet>
 
 <bullet><b>Unsafe Acts (Tindakan Tidak Aman):</b> Perilaku manusia yang membatalkan upaya keselamatan. Ini adalah penyebab yang paling sulit dikendalikan karena menyangkut psikologi dan kebiasaan.
 <i>Contoh: Karyawan melepas helm proyek karena "panas", berlari di area basah, atau menggunakan mesin tanpa otorisasi.</i></bullet>
 
-<h2>3. STRATEGIES FOR ACCIDENT PREVENTION</h2>
+<h2>3. Strategies for Accident Prevention (Strategi Pencegahan Kecelakaan)</h2>
 
 <h3>A. Reducing Unsafe Conditions (Mengurangi Kondisi Tidak Aman)</h3>
 Metode teknis untuk menghilangkan bahaya fisik:
@@ -3827,42 +4425,39 @@ Mengubah perilaku manusia memerlukan pendekatan psikologis dan budaya:
 <bullet><b>Safety Policy & Goals:</b> Menetapkan kebijakan tertulis dan target pengendalian kerugian yang spesifik (specific loss control goals).</bullet>
 <bullet><b>Behavior-Based Safety:</b> Melatih karyawan untuk saling mengawasi dan mengingatkan perilaku kerja aman.</bullet>
 
-<h2>4. WORKPLACE HEALTH HAZARDS</h2>
+<h2>4. Workplace Health Hazards (Bahaya Kesehatan di Tempat Kerja)</h2>
 
-Manajemen harus menerapkan prinsip <b>Industrial Hygiene</b>: mengenali (recognize), mengevaluasi (evaluate), dan mengendalikan (control) bahaya.
+Manajemen harus menerapkan prinsip Industrial Hygiene: mengenali (recognize), mengevaluasi (evaluate), dan mengendalikan (control) bahaya.
 
 <h3>Key Health Hazards:</h3>
-<bullet><b>Chemicals & Air Quality:</b> Risiko paparan bahan kimia berbahaya seperti asbes atau kualitas udara buruk yang menyebabkan <b>Sick Building Syndrome</b>.</bullet>
+<bullet><b>Chemicals & Air Quality:</b> Risiko paparan bahan kimia berbahaya seperti asbes atau kualitas udara buruk yang menyebabkan Sick Building Syndrome.</bullet>
 <bullet><b>Substance Abuse (Penyalahgunaan Zat):</b> Masalah alkoholisme dan narkoba. Solusinya meliputi pengujian zat (substance abuse testing) dan tindakan disipliner/rehabilitasi.</bullet>
+<bullet><b>Stress, Burnout, and Depression:</b>
+<i>Burnout: Kondisi kelelahan total fisik dan mental akibat stres berkepanjangan.</i>
+<i>Employer's Role: Mengurangi stres melalui desain ulang pekerjaan, konseling, dan menciptakan iklim kerja yang suportif.</i></bullet>
+<bullet><b>Ergonomics & Computer Issues:</b>
+<i>Masalah utama adalah Repetitive Motion Disorders (gangguan gerakan berulang) seperti Carpal Tunnel Syndrome.</i>
+<i>Solusi Teknis: Posisi monitor harus sejajar mata dan penggunaan kursi ergonomis. Gunakan OSHA's e-tool untuk mendesain workstation.</i></bullet>
 
-<h3>Stress, Burnout, and Depression:</h3>
-<bullet><b>Burnout:</b> Kondisi kelelahan total fisik dan mental akibat stres berkepanjangan.</bullet>
-<bullet><b>Employer's Role:</b> Mengurangi stres melalui desain ulang pekerjaan, konseling, dan menciptakan iklim kerja yang suportif.</bullet>
+<h2>5. Occupational Security and Risk Management (Keamanan Okupasi dan Manajemen Risiko)</h2>
 
-<h3>Ergonomics & Computer Issues:</h3>
-<bullet>Masalah utama adalah <b>Repetitive Motion Disorders</b> (gangguan gerakan berulang) seperti <b>Carpal Tunnel Syndrome</b>.</bullet>
-<bullet><b>Solusi Teknis:</b> Posisi monitor harus sejajar mata dan penggunaan kursi ergonomis. Gunakan <b>OSHA's e-tool</b> untuk mendesain workstation.</bullet>
-
-<h2>5. OCCUPATIONAL SECURITY AND RISK MANAGEMENT</h2>
-
-<b>Enterprise Risk Management (ERM)</b> adalah pendekatan komprehensif untuk mengelola risiko yang dibagi menjadi tiga kategori:
+Enterprise Risk Management (ERM) adalah pendekatan komprehensif untuk mengelola risiko yang dibagi menjadi tiga kategori:
 <bullet><b>Internal Preventable Risks:</b> Risiko internal yang dapat dikendalikan dan harus dihilangkan (misal: perilaku tidak etis karyawan).</bullet>
 <bullet><b>Strategy Risks:</b> Risiko yang sengaja diambil demi mendapatkan keuntungan lebih besar (misal: risiko investasi).</bullet>
 <bullet><b>External Risks:</b> Risiko dari luar organisasi yang tidak bisa dikontrol (misal: bencana alam, terorisme).</bullet>
 
 <h3>Security Measures (Langkah Keamanan)</h3>
-<b>Facility Security (4 Layers):</b>
-<bullet>1. Analyze current risk (Analisis risiko saat ini).</bullet>
-<bullet>2. Mechanical systems (Kunci, kartu akses, gerbang).</bullet>
-<bullet>3. Natural/Architectural systems (Desain lansekap, pencahayaan untuk meminimalkan blind spots).</bullet>
-<bullet>4. Organizational systems (Kebijakan, manajemen tamu).</bullet>
-
+<bullet><b>Facility Security (4 Layers):</b>
+<i>Analyze current risk (Analisis risiko saat ini).</i>
+<i>Mechanical systems (Kunci, kartu akses, gerbang).</i>
+<i>Natural/Architectural systems (Desain lansekap, pencahayaan untuk meminimalkan blind spots).</i>
+<i>Organizational systems (Kebijakan, manajemen tamu).</i></bullet>
 <bullet><b>Cyber Security:</b> Prinsip utamanya adalah "Old data is bad data" (data lama harus dibersihkan/dihapus), enkripsi data, dan pemantauan terus-menerus.</bullet>
 <bullet><b>Business Continuity Plans:</b> Mengingat 40% perusahaan tidak pernah buka kembali setelah bencana besar, rencana darurat harus mengidentifikasi tanggung jawab kunci dan dilatihkan secara rutin.</bullet>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Regulasi K3 Indonesia] Bagian ini sangat spesifik dan wajib dihafal untuk ujian teori, terutama definisi dan tujuan menurut PP No. 50 Tahun 2012.</warning>
 
-<h2>6. REGULATORY CONTEXT IN INDONESIA</h2>
+<h2>6. Regulatory Context in Indonesia (Konteks Regulasi K3 Indonesia)</h2>
 
 Indonesia memiliki kerangka hukum yang mengikat untuk menjamin keselamatan tenaga kerja.
 
@@ -3895,12 +4490,11 @@ Menurut PP No. 50 Tahun 2012, penerapan SMK3 bertujuan untuk:
 <h3>Benefits of K3 (Manfaat Penerapan K3)</h3>
 <bullet><b>Bagi Pekerja:</b> Memahami risiko, mampu bertindak dalam situasi darurat, menjamin keberlanjutan penghasilan (ekonomi keluarga), dan terhindar dari penyakit.</bullet>
 <bullet><b>Bagi Perusahaan:</b> Menjaga produktivitas optimal, efisiensi finansial (mengurangi biaya kesehatan/asuransi), serta meningkatkan citra positif di mata pemerintah dan masyarakat.</bullet>`,
-                modul3_updated: `<h1>MODUL 3: HUBUNGAN TENAGA KERJA DAN PERUNDINGAN KOLEKTIF</h1>
-<subtitle><b><i>(Labor Relations and Collective Bargaining)</i></b></subtitle>
+                modul3_updated: `<h1>MODUL 3: HUBUNGAN TENAGA KERJA DAN PERUNDINGAN KOLEKTIF (LABOR RELATIONS AND COLLECTIVE BARGAINING)</h1>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Labor Relations - Bobot 60% (CASE STUDY)] Bagian ini adalah "Jantung" dari ujian Anda. Soal studi kasus biasanya meminta Anda menganalisis apakah tindakan manajemen/serikat melanggar hukum (Unfair Labor Practices) atau bagaimana menyelesaikan kebuntuan negosiasi. Hafalkan pasal pelarangan di Wagner Act & Taft-Hartley Act.</warning>
 
-<h2>1. WHY DO WORKERS ORGANIZE?</h2>
+<h2>1. Why Do Workers Organize? (Mengapa Pekerja Berserikat?)</h2>
 
 Memahami motivasi pekerja adalah kunci pencegahan konflik. Pekerja berserikat bukan hanya soal uang, tetapi psikologi:
 
@@ -3909,17 +4503,17 @@ Memahami motivasi pekerja adalah kunci pencegahan konflik. Pekerja berserikat bu
 <bullet><b>Poor Employee Relations (Hubungan Karyawan Buruk):</b> Dipicu oleh moral rendah, ketakutan kehilangan pekerjaan, dan komunikasi yang buruk.</bullet>
 
 <h3>Employee Engagement and Unionization</h3>
-Sebuah studi dari Modern Survey menemukan fakta krusial: <b>Memperhatikan tingkat keterlibatan karyawan (employee engagement) membantu membina hubungan positif dan menurunkan kemungkinan tenaga kerja mencari perwakilan serikat.</b>
-<bullet><b>Implikasi Manajerial:</b> Jika Anda ingin mencegah serikat pekerja masuk (Union Avoidance), fokuslah pada Engagement.</bullet>
+Sebuah studi dari Modern Survey menemukan fakta krusial: Memperhatikan tingkat keterlibatan karyawan (employee engagement) membantu membina hubungan positif dan menurunkan kemungkinan tenaga kerja mencari perwakilan serikat.
+<bullet><i>Implikasi Manajerial: Jika Anda ingin mencegah serikat pekerja masuk (Union Avoidance), fokuslah pada Engagement.</i></bullet>
 
-<h3>What Do Unions Want?</h3>
-<bullet><b>Union Security:</b> Memperjuangkan hak eksistensi dan keamanan status serikat di perusahaan.</bullet>
-<bullet><b>Isu Utama:</b> Melawan aturan <b>Right to Work</b> (aturan di beberapa negara bagian AS yang melarang kewajiban keanggotaan serikat sebagai syarat kerja).</bullet>
+<h3>What Do Unions Want? (Apa yang Diinginkan Serikat?)</h3>
+<bullet><b>Union Security:</b> Memperjuangkan hak eksistensi dan keamanan status serikat di perusahaan.
+<i>Isu Utama: Melawan aturan Right to Work (aturan di beberapa negara bagian AS yang melarang kewajiban keanggotaan serikat sebagai syarat kerja).</i></bullet>
 <bullet><b>Improved Wages, Hours, and Benefits:</b> Tuntutan standar kesejahteraan.</bullet>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Unfair Labor Practices (Hukum Perburuhan)] Analisis Kasus: Jika di soal ada Manajer yang mengancam atau memecat karyawan karena ikut serikat, Anda WAJIB mengutip "Wagner Act 1935". Jika Serikat yang memaksa karyawan, kutip "Taft-Hartley Act 1947".</warning>
 
-<h2>2. THE LAWS: EVOLUTION OF LABOR LAW</h2>
+<h2>2. The Laws: Evolution of Labor Law (Evolusi Hukum Ketenagakerjaan)</h2>
 
 Hukum perburuhan di AS berevolusi melalui tiga periode utama sebagai respons terhadap kondisi ekonomi dan sikap publik:
 
@@ -3927,54 +4521,68 @@ Hukum perburuhan di AS berevolusi melalui tiga periode utama sebagai respons ter
 
 <b>1. The Norris-LaGuardia Act (1932)</b>
 <bullet>Menjamin hak berunding kolektif.</bullet>
-<bullet><b>Poin Vital:</b> Menjadikan kontrak <b>"Yellow Dog"</b> tidak berlaku secara hukum (unenforceable).</bullet>
-<bullet><b>Definisi Yellow Dog Contract:</b> Janji yang dipaksakan pengusaha kepada pekerja untuk TIDAK bergabung dengan serikat sebagai syarat kerja.</bullet>
+<bullet><b>Poin Vital:</b> Menjadikan kontrak "Yellow Dog" tidak berlaku secara hukum (unenforceable).
+<i>Definisi Yellow Dog Contract: Janji yang dipaksakan pengusaha kepada pekerja untuk TIDAK bergabung dengan serikat sebagai syarat kerja.</i></bullet>
 
 <b>2. The Wagner Act (National Labor Relations Act of 1935)</b>
-Undang-undang ini melarang praktik perburuhan tidak adil oleh <b>PENGUSAHA (EMPLOYER)</b> dan membentuk <b>NLRB (National Labor Relations Board)</b> untuk mengawasi pelaksanaannya.
+Undang-undang ini melarang praktik perburuhan tidak adil oleh PENGUSAHA (EMPLOYER) dan membentuk NLRB (National Labor Relations Board) untuk mengawasi pelaksanaannya.
 
-<b>🚫 5 Unfair EMPLOYER Practices yang DILARANG:</b>
-<bullet><b>1. Interfere:</b> Mengganggu, menahan, atau memaksa karyawan dalam menggunakan hak organisasi diri (self-organization).
+<b>5 Unfair Employer Practices (Praktik Tidak Adil Pengusaha yang DILARANG):</b>
+Hafalkan 5 poin ini untuk analisis kasus pelanggaran manajemen.
+
+<bullet><b>Interfere:</b> Mengganggu, menahan, atau memaksa karyawan dalam menggunakan hak organisasi diri (self-organization).
 <i>Contoh Kasus: Manajer memarahi karyawan yang membagikan brosur serikat di jam istirahat.</i></bullet>
-<bullet><b>2. Dominate:</b> Mendominasi atau mencampuri pembentukan atau administrasi serikat pekerja.
+
+<bullet><b>Dominate:</b> Mendominasi atau mencampuri pembentukan atau administrasi serikat pekerja.
 <i>Contoh Kasus: Perusahaan menyuap ketua serikat atau membentuk "serikat boneka".</i></bullet>
-<bullet><b>3. Discriminate (Union Activity):</b> Mendiskriminasi karyawan dalam hal penerimaan atau masa kerja untuk mencegah keanggotaan serikat.
+
+<bullet><b>Discriminate (Union Activity):</b> Mendiskriminasi karyawan dalam hal penerimaan atau masa kerja untuk mencegah keanggotaan serikat.
 <i>Contoh Kasus: Memecat karyawan berkinerja baik hanya karena dia aktivis serikat.</i></bullet>
-<bullet><b>4. Discriminate (Legal Action):</b> Mendiskriminasi karyawan karena mengajukan tuntutan atau bersaksi di bawah undang-undang ini.</bullet>
-<bullet><b>5. Refuse to Bargain:</b> Menolak berunding secara kolektif dengan perwakilan karyawan.</bullet>
+
+<bullet><b>Discriminate (Legal Action):</b> Mendiskriminasi karyawan karena mengajukan tuntutan atau bersaksi di bawah undang-undang ini.</bullet>
+
+<bullet><b>Refuse to Bargain:</b> Menolak berunding secara kolektif dengan perwakilan karyawan.</bullet>
 
 <h3>B. Period of Modified Encouragement (Periode Penyeimbangan)</h3>
 
 <b>The Taft-Hartley Act (1947)</b>
-Undang-undang ini menyeimbangkan kekuatan dengan melarang praktik tidak adil oleh <b>SERIKAT (UNION)</b> dan memberi wewenang Presiden AS untuk menghentikan sementara National Emergency Strikes.
+Undang-undang ini menyeimbangkan kekuatan dengan melarang praktik tidak adil oleh SERIKAT (UNION) dan memberi wewenang Presiden AS untuk menghentikan sementara National Emergency Strikes (pemogokan yang membahayakan kesehatan/keselamatan nasional).
 
-<b>🚫 4 Unfair UNION Practices yang DILARANG:</b>
-<bullet><b>1. Restrain or Coerce:</b> Menahan atau memaksa karyawan dalam menggunakan hak tawar-menawar mereka (misal: memaksa orang ikut mogok).</bullet>
-<bullet><b>2. Cause Discrimination:</b> Menyebabkan pengusaha mendiskriminasi karyawan (misal: menekan bos untuk memecat karyawan yang anti-serikat).</bullet>
-<bullet><b>3. Refuse to Bargain:</b> Menolak berunding dengan itikad baik (good faith) dengan pengusaha.</bullet>
-<bullet><b>4. Featherbedding:</b> Meminta bayaran untuk pekerjaan yang tidak dilakukan.
+<b>4 Unfair Union Practices (Praktik Tidak Adil Serikat yang DILARANG):</b>
+Gunakan ini jika soal kasus menanyakan pelanggaran oleh pihak Buruh.
+
+<bullet><b>Restrain or Coerce:</b> Menahan atau memaksa karyawan dalam menggunakan hak tawar-menawar mereka (misal: memaksa orang ikut mogok).</bullet>
+
+<bullet><b>Cause Discrimination:</b> Menyebabkan pengusaha mendiskriminasi karyawan (misal: menekan bos untuk memecat karyawan yang anti-serikat).</bullet>
+
+<bullet><b>Refuse to Bargain:</b> Menolak berunding dengan itikad baik (good faith) dengan pengusaha.</bullet>
+
+<bullet><b>Featherbedding:</b> Meminta bayaran untuk pekerjaan yang tidak dilakukan.
 <i>Contoh Kasus: Serikat memaksa perusahaan membayar 5 orang untuk pekerjaan yang bisa diselesaikan 3 orang.</i></bullet>
 
-<h3>Rights of Employers (Hak Pengusaha di bawah Taft-Hartley):</h3>
+<b>Rights of Employers (Hak Pengusaha di bawah Taft-Hartley):</b>
 Pengusaha BOLEH mengekspresikan pandangan mereka tentang serikat, ASALKAN tidak mengandung:
-<bullet><b>Threat of reprisal</b> (Ancaman pembalasan).</bullet>
-<bullet><b>Promise of benefit</b> (Janji imbalan suap).</bullet>
-<bullet><b>Tip Kasus:</b> Manajer boleh bilang "Saya pikir serikat itu buruk," tapi TIDAK BOLEH bilang "Kalau kalian tidak ikut serikat, saya naikkan gaji" (Suap) atau "Kalau ikut, saya pecat" (Ancaman).</bullet>
+<bullet>Threat of reprisal (Ancaman pembalasan).</bullet>
+<bullet>Promise of benefit (Janji imbalan suap).</bullet>
+<bullet><i>Tip Kasus: Manajer boleh bilang "Saya pikir serikat itu buruk," tapi TIDAK BOLEH bilang "Kalau kalian tidak ikut serikat, saya naikkan gaji" (Suap) atau "Kalau ikut, saya pecat" (Ancaman).</i></bullet>
 
 <warning>⚠️ [MATERI KISI-KISI RESMI: Collective Bargaining Process] Fokus pada definisi "Good Faith", kategori item perundingan, dan langkah penyelesaian kebuntuan (Impasse).</warning>
 
-<h2>3. THE COLLECTIVE BARGAINING PROCESS</h2>
+<h2>3. The Collective Bargaining Process (Proses Perundingan Kolektif)</h2>
 
-Definisi hukumnya adalah kewajiban manajemen dan buruh untuk merundingkan upah, jam kerja, dan syarat kerja dengan <b>"Itikad Baik" (Good Faith)</b>.
+Definisi hukumnya adalah kewajiban manajemen dan buruh untuk merundingkan upah, jam kerja, dan syarat kerja dengan "Itikad Baik" (Good Faith).
 
 <h3>What is Good Faith Bargaining?</h3>
 Ini adalah upaya yang masuk akal (reasonable effort) untuk mencapai kesepakatan. Ini TIDAK berarti salah satu pihak harus setuju dengan proposal pihak lain, tetapi mereka harus menunjukkan niat bernegosiasi.
-<bullet><b>Contoh "Bad Faith" (Melanggar Hukum):</b> Surface Bargaining (hanya pura-pura rapat tapi menolak semua usulan tanpa alasan), menahan informasi penting, atau mengubah proposal secara mendadak.</bullet>
+<bullet><i>Contoh "Bad Faith" (Melanggar Hukum): Surface Bargaining (hanya pura-pura rapat tapi menolak semua usulan tanpa alasan), menahan informasi penting, atau mengubah proposal secara mendadak.</i></bullet>
 
 <h3>Bargaining Items (Item Perundingan)</h3>
 Dalam negosiasi, topik dibagi menjadi tiga kategori hukum:
+
 <bullet><b>Mandatory Items:</b> Item yang WAJIB dirundingkan jika diajukan (Upah, Jam Kerja, Lembur, Pesangon). Jika satu pihak menolak membahas ini, itu adalah pelanggaran hukum (Unfair Labor Practice).</bullet>
+
 <bullet><b>Voluntary (Permissive) Items:</b> Item sukarela (misal: Harga produk perusahaan, Isu pensiunan). Pihak lain boleh menolak membahas ini tanpa melanggar hukum.</bullet>
+
 <bullet><b>Illegal Items:</b> Item yang melanggar hukum (misal: Menuntut Closed Shop atau praktik diskriminatif).</bullet>
 
 <h3>Bargaining Stages (Tahapan Negosiasi)</h3>
@@ -3984,19 +4592,21 @@ Dalam negosiasi, topik dibagi menjadi tiga kategori hukum:
 
 <h3>Impasses, Mediation, and Strikes (Kebuntuan dan Solusi)</h3>
 Jika terjadi jalan buntu (impasse/stalemate), intervensi pihak ketiga diperlukan:
+
 <bullet><b>Mediation:</b> Pihak ketiga netral mencoba membantu kedua belah pihak mencapai kesepakatan sukarela. Mediator TIDAK punya kuasa memaksakan keputusan.</bullet>
+
 <bullet><b>Fact-Finder:</b> Pihak netral yang mempelajari fakta sengketa dan memberikan rekomendasi publik (sering non-mengikat).</bullet>
+
 <bullet><b>Arbitration:</b> Pihak ketiga mendengarkan kedua belah pihak dan membuat keputusan yang MENGIKAT (Binding). Sering digunakan sebagai langkah terakhir.</bullet>
 
-<h3>Strikes (Pemogokan):</h3>
-Penarikan tenaga kerja sebagai senjata terakhir serikat.
-<bullet><b>Economic Strike:</b> Mogok karena gagal sepakat soal gaji (Pekerja bisa diganti permanen).</bullet>
-<bullet><b>Unfair Labor Practice Strike:</b> Mogok karena protes pelanggaran hukum perusahaan (Pekerja berhak kembali kerja).</bullet>
+<bullet><b>Strikes (Pemogokan):</b> Penarikan tenaga kerja sebagai senjata terakhir serikat.
+<i>Economic Strike: Mogok karena gagal sepakat soal gaji (Pekerja bisa diganti permanen).</i>
+<i>Unfair Labor Practice Strike: Mogok karena protes pelanggaran hukum perusahaan (Pekerja berhak kembali kerja).</i></bullet>
 
-<h2>4. THE CONTRACT AGREEMENT & FUTURE TRENDS</h2>
+<h2>4. The Contract Agreement & Future Trends</h2>
 
 <h3>The Contract Agreement</h3>
-Dokumen kesepakatan bisa setebal 20-30 halaman atau lebih. Tren saat ini mengarah pada <b>Longer Contract</b> (kontrak jangka panjang) yang berisi aturan detail untuk menjamin stabilitas.
+Dokumen kesepakatan bisa setebal 20-30 halaman atau lebih. Tren saat ini mengarah pada Longer Contract (kontrak jangka panjang) yang berisi aturan detail untuk menjamin stabilitas.
 
 <h3>The Union Movement Today</h3>
 Menghadapi penurunan anggota, serikat pekerja kini menggunakan strategi baru:
@@ -4005,268 +4615,355 @@ Menghadapi penurunan anggota, serikat pekerja kini menggunakan strategi baru:
 <bullet><b>Class Action Suits:</b> Menggunakan tuntutan hukum massal.</bullet>
 
 <h3>Cooperative Labor-Management Relations</h3>
-Beralih dari hubungan bermusuhan (adversarial) ke <b>Cooperative Partnership</b>.
+Beralih dari hubungan bermusuhan (adversarial) ke Cooperative Partnership.
 <bullet><b>Esensi:</b> Manajemen memperlakukan serikat sebagai mitra bisnis untuk tujuan bersama (produktivitas & kesejahteraan), bukan musuh.</bullet>`,
-                modul4_updated: `<h1>MODUL 4: TRANSFORMASI INFRASTRUKTUR HR</h1>
-<subtitle><b><i>(Model Kompetensi Ulrich dan Analitik Strategis)</i></b></subtitle>
+                modul4_updated: `<h1>MODUL 4: TRANSFORMASI INFRASTRUKTUR HR: MODEL KOMPETENSI ULRICH DAN ANALITIK STRATEGIS (HR INFRASTRUCTURE & ANALYTICS)</h1>
 
-<h2>1. DAVID ULRICH'S HR MODEL: REDEFINING HR ROLES</h2>
+<h2>1. David Ulrich's HR Model: Redefining HR Roles (Redefinisi Peran HR)</h2>
 
-Agar fungsi Sumber Daya Manusia (SDM) dapat memberikan nilai tambah nyata (value added), organisasi memerlukan <b>HR Model</b> yang kokoh.
+Agar fungsi Sumber Daya Manusia (SDM) dapat memberikan nilai tambah nyata (value added), organisasi memerlukan HR Model yang kokoh.
 
 <bullet><b>Definisi:</b> Kerangka kerja yang menghubungkan Strategi HR, Tujuan, Proses, dan Pekerjaan menjadi satu model operasi yang padu (cohesive operating model).</bullet>
 <bullet><b>Prinsip Utama:</b> Setiap perubahan pada Agenda HR harus dimulai dengan perubahan pada Model HR itu sendiri.</bullet>
 
-<h3>Why is HR Model Important?</h3>
+<h3>Why is HR Model Important? (Urgensi Model HR)</h3>
 <bullet><b>Visibility:</b> Membuat inisiatif manajemen HR terlihat jelas bagi manajer dan karyawan.</bullet>
 <bullet><b>Clarifying Relationships:</b> Memperjelas hubungan dengan pelanggan internal, vendor eksternal, dan saling ketergantungan proses.</bullet>
 <bullet><b>Strategic Guidance:</b> Strategi HR sering kali terlalu abstrak; model ini memberikan panduan konkret dan membantu mengorganisir pemikiran tim.</bullet>
 
 <h3>The Four Key HR Roles (Empat Peran Kunci HR)</h3>
-David Ulrich merumuskan empat peran utama yang harus dimainkan profesional HR modern:
+David Ulrich merumuskan empat peran utama yang harus dimainkan profesional HR modern untuk menjadi efektif.
 
 <b>A. HR Business Partner / Strategic Partner</b>
+Peran ini membangun kemitraan strategis dengan klien internal untuk menyelaraskan strategi HR dengan strategi bisnis.
 <bullet><b>Function:</b> Bertindak sebagai titik kontak tunggal (single point of contact), mewakili layanan HR, dan mempengaruhi desain organisasi.</bullet>
-<bullet><b>Key Activities:</b> Mengidentifikasi talenta kunci (top talents), memberikan umpan balik jujur kepada manajer, menjalankan proyek lintas fungsi.</bullet>
-<bullet><i>Contoh: HR Manager duduk bersama Direktur Pemasaran untuk merencanakan kebutuhan tenaga kerja sebelum peluncuran produk baru.</i></bullet>
+<bullet><b>Key Activities:</b>
+<i>Mengidentifikasi talenta kunci (top talents) dan pemegang pengetahuan (know-how holders).</i>
+<i>Memberikan umpan balik jujur kepada klien internal (managers).</i>
+<i>Menjalankan proyek lintas fungsi.</i></bullet>
+<bullet><i>Contoh: HR Manager duduk bersama Direktur Pemasaran untuk merencanakan kebutuhan tenaga kerja sebelum peluncuran produk baru, bukan hanya menerima order rekrutmen di akhir.</i></bullet>
 
 <b>B. Change Agent (Agen Perubahan)</b>
+Bertanggung jawab mengelola transformasi dan membentuk budaya organisasi.
 <bullet><b>Function:</b> Berpartisipasi dalam tim manajemen perubahan dan memimpin inisiatif budaya baru.</bullet>
-<bullet><b>Key Activities:</b> Mengomunikasikan perubahan untuk mendapatkan buy-in, menyusun pelatihan keterampilan baru, memperbarui deskripsi pekerjaan.</bullet>
-<bullet><i>Contoh: Memimpin transisi budaya perusahaan dari "Hierarkis" menjadi "Agile".</i></bullet>
+<bullet><b>Key Activities:</b>
+<i>Mengomunikasikan perubahan untuk mendapatkan kepercayaan (buy-in).</i>
+<i>Menyusun pelatihan keterampilan baru untuk mendukung perubahan.</i>
+<i>Memperbarui deskripsi pekerjaan sesuai realitas baru.</i></bullet>
+<bullet><i>Contoh: Memimpin transisi budaya perusahaan dari "Hierarkis" menjadi "Agile" dengan melatih manajer tentang pola pikir baru.</i></bullet>
 
 <b>C. Administrative Expert (Ahli Administrasi)</b>
+Peran transaksional yang menjadi fondasi kredibilitas HR melalui efisiensi operasional.
 <bullet><b>Function:</b> Menguasai hukum ketenagakerjaan dan pengelolaan data yang akurat.</bullet>
-<bullet><b>Key Activities:</b> Mengimplementasikan persyaratan legislasi K3, memperkenalkan solusi HRIS (Workday/SAP), bertanggung jawab atas akurasi data.</bullet>
-<bullet><i>Contoh: Memastikan penggajian (payroll) berjalan 100% akurat dan tepat waktu setiap bulan.</i></bullet>
+<bullet><b>Key Activities:</b>
+<i>Mengimplementasikan persyaratan legislasi, keselamatan, dan kesehatan kerja.</i>
+<i>Memperkenalkan solusi HRIS (seperti Workday atau SAP) untuk menghilangkan entri data manual.</i>
+<i>Bertanggung jawab penuh atas akurasi sumber data karyawan.</i></bullet>
+<bullet><i>Contoh: Memastikan penggajian (payroll) berjalan 100% akurat dan tepat waktu setiap bulan menggunakan sistem otomatis.</i></bullet>
 
 <b>D. Employee Advocate / Employee Champion</b>
+Peran inti untuk melindungi kepentingan karyawan dan memastikan kesejahteraan mereka.
 <bullet><b>Function:</b> Memastikan inisiatif strategis seimbang dengan kesejahteraan karyawan.</bullet>
-<bullet><b>Key Activities:</b> Menjalankan survei kepuasan (Voice of Employee), memastikan peluang karir yang adil, mengelola prosedur keluhan (grievance).</bullet>
-<bullet><i>Contoh: HR menyediakan layanan konseling bagi karyawan yang mengalami burnout.</i></bullet>
+<bullet><b>Key Activities:</b>
+<i>Menjalankan survei kepuasan (Voice of Employee) untuk identifikasi kesenjangan budaya.</i>
+<i>Memastikan peluang karir yang adil.</i>
+<i>Mengelola prosedur keluhan (grievance procedure) untuk menjamin perlakuan adil.</i></bullet>
+<bullet><i>Contoh: HR menyediakan layanan konseling bagi karyawan yang mengalami burnout atau memediasi konflik antara staf dan atasan.</i></bullet>
 
-<h2>2. HR ANALYTICS: EVIDENCE-BASED METHODOLOGY</h2>
+<h2>2. HR Analytics: Evidence-Based Methodology (Metodologi Berbasis Bukti)</h2>
 
 HR Analytics adalah pertemuan disiplin statistik, ilmu perilaku, sistem teknologi, dan strategi manusia.
 
-<bullet><b>Core Definition:</b> Metodologi untuk menciptakan wawasan (insights) tentang bagaimana investasi pada aset modal manusia berkontribusi terhadap 4 luaran bisnis: (1) menghasilkan pendapatan, (2) meminimalkan pengeluaran, (3) mengurangi risiko, dan (4) mengeksekusi rencana strategis.</bullet>
+<bullet><b>Core Definition:</b> Metodologi untuk menciptakan wawasan (insights) tentang bagaimana investasi pada aset modal manusia berkontribusi terhadap kesuksesan empat luaran bisnis: (1) menghasilkan pendapatan, (2) meminimalkan pengeluaran, (3) mengurangi risiko, dan (4) mengeksekusi rencana strategis.</bullet>
+<bullet><b>Lalwani (2021):</b> Penerapan metode statistik pada data SDM, talenta, keuangan, dan operasional yang terintegrasi.</bullet>
 
-<h3>Stages of Analytics Maturity</h3>
+<h3>Evolution of HR Function: Reactive vs Predictive</h3>
+Tuntutan manajemen bergeser dari sekadar administratif (reaktif) menjadi strategis (prediktif).
+
+<b>Fungsi HR - Tradisional (Reaktif) vs Masa Depan (Strategis & Prediktif):</b>
+<bullet><b>Recruitment:</b> "Saya butuh isi posisi kosong. Apa prosesnya?" → "Siapa kandidat best fit untuk memperkuat talent pipeline kita?"</bullet>
+<bullet><b>Rewards:</b> "Apa saja benefit yang tersedia?" → "Bisakah kita menotifikasi benefit yang disesuaikan kebutuhan gaya hidup karyawan?"</bullet>
+<bullet><b>Attrition:</b> "Karyawan resign. Apakah kita beri gaji tandingan?" → "Apa pendorong atrisi utama (key attrition drivers) dari top performers kita?"</bullet>
+<bullet><b>L & D:</b> "Kursus apa yang tersedia?" → "Rekomendasikan kebutuhan belajar tim saya untuk 18 bulan ke depan."</bullet>
+
+<h3>Stages of Analytics Maturity (Tingkat Kematangan Analitik)</h3>
 Mengacu pada model Meulen & McCall (2018), kemampuan analitik berkembang melalui empat tahap:
 
-<bullet><b>1. Descriptive Analytics:</b> Menjawab "Apa yang terjadi?" (What happened?)
+<bullet><b>Descriptive Analytics:</b> Menjawab "Apa yang terjadi?" (What happened?).
 <i>Contoh: Laporan turnover bulanan sebesar 5%.</i></bullet>
-<bullet><b>2. Diagnostic Analytics:</b> Menjawab "Mengapa itu terjadi?" (Why did it happen?)
+
+<bullet><b>Diagnostic Analytics:</b> Menjawab "Mengapa itu terjadi?" (Why did it happen?).
 <i>Contoh: Analisis korelasi menunjukkan turnover tinggi disebabkan oleh gaji di bawah pasar.</i></bullet>
-<bullet><b>3. Predictive Analytics:</b> Menjawab "Apa yang akan terjadi?" (What will happen?)
+
+<bullet><b>Predictive Analytics:</b> Menjawab "Apa yang akan terjadi?" (What will happen?).
 <i>Contoh: Memprediksi siapa top talent yang berisiko resign dalam 6 bulan ke depan.</i></bullet>
-<bullet><b>4. Prescriptive Analytics:</b> Menjawab "Bagaimana kita mewujudkannya?" (How can I make it happen?)
+
+<bullet><b>Prescriptive Analytics:</b> Menjawab "Bagaimana kita mewujudkannya?" (How can I make it happen?).
 <i>Contoh: Sistem merekomendasikan kenaikan gaji spesifik untuk menahan talent tersebut.</i></bullet>
 
-<h2>3. KEY HR METRICS & FORMULAS</h2>
+<h2>3. Implementation: Key HR Metrics & Formulas (Implementasi Metrik Kunci)</h2>
+
+Pada slide Session 23, terdapat instruksi diskusi "Find out how to calculate below HR metrics". Berikut adalah Formula Standar Industri dan faktor-faktor yang mempengaruhinya untuk melengkapi pemahaman teknis Anda:
 
 <h3>A. Rate of Offer Acceptance (Tingkat Penerimaan Penawaran)</h3>
 Mengukur seberapa menarik penawaran perusahaan bagi kandidat.
-<bullet><b>Formula:</b> (Jumlah Penawaran Diterima / Jumlah Total Penawaran yang Diberikan) × 100%</bullet>
-<bullet><b>Influencing Factors:</b> Daya saing gaji, Employer Brand, kecepatan proses rekrutmen, pengalaman kandidat, dan fleksibilitas kerja.</bullet>
+<bullet><b>Formula:</b> Rate of Offer Acceptance = (Jumlah Penawaran Diterima / Jumlah Total Penawaran yang Diberikan) × 100%</bullet>
+<bullet><b>Influencing Factors:</b> Daya saing gaji, Employer Brand, kecepatan proses rekrutmen, pengalaman kandidat (candidate experience), dan fleksibilitas kerja.</bullet>
 
 <h3>B. Employee Retention Rate (Tingkat Retensi Karyawan)</h3>
 Mengukur kemampuan perusahaan mempertahankan karyawan dalam periode tertentu.
-<bullet><b>Formula:</b> (Jumlah Karyawan di Akhir Periode / Jumlah Karyawan di Awal Periode (tanpa rekrutmen baru)) × 100%</bullet>
+<bullet><b>Formula:</b> Retention Rate = (Jumlah Karyawan di Akhir Periode / Jumlah Karyawan di Awal Periode (tanpa rekrutmen baru)) × 100%</bullet>
+<bullet><i>(Catatan: Pastikan tidak menghitung karyawan baru yang masuk selama periode berjalan untuk akurasi retensi murni).</i></bullet>
 <bullet><b>Influencing Factors:</b> Peluang karir, hubungan dengan manajer (people leave managers, not companies), keadilan kompensasi, budaya kerja, dan work-life balance.</bullet>
 
-<h3>C. Employee Performance Metrics</h3>
+<h3>C. Employee Performance Metrics (Metrik Kinerja Karyawan)</h3>
+Metrik ini biasanya tidak menggunakan satu rumus tunggal, melainkan gabungan dari beberapa indikator:
 <bullet><b>KPI Achievement:</b> (Realisasi Target / Target Ditetapkan) × 100%</bullet>
 <bullet><b>360-Degree Feedback Score:</b> Rata-rata skor evaluasi dari atasan, rekan kerja, dan bawahan.</bullet>
-<bullet><b>Revenue per Employee:</b> Total Pendapatan Perusahaan / Jumlah Total Karyawan</bullet>`,
-                modul5_updated: `<h1>MODUL 5: MANAJEMEN SDM DALAM KONTEKS KHUSUS</h1>
-<subtitle><b><i>(Global HR & Small-Medium Enterprises)</i></b></subtitle>
+<bullet><b>Revenue per Employee:</b> Efisiensi organisasi. Revenue per Employee = Total Pendapatan Perusahaan / Jumlah Total Karyawan</bullet>
+<bullet><b>Influencing Factors:</b> Kejelasan target (goals), kompetensi (skills), dukungan alat kerja, kualitas atasan, dan motivasi intrinsik.</bullet>`,
+                modul5_updated: `<h1>MODUL 5: MANAJEMEN SDM DALAM KONTEKS KHUSUS: LINGKUP GLOBAL DAN BISNIS KECIL (GLOBAL HR & SME)</h1>
 
 <h2>BAGIAN 1: INTERNATIONAL HUMAN RESOURCE MANAGEMENT (IHRM)</h2>
 
-<h3>1. The Manager's Global Challenge</h3>
-Tantangan utama dalam bisnis internasional adalah realitas bahwa <b>strategi yang berhasil di satu negara belum tentu efektif di negara lain</b>.
+<h3>1. The Manager's Global Challenge (Tantangan Manajerial Global)</h3>
 
-<bullet><b>Definisi IHRM:</b> Konsep dan teknik manajemen sumber daya manusia yang digunakan pemberi kerja untuk mengelola tantangan SDM dalam operasi internasional mereka.</bullet>
+Tantangan utama dalam bisnis internasional adalah realitas bahwa strategi yang berhasil di satu negara belum tentu efektif di negara lain (what works in one country may not work in another).
 
-Pemberi kerja global menghadapi perbedaan fundamental dalam:
+<bullet><b>International Human Resource Management (IHRM)</b> didefinisikan sebagai konsep dan teknik manajemen sumber daya manusia yang digunakan pemberi kerja untuk mengelola tantangan SDM dalam operasi internasional mereka.</bullet>
+
+Pemberi kerja global menghadapi perbedaan fundamental dalam faktor-faktor berikut:
 <bullet><b>Cultural Factors:</b> Nilai-nilai dasar dan sikap masyarakat.</bullet>
 <bullet><b>Political Factors:</b> Stabilitas pemerintah dan risiko politik.</bullet>
 <bullet><b>Legal Factors:</b> Regulasi ketenagakerjaan yang bervariasi (misal: aturan pemecatan di Eropa vs AS).</bullet>
-<bullet><b>Economic Systems:</b> Perbedaan sistem ekonomi mempengaruhi kebijakan kompensasi.</bullet>
+<bullet><b>Economic Systems:</b> Perbedaan sistem ekonomi (Pasar, Terencana, atau Campuran) mempengaruhi kebijakan kompensasi.</bullet>
 <bullet><b>Labor Relations:</b> Peran dan kekuatan serikat pekerja yang berbeda di tiap negara.</bullet>
 
-<h3>2. Hofstede's Cultural Dimensions</h3>
-Studi klasik dari Geert Hofstede mengidentifikasi dimensi budaya yang wajib dipahami manajer global:
+<h3>2. Adapting to Cultural Differences (Adaptasi Perbedaan Budaya)</h3>
 
-<bullet><b>Power Distance:</b> Sejauh mana anggota masyarakat menerima distribusi kekuasaan yang tidak setara.
-<i>Contoh: Meksiko (High) mengharapkan instruksi jelas. Swedia (Low) mengharapkan kesetaraan.</i></bullet>
-<bullet><b>Individualism vs. Collectivism:</b> Fokus pada diri sendiri (AS) versus fokus pada kelompok (Indonesia/Jepang).</bullet>
-<bullet><b>Masculinity vs. Femininity:</b> Orientasi pada pencapaian materi versus orientasi pada hubungan dan kualitas hidup.</bullet>
-<bullet><b>Uncertainty Avoidance:</b> Tingkat ketidaknyamanan terhadap ambiguitas dan masa depan yang tidak pasti.</bullet>
-<bullet><b>Long-term Orientation:</b> Fokus pada masa depan dan ketekunan (Asia) versus tradisi (AS/Eropa).</bullet>
+Studi klasik dari Geert Hofstede mengidentifikasi dimensi budaya yang wajib dipahami manajer global untuk menghindari kegagalan manajemen:
 
-<h3>3. Staffing the Global Organization</h3>
-<bullet><b>Ethnocentric:</b> Posisi kunci diisi oleh Expatriates (warga negara asal). Alasan: transfer budaya dan kontrol ketat.</bullet>
-<bullet><b>Polycentric:</b> Posisi kunci diisi oleh Locals (penduduk setempat). Alasan: mengurangi gegar budaya dan biaya.</bullet>
-<bullet><b>Geocentric (Global):</b> Mencari orang terbaik tanpa memandang kebangsaan. Bisa melibatkan Third-Country Nationals.</bullet>
-<bullet><b>Offshoring:</b> Memindahkan pekerjaan ke luar negeri untuk efisiensi biaya.</bullet>
+<bullet><b>Power Distance (Jarak Kekuasaan):</b> Sejauh mana anggota masyarakat yang kurang berkuasa menerima distribusi kekuasaan yang tidak setara.
+<i>Contoh: Di Meksiko (High Power Distance), karyawan mengharapkan instruksi jelas dari atasan. Di Swedia (Low Power Distance), karyawan mengharapkan kesetaraan.</i></bullet>
 
-<h3>4. Managing Expatriates</h3>
-Kegagalan penugasan ekspatriat seringkali mahal dan disebabkan oleh faktor non-teknis.
+<bullet><b>Individualism vs. Collectivism:</b> Fokus pada diri sendiri dan keluarga inti (seperti AS) versus fokus pada kelompok/klan (seperti Indonesia/Jepang).</bullet>
 
-<bullet><b>Selection:</b> Jangan hanya melihat kompetensi teknis. Lakukan <b>adaptability screening</b> dan berikan <b>realistic previews</b>.</bullet>
-<bullet><b>Training:</b> Wajib mencakup pre-departure training, on-going training, serta etika bisnis lokal.</bullet>
+<bullet><b>Masculinity vs. Femininity:</b> Orientasi pada pencapaian materi dan ketegasan (Masculinity) versus orientasi pada hubungan dan kualitas hidup (Femininity).</bullet>
 
-<b>Compensation (Balance Sheet Approach):</b>
-<bullet>Base Salary (Gaji Dasar)</bullet>
-<bullet>Foreign Service Premium (Insentif penugasan luar negeri)</bullet>
-<bullet>Hardship Allowance (Tunjangan kesulitan untuk negara berbahaya)</bullet>
-<bullet>Housing & Education Allowances (Tunjangan perumahan & pendidikan anak)</bullet>
+<bullet><b>Uncertainty Avoidance (Penghindaran Ketidakpastian):</b> Tingkat ketidaknyamanan masyarakat terhadap ambiguitas dan masa depan yang tidak pasti.</bullet>
 
-<bullet><b>Repatriation:</b> Masalah utama adalah "investasi yang sia-sia" jika ekspatriat keluar setelah kembali.
-<b>Solusi:</b> Secara aktif menghargai pengalaman mereka dan menyediakan jalur karir yang jelas pasca-penugasan.</bullet>
+<bullet><b>Long-term Orientation:</b> Fokus pada masa depan dan ketekunan (Asia) versus fokus pada tradisi dan masa lalu (AS/Eropa).</bullet>
 
-<h2>BAGIAN 2: MANAGING HR IN SME</h2>
+<h3>3. Staffing the Global Organization (Penyusunan Staf Global)</h3>
 
-<h3>1. The Small Business Challenge</h3>
-Slogan "There's nothing small about small business" menekankan peran vital mereka. Karakteristik utama SME:
+Perusahaan multinasional (MNC) memilih strategi penyusunan staf berdasarkan nilai korporasi mereka:
 
-<bullet><b>Size:</b> Jumlah karyawan sedikit memudahkan komunikasi namun membatasi spesialisasi.</bullet>
-<bullet><b>Priorities:</b> Fokus utama adalah kelangsungan hidup (matter of survival), HR sering dinomorduakan.</bullet>
+<bullet><b>Ethnocentric:</b> Berorientasi pada negara asal. Posisi kunci di luar negeri diisi oleh Expatriates (warga negara asal perusahaan).
+<i>Alasan: Memastikan transfer budaya dan kontrol ketat dari kantor pusat.</i></bullet>
+
+<bullet><b>Polycentric:</b> Berorientasi lokal. Posisi kunci di luar negeri diisi oleh Locals (penduduk setempat), sementara posisi di kantor pusat diisi warga negara asal.
+<i>Alasan: Mengurangi gegar budaya (culture shock) dan biaya, namun bisa membuat kantor cabang terisolasi.</i></bullet>
+
+<bullet><b>Geocentric (Global):</b> Mencari orang terbaik untuk pekerjaan kunci di seluruh organisasi, tanpa memandang kebangsaan. Bisa melibatkan Third-Country Nationals (bukan warga asal, bukan warga lokal).</bullet>
+
+<bullet><b>Offshoring:</b> Memindahkan pekerjaan (bukan hanya pabrik) ke luar negeri untuk efisiensi biaya.</bullet>
+
+<h3>4. Managing Expatriates: Selection to Repatriation</h3>
+
+Kegagalan penugasan ekspatriat seringkali mahal dan disebabkan oleh faktor non-teknis seperti tekanan keluarga dan ketidakmampuan beradaptasi.
+
+<bullet><b>Selection:</b> Jangan hanya melihat kompetensi teknis. Lakukan penyaringan adaptabilitas (adaptability screening) dan berikan pratinjau realistis (realistic previews) kepada kandidat dan keluarganya.</bullet>
+
+<bullet><b>Training:</b> Wajib mencakup pelatihan pra-keberangkatan (pre-departure), pelatihan berkelanjutan (on-going), serta etika dan kode etik bisnis lokal.</bullet>
+
+<bullet><b>Compensation (Balance Sheet Approach):</b> Metode paling umum untuk menyamakan daya beli ekspatriat (purchasing power) dengan di negara asal. Komponennya meliputi:
+<i>Base Salary (Gaji Dasar).</i>
+<i>Foreign Service Premium (Insentif penugasan luar negeri).</i>
+<i>Hardship Allowance (Tunjangan kesulitan jika ditempatkan di negara berbahaya/sulit).</i>
+<i>Housing & Education Allowances (Tunjangan perumahan & pendidikan anak).</i></bullet>
+
+<bullet><b>Repatriation (Pemulangan):</b> Masalah utama adalah "investasi yang sia-sia" (wasted investments) jika ekspatriat keluar setelah kembali karena merasa tidak dihargai.
+<i>Solusi: Secara aktif menghargai pengalaman mereka (value the expatriate's experience) dan menyediakan jalur karir yang jelas pasca-penugasan.</i></bullet>
+
+<h2>BAGIAN 2: MANAGING HR IN SMALL & MEDIUM ENTERPRISES (SME)</h2>
+
+<h3>1. The Small Business Challenge (Tantangan Bisnis Kecil)</h3>
+
+Slogan "There's nothing small about small business" menekankan peran vital mereka. Namun, manajemen SDM di SME berbeda karena empat karakteristik utama:
+
+<bullet><b>Size (Ukuran):</b> Jumlah karyawan yang sedikit memudahkan komunikasi namun membatasi spesialisasi.</bullet>
+<bullet><b>Priorities:</b> Fokus utama adalah kelangsungan hidup (matter of survival), sehingga HR sering dinomorduakan.</bullet>
 <bullet><b>Informality:</b> Prosedur lebih santai, deskripsi kerja fleksibel.</bullet>
 <bullet><b>The Entrepreneur:</b> Kendali pemilik sangat dominan.</bullet>
 
-<h3>2. Flexible Selection & Training</h3>
-<bullet><b>Selection:</b> Gunakan tes sederhana namun terstandarisasi seperti <b>Wonderlic Personnel Test</b> atau <b>Predictive Index</b>. Manfaatkan jejaring pribadi dan tes online.</bullet>
-<bullet><b>Training:</b> Sekitar 70% pelatihan di SME bersifat Informal melalui practical learning on-the-job.</bullet>
+<bullet><b>Implikasi Risiko:</b> Bisnis kecil rentan terhadap risiko hukum dan keputusan yang lambat karena manajer kewalahan. Administrasi kertas (paperwork) yang memakan waktu juga rentan terhadap data entry errors.</bullet>
 
-<h3>3. Managing HR Systems</h3>
+<h3>2. Flexible Selection & Training Strategies (Strategi Fleksibel)</h3>
 
-<b>A. Manual System: Mandatory Forms</b>
-<bullet><b>New Employee:</b> Application, Employment Agreement, Reference Check, Secrecy Agreement</bullet>
-<bullet><b>Current Employee:</b> Performance Evaluation, Warning Notice (vital untuk bukti hukum), Job Description</bullet>
-<bullet><b>Separation:</b> Termination Checklist, Exit Interview</bullet>
+<bullet><b>Selection:</b> Bisnis kecil tidak butuh departemen HR besar untuk seleksi efektif. Gunakan tes sederhana namun terstandarisasi seperti Wonderlic Personnel Test atau Predictive Index. Tips praktis: manfaatkan jejaring pribadi dan tes online.</bullet>
 
-<b>B. Automation: HRIS Vendors</b>
-<bullet>ADP (Automated Data Process) - Sangat populer untuk payroll</bullet>
-<bullet>Workday - Solusi berbasis cloud terintegrasi</bullet>
-<bullet>Odoo - Solusi ERP open-source yang fleksibel</bullet>
-<bullet>Oracle & SAP - Untuk skala yang lebih besar</bullet>
+<bullet><b>Training:</b> Sekitar 70% pelatihan di bisnis kecil bersifat Informal. Ini terjadi ketika karyawan memiliki kebutuhan belajar dan diberi kesempatan praktik langsung.
+<i>Sumber Eksternal: Asosiasi seperti Small Business Administration (SBA) atau National Association of Manufacturers.</i></bullet>
+
+<h3>3. Managing HR Systems, Procedures, and Paperwork</h3>
+
+Salah satu tantangan terbesar SME adalah administrasi. Ada dua solusi utama: Manual (dengan formulir standar) atau Otomatisasi (HRIS).
+
+<b>A. Manual System: The Mandatory Forms (Sistem Manual)</b>
+Bagi yang mengelola sendiri, kerapian administrasi adalah kunci kepatuhan hukum. Berdasarkan Table 18.1, berikut inventaris formulir yang WAJIB ada:
+
+<b>New Employee Forms (Karyawan Baru):</b>
+<bullet>Application (Aplikasi Kerja)</bullet>
+<bullet>New Employee Checklist (Checklist Karyawan Baru)</bullet>
+<bullet>Employment Interview & Reference Check (Panduan Wawancara & Cek Referensi)</bullet>
+<bullet>Employment Agreement (Perjanjian Kerja)</bullet>
+<bullet>Employee Secrecy Agreement (Perjanjian Kerahasiaan)</bullet>
+
+<b>Current Employee Forms (Karyawan Saat Ini):</b>
+<bullet>Performance Evaluation (Evaluasi Kinerja)</bullet>
+<bullet>Warning Notice (Surat Peringatan - Vital untuk bukti hukum jika ada pemecatan)</bullet>
+<bullet>Vacation Request (Permintaan Cuti)</bullet>
+<bullet>Job Description (Deskripsi Pekerjaan)</bullet>
+<bullet>Disciplinary Notice (Pemberitahuan Disipliner)</bullet>
+
+<b>Separation Forms (Pemisahan/Keluar):</b>
+<bullet>Termination Checklist (Checklist Penghentian Kerja)</bullet>
+<bullet>Employee Exit Interview (Wawancara Keluar)</bullet>
+
+<b>B. Automation: HRIS Vendors (Vendor HRIS)</b>
+Sistem Informasi SDM (HRIS) memindahkan beban administrasi ke sistem otomatis/cloud. Berikut daftar vendor spesifik yang direferensikan untuk bisnis kecil:
+<bullet>Automated Data Process, Inc. (ADP) - Sangat populer untuk payroll.</bullet>
+<bullet>Workday - Solusi berbasis cloud terintegrasi.</bullet>
+<bullet>Odoo - Solusi ERP open-source yang fleksibel.</bullet>
+<bullet>Oracle Corporation & SAP America, Inc. - Untuk skala yang lebih besar/kompleks.</bullet>
+<bullet>Lawson Software & HR Microsystems.</bullet>
 
 <h3>4. Professional Employer Organizations (PEOs)</h3>
-Solusi alternatif di mana SME melakukan outsourcing manajemen SDM.
-<bullet><b>Manfaat:</b> PEO menangani asuransi, tunjangan, serta mengurangi risiko hukum dan beban administrasi.</bullet>
-<bullet><b>Risiko:</b> Potensi kerugian pajak dan perlunya memastikan PEO memahami budaya perusahaan.</bullet>`,
-                tambahan_updated: `<h1>ADDENDUM FINAL: DETAIL MIKRO & TEKNIS PELENGKAP</h1>
-<subtitle><b><i>(Modul 1-5 - Case Study Cheat Sheet & Formula)</i></b></subtitle>
 
-<warning>⚠️ Dokumen ini memuat rincian teknis, daftar inventaris, "Case Study Clues", dan formula hitungan yang wajib dihafal untuk ujian.</warning>
+Solusi alternatif di mana SME melakukan outsourcing manajemen SDM. PEO menjadi "Co-employers of record".
 
-<h2>A. PELENGKAP MODUL 1 (KOMPENSASI & STRATEGI)</h2>
+<bullet><b>Manfaat:</b> PEO menangani asuransi, tunjangan (daya tarik utama rekrutmen), serta mengurangi risiko hukum dan beban administrasi.</bullet>
+<bullet><b>Caveats (Risiko):</b> Potensi kerugian pajak (tax disadvantages) dan perlunya memastikan PEO benar-benar memahami budaya perusahaan Anda.</bullet>`,
+                tambahan_updated: `<h1>ADDENDUM FINAL: DETAIL MIKRO & TEKNIS PELENGKAP (MODUL 1-5)</h1>
+
+Dokumen ini memuat rincian teknis, daftar inventaris, "Case Study Clues", dan formula hitungan yang disebutkan dalam slide sebagai materi "Diskusi" atau "Tabel Rincian" yang wajib dihafal untuk ujian.
+
+<h2>A. PELENGKAP MODUL SATU (KOMPENSASI & STRATEGI)</h2>
 
 <h3>1. Detail Kasus Hukum "Comparable Worth"</h3>
-<bullet><b>Case Name:</b> County of Washington v. Gunther</bullet>
-<bullet><b>The Issue:</b> Sipir penjara wanita dibayar lebih rendah daripada sipir pria meskipun pekerjaan sebanding.</bullet>
-<bullet><b>The Ruling:</b> Mahkamah Agung AS memutuskan bahwa ini adalah diskriminasi seks di bawah Title VII, meskipun pekerjaan tidak identik.</bullet>
+<bullet><b>Relevansi:</b> Sering muncul dalam soal teori tentang diskriminasi gender.</bullet>
+<bullet><b>Case Name:</b> County of Washington v. Gunther.</bullet>
+<bullet><b>The Issue:</b> Sipir penjara wanita dibayar lebih rendah daripada sipir pria. Kabupaten (County) berargumen pekerjaan itu tidak "identik" (tidak sama persis).</bullet>
+<bullet><b>The Ruling (Esensi Putusan):</b> Mahkamah Agung AS memutuskan bahwa kegagalan Washington County untuk membayar sipir wanita setara dengan pria (untuk pekerjaan yang sebanding/bernilai sama atau comparable worth) dapat dianggap sebagai diskriminasi seks di bawah Title VII, meskipun pekerjaan tersebut tidak identik.</bullet>
 
-<h3>2. Komponen Total Rewards</h3>
-<bullet><b>Recognition:</b> Program pengakuan (Employee of the Month, Service Awards)</bullet>
-<bullet><b>Career Development:</b> Peluang pelatihan dan jalur karir jelas</bullet>
-<bullet><b>Work-Life Balance:</b> Fleksibilitas kerja, cuti, program kesehatan</bullet>
-<bullet><b>Internal Quality:</b> Budaya perusahaan positif dan hubungan dengan atasan</bullet>
+<h3>2. Komponen Total Rewards (Imbalan Total)</h3>
+Selain gaji dan bonus, program Total Rewards mencakup komponen berikut untuk meningkatkan Employee Engagement:
+<bullet><b>Recognition:</b> Program pengakuan karyawan (misal: "Employee of the Month", Service Awards).</bullet>
+<bullet><b>Career Development:</b> Peluang pelatihan dan jalur karir yang jelas.</bullet>
+<bullet><b>Work-Life Balance:</b> Fleksibilitas kerja, cuti, dan program kesehatan.</bullet>
+<bullet><b>Internal Quality:</b> Budaya perusahaan yang positif dan hubungan dengan atasan.</bullet>
 
-<h2>B. PELENGKAP MODUL 2 (KESELAMATAN & KESEHATAN)</h2>
+<h2>B. PELENGKAP MODUL DUA (KESELAMATAN & KESEHATAN)</h2>
 
-<h3>1. Checklist Bahaya Kantor & Ergonomi</h3>
-<bullet><b>Electrical:</b> Kabel listrik terkelupas atau manajemen kabel buruk (risiko tersandung)</bullet>
-<bullet><b>Floors:</b> Lantai licin, basah, atau karpet tidak rata</bullet>
-<bullet><b>Lighting:</b> Pencahayaan buruk di tangga atau lorong darurat</bullet>
-<bullet><b>Chemicals:</b> Penyimpanan bahan kimia pembersih yang tidak aman</bullet>
-<bullet><b>Ergonomics:</b> Posisi monitor (sejajar mata) dan kursi ergonomis untuk mencegah Carpal Tunnel Syndrome</bullet>
+<h3>1. Checklist Bahaya Kantor & Ergonomi (Office Safety)</h3>
+<bullet><b>Relevansi:</b> Sering diabaikan dalam studi kasus K3, padahal manajer wajib melakukan inspeksi ini.</bullet>
 
-<h2>C. PELENGKAP MODUL 3 (HUBUNGAN TENAGA KERJA)</h2>
+Untuk mengurangi Unsafe Conditions, supervisor harus memeriksa detail fisik berikut:
+<bullet><b>Electrical:</b> Kabel listrik yang terkelupas atau manajemen kabel yang buruk (risiko tersandung/tripping hazards).</bullet>
+<bullet><b>Floors:</b> Lantai licin, basah, atau karpet yang tidak rata.</bullet>
+<bullet><b>Lighting:</b> Pencahayaan yang buruk, terutama di tangga atau lorong darurat.</bullet>
+<bullet><b>Chemicals:</b> Penyimpanan bahan kimia pembersih (seperti amonia) yang tidak aman.</bullet>
+<bullet><b>Ergonomics:</b> Posisi monitor komputer (harus sejajar mata) dan kursi ergonomis untuk mencegah Repetitive Motion Disorders (seperti Carpal Tunnel Syndrome).</bullet>
 
-<warning>⚠️ [CASE STUDY CHEAT SHEET] Hafalkan untuk menentukan apakah tuntutan serikat Legal atau Illegal.</warning>
+<h2>C. PELENGKAP MODUL TIGA (HUBUNGAN TENAGA KERJA)</h2>
 
-<h3>Kategori Item Perundingan (Bargaining Items)</h3>
+<warning>⚠️ [MATERI KISI-KISI RESMI - CASE STUDY CHEAT SHEET] Bagian ini TIDAK ADA di file asli Anda, tapi SAYA MASUKKAN karena vital untuk ujian studi kasus (Bobot 60%). Hafalkan daftar ini untuk menentukan apakah tuntutan serikat pekerja Legal atau Illegal.</warning>
+
+<h3>1. Kategori Item Perundingan (Bargaining Items)</h3>
+Dalam kasus negosiasi, Anda harus bisa membedakan jenis tuntutan:
 
 <b>A. Mandatory Items (Wajib Dirundingkan)</b>
-Jika manajemen menolak membahas ini = PELANGGARAN HUKUM
-<bullet>Wages: Tingkat upah per jam/bulan</bullet>
-<bullet>Hours: Jam kerja, lembur, shift kerja</bullet>
-<bullet>Benefits: Asuransi, pensiun, liburan berbayar</bullet>
-<bullet>Severance Pay: Uang pesangon</bullet>
-<bullet>Drug Testing: Aturan tes narkoba</bullet>
+Jika manajemen menolak membahas ini, itu adalah PELANGGARAN HUKUM (Unfair Labor Practice).
+<bullet><b>Wages:</b> Tingkat upah per jam/bulan.</bullet>
+<bullet><b>Hours:</b> Jam kerja, lembur, shift kerja.</bullet>
+<bullet><b>Benefits:</b> Asuransi, pensiun, liburan berbayar.</bullet>
+<bullet><b>Severance Pay:</b> Uang pesangon.</bullet>
+<bullet><b>Drug Testing:</b> Aturan tes narkoba.</bullet>
 
-<b>B. Voluntary/Permissive Items (Sukarela)</b>
-Penolakan membahas ini BUKAN pelanggaran hukum
-<bullet>Harga produk perusahaan</bullet>
-<bullet>Pensiunan yang sudah tidak bekerja (Retirees)</bullet>
-<bullet>Perluasan operasional bisnis</bullet>
-<bullet>Keanggotaan serikat di dewan direksi</bullet>
+<b>B. Voluntary / Permissive Items (Sukarela)</b>
+Boleh dirundingkan, tapi penolakan membahas ini BUKAN pelanggaran hukum.
+<bullet>Harga produk perusahaan.</bullet>
+<bullet>Pensiunan yang sudah tidak bekerja (Retirees).</bullet>
+<bullet>Perluasan operasional bisnis.</bullet>
+<bullet>Keanggotaan serikat di dewan direksi.</bullet>
 
 <b>C. Illegal Items (Ilegal)</b>
-Dilarang keras dimasukkan dalam kontrak
-<bullet>Closed Shop: Mengharuskan seseorang menjadi anggota serikat sebelum diterima kerja</bullet>
-<bullet>Discriminatory Treatment: Perlakuan yang membedakan ras/gender</bullet>
+Dilarang keras dimasukkan dalam kontrak.
+<bullet><b>Closed Shop:</b> Mengharuskan seseorang menjadi anggota serikat sebelum ditarik kerja.</bullet>
+<bullet><b>Discriminatory Treatment:</b> Perlakuan yang membedakan ras/gender.</bullet>
 
-<h2>D. PELENGKAP MODUL 4 (HR ANALYTICS)</h2>
+<h2>D. PELENGKAP MODUL EMPAT (HR ANALYTICS)</h2>
 
-<warning>⚠️ [MASTER FORMULA SHEET] Untuk menjawab soal hitungan atau analisis metrik.</warning>
+<warning>⚠️ [MATERI KISI-KISI RESMI - TECHNICAL CALCULATION]</warning>
 
-<h3>Rate of Offer Acceptance</h3>
-<bullet><b>Formula:</b> (Jumlah Penawaran Diterima / Jumlah Total Penawaran) × 100%</bullet>
-<bullet><b>Jika Rendah, Cek:</b> Daya saing gaji, Employer Brand, kecepatan proses rekrutmen</bullet>
+<h3>1. Master Formula Sheet</h3>
+Berikut adalah formula standar industri untuk menjawab soal hitungan atau analisis metrik:
 
-<h3>Retention Rate</h3>
-<bullet><b>Formula:</b> (Jumlah Karyawan di Akhir Periode / Jumlah Karyawan di Awal Periode (tanpa rekrutmen baru)) × 100%</bullet>
-<bullet><b>Jika Rendah, Cek:</b> Hubungan dengan atasan, kompensasi, peluang karir</bullet>
+<b>A. Rumus Tingkat Penerimaan Penawaran (Rate of Offer Acceptance)</b>
+<bullet><b>Formula:</b> Rate of Offer Acceptance = (Jumlah Penawaran Diterima / Jumlah Total Penawaran yang Diberikan) × 100%</bullet>
+<bullet><b>Analisis Faktor:</b> Jika angka ini rendah, cek: Daya saing gaji, Employer Brand, dan kecepatan proses rekrutmen.</bullet>
 
-<h3>Employee Performance</h3>
+<b>B. Rumus Retensi Karyawan (Retention Rate)</b>
+<bullet><b>Formula:</b> Retention Rate = (Jumlah Karyawan di Akhir Periode / Jumlah Karyawan di Awal Periode (tanpa rekrutmen baru)) × 100%</bullet>
+<bullet><i>Catatan: Jangan hitung karyawan baru yang masuk selama periode berjalan.</i></bullet>
+<bullet><b>Analisis Faktor:</b> Jika rendah, cek: Hubungan dengan atasan, kompensasi, dan peluang karir.</bullet>
+
+<b>C. Rumus Kinerja Karyawan (Employee Performance)</b>
 <bullet><b>KPI Achievement:</b> (Realisasi Target / Target Ditetapkan) × 100%</bullet>
-<bullet><b>Revenue per Employee:</b> Total Pendapatan / Jumlah Karyawan</bullet>
+<bullet><b>Revenue per Employee:</b> Total Pendapatan Perusahaan / Jumlah Total Karyawan</bullet>
 
-<h2>E. PELENGKAP MODUL 5 (SME & GLOBAL)</h2>
+<h2>E. PELENGKAP MODUL LIMA (SME & GLOBAL)</h2>
 
-<h3>Daftar Lengkap Formulir Manual HR (Table 18.1)</h3>
+<h3>1. Daftar Lengkap Formulir Manual HR (Table 18.1)</h3>
+Untuk kepatuhan administrasi "Zero Missing" pada bisnis kecil, berikut inventarisasi lengkap formulir yang wajib dimiliki:
 
-<b>Kelompok 1: Formulir Karyawan Baru</b>
+<b>Kelompok 1: Formulir Karyawan Baru (New Employee Forms)</b>
 <bullet>1. Aplikasi Kerja (Application)</bullet>
-<bullet>2. Checklist Karyawan Baru</bullet>
-<bullet>3. Panduan Wawancara Kerja</bullet>
-<bullet>4. Cek Referensi</bullet>
-<bullet>5. Laporan Referensi Telepon</bullet>
-<bullet>6. Pengakuan Buku Manual Karyawan</bullet>
-<bullet>7. Perjanjian Kerja</bullet>
-<bullet>8. Penafian Aplikasi Kerja</bullet>
-<bullet>9. Perjanjian Kerahasiaan</bullet>
+<bullet>2. Checklist Karyawan Baru (New Employee Checklist)</bullet>
+<bullet>3. Panduan Wawancara Kerja (Employment Interview)</bullet>
+<bullet>4. Cek Referensi (Reference Check)</bullet>
+<bullet>5. Laporan Referensi Telepon (Telephone Reference Report)</bullet>
+<bullet>6. Pengakuan Buku Manual Karyawan (Employee Manual Acknowledgment)</bullet>
+<bullet>7. Perjanjian Kerja (Employment Agreement)</bullet>
+<bullet>8. Penafian Aplikasi Kerja (Employment Application Disclaimer)</bullet>
+<bullet>9. Perjanjian Kerahasiaan Karyawan (Employee Secrecy Agreement)</bullet>
 
-<b>Kelompok 2: Formulir Karyawan Saat Ini</b>
-<bullet>10. Permintaan Perubahan Status</bullet>
-<bullet>11. Catatan Karyawan</bullet>
-<bullet>12. Evaluasi Kinerja</bullet>
-<bullet>13. <b>Surat Peringatan (Warning Notice)</b> - VITAL untuk bukti hukum</bullet>
-<bullet>14. Permintaan Cuti</bullet>
-<bullet>15. Pemberitahuan Masa Percobaan</bullet>
-<bullet>16. Deskripsi Pekerjaan</bullet>
-<bullet>17. Evaluasi Masa Percobaan</bullet>
-<bullet>18. Konfirmasi Deposit Langsung</bullet>
-<bullet>19. Laporan Absensi</bullet>
-<bullet>20. Pemberitahuan Disipliner</bullet>
-<bullet>21. Formulir Keluhan (Grievance)</bullet>
-<bullet>22. Laporan Pengeluaran</bullet>
-<bullet>23. Pengakuan 401(k)/Pensiun</bullet>
-<bullet>24. Laporan Cedera</bullet>
+<b>Kelompok 2: Formulir Karyawan Saat Ini (Current Employee Forms)</b>
+<bullet>10. Permintaan Perubahan Status (Employee Status Change Request)</bullet>
+<bullet>11. Catatan Karyawan (Employee Record)</bullet>
+<bullet>12. Evaluasi Kinerja (Performance Evaluation)</bullet>
+<bullet>13. Pemberitahuan Peringatan (Warning Notice) -> Vital untuk bukti hukum.</bullet>
+<bullet>14. Permintaan Cuti/Liburan (Vacation Request)</bullet>
+<bullet>15. Pemberitahuan Masa Percobaan (Probation Notice)</bullet>
+<bullet>16. Deskripsi Pekerjaan (Job Description)</bullet>
+<bullet>17. Evaluasi Masa Percobaan (Probationary Evaluation)</bullet>
+<bullet>18. Konfirmasi Deposit Langsung (Direct Deposit Acknowledgment)</bullet>
+<bullet>19. Laporan Absensi (Absence Report)</bullet>
+<bullet>20. Pemberitahuan Disipliner (Disciplinary Notice)</bullet>
+<bullet>21. Formulir Keluhan (Grievance Form)</bullet>
+<bullet>22. Laporan Pengeluaran (Expense Report)</bullet>
+<bullet>23. Pengakuan Pilihan 401(k)/Pensiun (401(k) Choices Acknowledgment)</bullet>
+<bullet>24. Laporan Cedera (Injury Report)</bullet>
 
-<b>Kelompok 3: Formulir Pemisahan</b>
-<bullet>25. Checklist Pensiun</bullet>
-<bullet>26. Checklist Penghentian Kerja</bullet>
+<b>Kelompok 3: Formulir Pemisahan (Separation Forms)</b>
+<bullet>25. Checklist Pensiun (Retirement Checklist)</bullet>
+<bullet>26. Checklist Penghentian Kerja (Termination Checklist)</bullet>
 <bullet>27. Pengakuan COBRA (Asuransi Lanjutan)</bullet>
-<bullet>28. Klaim Pengangguran</bullet>
-<bullet>29. Wawancara Keluar (Exit Interview)</bullet>
+<bullet>28. Klaim Pengangguran (Unemployment Claim)</bullet>
+<bullet>29. Wawancara Keluar (Employee Exit Interview)</bullet>
 
-<h3>Daftar Vendor HRIS</h3>
+<h3>2. Daftar Vendor HRIS Spesifik</h3>
+Daftar spesifik vendor perangkat lunak yang disebutkan dalam PPT Session 26 untuk referensi implementasi SME:
 <bullet>ADP (Automated Data Process, Inc.)</bullet>
 <bullet>Workday</bullet>
 <bullet>Odoo</bullet>
