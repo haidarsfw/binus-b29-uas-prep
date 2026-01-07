@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, updateQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, setQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName, subscribeToNotifications, markNotificationRead, clearAllNotifications, createMentionNotifications } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -258,6 +258,7 @@ export default function App() {
   const [showTerms, setShowTerms] = useState(false);
   const [showLegalPopup, setShowLegalPopup] = useState(null); // 'tos' or 'privacy'
   const [notifications, setNotifications] = useState([]);
+  const [mentionToast, setMentionToast] = useState(null); // { message, context, type }
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
   const savedClass = localStorage.getItem('savedClass');
@@ -742,10 +743,57 @@ export default function App() {
   useEffect(() => {
     if (!session) return;
     const userId = getDeviceId();
-    setupPresence(userId, session.userName, currentSubject?.id, hideStatus);
+    setupPresence(userId, session.userName, currentSubject?.id, hideStatus, session.licenseKey);
     const unsub = subscribeToPresence(setOnlineUsers);
     return () => unsub();
   }, [session, currentSubject, hideStatus]);
+
+  // Subscribe to notifications for thread reply and mention alerts
+  const prevNotifCount = useRef(0);
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+    const unsub = subscribeToNotifications(session.licenseKey, (notifs) => {
+      setNotifications(notifs);
+
+      // Show toast for new unread notifications
+      const unreadNotifs = notifs.filter(n => !n.read);
+      if (unreadNotifs.length > prevNotifCount.current && prevNotifCount.current !== 0) {
+        // New notification arrived
+        const newest = unreadNotifs[0];
+        if (newest) {
+          let toastMessage = '';
+          let toastContext = newest.context || 'chat'; // 'chat' or 'forum'
+
+          if (newest.type === 'mention_all') {
+            toastMessage = `💬 @all dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
+          } else if (newest.type === 'mention') {
+            toastMessage = `💬 @mention dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
+          } else if (newest.type === 'thread_reply') {
+            toastMessage = `💬 ${newest.replierName} membalas thread Anda: ${newest.preview?.substring(0, 50) || '...'}`;
+            toastContext = 'forum';
+          }
+
+          if (toastMessage) {
+            // Show in-app toast notification (with auto-dismiss after 5 seconds)
+            setMentionToast({
+              message: toastMessage,
+              context: toastContext,
+              type: newest.type,
+              id: newest.id
+            });
+            setTimeout(() => setMentionToast(null), 5000);
+
+            // Also show browser notification if permission granted
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification('B29 Study Prep', { body: toastMessage, icon: '/favicon.ico' });
+            }
+          }
+        }
+      }
+      prevNotifCount.current = unreadNotifs.length;
+    });
+    return () => unsub && unsub();
+  }, [session?.licenseKey]);
 
   // Update presence when subject or hideStatus changes
   useEffect(() => {
@@ -762,6 +810,10 @@ export default function App() {
 
     const updateHeartbeat = () => {
       updatePresence(userId, {}); // Updates lastSeen timestamp
+      // Record session for peak hours (only when visible, not admin)
+      if (document.visibilityState === 'visible' && !session?.isAdmin) {
+        recordSession(false);
+      }
     };
 
     const handleVisibilityChange = () => {
@@ -984,8 +1036,20 @@ export default function App() {
   const updateProgress = useCallback((subjectId, section, itemId) => {
     setProgress(prev => {
       const subjectProgress = prev[subjectId] || {};
+
+      // Handle special sections that are not arrays
+      if (section === 'quizScores') {
+        // quizScores is an object { [moduleName]: percentage }
+        // itemId is the full new quizScores object
+        return { ...prev, [subjectId]: { ...subjectProgress, quizScores: itemId } };
+      }
+      if (section === 'flashcardsCompleted') {
+        // flashcardsCompleted is a boolean
+        return { ...prev, [subjectId]: { ...subjectProgress, flashcardsCompleted: itemId } };
+      }
+
+      // Default: toggle array items (for materi, etc.)
       const sectionProgress = subjectProgress[section] || [];
-      // Toggle: remove if exists, add if not
       const newSectionProgress = sectionProgress.includes(itemId)
         ? sectionProgress.filter(id => id !== itemId)
         : [...sectionProgress, itemId];
@@ -1013,6 +1077,51 @@ export default function App() {
       }
     });
     return total > 0 ? (completed / total) * 100 : 0;
+  }, [progress]);
+
+  // Calculate total quiz points across all subjects (100 pts max per subject, 400 total)
+  const getTotalQuizPoints = useCallback(() => {
+    const MAX_PER_SUBJECT = 100;
+    const subjects = Object.keys(DB.content);
+    let totalCurrent = 0;
+    const totalMax = subjects.length * MAX_PER_SUBJECT; // 4 subjects = 400 max
+
+    subjects.forEach(subjectId => {
+      const content = DB.content[subjectId];
+      const subjectProgress = progress[subjectId] || {};
+      const quizScores = subjectProgress.quizScores || {};
+
+      // Get quiz modules for this subject
+      const categories = [...new Set((content.quiz || []).map(q => q.category || 'General').filter(Boolean))];
+      const totalQuestions = categories.reduce((sum, cat) => {
+        const modQuestions = (content.quiz || []).filter(q => (q.category || 'General') === cat).length;
+        return sum + modQuestions;
+      }, 0);
+
+      if (totalQuestions === 0) return;
+
+      // Calculate weighted points: each correct answer contributes to the 100pt max
+      let subjectPoints = 0;
+      categories.forEach(cat => {
+        const modQuestions = (content.quiz || []).filter(q => (q.category || 'General') === cat).length;
+        const scoreData = quizScores[cat];
+        if (scoreData) {
+          let correctAnswers;
+          if (typeof scoreData === 'object') {
+            correctAnswers = scoreData.score;
+          } else {
+            // Legacy percentage, convert to correct answers
+            correctAnswers = Math.round((scoreData / 100) * modQuestions);
+          }
+          // Weight: each question is worth (100 / totalQuestions) points
+          subjectPoints += correctAnswers * (MAX_PER_SUBJECT / totalQuestions);
+        }
+      });
+
+      totalCurrent += Math.min(Math.round(subjectPoints), MAX_PER_SUBJECT);
+    });
+
+    return { current: totalCurrent, max: totalMax };
   }, [progress]);
 
   const logout = () => {
@@ -1220,7 +1329,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           {!currentSubject ? (
             <motion.div key="d" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} onSelect={setCurrentSubject} progress={progress} onlineUsers={onlineUsers} schedules={DB.schedules} hideStatus={hideStatus} />
+              <Dashboard session={session} selectedClass={selectedClass} overallProgress={getOverallProgress()} totalQuizPoints={getTotalQuizPoints()} onSelect={setCurrentSubject} progress={progress} onlineUsers={onlineUsers} schedules={DB.schedules} hideStatus={hideStatus} />
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
@@ -1901,6 +2010,50 @@ export default function App() {
         </AnimatePresence>
       </div>
 
+      {/* Mention Toast Notification - clickable to navigate */}
+      <AnimatePresence>
+        {mentionToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -50, scale: 0.9 }}
+            onClick={() => {
+              // Navigate to the mention location
+              if (mentionToast.context === 'chat') {
+                // Open global chat by triggering the chat button
+                const chatBtn = document.querySelector('[data-chat-toggle]');
+                if (chatBtn) chatBtn.click();
+              } else if (mentionToast.context === 'forum') {
+                // Navigate to forum (if currently in a subject, show forum tab)
+                setMode('forum');
+              }
+              // Mark notification as read
+              if (mentionToast.id && session?.licenseKey) {
+                markNotificationRead(session.licenseKey, mentionToast.id);
+              }
+              setMentionToast(null);
+            }}
+            className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[500] cursor-pointer"
+          >
+            <div className="glass-strong px-4 py-3 rounded-2xl shadow-2xl border border-[var(--accent)]/30 flex items-center gap-3 max-w-md hover:scale-[1.02] transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
+                <MessageCircle className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-[var(--text)]">{mentionToast.message}</p>
+                <p className="text-xs text-[var(--accent)] mt-0.5">Klik untuk melihat →</p>
+              </div>
+              <button
+                onClick={(e) => { e.stopPropagation(); setMentionToast(null); }}
+                className="text-[var(--text-muted)] hover:text-[var(--text)] p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Terms Agreement Modal (Every Login) */}
       <AnimatePresence>
         {showTerms && view === 'dashboard' && (
@@ -2470,7 +2623,7 @@ function Login({ dark, setDark, onSuccess }) {
   );
 }
 
-function Dashboard({ session, selectedClass, overallProgress, onSelect, progress, onlineUsers, schedules, hideStatus }) {
+function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, onSelect, progress, onlineUsers, schedules, hideStatus }) {
   const name = session?.userName || 'Student';
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Selamat Pagi' : hour < 17 ? 'Selamat Siang' : 'Selamat Malam';
@@ -2481,22 +2634,32 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.5.0";
+  const currentVersion = "1.5.1";
   const patchNotes = {
     current: {
-      version: "1.5.0",
-      date: "7 Jan 2026",
+      version: "1.5.1",
+      date: "8 Jan 2026",
       changes: [
-        "- MAJOR UPDATE: 4 Mata Kuliah RANGKUMAN UPDATED 100%",
-        "- IBM: 4 Modul + Addendum + Kisi-Kisi Resmi (Format Baru!)",
-        "- Marketing: 5 Modul + Addendum",
-        "- HRM: 5 Modul + Addendum",
-        "- MIS: 5 Modul + Addendum (BARU LENGKAP!)",
-        "- Semua materi disesuaikan dengan Kisi-Kisi Resmi",
-        "- Rangkuman Legacy tetap tersedia bagi yang suka format lama"
+        "- FIX: Online user stacking - device count akurat, tidak duplikat",
+        "- FIX: Quiz points sync realtime antar device",
+        "- FIX: Flashcards '✓ Selesai' hanya muncul jika benar selesai",
+        "- NEW: @all mention - notifikasi ke semua user",
+        "- NEW: @username mention - notifikasi ke user spesifik",
+        "- NEW: Toast notification dengan klik untuk navigasi"
       ]
     },
     past: [
+      {
+        version: "1.5.0",
+        date: "7 Jan 2026",
+        changes: [
+          "- MAJOR UPDATE: 4 Mata Kuliah RANGKUMAN UPDATED 100%",
+          "- IBM: 4 Modul + Addendum + Kisi-Kisi Resmi (Format Baru!)",
+          "- Marketing: 5 Modul + Addendum",
+          "- HRM: 5 Modul + Addendum",
+          "- MIS: 5 Modul + Addendum (BARU LENGKAP!)"
+        ]
+      },
       {
         version: "1.4.1",
         date: "6 Jan 2026",
@@ -2628,7 +2791,7 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
               {session?.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-500 rounded font-semibold">Admin</span>}
               {session?.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded font-semibold">Tester</span>}
             </h1>
-            <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Progress <span className="font-bold gradient-text">{Math.round(overallProgress)}%</span></p>
+            <p className="text-[var(--text-secondary)] text-sm sm:text-base">Kelas {selectedClass} • Quiz {totalQuizPoints?.current || 0}/{totalQuizPoints?.max || 400} pts</p>
             <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
               <span className="badge badge-accent"><BookOpen className="w-3 h-3" />{DB.subjects.length} Mata Kuliah</span>
               {onlineUsers.length > 0 && <span className="badge badge-success"><span className="online-dot mr-1" />{onlineUsers.length} Online</span>}
@@ -2664,14 +2827,14 @@ function Dashboard({ session, selectedClass, overallProgress, onSelect, progress
               ? onlineUsers
               : onlineUsers.filter(u => !u.hideStatus);
 
-            // Group users by userName and collect device types + hideStatus
-            const grouped = visibleOnlineUsers.reduce((acc, u) => {
-              const name = u.userName || 'Unknown';
-              if (!acc[name]) acc[name] = { userName: name, devices: [], hideStatus: u.hideStatus };
-              acc[name].devices.push(u.deviceType || 'desktop');
-              return acc;
-            }, {});
-            const uniqueUsers = Object.values(grouped);
+            // Users are already grouped by licenseKey from subscribeToPresence
+            // Each user now has: { userName, devices: [{id, deviceType}, ...], deviceCount, hideStatus }
+            const uniqueUsers = visibleOnlineUsers.map(u => ({
+              userName: u.userName || 'Unknown',
+              devices: u.devices ? u.devices.map(d => d.deviceType || 'desktop') : [u.deviceType || 'desktop'],
+              hideStatus: u.hideStatus,
+              licenseKey: u.licenseKey
+            }));
 
             // Device type to emoji mapping
             const deviceEmoji = (type) => {
@@ -2959,6 +3122,30 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
   const [searchQuery, setSearchQuery] = useState('');
   const [searchCategory, setSearchCategory] = useState('all');
   const [searchTarget, setSearchTarget] = useState(null); // { type, key, index } for navigation
+  const [hasNewThreads, setHasNewThreads] = useState(false);
+
+  // Forum notification: track new threads
+  useEffect(() => {
+    const lastViewedKey = `forumLastViewed_${subject.id}`;
+    const lastViewed = parseInt(localStorage.getItem(lastViewedKey) || '0');
+
+    const unsub = subscribeToThreads(subject.id, (threads) => {
+      if (threads.length > 0) {
+        const newestThread = Math.max(...threads.map(t => new Date(t.createdAt).getTime()));
+        setHasNewThreads(newestThread > lastViewed);
+      }
+    });
+    return () => unsub && unsub();
+  }, [subject.id]);
+
+  // Clear notification when Forum tab is opened
+  useEffect(() => {
+    if (activeTab === 5) {
+      const lastViewedKey = `forumLastViewed_${subject.id}`;
+      localStorage.setItem(lastViewedKey, Date.now().toString());
+      setHasNewThreads(false);
+    }
+  }, [activeTab, subject.id]);
 
   // Helper function to get context around keyword
   const getKeywordContext = (text, query, contextLen = 60) => {
@@ -3171,6 +3358,8 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {tabs.map((t, i) => (
           <button key={t.name} onClick={() => setActiveTab(i)} className={`tab text-xs sm:text-sm ${activeTab === i ? 'active' : ''}`}>
             <t.icon className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" /><span className="hidden sm:inline">{t.name}</span><span className="sm:hidden">{t.name.slice(0, 4)}</span>
+            {/* Forum red dot notification */}
+            {i === 5 && hasNewThreads && <span className="ml-1 w-2 h-2 bg-red-500 rounded-full inline-block animate-pulse" />}
           </button>
         ))}
       </div>
@@ -4428,15 +4617,66 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
       setTime(20);
     } else {
       setDone(true);
-      // Save score for this module
+      // Save score for this module - only if new score is higher
       if (selectedModule && updateProgress && !isPreviewMode) {
         const finalScore = score + (sel !== null && shuffledModuleQuiz[cur]?.answer === sel ? 1 : 0);
-        const percentage = Math.round(finalScore / shuffledModuleQuiz.length * 100);
-        updateProgress(subjectId, 'quizScores', { ...(subjectProgress.quizScores || {}), [selectedModule]: percentage });
-        // Track quiz score for leaderboard
-        const userKey = session?.licenseKey || session?.key;
-        if (userKey) {
-          updateQuizScore(userKey, finalScore);
+        const total = shuffledModuleQuiz.length;
+
+        // Check if we already have a score for this module
+        const existingScoreData = subjectProgress.quizScores?.[selectedModule];
+        let existingScore = 0;
+        if (existingScoreData) {
+          if (typeof existingScoreData === 'object') {
+            existingScore = existingScoreData.score;
+          } else {
+            // Legacy percentage, convert to raw score
+            existingScore = Math.round((existingScoreData / 100) * total);
+          }
+        }
+
+        // Only update if new score is higher or no previous score
+        if (finalScore > existingScore) {
+          const newQuizScores = { ...(subjectProgress.quizScores || {}), [selectedModule]: { score: finalScore, total } };
+          updateProgress(subjectId, 'quizScores', newQuizScores);
+
+          // Calculate new total quiz points and set absolute value for leaderboard
+          // This calculates the total across ALL subjects, not just adding the difference
+          const userKey = session?.licenseKey || session?.key;
+          if (userKey) {
+            // Calculate total points after this update (synchronously estimate)
+            // The actual calculation uses the updated progress
+            const MAX_PER_SUBJECT = 100;
+            let totalPoints = 0;
+
+            Object.keys(DB.content).forEach(sid => {
+              const sContent = DB.content[sid];
+              const sProgress = sid === subjectId
+                ? { ...progress[sid], quizScores: newQuizScores }
+                : (progress[sid] || {});
+              const sQuizScores = sProgress.quizScores || {};
+
+              const categories = [...new Set((sContent.quiz || []).map(q => q.category || 'General').filter(Boolean))];
+              const totalQuestions = categories.reduce((sum, cat) => {
+                return sum + (sContent.quiz || []).filter(q => (q.category || 'General') === cat).length;
+              }, 0);
+
+              if (totalQuestions === 0) return;
+
+              let subjectPoints = 0;
+              categories.forEach(cat => {
+                const modQuestions = (sContent.quiz || []).filter(q => (q.category || 'General') === cat).length;
+                const scoreData = sQuizScores[cat];
+                if (scoreData) {
+                  const correctAnswers = typeof scoreData === 'object' ? scoreData.score : Math.round((scoreData / 100) * modQuestions);
+                  subjectPoints += correctAnswers * (MAX_PER_SUBJECT / totalQuestions);
+                }
+              });
+
+              totalPoints += Math.min(Math.round(subjectPoints), MAX_PER_SUBJECT);
+            });
+
+            setQuizScore(userKey, totalPoints);
+          }
         }
       }
     }
@@ -4526,14 +4766,28 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
             >
               <div className="flex-1">
                 <p className="font-medium text-[var(--text)]">{mod.name}</p>
-                <p className="text-xs text-[var(--text-muted)]">{mod.questions.length} soal</p>
+                <p className="text-xs text-[var(--text-muted)]">{mod.questions.length} soal, {mod.questions.length} pts</p>
               </div>
               <div className="flex items-center gap-3">
-                {mod.lastScore !== null ? (
-                  <span className={`text-sm font-bold ${mod.lastScore >= 70 ? 'text-[var(--success)]' : mod.lastScore >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
-                    {mod.lastScore}% ✓
-                  </span>
-                ) : (
+                {mod.lastScore !== null ? (() => {
+                  // Calculate score and percentage for color coding
+                  let score, total, percentage;
+                  if (typeof mod.lastScore === 'object') {
+                    score = mod.lastScore.score;
+                    total = mod.lastScore.total;
+                    percentage = (score / total) * 100;
+                  } else {
+                    // Legacy: mod.lastScore is percentage, convert to points
+                    percentage = mod.lastScore;
+                    total = mod.questions.length;
+                    score = Math.round((percentage / 100) * total);
+                  }
+                  return (
+                    <span className={`text-sm font-bold ${percentage >= 70 ? 'text-[var(--success)]' : percentage >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
+                      {score}/{total} pts ✓
+                    </span>
+                  );
+                })() : (
                   <span className="text-xs text-[var(--text-muted)]">Belum dikerjakan</span>
                 )}
                 <ChevronRight className="w-4 h-4 text-[var(--text-muted)]" />
@@ -4550,8 +4804,19 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
             onClick={() => { setSelectedModule('all'); resetQuiz(); setMode('quiz'); }}
             className="btn btn-secondary w-full"
           >
-            Kerjakan Semua ({quiz?.length || 0} soal)
+            Kerjakan Semua ({quiz?.length || 0} soal, {quiz?.length || 0} pts)
           </motion.button>
+          {/* Show quiz completion percentage */}
+          {(() => {
+            const completed = Object.keys(quizScores).length;
+            const total = quizModules.length;
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            return percentage > 0 && (
+              <p className="text-xs text-center text-[var(--text-muted)] mt-2">
+                Progress: {completed}/{total} modul ({percentage}% selesai)
+              </p>
+            );
+          })()}
         </div>
       </div>
     );
@@ -4564,7 +4829,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-[var(--text)]">Flashcards ({shuffledFlashcards?.length || 0} kartu)</h3>
           <div className="flex items-center gap-2">
-            {subjectProgress.flashcardsCompleted && (
+            {subjectProgress.flashcardsCompleted === true && (
               <span className="text-xs text-[var(--success)] font-medium">✓ Selesai</span>
             )}
             {quiz?.length > 0 && (
@@ -4656,7 +4921,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
         )}
 
         {/* Mark as complete button */}
-        {flashPage >= totalFlashPages - 1 && !subjectProgress.flashcardsCompleted && (
+        {flashPage >= totalFlashPages - 1 && subjectProgress.flashcardsCompleted !== true && (
           <div className="mt-4 text-center">
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -5958,11 +6223,19 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
       return;
     }
     if (!input.trim() || sending) return;
+    const messageText = input.trim();
     setSending(true);
     try {
       // Store reply info as separate fields (for WhatsApp-style display)
       const replyData = replyTo ? { replyToId: replyTo.id, replyToName: replyTo.authorName, replyToContent: replyTo.content?.slice(0, 40) || '...' } : {};
-      await sendGlobalMessage(input.trim(), currentDeviceId, currentUserName, selectedClass, 'text', null, replyData, { isAdmin, isTester });
+      await sendGlobalMessage(messageText, currentDeviceId, currentUserName, selectedClass, 'text', null, replyData, { isAdmin, isTester });
+
+      // Create mention notifications for @all or @username mentions
+      const senderKey = session?.licenseKey || session?.key;
+      if (senderKey && (messageText.includes('@'))) {
+        createMentionNotifications(messageText, currentUserName, senderKey, 'chat');
+      }
+
       setInput('');
       setReplyTo(null);
     } catch (e) { console.error(e); }
@@ -6214,7 +6487,9 @@ function AdminDashboard({ session, onClose }) {
 
   // Analytics state (Phase 5)
   const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboardExpanded, setLeaderboardExpanded] = useState(false);
   const [peakHours, setPeakHours] = useState(Array(24).fill(0));
+  const [dangerZoneConfirm, setDangerZoneConfirm] = useState(0); // 0 = not confirmed, 3 = fully confirmed
 
   // Announcement templates
   const announcementTemplates = [
@@ -6251,6 +6526,7 @@ function AdminDashboard({ session, onClose }) {
     { name: 'Stats', icon: Activity },   // Tab 1: Stats + Analytics (merged)  
     { name: 'Logs', icon: FileText },    // Tab 2: Activity Logs + Error Logs (merged)
     { name: 'Announce', icon: Megaphone }, // Tab 3: Announcements
+    { name: 'Danger', icon: AlertTriangle }, // Tab 4: Danger Zone (protected)
   ];
 
   // Load data
@@ -6284,7 +6560,7 @@ function AdminDashboard({ session, onClose }) {
     return () => unsub && unsub();
   }, []);
 
-  // Load analytics data (Phase 5)
+  // Load analytics data (Phase 5) - refresh on statsRefresh
   useEffect(() => {
     const loadAnalytics = async () => {
       const lb = await getUserLeaderboard();
@@ -6293,7 +6569,7 @@ function AdminDashboard({ session, onClose }) {
       setPeakHours(ph);
     };
     loadAnalytics();
-  }, []);
+  }, [statsRefresh]);
 
   const resetForm = () => {
     setKeyForm({ key: '', name: '', daysActive: 30, isAdmin: false, isTester: false, maxDevices: 1, fixedExpiry: '' });
@@ -6598,36 +6874,10 @@ function AdminDashboard({ session, onClose }) {
                       <p className="text-3xl font-bold text-purple-500">{users.reduce((acc, u) => acc + (u.referralCount || 0), 0)}</p>
                       <p className="text-xs text-[var(--text-muted)]">Referrals</p>
                     </div>
-                  </div>
 
-                  <button onClick={() => setStatsRefresh(r => r + 1)} className="btn btn-secondary w-full">
-                    <RotateCcw className="w-4 h-4" />Refresh Data
-                  </button>
-
-                  {/* Danger Zone */}
-                  <div className="mt-6 pt-4 border-t border-red-500/30">
-                    <h4 className="text-sm font-medium text-red-500 mb-3 flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4" />Danger Zone
-                    </h4>
-                    <div className="space-y-2">
-                      <button
-                        onClick={() => setDangerAction('clearUsers')}
-                        disabled={actionLoading}
-                        className="w-full py-2 px-3 bg-orange-500/15 border border-orange-500/30 rounded-xl text-orange-500 text-sm font-medium hover:bg-orange-500/25 transition-colors disabled:opacity-50"
-                      >
-                        🧹 Clear All Users Data
-                      </button>
-                      <button
-                        onClick={() => setDangerAction('resetKeys')}
-                        disabled={actionLoading}
-                        className="w-full py-2 px-3 bg-red-500/15 border border-red-500/30 rounded-xl text-red-500 text-sm font-medium hover:bg-red-500/25 transition-colors disabled:opacity-50"
-                      >
-                        🔄 Reset License Keys to Defaults
-                      </button>
-                    </div>
-                    <p className="text-[10px] text-[var(--text-muted)] mt-2">
-                      Clear Users: Menghapus data aktivasi. Reset Keys: Menghapus semua keys dan membuat ulang ADMIN1, TESTER01, TESTER02.
-                    </p>
+                    <button onClick={() => setStatsRefresh(r => r + 1)} className="btn btn-secondary w-full">
+                      <RotateCcw className="w-4 h-4" />Refresh Data
+                    </button>
                   </div>
                 </div>
               )}
@@ -6711,6 +6961,74 @@ function AdminDashboard({ session, onClose }) {
                   <p className="text-xs text-[var(--text-muted)] text-center">
                     Pengumuman akan muncul sebagai popup di semua user yang sedang online.
                   </p>
+                </div>
+              )}
+
+              {/* Danger Zone Tab - Protected with 3x confirmation */}
+              {activeTab === 4 && (
+                <div className="space-y-4">
+                  {dangerZoneConfirm < 3 ? (
+                    <div className="glass-card p-6 text-center">
+                      <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                      <h3 className="text-lg font-bold text-red-500 mb-2">⚠️ Danger Zone</h3>
+                      <p className="text-sm text-[var(--text-muted)] mb-4">
+                        Akses ke Danger Zone memerlukan 3x konfirmasi untuk mencegah aksi tidak disengaja.
+                      </p>
+                      <p className="text-xs text-[var(--text-muted)] mb-4">
+                        Konfirmasi: {dangerZoneConfirm}/3
+                      </p>
+                      <button
+                        onClick={() => setDangerZoneConfirm(c => c + 1)}
+                        className="btn btn-secondary"
+                      >
+                        {dangerZoneConfirm === 0 ? 'Konfirmasi Pertama' :
+                          dangerZoneConfirm === 1 ? 'Konfirmasi Kedua' :
+                            'Konfirmasi Terakhir'}
+                      </button>
+                      <button
+                        onClick={() => { setDangerZoneConfirm(0); setActiveTab(0); }}
+                        className="btn btn-ghost text-sm ml-2"
+                      >
+                        Batalkan
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="glass-card p-4 border-red-500/30 border">
+                        <h4 className="text-sm font-medium text-red-500 mb-3 flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4" />Danger Zone - AKTIF
+                        </h4>
+                        <p className="text-xs text-[var(--text-muted)] mb-4">
+                          ⚠️ Aksi di bawah ini TIDAK DAPAT dibatalkan. Pastikan Anda yakin sebelum melanjutkan.
+                        </p>
+                        <div className="space-y-2">
+                          <button
+                            onClick={() => setDangerAction('clearUsers')}
+                            disabled={actionLoading}
+                            className="w-full py-2 px-3 bg-orange-500/15 border border-orange-500/30 rounded-xl text-orange-500 text-sm font-medium hover:bg-orange-500/25 transition-colors disabled:opacity-50"
+                          >
+                            🧹 Clear All Users Data
+                          </button>
+                          <button
+                            onClick={() => setDangerAction('resetKeys')}
+                            disabled={actionLoading}
+                            className="w-full py-2 px-3 bg-red-500/15 border border-red-500/30 rounded-xl text-red-500 text-sm font-medium hover:bg-red-500/25 transition-colors disabled:opacity-50"
+                          >
+                            🔄 Reset License Keys to Defaults
+                          </button>
+                        </div>
+                        <p className="text-[10px] text-[var(--text-muted)] mt-2">
+                          Clear Users: Menghapus data aktivasi. Reset Keys: Menghapus semua keys dan membuat ulang ADMIN1, TESTER01, TESTER02.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setDangerZoneConfirm(0)}
+                        className="btn btn-secondary w-full"
+                      >
+                        🔒 Kunci Kembali Danger Zone
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -6849,7 +7167,7 @@ function AdminDashboard({ session, onClose }) {
                       <p className="text-sm text-[var(--text-muted)] text-center py-4">Belum ada data.</p>
                     ) : (
                       <div className="space-y-2">
-                        {leaderboard.slice(0, 10).map((user, i) => (
+                        {(leaderboardExpanded ? leaderboard : leaderboard.slice(0, 10)).map((user, i) => (
                           <div key={user.licenseKey} className="glass-card p-3 flex items-center gap-3">
                             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${i === 0 ? 'bg-amber-500 text-white' :
                               i === 1 ? 'bg-gray-400 text-white' :
@@ -6864,6 +7182,14 @@ function AdminDashboard({ session, onClose }) {
                             </div>
                           </div>
                         ))}
+                        {leaderboard.length > 10 && (
+                          <button
+                            onClick={() => setLeaderboardExpanded(!leaderboardExpanded)}
+                            className="btn btn-secondary w-full text-xs py-2"
+                          >
+                            {leaderboardExpanded ? `Tampilkan 10 Teratas` : `Lihat Semua (${leaderboard.length} user)`}
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>

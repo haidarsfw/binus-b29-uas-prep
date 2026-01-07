@@ -942,7 +942,7 @@ export const getDeviceType = () => {
 };
 
 // Presence system
-export const setupPresence = (userId, userName, currentSubject = null, hideStatus = false) => {
+export const setupPresence = (userId, userName, currentSubject = null, hideStatus = false, licenseKey = null) => {
     const userStatusRef = ref(db, `presence/${userId}`);
     const connectedRef = ref(db, '.info/connected');
     const deviceType = getDeviceType();
@@ -956,6 +956,7 @@ export const setupPresence = (userId, userName, currentSubject = null, hideStatu
                 currentSubject,
                 deviceType,
                 hideStatus, // Privacy: hide from online list
+                licenseKey: licenseKey || null, // Track which license key this device belongs to
                 lastSeen: serverTimestamp(),
             };
             set(userStatusRef, statusData);
@@ -989,14 +990,42 @@ export const subscribeToPresence = (callback) => {
         const now = Date.now();
         const ACTIVE_THRESHOLD = 60 * 60 * 1000; // 1 hour in ms
 
-        const users = Object.entries(data)
+        // Get all active device sessions
+        const activeSessions = Object.entries(data)
             .filter(([_, v]) => {
                 if (!v.online) return false;
-                // Filter out users who haven't been active in 15 minutes
                 const lastSeen = v.lastSeen || 0;
                 return (now - lastSeen) < ACTIVE_THRESHOLD;
             })
             .map(([id, v]) => ({ id, ...v }));
+
+
+        // Group by userName PRIMARILY to ensure consistent grouping
+        // This ensures same user with multiple devices/tabs shows as ONE user
+        // Using userName ensures old sessions (without licenseKey) group with new sessions (with licenseKey)
+        const usersByName = {};
+        activeSessions.forEach(session => {
+            // Use userName as primary key - this is consistent across all sessions for same user
+            const groupKey = session.userName || session.licenseKey || session.id;
+
+            if (!usersByName[groupKey]) {
+                usersByName[groupKey] = {
+                    ...session,
+                    deviceCount: 1,
+                    devices: [{ id: session.id, deviceType: session.deviceType }]
+                };
+            } else {
+                usersByName[groupKey].deviceCount++;
+                // Only add if not already in devices list (prevent duplicates from same tab refresh)
+                const existingDevice = usersByName[groupKey].devices.find(d => d.id === session.id);
+                if (!existingDevice) {
+                    usersByName[groupKey].devices.push({ id: session.id, deviceType: session.deviceType });
+                }
+            }
+        });
+
+        // Convert to array of unique users with device count
+        const users = Object.values(usersByName);
         callback(users);
     });
 };
@@ -1089,6 +1118,31 @@ export const addComment = async (subjectId, threadId, content, authorId, authorN
         const snapshot = await withTimeout(get(commentsRef), 10000);
         const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
         await withTimeout(update(threadRef, { commentCount: count }), 10000);
+
+        // Create notification for thread author (if commenter is not the author)
+        try {
+            const threadSnapshot = await get(threadRef);
+            if (threadSnapshot.exists()) {
+                const thread = threadSnapshot.val();
+                // Don't notify if commenting on own thread
+                if (thread.authorId && thread.authorId !== authorId) {
+                    const notifRef = ref(db, `notifications/${thread.authorId}`);
+                    await push(notifRef, {
+                        type: 'thread_reply',
+                        threadId,
+                        threadTitle: thread.title || 'Thread',
+                        subjectId,
+                        replierName: authorName,
+                        preview: content.slice(0, 50) + (content.length > 50 ? '...' : ''),
+                        read: false,
+                        createdAt: Date.now()
+                    });
+                }
+            }
+        } catch (notifError) {
+            // Don't fail the comment if notification fails
+            console.error('Failed to create notification:', notifError);
+        }
     } catch (error) {
         console.error('Error adding comment:', error);
         throw error;
@@ -1140,6 +1194,127 @@ export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
     } catch (error) {
         console.error('Error deleting reply:', error);
         throw error;
+    }
+};
+
+// ============================================
+// NOTIFICATION SYSTEM (for thread reply notifications)
+// ============================================
+
+// Create a notification for a user
+export const createNotification = async (userId, notification) => {
+    if (!userId) return;
+    try {
+        const notifRef = ref(db, `notifications/${userId}`);
+        await push(notifRef, {
+            ...notification,
+            read: false,
+            createdAt: Date.now()
+        });
+    } catch (e) {
+        console.error('Failed to create notification:', e);
+    }
+};
+
+// Subscribe to user's notifications
+export const subscribeToNotifications = (userId, callback) => {
+    if (!userId) return () => { };
+    const notifRef = ref(db, `notifications/${userId}`);
+    return onValue(notifRef, (snapshot) => {
+        const data = snapshot.val() || {};
+        const notifications = Object.entries(data)
+            .map(([id, v]) => ({ id, ...v }))
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .slice(0, 20); // Keep last 20
+        callback(notifications);
+    });
+};
+
+// Mark notification as read
+export const markNotificationRead = async (userId, notificationId) => {
+    if (!userId || !notificationId) return;
+    try {
+        const notifRef = ref(db, `notifications/${userId}/${notificationId}`);
+        await update(notifRef, { read: true });
+    } catch (e) {
+        console.error('Failed to mark notification read:', e);
+    }
+};
+
+// Clear all notifications for a user
+export const clearAllNotifications = async (userId) => {
+    if (!userId) return;
+    try {
+        const notifRef = ref(db, `notifications/${userId}`);
+        await remove(notifRef);
+    } catch (e) {
+        console.error('Failed to clear notifications:', e);
+    }
+};
+
+// Create mention notifications for @all or @username
+// Pass senderKey to exclude sender from receiving their own mention notification
+export const createMentionNotifications = async (messageText, senderName, senderKey, context = 'chat') => {
+    if (!messageText) return;
+
+    try {
+        // Get all license keys to find users by name
+        const keysRef = ref(db, 'licenseKeys');
+        const keysSnapshot = await get(keysRef);
+        if (!keysSnapshot.exists()) return;
+
+        const keysData = keysSnapshot.val();
+        const allUsers = Object.entries(keysData).map(([key, data]) => ({
+            licenseKey: key,
+            userName: data.name || key.substring(0, 8)
+        }));
+
+        // Check for @all mention
+        if (messageText.toLowerCase().includes('@all')) {
+            // Notify all users except sender
+            for (const user of allUsers) {
+                if (user.licenseKey !== senderKey) {
+                    await createNotification(user.licenseKey, {
+                        type: 'mention_all',
+                        senderName,
+                        preview: messageText.substring(0, 100),
+                        context
+                    });
+                }
+            }
+            return; // Don't process individual mentions if @all was used
+        }
+
+        // Check for individual @username mentions
+        const mentionRegex = /@(\w+)/g;
+        let match;
+        const mentionedNames = new Set();
+
+        while ((match = mentionRegex.exec(messageText)) !== null) {
+            const mentionedName = match[1].toLowerCase();
+            if (mentionedName !== 'all') {
+                mentionedNames.add(mentionedName);
+            }
+        }
+
+        // Find users matching mentioned names and create notifications
+        for (const mentionedName of mentionedNames) {
+            const matchedUser = allUsers.find(u =>
+                u.userName.toLowerCase() === mentionedName ||
+                u.userName.toLowerCase().includes(mentionedName)
+            );
+
+            if (matchedUser && matchedUser.licenseKey !== senderKey) {
+                await createNotification(matchedUser.licenseKey, {
+                    type: 'mention',
+                    senderName,
+                    preview: messageText.substring(0, 100),
+                    context
+                });
+            }
+        }
+    } catch (e) {
+        console.error('Failed to create mention notifications:', e);
     }
 };
 
@@ -1561,18 +1736,30 @@ export const getPeakHoursData = async () => {
     try {
         const sessionsRef = ref(db, 'analytics/sessions');
         const snapshot = await get(sessionsRef);
-        if (!snapshot.exists()) return Array(24).fill(0);
+        if (!snapshot.exists()) {
+            console.log('[Peak Hours] No session data found');
+            return Array(24).fill(0);
+        }
 
         const data = snapshot.val();
         const hourCounts = Array(24).fill(0);
+        let validCount = 0;
 
         Object.values(data).forEach(session => {
             if (session.timestamp) {
-                const hour = new Date(session.timestamp).getHours();
-                hourCounts[hour]++;
+                // Handle both number (Date.now()) and string (ISO) formats
+                const ts = typeof session.timestamp === 'number'
+                    ? session.timestamp
+                    : new Date(session.timestamp).getTime();
+                const hour = new Date(ts).getHours();
+                if (!isNaN(hour) && hour >= 0 && hour < 24) {
+                    hourCounts[hour]++;
+                    validCount++;
+                }
             }
         });
 
+        console.log(`[Peak Hours] Found ${validCount} valid sessions, max per hour: ${Math.max(...hourCounts)}`);
         return hourCounts;
     } catch (e) {
         console.error('Failed to get peak hours:', e);
@@ -1583,22 +1770,21 @@ export const getPeakHoursData = async () => {
 // ============================================
 // STATS TRACKING (for Leaderboard & Analytics)
 // ============================================
-
-// Update user's quiz score (adds to total)
-export const updateQuizScore = async (licenseKey, score) => {
-    if (!licenseKey || !score) return;
+// Set user's total quiz score (absolute value, not additive)
+// This should be called with the calculated total from all quiz progress
+export const setQuizScore = async (licenseKey, totalScore) => {
+    if (!licenseKey) return;
     try {
         const keyRef = ref(db, `licenseKeys/${licenseKey}`);
         const snapshot = await get(keyRef);
         if (snapshot.exists()) {
-            const currentTotal = snapshot.val().totalQuizScore || 0;
             await update(keyRef, {
-                totalQuizScore: currentTotal + score,
+                totalQuizScore: totalScore,
                 lastQuizAt: Date.now()
             });
         }
     } catch (e) {
-        console.error('Failed to update quiz score:', e);
+        console.error('Failed to set quiz score:', e);
     }
 };
 
@@ -1621,14 +1807,18 @@ export const updateOnlineTime = async (licenseKey, minutes) => {
 
 // Record session for peak hours tracking (excludes admins)
 export const recordSession = async (isAdmin = false) => {
-    if (isAdmin) return; // Don't count admin sessions in peak hours
+    if (isAdmin) {
+        console.log('[recordSession] Skipping - admin user');
+        return;
+    }
     try {
         const sessionsRef = ref(db, 'analytics/sessions');
-        await push(sessionsRef, {
+        const result = await push(sessionsRef, {
             timestamp: Date.now()
         });
+        console.log('[recordSession] Recorded session at', new Date().toLocaleTimeString(), 'key:', result.key);
     } catch (e) {
-        console.error('Failed to record session:', e);
+        console.error('[recordSession] Failed:', e);
     }
 };
 
