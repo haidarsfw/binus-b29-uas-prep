@@ -11,6 +11,15 @@ const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
 // Expose reset function to window for admin console access
 window._resetAllQuizScores = resetAllQuizScores;
 
+// Complete reset: Firebase + clear ALL localStorage study progress + reload
+window._fullReset = async () => {
+  await resetAllQuizScores();
+  // Clear all study progress from localStorage
+  Object.keys(localStorage).filter(k => k.startsWith('studyProgress')).forEach(k => localStorage.removeItem(k));
+  console.log('Full reset complete! Reloading...');
+  window.location.reload();
+};
+
 
 
 // --- Rate Limiting Helper ---
@@ -4890,7 +4899,7 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
             onClick={() => { setSelectedModule('all'); resetQuiz(); setMode('quiz'); }}
             className="btn btn-secondary w-full"
           >
-            Kerjakan Semua ({quiz?.length || 0} soal, {quiz?.length || 0} pts)
+            Kerjakan Semua ({quiz?.length || 0} soal, maks 100 pts)
           </motion.button>
           {/* Show quiz completion percentage */}
           {(() => {
