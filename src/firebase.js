@@ -1350,6 +1350,39 @@ export const subscribeToGlobalChat = (callback) => {
     });
 };
 
+// Cleanup old chat messages (older than X days) - call periodically
+export const cleanupOldChatMessages = async (daysOld = 7) => {
+    try {
+        const chatRef = ref(db, 'globalChat');
+        const snapshot = await get(chatRef);
+        if (!snapshot.exists()) return { deleted: 0 };
+
+        const now = Date.now();
+        const maxAge = daysOld * 24 * 60 * 60 * 1000; // days to ms
+        const data = snapshot.val();
+        let deletedCount = 0;
+
+        const updates = {};
+        Object.entries(data).forEach(([id, msg]) => {
+            const msgTime = new Date(msg.createdAt).getTime();
+            if (now - msgTime > maxAge) {
+                updates[`globalChat/${id}`] = null;
+                deletedCount++;
+            }
+        });
+
+        if (Object.keys(updates).length > 0) {
+            await update(ref(db), updates);
+        }
+
+        console.log(`Cleaned up ${deletedCount} old chat messages`);
+        return { deleted: deletedCount };
+    } catch (e) {
+        console.error('Failed to cleanup chat messages:', e);
+        return { deleted: 0, error: e.message };
+    }
+};
+
 // Send global chat message
 export const sendGlobalMessage = async (content, authorId, authorName, authorClass, type = 'text', mediaUrl = null, replyData = {}, badges = {}) => {
     const chatRef = ref(db, 'globalChat');

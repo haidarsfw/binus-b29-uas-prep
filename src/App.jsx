@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, saveBookmarks, getBookmarks, subscribeToBookmarks, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, setQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName, subscribeToNotifications, markNotificationRead, clearAllNotifications, createMentionNotifications, resetAllQuizScores } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, setQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName, subscribeToNotifications, markNotificationRead, clearAllNotifications, createMentionNotifications, resetAllQuizScores, cleanupOldChatMessages } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -18,6 +18,13 @@ window._fullReset = async () => {
   Object.keys(localStorage).filter(k => k.startsWith('studyProgress')).forEach(k => localStorage.removeItem(k));
   console.log('Full reset complete! Reloading...');
   window.location.reload();
+};
+
+// Cleanup old chat messages (default: older than 7 days)
+window._cleanupChat = async (days = 7) => {
+  const result = await cleanupOldChatMessages(days);
+  console.log(`Deleted ${result.deleted} old chat messages`);
+  return result;
 };
 
 
@@ -314,10 +321,6 @@ export default function App() {
 
   // === NEW FEATURE STATES (v1.1.0) ===
 
-  // Bookmark system - syncs to Firebase
-  const [bookmarks, setBookmarks] = useState([]); // { id, subjectId, type, category, note, createdAt }
-  const [showBookmarkModal, setShowBookmarkModal] = useState(null); // { subjectId, type, item } for adding bookmark
-
   // Dark mode schedule - auto switch based on time
   const [darkModeSchedule, setDarkModeSchedule] = useState(() => {
     const saved = localStorage.getItem('darkModeSchedule');
@@ -328,15 +331,6 @@ export default function App() {
   const [unreadErrorCount, setUnreadErrorCount] = useState(0);
 
   // === NEW FEATURE EFFECTS (v1.1.0) ===
-
-  // Subscribe to bookmarks from Firebase
-  useEffect(() => {
-    if (!session?.licenseKey) return;
-    const unsub = subscribeToBookmarks(session.licenseKey, (data) => {
-      setBookmarks(data || []);
-    });
-    return () => unsub();
-  }, [session?.licenseKey]);
 
   // Dark mode schedule - auto switch based on time (FIXED: only checks interval, tracks last switch)
   useEffect(() => {
@@ -424,44 +418,6 @@ export default function App() {
   const showCooldown = (message, seconds) => {
     setCooldown({ show: true, message, seconds });
     setTimeout(() => setCooldown(c => ({ ...c, show: false })), 2500);
-  };
-
-  // === BOOKMARK FUNCTIONS (v1.1.0) ===
-  const addBookmark = async (subjectId, type, itemKey, category = 'important', note = '') => {
-    const newBookmark = {
-      id: Date.now().toString(),
-      subjectId,
-      type, // 'materi', 'flashcard', 'quiz', 'essay'
-      itemKey, // e.g., 'ppt-1' or 'flashcard-0'
-      category, // 'important', 'review-later', 'difficult'
-      note,
-      createdAt: new Date().toISOString()
-    };
-    const updated = [...bookmarks, newBookmark];
-    setBookmarks(updated);
-    await saveBookmarks(session.licenseKey, updated);
-    showToast('📌 Ditambahkan ke bookmark', 'success', 2000);
-  };
-
-  const removeBookmark = async (bookmarkId) => {
-    const updated = bookmarks.filter(b => b.id !== bookmarkId);
-    setBookmarks(updated);
-    await saveBookmarks(session.licenseKey, updated);
-    showToast('🗑️ Bookmark dihapus', 'success', 2000);
-  };
-
-  const updateBookmarkNote = async (bookmarkId, note) => {
-    const updated = bookmarks.map(b => b.id === bookmarkId ? { ...b, note } : b);
-    setBookmarks(updated);
-    await saveBookmarks(session.licenseKey, updated);
-  };
-
-  const isBookmarked = (subjectId, type, itemKey) => {
-    return bookmarks.some(b => b.subjectId === subjectId && b.type === type && b.itemKey === itemKey);
-  };
-
-  const getBookmarkByItem = (subjectId, type, itemKey) => {
-    return bookmarks.find(b => b.subjectId === subjectId && b.type === type && b.itemKey === itemKey);
   };
 
   // Show browser notification for mentions
