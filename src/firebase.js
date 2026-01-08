@@ -333,7 +333,6 @@ export const adminUpdateDisplayName = async (licenseKey, oldName, newName) => {
         // 5. Apply all updates atomically
         if (Object.keys(updates).length > 0) {
             await update(ref(db), updates);
-            console.log(`Updated ${Object.keys(updates).length} entries for name change: ${oldName} → ${newName}`);
         }
 
         return true;
@@ -1255,9 +1254,7 @@ export const clearAllNotifications = async (userId) => {
 // Create mention notifications for @all or @username
 // Pass senderKey to exclude sender from receiving their own mention notification
 export const createMentionNotifications = async (messageText, senderName, senderKey, context = 'chat') => {
-    console.log('[MentionNotif] Called with:', { messageText: messageText?.slice(0, 50), senderName, senderKey, context });
     if (!messageText) {
-        console.log('[MentionNotif] No messageText, returning early');
         return;
     }
 
@@ -1266,7 +1263,6 @@ export const createMentionNotifications = async (messageText, senderName, sender
         const keysRef = ref(db, 'licenseKeys');
         const keysSnapshot = await get(keysRef);
         if (!keysSnapshot.exists()) {
-            console.log('[MentionNotif] No license keys found in Firebase');
             return;
         }
 
@@ -1275,15 +1271,12 @@ export const createMentionNotifications = async (messageText, senderName, sender
             licenseKey: key,
             userName: data.name || key.substring(0, 8)
         }));
-        console.log('[MentionNotif] Found', allUsers.length, 'users');
 
         // Check for @all mention
         if (messageText.toLowerCase().includes('@all')) {
-            console.log('[MentionNotif] @all detected! Notifying', allUsers.length - 1, 'users');
             // Notify all users except sender
             for (const user of allUsers) {
                 if (user.licenseKey !== senderKey) {
-                    console.log('[MentionNotif] Creating notification for:', user.licenseKey);
                     await createNotification(user.licenseKey, {
                         type: 'mention_all',
                         senderName,
@@ -1292,7 +1285,6 @@ export const createMentionNotifications = async (messageText, senderName, sender
                     });
                 }
             }
-            console.log('[MentionNotif] @all notifications sent');
             return; // Don't process individual mentions if @all was used
         }
 
@@ -1375,7 +1367,6 @@ export const cleanupOldChatMessages = async (daysOld = 7) => {
             await update(ref(db), updates);
         }
 
-        console.log(`Cleaned up ${deletedCount} old chat messages`);
         return { deleted: deletedCount };
     } catch (e) {
         console.error('Failed to cleanup chat messages:', e);
@@ -1784,7 +1775,6 @@ export const getPeakHoursData = async () => {
         const sessionsRef = ref(db, 'analytics/sessions');
         const snapshot = await get(sessionsRef);
         if (!snapshot.exists()) {
-            console.log('[Peak Hours] No session data found');
             return Array(24).fill(0);
         }
 
@@ -1806,7 +1796,6 @@ export const getPeakHoursData = async () => {
             }
         });
 
-        console.log(`[Peak Hours] Found ${validCount} valid sessions, max per hour: ${Math.max(...hourCounts)}`);
         return hourCounts;
     } catch (e) {
         console.error('Failed to get peak hours:', e);
@@ -1862,7 +1851,6 @@ export const resetAllQuizScores = async () => {
             await update(ref(db), updates);
         }
 
-        console.log('All quiz scores have been reset');
         return true;
     } catch (e) {
         console.error('Failed to reset quiz scores:', e);
@@ -1890,7 +1878,6 @@ export const updateOnlineTime = async (licenseKey, minutes) => {
 // Record session for peak hours tracking (excludes admins)
 export const recordSession = async (isAdmin = false) => {
     if (isAdmin) {
-        console.log('[recordSession] Skipping - admin user');
         return;
     }
     try {
@@ -1898,7 +1885,6 @@ export const recordSession = async (isAdmin = false) => {
         const result = await push(sessionsRef, {
             timestamp: Date.now()
         });
-        console.log('[recordSession] Recorded session at', new Date().toLocaleTimeString(), 'key:', result.key);
     } catch (e) {
         console.error('[recordSession] Failed:', e);
     }

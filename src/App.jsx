@@ -16,14 +16,12 @@ window._fullReset = async () => {
   await resetAllQuizScores();
   // Clear all study progress from localStorage
   Object.keys(localStorage).filter(k => k.startsWith('studyProgress')).forEach(k => localStorage.removeItem(k));
-  console.log('Full reset complete! Reloading...');
   window.location.reload();
 };
 
 // Cleanup old chat messages (default: older than 7 days)
 window._cleanupChat = async (days = 7) => {
   const result = await cleanupOldChatMessages(days);
-  console.log(`Deleted ${result.deleted} old chat messages`);
   return result;
 };
 
@@ -5391,7 +5389,6 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
         const isRecent = Date.now() - comment.timestamp < 60000;
 
         if ((mentionsMe || mentionsAll) && isFromOthers && isNewComment && isRecent) {
-          console.log('[FORUM MENTION] Detected:', { from: comment.authorName, content: comment.content?.slice(0, 30) });
           showToast(`📢 ${comment.authorName} mention kamu di forum: "${comment.content?.slice(0, 40)}..."`, 'info', 5000);
           seenForumMentionsRef.current.add(comment.id);
         }
@@ -5407,7 +5404,6 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
             const replyIsRecent = Date.now() - reply.timestamp < 60000;
 
             if ((replyMentionsMe || replyMentionsAll) && replyFromOthers && replyIsNew && replyIsRecent) {
-              console.log('[FORUM REPLY MENTION] Detected:', { from: reply.authorName, content: reply.content?.slice(0, 30) });
               showToast(`📢 ${reply.authorName} mention kamu: "${reply.content?.slice(0, 40)}..."`, 'info', 5000);
               seenForumMentionsRef.current.add(reply.id);
             }
@@ -6227,7 +6223,6 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
         if ((mentionsMe || mentionsAll) && isFromOthers && isNewMessage && isRecent) {
           const notifTitle = mentionsAll ? 'Pengumuman untuk Semua' : 'Kamu di-mention!';
 
-          console.log('[MENTION] Detected:', { from: m.authorName, content: m.content?.slice(0, 30), mentionsMe, mentionsAll });
 
           addNotification?.({ type: 'mention', title: notifTitle, message: `${m.authorName}: ${m.content.slice(0, 50)}` });
 
