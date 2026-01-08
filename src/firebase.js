@@ -1802,6 +1802,41 @@ export const setQuizScore = async (licenseKey, totalScore) => {
     }
 };
 
+// Reset all quiz scores for all users (admin only)
+// This clears totalQuizScore in licenseKeys and quizScores in userSettings
+export const resetAllQuizScores = async () => {
+    try {
+        // Reset totalQuizScore in all licenseKeys
+        const licenseKeysRef = ref(db, 'licenseKeys');
+        const licenseSnapshot = await get(licenseKeysRef);
+        if (licenseSnapshot.exists()) {
+            const updates = {};
+            Object.keys(licenseSnapshot.val()).forEach(key => {
+                updates[`licenseKeys/${key}/totalQuizScore`] = 0;
+                updates[`licenseKeys/${key}/lastQuizAt`] = null;
+            });
+            await update(ref(db), updates);
+        }
+
+        // Reset progress in userSettings for all users
+        const userSettingsRef = ref(db, 'userSettings');
+        const settingsSnapshot = await get(userSettingsRef);
+        if (settingsSnapshot.exists()) {
+            const updates = {};
+            Object.keys(settingsSnapshot.val()).forEach(key => {
+                updates[`userSettings/${key}/progress`] = {};
+            });
+            await update(ref(db), updates);
+        }
+
+        console.log('All quiz scores have been reset');
+        return true;
+    } catch (e) {
+        console.error('Failed to reset quiz scores:', e);
+        return false;
+    }
+};
+
 // Update user's online time (in minutes)
 export const updateOnlineTime = async (licenseKey, minutes) => {
     if (!licenseKey || !minutes) return;
