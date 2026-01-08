@@ -279,6 +279,7 @@ export default function App() {
   const [announcement, setAnnouncement] = useState(null); // { message, type, active }
   const [showAnnouncementPopup, setShowAnnouncementPopup] = useState(false);
   const [subjectSearch, setSubjectSearch] = useState({ show: false, query: '', category: 'all' });
+  const [firebaseQuizScore, setFirebaseQuizScore] = useState(null); // Quiz score from Firebase for sync with admin panel
 
   // Toast notification state (replaces browser alert)
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
@@ -657,6 +658,21 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  // Subscribe to Firebase totalQuizScore for dashboard sync with admin panel
+  useEffect(() => {
+    if (!session?.licenseKey) return;
+    const { ref, onValue } = require('firebase/database');
+    const { db } = require('./firebase');
+    const keyRef = ref(db, `licenseKeys/${session.licenseKey}`);
+    const unsubscribe = onValue(keyRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        setFirebaseQuizScore(data.totalQuizScore || 0);
+      }
+    });
+    return () => unsubscribe();
+  }, [session?.licenseKey]);
 
   // ESC key handler - close modals/popups or go back
   useEffect(() => {
@@ -1124,11 +1140,19 @@ export default function App() {
   }, [progress]);
 
   // Calculate total quiz points across all subjects (100 pts max per subject, 400 total)
+  // If Firebase value available, use it for sync with admin panel; otherwise calculate from local progress
   const getTotalQuizPoints = useCallback(() => {
     const MAX_PER_SUBJECT = 100;
     const subjects = Object.keys(DB.content);
-    let totalCurrent = 0;
     const totalMax = subjects.length * MAX_PER_SUBJECT; // 4 subjects = 400 max
+
+    // If Firebase quiz score is available, use it (synced with admin panel)
+    if (firebaseQuizScore !== null) {
+      return { current: firebaseQuizScore, max: totalMax };
+    }
+
+    // Otherwise calculate from local progress (fallback)
+    let totalCurrent = 0;
 
     subjects.forEach(subjectId => {
       const content = DB.content[subjectId];
@@ -1166,7 +1190,7 @@ export default function App() {
     });
 
     return { current: totalCurrent, max: totalMax };
-  }, [progress]);
+  }, [progress, firebaseQuizScore]);
 
   const logout = () => {
     setConfirmLogout(true);
