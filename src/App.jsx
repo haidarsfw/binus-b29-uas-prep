@@ -749,77 +749,92 @@ export default function App() {
   }, [session, currentSubject, hideStatus]);
 
   // Subscribe to notifications for thread reply and mention alerts
-  const prevNotifCount = useRef(0);
-  const prevNotifIds = useRef(new Set());
+  // Use localStorage to track shown notifications so they don't repeat on refresh
+  const getShownNotifIds = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem('shownNotifIds') || '[]'));
+    } catch { return new Set(); }
+  };
+  const saveShownNotifId = (id) => {
+    try {
+      const existing = getShownNotifIds();
+      existing.add(id);
+      // Keep only last 100 IDs
+      const arr = Array.from(existing).slice(-100);
+      localStorage.setItem('shownNotifIds', JSON.stringify(arr));
+    } catch { }
+  };
+
   useEffect(() => {
     if (!session?.licenseKey) return;
-    console.log('[NotifSub] Subscribing to notifications for:', session.licenseKey);
 
     const unsub = subscribeToNotifications(session.licenseKey, (notifs) => {
-      console.log('[NotifSub] Received', notifs.length, 'notifications');
       setNotifications(notifs);
 
-      // Show toast for NEW unread notifications (not seen before)
+      // Find unread notifications not yet shown (using localStorage)
+      const shownIds = getShownNotifIds();
       const unreadNotifs = notifs.filter(n => !n.read);
-      console.log('[NotifSub] Unread count:', unreadNotifs.length, 'Previous:', prevNotifCount.current);
-
-      // Find truly NEW notifications (not in prevNotifIds)
-      const newNotifs = unreadNotifs.filter(n => !prevNotifIds.current.has(n.id));
-      console.log('[NotifSub] New notifications:', newNotifs.length);
+      const newNotifs = unreadNotifs.filter(n => !shownIds.has(n.id));
 
       if (newNotifs.length > 0) {
-        const newest = newNotifs[0];
-        console.log('[NotifSub] Processing newest notification:', newest);
+        // Show each new notification in top-right popup
+        newNotifs.forEach(newest => {
+          let title = '';
+          let message = '';
+          let context = newest.context || 'chat';
 
-        let toastMessage = '';
-        let toastContext = newest.context || 'chat'; // 'chat' or 'forum'
-
-        if (newest.type === 'mention_all') {
-          toastMessage = `💬 @all dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
-        } else if (newest.type === 'mention') {
-          toastMessage = `💬 @mention dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
-        } else if (newest.type === 'thread_reply') {
-          toastMessage = `💬 ${newest.replierName} membalas thread Anda: ${newest.preview?.substring(0, 50) || '...'}`;
-          toastContext = 'forum';
-        }
-
-        if (toastMessage) {
-          console.log('[NotifSub] Showing toast:', toastMessage);
-          // Show in-app toast notification (with auto-dismiss after 5 seconds)
-          setMentionToast({
-            message: toastMessage,
-            context: toastContext,
-            type: newest.type,
-            id: newest.id
-          });
-          setTimeout(() => setMentionToast(null), 5000);
-
-          // Also show browser notification if permission granted
-          if ('Notification' in window && Notification.permission === 'granted') {
-            console.log('[NotifSub] Showing browser notification');
-            new Notification('B29 Study Prep', { body: toastMessage, icon: '/favicon.ico' });
+          if (newest.type === 'mention_all') {
+            title = `@all dari ${newest.senderName}`;
+            message = newest.preview?.substring(0, 60) || '...';
+          } else if (newest.type === 'mention') {
+            title = `@${session?.userName || 'kamu'} dari ${newest.senderName}`;
+            message = newest.preview?.substring(0, 60) || '...';
+          } else if (newest.type === 'thread_reply') {
+            title = `Balasan dari ${newest.replierName}`;
+            message = newest.preview?.substring(0, 60) || '...';
+            context = 'forum';
           }
 
-          // Play notification sound
-          try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
-          } catch (e) { console.log('[NotifSub] Audio failed:', e); }
-        }
-      }
+          if (title) {
+            // Add to top-right notifications (uses existing notification popup system)
+            setNotifications(prev => [
+              {
+                id: `notif_${newest.id}`,
+                type: 'mention',
+                title,
+                message,
+                context,
+                notifId: newest.id,
+                clickable: true
+              },
+              ...prev.filter(p => p.id !== `notif_${newest.id}`)
+            ]);
 
-      // Update tracking refs
-      prevNotifCount.current = unreadNotifs.length;
-      prevNotifIds.current = new Set(unreadNotifs.map(n => n.id));
+            // Mark as shown
+            saveShownNotifId(newest.id);
+
+            // Play notification sound
+            try {
+              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+              const oscillator = audioContext.createOscillator();
+              const gainNode = audioContext.createGain();
+              oscillator.connect(gainNode);
+              gainNode.connect(audioContext.destination);
+              oscillator.frequency.value = 800;
+              oscillator.type = 'sine';
+              gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+              gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+              oscillator.start(audioContext.currentTime);
+              oscillator.stop(audioContext.currentTime + 0.3);
+            } catch { }
+
+            // Browser notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification('B29 Study Prep', { body: `${title}: ${message}`, icon: '/favicon.ico' });
+            }
+          }
+        });
+      }
     });
     return () => unsub && unsub();
   }, [session?.licenseKey]);
@@ -2012,26 +2027,42 @@ export default function App() {
         <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
       </Suspense>
 
-      {/* Notification Popup */}
+      {/* Notification Popup - Click to navigate to mention location */}
       <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
         <AnimatePresence>
-          {notifications.map((n) => (
+          {notifications.filter(n => n.type === 'mention').map((n) => (
             <motion.div
               key={n.id}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 100 }}
-              onAnimationComplete={() => setTimeout(() => setNotifications(prev => prev.filter(x => x.id !== n.id)), 3000)}
-              className="glass-strong px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 pointer-events-auto max-w-xs"
+              onAnimationComplete={() => setTimeout(() => setNotifications(prev => prev.filter(x => x.id !== n.id)), 5000)}
+              onClick={() => {
+                // Navigate to chat or forum based on context
+                if (n.context === 'forum') {
+                  setMode('forum');
+                } else {
+                  // Open chat (simulate click on chat button)
+                  const chatBtn = document.querySelector('.gradient-accent.fixed.bottom-20');
+                  if (chatBtn) chatBtn.click();
+                }
+                // Mark as read and remove
+                if (n.notifId && session?.licenseKey) {
+                  markNotificationRead(session.licenseKey, n.notifId);
+                }
+                setNotifications(prev => prev.filter(x => x.id !== n.id));
+              }}
+              className="glass-strong px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 pointer-events-auto max-w-sm cursor-pointer hover:scale-[1.02] transition-transform"
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${n.type === 'mention' ? 'bg-blue-500' : 'bg-[var(--accent)]'}`}>
-                {n.type === 'mention' ? <MessageSquare className="w-4 h-4 text-white" /> : <Bell className="w-4 h-4 text-white" />}
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
+                <MessageSquare className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[var(--text)] truncate">{n.title}</p>
+                <p className="text-sm font-bold text-[var(--text)]">{n.title}</p>
                 <p className="text-xs text-[var(--text-muted)] truncate">{n.message}</p>
+                <p className="text-[10px] text-[var(--accent)] mt-0.5">Klik untuk melihat →</p>
               </div>
-              <button onClick={() => setNotifications(prev => prev.filter(x => x.id !== n.id))} className="text-[var(--text-muted)] hover:text-[var(--text)]">
+              <button onClick={(e) => { e.stopPropagation(); setNotifications(prev => prev.filter(x => x.id !== n.id)); }} className="text-[var(--text-muted)] hover:text-[var(--text)] p-1">
                 <X className="w-4 h-4" />
               </button>
             </motion.div>
@@ -2039,49 +2070,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* Mention Toast Notification - clickable to navigate */}
-      <AnimatePresence>
-        {mentionToast && (
-          <motion.div
-            initial={{ opacity: 0, y: -50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            onClick={() => {
-              // Navigate to the mention location
-              if (mentionToast.context === 'chat') {
-                // Open global chat by triggering the chat button
-                const chatBtn = document.querySelector('[data-chat-toggle]');
-                if (chatBtn) chatBtn.click();
-              } else if (mentionToast.context === 'forum') {
-                // Navigate to forum (if currently in a subject, show forum tab)
-                setMode('forum');
-              }
-              // Mark notification as read
-              if (mentionToast.id && session?.licenseKey) {
-                markNotificationRead(session.licenseKey, mentionToast.id);
-              }
-              setMentionToast(null);
-            }}
-            className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[500] cursor-pointer"
-          >
-            <div className="glass-strong px-4 py-3 rounded-2xl shadow-2xl border border-[var(--accent)]/30 flex items-center gap-3 max-w-md hover:scale-[1.02] transition-transform">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
-                <MessageCircle className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[var(--text)]">{mentionToast.message}</p>
-                <p className="text-xs text-[var(--accent)] mt-0.5">Klik untuk melihat →</p>
-              </div>
-              <button
-                onClick={(e) => { e.stopPropagation(); setMentionToast(null); }}
-                className="text-[var(--text-muted)] hover:text-[var(--text)] p-1"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Terms Agreement Modal (Every Login) */}
       <AnimatePresence>
