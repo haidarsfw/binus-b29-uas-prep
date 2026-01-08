@@ -4834,44 +4834,52 @@ function FlashcardsQuiz({ flashcards, quiz, subjectId, isPreviewMode, progress, 
         </div>
 
         <div className="grid gap-3">
-          {quizModules.map((mod, idx) => (
-            <motion.button
-              key={mod.name}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => startModuleQuiz(mod.name)}
-              className="glass-card p-4 text-left flex items-center justify-between hover:border-[var(--accent)] transition-all"
-            >
-              <div className="flex-1">
-                <p className="font-medium text-[var(--text)]">{mod.name}</p>
-                <p className="text-xs text-[var(--text-muted)]">{mod.questions.length} soal, {mod.questions.length} pts</p>
-              </div>
-              <div className="flex items-center gap-3">
-                {mod.lastScore !== null ? (() => {
-                  // Calculate score and percentage for color coding
-                  let score, total, percentage;
-                  if (typeof mod.lastScore === 'object') {
-                    score = mod.lastScore.score;
-                    total = mod.lastScore.total;
-                    percentage = (score / total) * 100;
-                  } else {
-                    // Legacy: mod.lastScore is percentage, convert to points
-                    percentage = mod.lastScore;
-                    total = mod.questions.length;
-                    score = Math.round((percentage / 100) * total);
-                  }
-                  return (
-                    <span className={`text-sm font-bold ${percentage >= 70 ? 'text-[var(--success)]' : percentage >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
-                      {score}/{total} pts ✓
-                    </span>
-                  );
-                })() : (
-                  <span className="text-xs text-[var(--text-muted)]">Belum dikerjakan</span>
-                )}
-                <ChevronRight className="w-4 h-4 text-[var(--text-muted)]" />
-              </div>
-            </motion.button>
-          ))}
+          {quizModules.map((mod, idx) => {
+            // Calculate max points for this module: (100 / total_questions_in_subject) * questions_in_module
+            const totalQuestionsInSubject = quiz?.length || 1;
+            const moduleQuestionCount = mod.questions.length;
+            const maxPtsForModule = Math.round((100 / totalQuestionsInSubject) * moduleQuestionCount);
+
+            return (
+              <motion.button
+                key={mod.name}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                onClick={() => startModuleQuiz(mod.name)}
+                className="glass-card p-4 text-left flex items-center justify-between hover:border-[var(--accent)] transition-all"
+              >
+                <div className="flex-1">
+                  <p className="font-medium text-[var(--text)]">{mod.name}</p>
+                  <p className="text-xs text-[var(--text-muted)]">{moduleQuestionCount} soal, maks {maxPtsForModule} pts</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  {mod.lastScore !== null ? (() => {
+                    // Calculate scaled score: (correct / total_in_module) * maxPtsForModule
+                    let correctAnswers, totalInModule;
+                    if (typeof mod.lastScore === 'object') {
+                      correctAnswers = mod.lastScore.score;
+                      totalInModule = mod.lastScore.total;
+                    } else {
+                      // Legacy: mod.lastScore is percentage
+                      totalInModule = moduleQuestionCount;
+                      correctAnswers = Math.round((mod.lastScore / 100) * totalInModule);
+                    }
+                    // Scale to max points for this module, capped at maxPtsForModule
+                    const scaledScore = Math.min(Math.round((correctAnswers / totalInModule) * maxPtsForModule), maxPtsForModule);
+                    const percentage = (correctAnswers / totalInModule) * 100;
+                    return (
+                      <span className={`text-sm font-bold ${percentage >= 70 ? 'text-[var(--success)]' : percentage >= 50 ? 'text-[var(--warning)]' : 'text-[var(--danger)]'}`}>
+                        {scaledScore}/{maxPtsForModule} pts ✓
+                      </span>
+                    );
+                  })() : (
+                    <span className="text-xs text-[var(--text-muted)]">Belum dikerjakan</span>
+                  )}
+                  <ChevronRight className="w-4 h-4 text-[var(--text-muted)]" />
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
 
         {/* All-at-once option */}
