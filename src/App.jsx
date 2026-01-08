@@ -662,16 +662,25 @@ export default function App() {
   // Subscribe to Firebase totalQuizScore for dashboard sync with admin panel
   useEffect(() => {
     if (!session?.licenseKey) return;
-    const { ref, onValue } = require('firebase/database');
-    const { db } = require('./firebase');
-    const keyRef = ref(db, `licenseKeys/${session.licenseKey}`);
-    const unsubscribe = onValue(keyRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        setFirebaseQuizScore(data.totalQuizScore || 0);
-      }
+    // Import from firebase/database
+    import('firebase/database').then(({ ref, onValue }) => {
+      import('./firebase').then(({ db }) => {
+        const keyRef = ref(db, `licenseKeys/${session.licenseKey}`);
+        const unsubscribe = onValue(keyRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setFirebaseQuizScore(data.totalQuizScore || 0);
+          }
+        });
+        // Store for cleanup
+        window._quizScoreUnsub = unsubscribe;
+      });
     });
-    return () => unsubscribe();
+    return () => {
+      if (window._quizScoreUnsub) {
+        window._quizScoreUnsub();
+      }
+    };
   }, [session?.licenseKey]);
 
   // ESC key handler - close modals/popups or go back
