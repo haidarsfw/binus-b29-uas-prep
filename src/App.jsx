@@ -784,85 +784,89 @@ export default function App() {
     try {
       const existing = getShownNotifIds();
       existing.add(id);
-      // Keep only last 100 IDs
-      const arr = Array.from(existing).slice(-100);
+      const arr = Array.from(existing).slice(-200);
       localStorage.setItem('shownNotifIds', JSON.stringify(arr));
     } catch { }
   };
+
+  // State for showing ONE popup at a time
+  const [mentionPopup, setMentionPopup] = useState(null);
+  const popupTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (!session?.licenseKey) return;
 
     const unsub = subscribeToNotifications(session.licenseKey, (notifs) => {
-      setNotifications(notifs);
-
       // Find unread notifications not yet shown (using localStorage)
       const shownIds = getShownNotifIds();
       const unreadNotifs = notifs.filter(n => !n.read);
       const newNotifs = unreadNotifs.filter(n => !shownIds.has(n.id));
 
-      if (newNotifs.length > 0) {
-        // Show each new notification in top-right popup
-        newNotifs.forEach(newest => {
-          let title = '';
-          let message = '';
-          let context = newest.context || 'chat';
+      // Show only ONE popup - the newest one
+      if (newNotifs.length > 0 && !mentionPopup) {
+        const newest = newNotifs[0];
+        let title = '';
+        let message = '';
+        let context = newest.context || 'chat';
+        let location = context === 'chat' ? 'Global Chat' : 'Forum';
 
-          if (newest.type === 'mention_all') {
-            title = `@all dari ${newest.senderName}`;
-            message = newest.preview?.substring(0, 60) || '...';
-          } else if (newest.type === 'mention') {
-            title = `@${session?.userName || 'kamu'} dari ${newest.senderName}`;
-            message = newest.preview?.substring(0, 60) || '...';
-          } else if (newest.type === 'thread_reply') {
-            title = `Balasan dari ${newest.replierName}`;
-            message = newest.preview?.substring(0, 60) || '...';
-            context = 'forum';
+        if (newest.type === 'mention_all') {
+          title = `📢 @all dari ${newest.senderName}`;
+          message = newest.preview?.substring(0, 80) || '...';
+          location = 'Global Chat';
+        } else if (newest.type === 'mention') {
+          title = `💬 Kamu di-mention oleh ${newest.senderName}`;
+          message = newest.preview?.substring(0, 80) || '...';
+          location = 'Global Chat';
+        } else if (newest.type === 'thread_reply') {
+          title = `💬 ${newest.replierName} membalas thread kamu`;
+          message = newest.preview?.substring(0, 80) || '...';
+          location = 'Forum';
+          context = 'forum';
+        }
+
+        if (title) {
+          // Mark as shown IMMEDIATELY to prevent duplicates
+          saveShownNotifId(newest.id);
+
+          // Show popup
+          setMentionPopup({
+            id: newest.id,
+            title,
+            message,
+            context,
+            location,
+            notifId: newest.id
+          });
+
+          // Auto-dismiss after 8 seconds
+          if (popupTimeoutRef.current) clearTimeout(popupTimeoutRef.current);
+          popupTimeoutRef.current = setTimeout(() => setMentionPopup(null), 8000);
+
+          // Play notification sound
+          try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+          } catch { }
+
+          // Browser notification
+          if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification('B29 Study Prep', { body: `${title}\n${message}`, icon: '/favicon.ico' });
           }
-
-          if (title) {
-            // Add to top-right notifications (uses existing notification popup system)
-            setNotifications(prev => [
-              {
-                id: `notif_${newest.id}`,
-                type: 'mention',
-                title,
-                message,
-                context,
-                notifId: newest.id,
-                clickable: true
-              },
-              ...prev.filter(p => p.id !== `notif_${newest.id}`)
-            ]);
-
-            // Mark as shown
-            saveShownNotifId(newest.id);
-
-            // Play notification sound
-            try {
-              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-              const oscillator = audioContext.createOscillator();
-              const gainNode = audioContext.createGain();
-              oscillator.connect(gainNode);
-              gainNode.connect(audioContext.destination);
-              oscillator.frequency.value = 800;
-              oscillator.type = 'sine';
-              gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-              gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-              oscillator.start(audioContext.currentTime);
-              oscillator.stop(audioContext.currentTime + 0.3);
-            } catch { }
-
-            // Browser notification
-            if ('Notification' in window && Notification.permission === 'granted') {
-              new Notification('B29 Study Prep', { body: `${title}: ${message}`, icon: '/favicon.ico' });
-            }
-          }
-        });
+        }
       }
     });
     return () => unsub && unsub();
-  }, [session?.licenseKey]);
+  }, [session?.licenseKey, mentionPopup]);
 
   // Update presence when subject or hideStatus changes
   useEffect(() => {
@@ -2060,48 +2064,47 @@ export default function App() {
         <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
       </Suspense>
 
-      {/* Notification Popup - Click to navigate to mention location */}
-      <div className="fixed top-4 right-4 z-[400] space-y-2 pointer-events-none">
-        <AnimatePresence>
-          {notifications.filter(n => n.type === 'mention').map((n) => (
-            <motion.div
-              key={n.id}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
-              onAnimationComplete={() => setTimeout(() => setNotifications(prev => prev.filter(x => x.id !== n.id)), 5000)}
-              onClick={() => {
-                // Navigate to chat or forum based on context
-                if (n.context === 'forum') {
-                  setMode('forum');
-                } else {
-                  // Open chat (simulate click on chat button)
-                  const chatBtn = document.querySelector('.gradient-accent.fixed.bottom-20');
-                  if (chatBtn) chatBtn.click();
-                }
-                // Mark as read and remove
-                if (n.notifId && session?.licenseKey) {
-                  markNotificationRead(session.licenseKey, n.notifId);
-                }
-                setNotifications(prev => prev.filter(x => x.id !== n.id));
-              }}
-              className="glass-strong px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 pointer-events-auto max-w-sm cursor-pointer hover:scale-[1.02] transition-transform"
+      {/* Mention Notification Popup - ONE at a time, proper UI */}
+      <AnimatePresence>
+        {mentionPopup && (
+          <motion.div
+            initial={{ opacity: 0, x: 100, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 100, scale: 0.9 }}
+            onClick={() => {
+              // Navigate to chat or forum based on context
+              if (mentionPopup.context === 'forum') {
+                setMode('forum');
+              } else {
+                // Open chat
+                const chatBtn = document.querySelector('.gradient-accent.fixed.bottom-20');
+                if (chatBtn) chatBtn.click();
+              }
+              // Mark as read
+              if (mentionPopup.notifId && session?.licenseKey) {
+                markNotificationRead(session.licenseKey, mentionPopup.notifId);
+              }
+              setMentionPopup(null);
+            }}
+            className="fixed top-4 right-4 z-[400] glass-strong px-4 py-3 rounded-2xl shadow-2xl border border-[var(--border)] flex items-center gap-3 max-w-md cursor-pointer hover:scale-[1.02] transition-transform pointer-events-auto"
+          >
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
+              <MessageSquare className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-[var(--text)]">{mentionPopup.title}</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5 line-clamp-2">{mentionPopup.message}</p>
+              <p className="text-[11px] text-[var(--text-muted)] mt-1">📍 {mentionPopup.location} • Klik untuk buka</p>
+            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); setMentionPopup(null); }}
+              className="text-[var(--text-muted)] hover:text-[var(--text)] p-1 shrink-0"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
-                <MessageSquare className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-[var(--text)]">{n.title}</p>
-                <p className="text-xs text-[var(--text-muted)] truncate">{n.message}</p>
-                <p className="text-[10px] text-[var(--accent)] mt-0.5">Klik untuk melihat →</p>
-              </div>
-              <button onClick={(e) => { e.stopPropagation(); setNotifications(prev => prev.filter(x => x.id !== n.id)); }} className="text-[var(--text-muted)] hover:text-[var(--text)] p-1">
-                <X className="w-4 h-4" />
-              </button>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+              <X className="w-5 h-5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
 
 
