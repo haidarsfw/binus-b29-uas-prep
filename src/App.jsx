@@ -6152,29 +6152,18 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
   // Calculate unread count (messages from others after lastReadMessageId)
   const unreadCount = useMemo(() => {
-    console.log('[UnreadCount] Calculating...', { lastReadLoaded, lastReadMessageId, messagesCount: messages.length });
-    // Don't show unread count until Firebase has loaded the lastReadMessageId
-    if (!lastReadLoaded) {
-      console.log('[UnreadCount] Not loaded yet, returning 0');
-      return 0;
-    }
-    if (!lastReadMessageId || messages.length === 0) {
-      // If no lastRead AND data is loaded, count all messages from others (excluding own)
-      const count = messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
-      console.log('[UnreadCount] No lastRead, counting all from others:', count);
-      return count;
+    if (messages.length === 0) return 0;
+    if (!lastReadMessageId) {
+      // If no lastRead, count all messages from others
+      return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
     }
     const lastReadIndex = messages.findIndex(m => m.id === lastReadMessageId);
     if (lastReadIndex === -1) {
-      const count = messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
-      console.log('[UnreadCount] LastRead not found in messages, counting all:', count);
-      return count;
+      return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
     }
     // Count messages after lastReadIndex from other users
-    const count = messages.slice(lastReadIndex + 1).filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
-    console.log('[UnreadCount] After lastRead index', lastReadIndex + ':', count);
-    return count;
-  }, [messages, lastReadMessageId, currentDeviceId, lastReadLoaded]);
+    return messages.slice(lastReadIndex + 1).filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+  }, [messages, lastReadMessageId, currentDeviceId]);
 
   // Subscribe to lastReadMessageId from Firebase (sync across devices)
   useEffect(() => {

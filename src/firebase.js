@@ -1415,15 +1415,12 @@ export const getLastReadMessageId = async (licenseKey) => {
 // Subscribe to last read message ID changes (realtime sync across devices)
 export const subscribeToLastReadMessageId = (licenseKey, callback) => {
     if (!licenseKey) return () => { };
-    console.log('[LastRead] Subscribing for:', licenseKey);
     const readRef = ref(db, `users/${licenseKey}/lastReadChatMessageId`);
     return onValue(readRef, (snapshot) => {
-        const val = snapshot.val()?.messageId || null;
-        console.log('[LastRead] Received value:', val);
-        callback(val);
+        callback(snapshot.val()?.messageId || null);
     }, (error) => {
-        console.error('[LastRead] Error:', error);
-        callback(null); // Still call callback on error to set lastReadLoaded
+        console.error('Failed to subscribe to lastRead:', error);
+        callback(null);
     });
 };
 
