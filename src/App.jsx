@@ -8,6 +8,9 @@ import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailServi
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
 
+// Expose reset function to window for admin console access
+window._resetAllQuizScores = resetAllQuizScores;
+
 
 
 // --- Rate Limiting Helper ---
