@@ -750,47 +750,76 @@ export default function App() {
 
   // Subscribe to notifications for thread reply and mention alerts
   const prevNotifCount = useRef(0);
+  const prevNotifIds = useRef(new Set());
   useEffect(() => {
     if (!session?.licenseKey) return;
+    console.log('[NotifSub] Subscribing to notifications for:', session.licenseKey);
+
     const unsub = subscribeToNotifications(session.licenseKey, (notifs) => {
+      console.log('[NotifSub] Received', notifs.length, 'notifications');
       setNotifications(notifs);
 
-      // Show toast for new unread notifications
+      // Show toast for NEW unread notifications (not seen before)
       const unreadNotifs = notifs.filter(n => !n.read);
-      if (unreadNotifs.length > prevNotifCount.current && prevNotifCount.current !== 0) {
-        // New notification arrived
-        const newest = unreadNotifs[0];
-        if (newest) {
-          let toastMessage = '';
-          let toastContext = newest.context || 'chat'; // 'chat' or 'forum'
+      console.log('[NotifSub] Unread count:', unreadNotifs.length, 'Previous:', prevNotifCount.current);
 
-          if (newest.type === 'mention_all') {
-            toastMessage = `💬 @all dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
-          } else if (newest.type === 'mention') {
-            toastMessage = `💬 @mention dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
-          } else if (newest.type === 'thread_reply') {
-            toastMessage = `💬 ${newest.replierName} membalas thread Anda: ${newest.preview?.substring(0, 50) || '...'}`;
-            toastContext = 'forum';
+      // Find truly NEW notifications (not in prevNotifIds)
+      const newNotifs = unreadNotifs.filter(n => !prevNotifIds.current.has(n.id));
+      console.log('[NotifSub] New notifications:', newNotifs.length);
+
+      if (newNotifs.length > 0) {
+        const newest = newNotifs[0];
+        console.log('[NotifSub] Processing newest notification:', newest);
+
+        let toastMessage = '';
+        let toastContext = newest.context || 'chat'; // 'chat' or 'forum'
+
+        if (newest.type === 'mention_all') {
+          toastMessage = `💬 @all dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
+        } else if (newest.type === 'mention') {
+          toastMessage = `💬 @mention dari ${newest.senderName}: ${newest.preview?.substring(0, 50) || '...'}`;
+        } else if (newest.type === 'thread_reply') {
+          toastMessage = `💬 ${newest.replierName} membalas thread Anda: ${newest.preview?.substring(0, 50) || '...'}`;
+          toastContext = 'forum';
+        }
+
+        if (toastMessage) {
+          console.log('[NotifSub] Showing toast:', toastMessage);
+          // Show in-app toast notification (with auto-dismiss after 5 seconds)
+          setMentionToast({
+            message: toastMessage,
+            context: toastContext,
+            type: newest.type,
+            id: newest.id
+          });
+          setTimeout(() => setMentionToast(null), 5000);
+
+          // Also show browser notification if permission granted
+          if ('Notification' in window && Notification.permission === 'granted') {
+            console.log('[NotifSub] Showing browser notification');
+            new Notification('B29 Study Prep', { body: toastMessage, icon: '/favicon.ico' });
           }
 
-          if (toastMessage) {
-            // Show in-app toast notification (with auto-dismiss after 5 seconds)
-            setMentionToast({
-              message: toastMessage,
-              context: toastContext,
-              type: newest.type,
-              id: newest.id
-            });
-            setTimeout(() => setMentionToast(null), 5000);
-
-            // Also show browser notification if permission granted
-            if ('Notification' in window && Notification.permission === 'granted') {
-              new Notification('B29 Study Prep', { body: toastMessage, icon: '/favicon.ico' });
-            }
-          }
+          // Play notification sound
+          try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+          } catch (e) { console.log('[NotifSub] Audio failed:', e); }
         }
       }
+
+      // Update tracking refs
       prevNotifCount.current = unreadNotifs.length;
+      prevNotifIds.current = new Set(unreadNotifs.map(n => n.id));
     });
     return () => unsub && unsub();
   }, [session?.licenseKey]);
@@ -6098,16 +6127,28 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
   // Calculate unread count (messages from others after lastReadMessageId)
   const unreadCount = useMemo(() => {
+    console.log('[UnreadCount] Calculating...', { lastReadLoaded, lastReadMessageId, messagesCount: messages.length });
     // Don't show unread count until Firebase has loaded the lastReadMessageId
-    if (!lastReadLoaded) return 0;
+    if (!lastReadLoaded) {
+      console.log('[UnreadCount] Not loaded yet, returning 0');
+      return 0;
+    }
     if (!lastReadMessageId || messages.length === 0) {
       // If no lastRead AND data is loaded, count all messages from others (excluding own)
-      return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+      const count = messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+      console.log('[UnreadCount] No lastRead, counting all from others:', count);
+      return count;
     }
     const lastReadIndex = messages.findIndex(m => m.id === lastReadMessageId);
-    if (lastReadIndex === -1) return messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+    if (lastReadIndex === -1) {
+      const count = messages.filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+      console.log('[UnreadCount] LastRead not found in messages, counting all:', count);
+      return count;
+    }
     // Count messages after lastReadIndex from other users
-    return messages.slice(lastReadIndex + 1).filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+    const count = messages.slice(lastReadIndex + 1).filter(m => m.authorId !== currentDeviceId && !m.deleted).length;
+    console.log('[UnreadCount] After lastRead index', lastReadIndex + ':', count);
+    return count;
   }, [messages, lastReadMessageId, currentDeviceId, lastReadLoaded]);
 
   // Subscribe to lastReadMessageId from Firebase (sync across devices)

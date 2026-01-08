@@ -1255,25 +1255,35 @@ export const clearAllNotifications = async (userId) => {
 // Create mention notifications for @all or @username
 // Pass senderKey to exclude sender from receiving their own mention notification
 export const createMentionNotifications = async (messageText, senderName, senderKey, context = 'chat') => {
-    if (!messageText) return;
+    console.log('[MentionNotif] Called with:', { messageText: messageText?.slice(0, 50), senderName, senderKey, context });
+    if (!messageText) {
+        console.log('[MentionNotif] No messageText, returning early');
+        return;
+    }
 
     try {
         // Get all license keys to find users by name
         const keysRef = ref(db, 'licenseKeys');
         const keysSnapshot = await get(keysRef);
-        if (!keysSnapshot.exists()) return;
+        if (!keysSnapshot.exists()) {
+            console.log('[MentionNotif] No license keys found in Firebase');
+            return;
+        }
 
         const keysData = keysSnapshot.val();
         const allUsers = Object.entries(keysData).map(([key, data]) => ({
             licenseKey: key,
             userName: data.name || key.substring(0, 8)
         }));
+        console.log('[MentionNotif] Found', allUsers.length, 'users');
 
         // Check for @all mention
         if (messageText.toLowerCase().includes('@all')) {
+            console.log('[MentionNotif] @all detected! Notifying', allUsers.length - 1, 'users');
             // Notify all users except sender
             for (const user of allUsers) {
                 if (user.licenseKey !== senderKey) {
+                    console.log('[MentionNotif] Creating notification for:', user.licenseKey);
                     await createNotification(user.licenseKey, {
                         type: 'mention_all',
                         senderName,
@@ -1282,6 +1292,7 @@ export const createMentionNotifications = async (messageText, senderName, sender
                     });
                 }
             }
+            console.log('[MentionNotif] @all notifications sent');
             return; // Don't process individual mentions if @all was used
         }
 
@@ -1404,9 +1415,15 @@ export const getLastReadMessageId = async (licenseKey) => {
 // Subscribe to last read message ID changes (realtime sync across devices)
 export const subscribeToLastReadMessageId = (licenseKey, callback) => {
     if (!licenseKey) return () => { };
+    console.log('[LastRead] Subscribing for:', licenseKey);
     const readRef = ref(db, `users/${licenseKey}/lastReadChatMessageId`);
     return onValue(readRef, (snapshot) => {
-        callback(snapshot.val()?.messageId || null);
+        const val = snapshot.val()?.messageId || null;
+        console.log('[LastRead] Received value:', val);
+        callback(val);
+    }, (error) => {
+        console.error('[LastRead] Error:', error);
+        callback(null); // Still call callback on error to set lastReadLoaded
     });
 };
 
