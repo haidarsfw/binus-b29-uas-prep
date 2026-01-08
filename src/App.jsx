@@ -2697,21 +2697,36 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.5.1";
+  const currentVersion = "1.5.2";
   const patchNotes = {
     current: {
-      version: "1.5.1",
+      version: "1.5.2",
       date: "8 Jan 2026",
       changes: [
-        "- FIX: Online user stacking - device count akurat, tidak duplikat",
-        "- FIX: Quiz points sync realtime antar device",
-        "- FIX: Flashcards '✓ Selesai' hanya muncul jika benar selesai",
-        "- NEW: @all mention - notifikasi ke semua user",
-        "- NEW: @username mention - notifikasi ke user spesifik",
-        "- NEW: Toast notification dengan klik untuk navigasi"
+        "- FIX: Sistem notifikasi mention diperbaiki total",
+        "- FIX: Single popup notification (tidak lagi double/triple)",
+        "- FIX: Notifikasi tidak muncul ulang setelah refresh",
+        "- FIX: Text notification mudah dibaca di dark mode",
+        "- FIX: Red dot badge pada tombol Chat berfungsi",
+        "- FIX: Quiz points sync realtime ke dashboard + admin panel",
+        "- FIX: Progress sync Firebase sebagai sumber tunggal",
+        "- NEW: Reset quiz scores (admin) untuk data tracking bersih",
+        "- NEW: Click notification langsung ke lokasi mention"
       ]
     },
     past: [
+      {
+        version: "1.5.1",
+        date: "8 Jan 2026",
+        changes: [
+          "- FIX: Online user stacking - device count akurat, tidak duplikat",
+          "- FIX: Quiz points sync realtime antar device",
+          "- FIX: Flashcards '✓ Selesai' hanya muncul jika benar selesai",
+          "- NEW: @all mention - notifikasi ke semua user",
+          "- NEW: @username mention - notifikasi ke user spesifik",
+          "- NEW: Toast notification dengan klik untuk navigasi"
+        ]
+      },
       {
         version: "1.5.0",
         date: "7 Jan 2026",
