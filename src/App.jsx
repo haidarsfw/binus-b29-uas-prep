@@ -1035,22 +1035,17 @@ export default function App() {
               localStorage.removeItem('studyReminder');
             }
           }
-          // Sync progress: Firebase is truth, but if Firebase empty sync local to cloud
+          // Sync progress: Firebase is the SINGLE SOURCE OF TRUTH
           if (cloudSettings.progress && Object.keys(cloudSettings.progress).length > 0) {
             // Firebase has progress - use it
             setProgress(cloudSettings.progress);
             const userProgressKey = `studyProgress_${session.licenseKey}`;
             localStorage.setItem(userProgressKey, JSON.stringify(cloudSettings.progress));
           } else {
-            // Firebase empty - sync local to Firebase if local has data
+            // Firebase empty (after reset) - CLEAR local progress too for clean start
+            setProgress({});
             const userProgressKey = `studyProgress_${session.licenseKey}`;
-            const localProgress = localStorage.getItem(userProgressKey);
-            if (localProgress) {
-              const parsed = JSON.parse(localProgress);
-              if (Object.keys(parsed).length > 0) {
-                saveUserSettings(session.licenseKey, { progress: parsed });
-              }
-            }
+            localStorage.removeItem(userProgressKey);
           }
         }
 
