@@ -1253,7 +1253,8 @@ export const clearAllNotifications = async (userId) => {
 
 // Create mention notifications for @all or @username
 // Pass senderKey to exclude sender from receiving their own mention notification
-export const createMentionNotifications = async (messageText, senderName, senderKey, context = 'chat') => {
+// Pass threadData for forum context: { threadId, subjectId, threadTitle }
+export const createMentionNotifications = async (messageText, senderName, senderKey, context = 'chat', threadData = null) => {
     if (!messageText) {
         return;
     }
@@ -1272,6 +1273,13 @@ export const createMentionNotifications = async (messageText, senderName, sender
             userName: data.name || key.substring(0, 8)
         }));
 
+        // Build thread info for forum context
+        const threadInfo = threadData ? {
+            threadId: threadData.threadId,
+            subjectId: threadData.subjectId,
+            threadTitle: threadData.threadTitle
+        } : {};
+
         // Check for @all mention
         if (messageText.toLowerCase().includes('@all')) {
             // Notify all users except sender
@@ -1281,7 +1289,8 @@ export const createMentionNotifications = async (messageText, senderName, sender
                         type: 'mention_all',
                         senderName,
                         preview: messageText.substring(0, 100),
-                        context
+                        context,
+                        ...threadInfo
                     });
                 }
             }
@@ -1312,7 +1321,8 @@ export const createMentionNotifications = async (messageText, senderName, sender
                     type: 'mention',
                     senderName,
                     preview: messageText.substring(0, 100),
-                    context
+                    context,
+                    ...threadInfo
                 });
             }
         }

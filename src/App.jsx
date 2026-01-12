@@ -276,6 +276,7 @@ export default function App() {
   const [showLegalPopup, setShowLegalPopup] = useState(null); // 'tos' or 'privacy'
   const [notifications, setNotifications] = useState([]);
   const [mentionToast, setMentionToast] = useState(null); // { message, context, type }
+  const [pendingForumThread, setPendingForumThread] = useState(null); // { subjectId, threadId } for notification redirect
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [rememberClass, setRememberClass] = useState(() => localStorage.getItem('rememberClass') === 'true');
   const savedClass = localStorage.getItem('savedClass');
@@ -774,16 +775,17 @@ export default function App() {
         let title = '';
         let message = '';
         let context = newest.context || 'chat';
-        let location = context === 'chat' ? 'Global Chat' : 'Forum';
+        let location = context === 'forum' ? 'Forum' : 'Global Chat';
 
         if (newest.type === 'mention_all') {
           title = `📢 @all dari ${newest.senderName}`;
           message = newest.preview?.substring(0, 80) || '...';
-          location = 'Global Chat';
+          // Use context to determine location (forum or chat)
+          location = context === 'forum' ? `Forum: ${newest.threadTitle || 'Thread'}` : 'Global Chat';
         } else if (newest.type === 'mention') {
           title = `💬 Kamu di-mention oleh ${newest.senderName}`;
           message = newest.preview?.substring(0, 80) || '...';
-          location = 'Global Chat';
+          location = context === 'forum' ? `Forum: ${newest.threadTitle || 'Thread'}` : 'Global Chat';
         } else if (newest.type === 'thread_reply') {
           title = `💬 ${newest.replierName} membalas thread kamu`;
           message = newest.preview?.substring(0, 80) || '...';
@@ -795,14 +797,17 @@ export default function App() {
           // Mark as shown IMMEDIATELY to prevent duplicates
           saveShownNotifId(newest.id);
 
-          // Show popup
+          // Show popup with thread info for forum context
           setMentionPopup({
             id: newest.id,
             title,
             message,
             context,
             location,
-            notifId: newest.id
+            notifId: newest.id,
+            threadId: newest.threadId,
+            subjectId: newest.subjectId,
+            threadTitle: newest.threadTitle
           });
 
           // Auto-dismiss after 8 seconds
@@ -1386,7 +1391,7 @@ export default function App() {
             </motion.div>
           ) : (
             <motion.div key="s" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={smooth}>
-              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />
+              <SubjectView subject={currentSubject} activeTab={activeTab} setActiveTab={setActiveTab} progress={progress} updateProgress={updateProgress} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} pendingForumThread={pendingForumThread} clearPendingForumThread={() => setPendingForumThread(null)} onImageClick={setImagePreview} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -2045,8 +2050,20 @@ export default function App() {
             exit={{ opacity: 0, x: 100, scale: 0.9 }}
             onClick={() => {
               // Navigate to chat or forum based on context
-              if (mentionPopup.context === 'forum') {
-                setMode('forum');
+              if (mentionPopup.context === 'forum' && mentionPopup.subjectId) {
+                // Find the subject and navigate to it
+                const targetSubject = DB.subjects.find(s => s.id === mentionPopup.subjectId);
+                if (targetSubject) {
+                  setCurrentSubject(targetSubject);
+                  setActiveTab(5); // Forum tab
+                  // Set pending thread for Forum component to auto-open
+                  if (mentionPopup.threadId) {
+                    setPendingForumThread({ threadId: mentionPopup.threadId, subjectId: mentionPopup.subjectId });
+                  }
+                }
+              } else if (mentionPopup.context === 'forum') {
+                // Fallback: just go to forum mode if no subjectId
+                setActiveTab(5);
               } else {
                 // Open chat
                 const chatBtn = document.querySelector('.gradient-accent.fixed.bottom-20');
@@ -2660,24 +2677,29 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.5.2";
+  const currentVersion = "1.5.3";
   const patchNotes = {
     current: {
-      version: "1.5.2",
-      date: "8 Jan 2026",
+      version: "1.5.3",
+      date: "12 Jan 2026",
       changes: [
-        "- FIX: Sistem notifikasi mention diperbaiki total",
-        "- FIX: Single popup notification (tidak lagi double/triple)",
-        "- FIX: Notifikasi tidak muncul ulang setelah refresh",
-        "- FIX: Text notification mudah dibaca di dark mode",
-        "- FIX: Red dot badge pada tombol Chat berfungsi",
-        "- FIX: Quiz points sync realtime ke dashboard + admin panel",
-        "- FIX: Progress sync Firebase sebagai sumber tunggal",
-        "- NEW: Reset quiz scores (admin) untuk data tracking bersih",
-        "- NEW: Click notification langsung ke lokasi mention"
+        "- FIX: Forum @all mention sekarang berfungsi (notifikasi ke semua user)",
+        "- NEW: Klik notifikasi forum langsung redirect ke thread-nya",
+        "- NEW: Klik reply quote di chat scroll ke pesan aslinya",
+        "- NEW: Zoom gambar di forum thread (fullscreen lightbox)"
       ]
     },
     past: [
+      {
+        version: "1.5.2",
+        date: "8 Jan 2026",
+        changes: [
+          "- FIX: Sistem notifikasi mention diperbaiki total",
+          "- FIX: Single popup notification (tidak lagi double/triple)",
+          "- FIX: Notifikasi tidak muncul ulang setelah refresh",
+          "- NEW: Click notification langsung ke lokasi mention"
+        ]
+      },
       {
         version: "1.5.1",
         date: "8 Jan 2026",
@@ -3157,7 +3179,7 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
   );
 }
 
-function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode, showCooldown, onlineUsers }) {
+function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgress, session, selectedClass, isPreviewMode, showCooldown, onlineUsers, pendingForumThread, clearPendingForumThread, onImageClick }) {
   const content = DB.content[subject.id];
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -3411,7 +3433,7 @@ function SubjectView({ subject, activeTab, setActiveTab, progress, updateProgres
         {activeTab === 2 && <KisiKisi kisiKisi={content.kisiKisi} kisiKisiNote={content.kisiKisiNote} kisiKisiExamNotes={content.kisiKisiExamNotes} kisiKisiTambahan={content.kisiKisiTambahan} kisiKisiTambahanNote={content.kisiKisiTambahanNote} subjectId={subject.id} isPreviewMode={isPreviewMode} />}
         {activeTab === 3 && <FlashcardsQuiz flashcards={content.flashcards} quiz={content.quiz} subjectId={subject.id} isPreviewMode={isPreviewMode} progress={progress} updateProgress={updateProgress} searchTarget={searchTarget} onClearSearch={() => setSearchTarget(null)} session={session} />}
         {activeTab === 4 && <PersonalNotes subjectId={subject.id} subjectName={subject.name} isPreviewMode={isPreviewMode} licenseKey={session?.licenseKey} />}
-        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} />}
+        {activeTab === 5 && <Forum subjectId={subject.id} session={session} selectedClass={selectedClass} isPreviewMode={isPreviewMode} showCooldown={showCooldown} onlineUsers={onlineUsers} pendingThreadId={pendingForumThread?.threadId} clearPendingThread={clearPendingForumThread} onImageClick={onImageClick} />}
 
         {/* Content Lock Overlay for Preview Mode */}
         {isPreviewMode && <ContentLockOverlay />}
@@ -5169,7 +5191,7 @@ function PersonalNotes({ subjectId, subjectName, isPreviewMode, licenseKey }) {
 }
 
 
-function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown, onlineUsers = [] }) {
+function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown, onlineUsers = [], pendingThreadId, clearPendingThread, onImageClick }) {
   const [threads, setThreads] = useState([]);
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -5212,6 +5234,17 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
     return () => unsub();
   }, [subjectId]);
 
+  // Auto-open thread when pendingThreadId is set (from notification click)
+  useEffect(() => {
+    if (pendingThreadId && threads.length > 0) {
+      const targetThread = threads.find(t => t.id === pendingThreadId);
+      if (targetThread) {
+        setSelectedThread(targetThread);
+        clearPendingThread?.();
+      }
+    }
+  }, [pendingThreadId, threads, clearPendingThread]);
+
   const handleCreate = async () => {
     const rateCheck = checkRateLimit('createThread', 30000);
     if (!rateCheck.allowed) {
@@ -5252,6 +5285,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
           onDelete={() => setConfirmDelete({ type: 'thread', id: selectedThread.id })}
           showCooldown={showCooldown}
           onlineUsers={onlineUsers}
+          onImageClick={onImageClick}
         />
         {/* Confirm Modal */}
         <AnimatePresence>
@@ -5347,7 +5381,7 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
   );
 }
 
-function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete, showCooldown, onlineUsers = [] }) {
+function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelete, showCooldown, onlineUsers = [], onImageClick }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [posting, setPosting] = useState(false);
@@ -5427,6 +5461,17 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     setPosting(true);
     try {
       await addComment(subjectId, thread.id, newComment, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, { isAdmin: session?.isAdmin, isTester: session?.isTester });
+
+      // Create mention notifications for forum (like live chat)
+      const senderKey = session?.licenseKey || session?.key;
+      if (senderKey && newComment.includes('@')) {
+        createMentionNotifications(newComment, session.userName || session.name || 'Anonymous', senderKey, 'forum', {
+          threadId: thread.id,
+          subjectId,
+          threadTitle: thread.title
+        });
+      }
+
       setNewComment('');
     } catch (e) { showToast(e.message, 'error'); }
     setPosting(false);
@@ -5442,6 +5487,17 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
     setPosting(true);
     try {
       await addReply(subjectId, thread.id, commentId, replyText, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, { isAdmin: session?.isAdmin, isTester: session?.isTester });
+
+      // Create mention notifications for forum replies
+      const senderKey = session?.licenseKey || session?.key;
+      if (senderKey && replyText.includes('@')) {
+        createMentionNotifications(replyText, session.userName || session.name || 'Anonymous', senderKey, 'forum', {
+          threadId: thread.id,
+          subjectId,
+          threadTitle: thread.title
+        });
+      }
+
       setReplyText('');
       setReplyingTo(null);
     } catch (e) { showToast(e.message, 'error'); }
@@ -5481,7 +5537,7 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
         </div>
         <p className="text-[var(--text)] whitespace-pre-wrap">{thread.content}</p>
         {thread.imageUrl && (
-          <img src={thread.imageUrl} alt="Thread image" className="mt-4 rounded-xl max-w-full max-h-96 object-contain" />
+          <img src={thread.imageUrl} alt="Thread image" className="mt-4 rounded-xl max-w-full max-h-96 object-contain cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(thread.imageUrl)} />
         )}
       </div>
 
@@ -6427,13 +6483,26 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     }
 
                     return (
-                      <motion.div key={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                      <motion.div key={msg.id} data-message-id={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                         <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
                           {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded mr-0.5">Admin</span>}{msg.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/20 text-amber-400 rounded mr-0.5">Tester</span>}{msg.authorClass && <span className="text-[10px] px-1.5 py-0.5 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
                           <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
-                            {/* WhatsApp-style Reply Quote */}
+                            {/* WhatsApp-style Reply Quote - Clickable to scroll to original */}
                             {msg.replyToName && (
-                              <div className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}>
+                              <div
+                                onClick={() => {
+                                  // Scroll to the replied message
+                                  const targetEl = document.querySelector(`[data-message-id="${msg.replyToId}"]`);
+                                  if (targetEl) {
+                                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    // Add highlight effect
+                                    targetEl.style.transition = 'background-color 0.3s';
+                                    targetEl.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
+                                    setTimeout(() => { targetEl.style.backgroundColor = ''; }, 1500);
+                                  }
+                                }}
+                                className={`mb-1 px-2 py-1 rounded-lg text-[10px] border-l-2 cursor-pointer hover:opacity-80 transition-opacity ${isMine ? 'bg-white/10 border-white/50' : 'bg-[var(--accent)]/10 border-[var(--accent)]'}`}
+                              >
                                 <span className="font-medium">{msg.replyToName}</span>
                                 <p className="opacity-70 truncate">{msg.replyToContent}</p>
                               </div>
