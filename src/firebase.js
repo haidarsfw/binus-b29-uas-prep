@@ -1197,6 +1197,94 @@ export const deleteReply = async (subjectId, threadId, commentId, replyId) => {
 };
 
 // ============================================
+// FORUM POLLS SYSTEM
+// ============================================
+
+// Create a poll in forum
+export const createPoll = async (subjectId, question, options, authorId, authorName, authorClass, badges = {}) => {
+    const pollsRef = ref(db, `forums/${subjectId}/polls`);
+
+    const newPoll = {
+        question,
+        options: options.map((opt, idx) => ({ id: idx, text: opt, votes: 0 })),
+        voters: {}, // Track who voted for what: { oderId/licenseKey: optionIndex }
+        totalVotes: 0,
+        authorId,
+        authorName,
+        authorClass: authorClass || 'Other',
+        isAdmin: badges.isAdmin || false,
+        isTester: badges.isTester || false,
+        createdAt: new Date().toISOString(),
+        active: true
+    };
+
+    try {
+        const newRef = await push(pollsRef, newPoll);
+        return newRef.key;
+    } catch (error) {
+        console.error('Error creating poll:', error);
+        throw error;
+    }
+};
+
+// Vote on a poll (one vote per user)
+export const votePoll = async (subjectId, pollId, optionIndex, voterId) => {
+    const pollRef = ref(db, `forums/${subjectId}/polls/${pollId}`);
+
+    try {
+        const snapshot = await get(pollRef);
+        if (!snapshot.exists()) throw new Error('Poll not found');
+
+        const poll = snapshot.val();
+
+        // Check if user already voted
+        if (poll.voters && poll.voters[voterId] !== undefined) {
+            throw new Error('Kamu sudah vote di poll ini');
+        }
+
+        // Update vote count for the selected option
+        const options = [...poll.options];
+        options[optionIndex].votes = (options[optionIndex].votes || 0) + 1;
+
+        // Update poll with new vote
+        await update(pollRef, {
+            options,
+            totalVotes: (poll.totalVotes || 0) + 1,
+            [`voters/${voterId}`]: optionIndex
+        });
+
+        return true;
+    } catch (error) {
+        console.error('Error voting on poll:', error);
+        throw error;
+    }
+};
+
+// Subscribe to polls for a subject (realtime)
+export const subscribeToPolls = (subjectId, callback) => {
+    const pollsRef = ref(db, `forums/${subjectId}/polls`);
+    return onValue(pollsRef, (snapshot) => {
+        const data = snapshot.val() || {};
+        const polls = Object.entries(data)
+            .map(([id, poll]) => ({ id, ...poll }))
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        callback(polls);
+    });
+};
+
+// Delete a poll (admin or author only)
+export const deletePoll = async (subjectId, pollId) => {
+    const pollRef = ref(db, `forums/${subjectId}/polls/${pollId}`);
+    try {
+        await remove(pollRef);
+        return true;
+    } catch (error) {
+        console.error('Error deleting poll:', error);
+        throw error;
+    }
+};
+
+// ============================================
 // NOTIFICATION SYSTEM (for thread reply notifications)
 // ============================================
 
@@ -1416,6 +1504,72 @@ export const deleteGlobalMessage = async (messageId) => {
         console.error('Error deleting message:', error);
         throw error;
     }
+};
+
+// ============================================
+// PINNED MESSAGES SYSTEM (Max 3 pins)
+// ============================================
+
+// Pin a message (max 3 pinned at a time)
+export const pinChatMessage = async (messageId, messageData, pinnedBy) => {
+    const pinnedRef = ref(db, 'pinnedMessages');
+    try {
+        // Check current pin count
+        const snapshot = await get(pinnedRef);
+        const currentPins = snapshot.val() || {};
+        const pinCount = Object.keys(currentPins).length;
+
+        if (pinCount >= 3) {
+            throw new Error('Maksimum 3 pesan yang bisa di-pin. Unpin salah satu terlebih dahulu.');
+        }
+
+        // Check if already pinned
+        if (currentPins[messageId]) {
+            throw new Error('Pesan sudah di-pin.');
+        }
+
+        // Add to pinned messages
+        const pinRef = ref(db, `pinnedMessages/${messageId}`);
+        await set(pinRef, {
+            content: messageData.content || '',
+            type: messageData.type || 'text',
+            mediaUrl: messageData.mediaUrl || null,
+            authorName: messageData.authorName,
+            authorClass: messageData.authorClass || '',
+            isAdmin: messageData.isAdmin || false,
+            originalMsgId: messageId,
+            pinnedAt: new Date().toISOString(),
+            pinnedBy
+        });
+        return true;
+    } catch (error) {
+        console.error('Error pinning message:', error);
+        throw error;
+    }
+};
+
+// Unpin a message
+export const unpinChatMessage = async (messageId) => {
+    const pinRef = ref(db, `pinnedMessages/${messageId}`);
+    try {
+        await remove(pinRef);
+        return true;
+    } catch (error) {
+        console.error('Error unpinning message:', error);
+        throw error;
+    }
+};
+
+// Subscribe to pinned messages (realtime)
+export const subscribeToPinnedMessages = (callback) => {
+    const pinnedRef = ref(db, 'pinnedMessages');
+    return onValue(pinnedRef, (snapshot) => {
+        const data = snapshot.val() || {};
+        const pinnedMessages = Object.entries(data)
+            .map(([id, msg]) => ({ id, ...msg }))
+            .sort((a, b) => new Date(b.pinnedAt) - new Date(a.pinnedAt));
+        callback(pinnedMessages);
+    });
 };
 
 // ============================================

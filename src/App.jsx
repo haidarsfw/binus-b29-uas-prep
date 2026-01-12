@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, TrendingUp, Users, Monitor, Briefcase, FileText, List, Layers, ClipboardCheck, ChevronLeft, ChevronRight, Eye, EyeOff, MessageCircle, Sun, Moon, Coffee, Play, Pause, RotateCcw, Check, X, Timer, Key, ArrowRight, Settings, Palette, Type, Sparkles, Clock, BookOpen, MessageSquare, Plus, Trash2, Send, ChevronDown, ChevronUp, User, XCircle, Calendar, StickyNote, Headphones, Bell, BellRing, Reply, AlertTriangle, Image, Zap, Bot, GraduationCap, Lightbulb, Target, HelpCircle, Mic, Smile, Shield, Copy, Share2, ExternalLink, LogOut, Gift, Crown, Mail, Maximize2, Minimize2, Database, Activity, Presentation, PlusCircle, Search, Megaphone, Info, Bookmark, Star, BarChart3, Volume2 } from 'lucide-react';
 import DB from './db';
 import RANGKUMAN_CONTENT from './rangkumanContent';
-import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, setQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName, subscribeToNotifications, markNotificationRead, clearAllNotifications, createMentionNotifications, resetAllQuizScores, cleanupOldChatMessages } from './firebase';
+import { validateLicenseWithDevice, setupPresence, updatePresence, removePresence, subscribeToPresence, subscribeToThreads, createThread, deleteThread, closeThread, subscribeToComments, addComment, deleteComment, addReply, uploadImage, uploadAudio, getDeviceId, subscribeToGlobalChat, sendGlobalMessage, deleteGlobalMessage, initializeDefaultLicenseKeys, fetchLicenseKeys, createLicenseKey, updateLicenseKey, deleteLicenseKey, resetLicenseDevices, getAllUsers, getReferralStats, ensureReferralCode, saveUserEmail, getUserEmail, clearAllUserData, resetLicenseKeysToDefaults, subscribeToAnnouncements, sendAnnouncement, clearAnnouncement, saveUserSettings, getUserSettings, subscribeToUserSettings, saveUserNotes, getUserNotes, getAllUserNotes, logError, logActivity, logAnalytics, suspendLicense, unsuspendLicense, subscribeToActivityLogs, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved, subscribeToUnreadErrorCount, logStudySession, getUserLeaderboard, getPeakHoursData, setQuizScore, updateOnlineTime, recordSession, saveLastReadMessageId, subscribeToLastReadMessageId, adminUpdateDisplayName, subscribeToNotifications, markNotificationRead, clearAllNotifications, createMentionNotifications, resetAllQuizScores, cleanupOldChatMessages, pinChatMessage, unpinChatMessage, subscribeToPinnedMessages, createPoll, votePoll, subscribeToPolls, deletePoll } from './firebase';
 import { sendReminderEmail, isEmailConfigured, isValidEmail } from './emailService';
 const iconMap = { TrendingUp, Users, Monitor, Briefcase };
 const smooth = { duration: 0.3, ease: [0.4, 0, 0.2, 1] };
@@ -2038,7 +2038,7 @@ export default function App() {
 
       {/* Global Live Chat - with Suspense */}
       <Suspense fallback={null}>
-        <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} />
+        <GlobalChat session={session} selectedClass={selectedClass} onlineUsers={onlineUsers} addNotification={(n) => setNotifications(prev => [...prev, { id: Date.now() + Math.random(), ...n }])} onImageClick={setImagePreview} isPreviewMode={isPreviewMode} showCooldown={showCooldown} showBrowserNotification={showBrowserNotification} showToast={showToast} />
       </Suspense>
 
       {/* Mention Notification Popup - ONE at a time, proper UI */}
@@ -2677,19 +2677,29 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.5.3";
+  const currentVersion = "1.5.4";
   const patchNotes = {
     current: {
-      version: "1.5.3",
+      version: "1.5.4",
       date: "12 Jan 2026",
       changes: [
-        "- FIX: Forum @all mention sekarang berfungsi (notifikasi ke semua user)",
-        "- NEW: Klik notifikasi forum langsung redirect ke thread-nya",
-        "- NEW: Klik reply quote di chat scroll ke pesan aslinya",
-        "- NEW: Zoom gambar di forum thread (fullscreen lightbox)"
+        "- NEW: Pin pesan penting di Live Chat (max 3, klik untuk scroll)",
+        "- NEW: Mobile long-press menu (tahan 500ms untuk reply/hapus)",
+        "- NEW: Forum Polls! Buat poll, vote sekali, hasil realtime",
+        "- UX: Poll dengan persentase bar seperti Instagram Stories"
       ]
     },
     past: [
+      {
+        version: "1.5.3",
+        date: "12 Jan 2026",
+        changes: [
+          "- FIX: Forum @all mention sekarang berfungsi (notifikasi ke semua user)",
+          "- NEW: Klik notifikasi forum langsung redirect ke thread-nya",
+          "- NEW: Klik reply quote di chat scroll ke pesan aslinya",
+          "- NEW: Zoom gambar di forum thread (fullscreen lightbox)"
+        ]
+      },
       {
         version: "1.5.2",
         date: "8 Jan 2026",
@@ -5201,6 +5211,12 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
   const [selectedThread, setSelectedThread] = useState(null);
   const [creating, setCreating] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  // Poll states
+  const [polls, setPolls] = useState([]);
+  const [showNewPoll, setShowNewPoll] = useState(false);
+  const [pollQuestion, setPollQuestion] = useState('');
+  const [pollOptions, setPollOptions] = useState(['', '']);
+  const [creatingPoll, setCreatingPoll] = useState(false);
 
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
@@ -5244,6 +5260,69 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
       }
     }
   }, [pendingThreadId, threads, clearPendingThread]);
+
+  // Subscribe to polls
+  useEffect(() => {
+    const unsub = subscribeToPolls(subjectId, setPolls);
+    return () => unsub();
+  }, [subjectId]);
+
+  // Create poll handler
+  const handleCreatePoll = async () => {
+    const rateCheck = checkRateLimit('createPoll', 60000);
+    if (!rateCheck.allowed) {
+      showCooldown('Poll', rateCheck.remaining);
+      return;
+    }
+    const validOptions = pollOptions.filter(o => o.trim());
+    if (!pollQuestion.trim() || validOptions.length < 2) {
+      showToast('Masukkan pertanyaan dan minimal 2 opsi', 'error');
+      return;
+    }
+    setCreatingPoll(true);
+    try {
+      await createPoll(subjectId, pollQuestion.trim(), validOptions, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, { isAdmin: session?.isAdmin, isTester: session?.isTester });
+      setPollQuestion('');
+      setPollOptions(['', '']);
+      setShowNewPoll(false);
+      showToast('Poll berhasil dibuat!', 'success');
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+    setCreatingPoll(false);
+  };
+
+  // Vote on poll handler
+  const handleVotePoll = async (pollId, optionIndex) => {
+    const voterId = session?.licenseKey || getDeviceId();
+    try {
+      await votePoll(subjectId, pollId, optionIndex, voterId);
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  };
+
+  // Delete poll handler
+  const handleDeletePoll = async (pollId) => {
+    try {
+      await deletePoll(subjectId, pollId);
+      showToast('Poll dihapus', 'success');
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  };
+
+  // Check if user has voted on a poll
+  const hasVoted = (poll) => {
+    const voterId = session?.licenseKey || getDeviceId();
+    return poll.voters && poll.voters[voterId] !== undefined;
+  };
+
+  // Get user's vote on a poll
+  const getMyVote = (poll) => {
+    const voterId = session?.licenseKey || getDeviceId();
+    return poll.voters?.[voterId];
+  };
 
   const handleCreate = async () => {
     const rateCheck = checkRateLimit('createThread', 30000);
@@ -5313,10 +5392,115 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
     <div className="animate-fade">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-[var(--text)]">Forum Diskusi</h3>
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setShowNew(!showNew)} className="btn btn-primary text-sm">
-          <Plus className="w-4 h-4" />Buat Thread
-        </motion.button>
+        <div className="flex gap-2">
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => { setShowNewPoll(!showNewPoll); setShowNew(false); }} className="btn btn-secondary text-sm">
+            <BarChart3 className="w-4 h-4" />Poll
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => { setShowNew(!showNew); setShowNewPoll(false); }} className="btn btn-primary text-sm">
+            <Plus className="w-4 h-4" />Buat Thread
+          </motion.button>
+        </div>
       </div>
+
+      {/* New Poll Form */}
+      <AnimatePresence>
+        {showNewPoll && (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="glass-card p-5 mb-4 space-y-4">
+            <h4 className="font-semibold text-[var(--text)] flex items-center gap-2"><BarChart3 className="w-4 h-4 text-[var(--accent)]" />Buat Poll</h4>
+            <input value={pollQuestion} onChange={(e) => setPollQuestion(e.target.value)} placeholder="Pertanyaan poll..." className="input" />
+            <div className="space-y-2">
+              {pollOptions.map((opt, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <input
+                    value={opt}
+                    onChange={(e) => {
+                      const newOpts = [...pollOptions];
+                      newOpts[idx] = e.target.value;
+                      setPollOptions(newOpts);
+                    }}
+                    placeholder={`Opsi ${idx + 1}`}
+                    className="input flex-1"
+                  />
+                  {pollOptions.length > 2 && (
+                    <button onClick={() => setPollOptions(pollOptions.filter((_, i) => i !== idx))} className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg">
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              ))}
+              {pollOptions.length < 4 && (
+                <button onClick={() => setPollOptions([...pollOptions, ''])} className="text-xs text-[var(--accent)] hover:underline">+ Tambah opsi</button>
+              )}
+            </div>
+            <div className="flex justify-end gap-3">
+              <button onClick={() => setShowNewPoll(false)} className="btn btn-secondary">Batal</button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleCreatePoll} disabled={creatingPoll} className="btn btn-primary">
+                {creatingPoll ? 'Membuat...' : 'Buat Poll'}
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Active Polls */}
+      {polls.length > 0 && (
+        <div className="mb-6 space-y-3">
+          <h4 className="text-sm font-medium text-[var(--text-muted)] flex items-center gap-2"><BarChart3 className="w-4 h-4" />Polls Aktif</h4>
+          {polls.slice(0, 3).map(poll => {
+            const voted = hasVoted(poll);
+            const myVote = getMyVote(poll);
+            const isOwner = poll.authorId === getDeviceId() || session?.isAdmin;
+
+            return (
+              <motion.div key={poll.id} className="glass-card p-4" layout>
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <p className="font-medium text-[var(--text)]">{poll.question}</p>
+                    <p className="text-[10px] text-[var(--text-muted)]">by {poll.authorName} • {poll.totalVotes || 0} votes</p>
+                  </div>
+                  {isOwner && (
+                    <button onClick={() => handleDeletePoll(poll.id)} className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-lg" title="Hapus poll">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  {poll.options?.map((opt, idx) => {
+                    const percentage = poll.totalVotes > 0 ? Math.round((opt.votes / poll.totalVotes) * 100) : 0;
+                    const isMyChoice = myVote === idx;
+
+                    return (
+                      <div key={idx}>
+                        {!voted ? (
+                          <button
+                            onClick={() => handleVotePoll(poll.id, idx)}
+                            className="w-full py-2 px-3 rounded-lg border border-[var(--border)] hover:border-[var(--accent)] hover:bg-[var(--accent)]/10 text-left text-sm text-[var(--text)] transition-all"
+                          >
+                            {opt.text}
+                          </button>
+                        ) : (
+                          <div className="relative">
+                            <div
+                              className={`absolute inset-0 rounded-lg transition-all ${isMyChoice ? 'bg-[var(--accent)]/30' : 'bg-[var(--surface-hover)]'}`}
+                              style={{ width: `${percentage}%` }}
+                            />
+                            <div className={`relative py-2 px-3 rounded-lg border ${isMyChoice ? 'border-[var(--accent)]' : 'border-transparent'} flex items-center justify-between`}>
+                              <span className={`text-sm ${isMyChoice ? 'font-medium text-[var(--accent)]' : 'text-[var(--text)]'}`}>
+                                {isMyChoice && '✓ '}{opt.text}
+                              </span>
+                              <span className="text-xs font-medium text-[var(--text-muted)]">{percentage}% ({opt.votes || 0})</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
       {/* New Thread Form */}
       <AnimatePresence>
@@ -6172,7 +6356,7 @@ const DEFAULT_STICKERS = [
   { id: 'love', url: '❤️', isEmoji: true },
 ];
 
-function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode, showCooldown, showBrowserNotification }) {
+function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification, onImageClick, isPreviewMode, showCooldown, showBrowserNotification, showToast }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -6185,6 +6369,10 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const [showMentions, setShowMentions] = useState(false);
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [pinnedMessages, setPinnedMessages] = useState([]);
+  const [showPinnedBar, setShowPinnedBar] = useState(true);
+  const [mobileActionMsg, setMobileActionMsg] = useState(null); // For mobile long-press actions
+  const longPressTimer = useRef(null);
   const [seenMentionIds, setSeenMentionIds] = useState(() => JSON.parse(localStorage.getItem('seenMentions') || '[]'));
   const [lastReadMessageId, setLastReadMessageId] = useState(null);
   const [lastReadLoaded, setLastReadLoaded] = useState(false); // Track if Firebase data loaded
@@ -6313,6 +6501,56 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
     const match = input.match(/@(\w*)$/);
     setShowMentions(match && onlineUsers.length > 0);
   }, [input, onlineUsers]);
+
+  // Subscribe to pinned messages
+  useEffect(() => {
+    const unsub = subscribeToPinnedMessages(setPinnedMessages);
+    return () => unsub();
+  }, []);
+
+  // Pin message handler (admin only)
+  const handlePinMessage = async (msg) => {
+    try {
+      await pinChatMessage(msg.id, msg, currentUserName);
+      showToast('✅ Pesan di-pin!', 'success');
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
+  };
+
+  // Unpin message handler
+  const handleUnpinMessage = async (msgId) => {
+    try {
+      await unpinChatMessage(msgId);
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
+  };
+
+  // Scroll to original message from pinned
+  const scrollToMessage = (msgId) => {
+    const targetEl = document.querySelector(`[data-message-id="${msgId}"]`);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetEl.style.transition = 'background-color 0.3s';
+      targetEl.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
+      setTimeout(() => { targetEl.style.backgroundColor = ''; }, 1500);
+    }
+  };
+
+  // Mobile long-press handlers
+  const handleTouchStart = (msg) => {
+    longPressTimer.current = setTimeout(() => {
+      setMobileActionMsg(msg);
+    }, 500);
+  };
+
+  const handleTouchEnd = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  };
 
   const insertMention = (userName) => {
     setInput(prev => prev.replace(/@\w*$/, `@${userName} `));
@@ -6464,6 +6702,43 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                 </div>
               ) : (
                 <div className="flex-1 overflow-y-auto p-3 space-y-2">
+                  {/* Pinned Messages Bar */}
+                  {pinnedMessages.length > 0 && showPinnedBar && (
+                    <div className="surface-flat rounded-xl p-2 mb-2 border border-[var(--accent)]/30">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-1.5 text-[var(--accent)]">
+                          <Bookmark className="w-3.5 h-3.5" />
+                          <span className="text-xs font-medium">Pinned ({pinnedMessages.length}/3)</span>
+                        </div>
+                        <button onClick={() => setShowPinnedBar(false)} className="text-[var(--text-muted)] hover:text-[var(--text)] p-0.5">
+                          <ChevronUp className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <div className="space-y-1">
+                        {pinnedMessages.map(pin => (
+                          <div key={pin.id} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-[var(--surface-hover)] cursor-pointer group" onClick={() => scrollToMessage(pin.originalMsgId)}>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-[10px] font-medium text-[var(--accent)]">{pin.authorName}</span>
+                              <p className="text-xs text-[var(--text)] truncate">{pin.type === 'image' ? '📷 Gambar' : pin.type === 'audio' ? '🎤 Voice' : pin.content?.slice(0, 50) || '...'}</p>
+                            </div>
+                            {isAdmin && (
+                              <button onClick={(e) => { e.stopPropagation(); handleUnpinMessage(pin.id); }} className="opacity-0 group-hover:opacity-100 p-1 text-red-400 hover:bg-red-500/20 rounded transition-opacity" title="Unpin">
+                                <X className="w-3 h-3" />
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* Collapsed pinned bar toggle */}
+                  {pinnedMessages.length > 0 && !showPinnedBar && (
+                    <button onClick={() => setShowPinnedBar(true)} className="w-full surface-flat rounded-lg p-1.5 flex items-center justify-center gap-1.5 text-[var(--accent)] text-xs mb-2 hover:bg-[var(--surface-hover)]">
+                      <Bookmark className="w-3 h-3" />
+                      <span>{pinnedMessages.length} Pinned</span>
+                      <ChevronDown className="w-3 h-3" />
+                    </button>
+                  )}
                   {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
                   {messages.map((msg) => {
                     const isMine = msg.authorId === currentDeviceId;
@@ -6483,7 +6758,16 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     }
 
                     return (
-                      <motion.div key={msg.id} data-message-id={msg.id} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+                      <motion.div
+                        key={msg.id}
+                        data-message-id={msg.id}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
+                        onTouchStart={() => handleTouchStart(msg)}
+                        onTouchEnd={handleTouchEnd}
+                        onTouchMove={handleTouchEnd}
+                      >
                         <div className={`flex flex-col ${isMine ? 'items-end' : 'items-start'} max-w-[75%]`}>
                           {!isMine && <span className="text-[10px] text-[var(--text-muted)] mb-0.5 ml-1">{msg.authorName} {msg.isAdmin && <span className="text-[10px] px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded mr-0.5">Admin</span>}{msg.isTester && <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/20 text-amber-400 rounded mr-0.5">Tester</span>}{msg.authorClass && <span className="text-[10px] px-1.5 py-0.5 bg-[var(--accent)]/20 rounded">{msg.authorClass}</span>}</span>}
                           <div className={`group relative inline-block ${isMedia && msg.type !== 'audio' ? '' : 'px-3 py-1.5 rounded-2xl'} text-sm ${isMine && !(isMedia && msg.type !== 'audio') ? 'gradient-accent text-white rounded-br-sm' : !(isMedia && msg.type !== 'audio') ? 'surface-flat text-[var(--text)] rounded-bl-sm' : ''}`}>
@@ -6512,9 +6796,13 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                             {msg.type === 'audio' && msg.mediaUrl && <VoiceNotePlayer src={msg.mediaUrl} isMine={isMine} />}
                             {msg.type === 'sticker' && <span className="text-3xl">{msg.content}</span>}
                             {(msg.type === 'text' || !msg.type) && <span className="break-words">{msg.content?.split(/(@\w+)/g).map((p, i) => p.startsWith('@') ? <span key={i} className="font-bold text-blue-300">{p}</span> : p)}</span>}
-                            <div className={`absolute ${isMine ? '-left-12' : '-right-12'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
-                              <button onClick={() => setReplyTo(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px]"><Reply className="w-3 h-3" /></button>
-                              {canDelete(msg) && <button onClick={() => deleteMessage(msg.id)} className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">×</button>}
+                            {/* Desktop action buttons */}
+                            <div className={`absolute ${isMine ? '-left-16' : '-right-16'} top-0 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity`}>
+                              <button onClick={() => setReplyTo(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px]" title="Reply"><Reply className="w-3 h-3" /></button>
+                              {isAdmin && !pinnedMessages.find(p => p.id === msg.id) && (
+                                <button onClick={() => handlePinMessage(msg)} className="w-5 h-5 rounded-full surface-flat flex items-center justify-center text-[10px] text-[var(--accent)]" title="Pin"><Bookmark className="w-3 h-3" /></button>
+                              )}
+                              {canDelete(msg) && <button onClick={() => deleteMessage(msg.id)} className="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]" title="Delete">×</button>}
                             </div>
                           </div>
                           <span className="text-[8px] text-[var(--text-muted)] mt-0.5 ml-1">{new Date(msg.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
@@ -6526,6 +6814,53 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                 </div>
               )}
               {replyTo && <div className="px-3 py-1.5 border-t border-[var(--border)] flex items-center gap-2 text-xs"><Reply className="w-3 h-3 text-[var(--accent)]" /><span className="flex-1 truncate text-[var(--text-muted)]">Balas {replyTo.authorName}</span><button onClick={() => setReplyTo(null)}><X className="w-3 h-3" /></button></div>}
+
+              {/* Mobile Action Popup */}
+              <AnimatePresence>
+                {mobileActionMsg && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 bg-black/50 flex items-center justify-center z-50"
+                    onClick={() => setMobileActionMsg(null)}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.9, opacity: 0 }}
+                      className="glass-strong p-4 rounded-2xl mx-4 min-w-[200px]"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <p className="text-xs text-[var(--text-muted)] mb-3 text-center truncate">{mobileActionMsg.content?.slice(0, 40) || 'Media'}</p>
+                      <div className="space-y-2">
+                        <button
+                          onClick={() => { setReplyTo(mobileActionMsg); setMobileActionMsg(null); }}
+                          className="w-full py-2 px-4 rounded-xl surface-flat flex items-center gap-3 text-[var(--text)]"
+                        >
+                          <Reply className="w-4 h-4" /> Reply
+                        </button>
+                        {isAdmin && !pinnedMessages.find(p => p.id === mobileActionMsg.id) && (
+                          <button
+                            onClick={() => { handlePinMessage(mobileActionMsg); setMobileActionMsg(null); }}
+                            className="w-full py-2 px-4 rounded-xl surface-flat flex items-center gap-3 text-[var(--accent)]"
+                          >
+                            <Bookmark className="w-4 h-4" /> Pin Message
+                          </button>
+                        )}
+                        {canDelete(mobileActionMsg) && (
+                          <button
+                            onClick={() => { deleteMessage(mobileActionMsg.id); setMobileActionMsg(null); }}
+                            className="w-full py-2 px-4 rounded-xl bg-red-500/20 flex items-center gap-3 text-red-400"
+                          >
+                            <Trash2 className="w-4 h-4" /> Delete
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <AnimatePresence>
                 {showMentions && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1">{session?.isAdmin && <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>}{onlineUsers.filter(u => u.userName).slice(0, 6).map(u => <button key={u.id} onClick={() => insertMention(u.userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg">@{u.userName}</button>)}</div></motion.div>}
