@@ -6692,8 +6692,55 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     <p className="text-xs text-[var(--text-muted)]">{onlineUsers.length} online • {messages.length} pesan</p>
                   </div>
                 </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5 text-[var(--text-secondary)]" /></button>
+                <div className="flex items-center gap-2">
+                  {/* Pinned toggle button */}
+                  {pinnedMessages.length > 0 && (
+                    <button
+                      onClick={() => setShowPinnedBar(!showPinnedBar)}
+                      className={`px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-sm font-medium border transition-all ${showPinnedBar ? 'bg-[var(--accent)]/20 text-[var(--accent)] border-[var(--accent)]/50' : 'hover:bg-[var(--surface-hover)] text-[var(--text)] border-[var(--border)]'}`}
+                    >
+                      <span>📌</span>
+                      <span>{pinnedMessages.length}</span>
+                      {showPinnedBar ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    </button>
+                  )}
+                  <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-[var(--surface-hover)]"><X className="w-5 h-5 text-[var(--text-secondary)]" /></button>
+                </div>
               </div>
+
+              {/* Pinned Messages Dropdown Overlay */}
+              <AnimatePresence>
+                {pinnedMessages.length > 0 && showPinnedBar && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="bg-gradient-to-b from-[var(--accent)]/15 to-transparent border-b border-[var(--accent)]/30 overflow-hidden shrink-0"
+                  >
+                    <div className="p-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-[var(--accent)]">📌 Pinned Messages ({pinnedMessages.length}/3)</span>
+                        <button onClick={() => setShowPinnedBar(false)} className="text-[var(--text-muted)] hover:text-[var(--text)] p-1 hover:bg-[var(--surface-hover)] rounded">
+                          <ChevronUp className="w-4 h-4" />
+                        </button>
+                      </div>
+                      {pinnedMessages.map(pin => (
+                        <div key={pin.id} className="flex items-center gap-2 p-2 rounded-lg bg-[var(--surface)]/80 hover:bg-[var(--surface-hover)] cursor-pointer border border-[var(--border)]" onClick={() => { scrollToMessage(pin.originalMsgId); setShowPinnedBar(false); }}>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-[10px] font-bold text-[var(--accent)]">{pin.authorName}</span>
+                            <p className="text-xs text-[var(--text)] truncate">{pin.type === 'image' ? '📷 Gambar' : pin.type === 'audio' ? '🎤 Voice' : pin.content?.slice(0, 40) || '...'}</p>
+                          </div>
+                          {isAdmin && (
+                            <button onClick={(e) => { e.stopPropagation(); handleUnpinMessage(pin.id); }} className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-lg border border-red-400/30" title="Unpin">
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Lock overlay for preview mode */}
               {isPreviewMode ? (
@@ -6702,43 +6749,6 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                 </div>
               ) : (
                 <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                  {/* Pinned Messages Bar */}
-                  {pinnedMessages.length > 0 && showPinnedBar && (
-                    <div className="surface-flat rounded-xl p-2 mb-2 border border-[var(--accent)]/30">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-1.5 text-[var(--accent)]">
-                          <Bookmark className="w-3.5 h-3.5" />
-                          <span className="text-xs font-medium">Pinned ({pinnedMessages.length}/3)</span>
-                        </div>
-                        <button onClick={() => setShowPinnedBar(false)} className="text-[var(--text-muted)] hover:text-[var(--text)] p-0.5">
-                          <ChevronUp className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <div className="space-y-1">
-                        {pinnedMessages.map(pin => (
-                          <div key={pin.id} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-[var(--surface-hover)] cursor-pointer group" onClick={() => scrollToMessage(pin.originalMsgId)}>
-                            <div className="flex-1 min-w-0">
-                              <span className="text-[10px] font-medium text-[var(--accent)]">{pin.authorName}</span>
-                              <p className="text-xs text-[var(--text)] truncate">{pin.type === 'image' ? '📷 Gambar' : pin.type === 'audio' ? '🎤 Voice' : pin.content?.slice(0, 50) || '...'}</p>
-                            </div>
-                            {isAdmin && (
-                              <button onClick={(e) => { e.stopPropagation(); handleUnpinMessage(pin.id); }} className="opacity-0 group-hover:opacity-100 p-1 text-red-400 hover:bg-red-500/20 rounded transition-opacity" title="Unpin">
-                                <X className="w-3 h-3" />
-                              </button>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {/* Collapsed pinned bar toggle */}
-                  {pinnedMessages.length > 0 && !showPinnedBar && (
-                    <button onClick={() => setShowPinnedBar(true)} className="w-full surface-flat rounded-lg p-1.5 flex items-center justify-center gap-1.5 text-[var(--accent)] text-xs mb-2 hover:bg-[var(--surface-hover)]">
-                      <Bookmark className="w-3 h-3" />
-                      <span>{pinnedMessages.length} Pinned</span>
-                      <ChevronDown className="w-3 h-3" />
-                    </button>
-                  )}
                   {messages.length === 0 && <div className="text-center py-8"><MessageSquare className="w-12 h-12 mx-auto text-[var(--accent)] mb-3 opacity-50" /><p className="text-[var(--text-muted)] text-sm">Say hi! 👋</p></div>}
                   {messages.map((msg) => {
                     const isMine = msg.authorId === currentDeviceId;
