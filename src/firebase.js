@@ -1049,7 +1049,7 @@ const withTimeout = (promise, ms) => {
     return Promise.race([promise, timeout]);
 };
 
-export const createThread = async (subjectId, title, content, authorId, authorName, authorClass, imageUrl = null, badges = {}) => {
+export const createThread = async (subjectId, title, content, authorId, authorName, authorClass, imageUrl = null, badges = {}, mediaUrl = null) => {
     const threadsRef = ref(db, `forums/${subjectId}/threads`);
     const newThread = {
         title,
@@ -1060,6 +1060,7 @@ export const createThread = async (subjectId, title, content, authorId, authorNa
         isAdmin: badges.isAdmin || false,
         isTester: badges.isTester || false,
         imageUrl,
+        mediaUrl, // YouTube or Google Slides URL
         createdAt: new Date().toISOString(),
         closed: false,
         commentCount: 0,

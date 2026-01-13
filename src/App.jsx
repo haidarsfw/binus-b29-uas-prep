@@ -43,6 +43,39 @@ const checkRateLimit = (key, limitMs) => {
   return { allowed: true, remaining: 0 }; // Allowed
 };
 
+// --- Media URL Detection Helpers ---
+const getYouTubeVideoId = (url) => {
+  if (!url) return null;
+  const patterns = [
+    /youtube\.com\/watch\?v=([^&\s]+)/,
+    /youtu\.be\/([^?\s]+)/,
+    /youtube\.com\/embed\/([^?\s]+)/
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+};
+
+const getGoogleSlidesId = (url) => {
+  if (!url) return null;
+  const match = url.match(/docs\.google\.com\/presentation\/d\/([^/\s]+)/);
+  return match ? match[1] : null;
+};
+
+const detectMediaInText = (text) => {
+  if (!text) return [];
+  const urls = text.match(/https?:\/\/[^\s]+/g) || [];
+  return urls.map(url => ({
+    url,
+    type: getYouTubeVideoId(url) ? 'youtube' : getGoogleSlidesId(url) ? 'slides' : null,
+    videoId: getYouTubeVideoId(url),
+    slidesId: getGoogleSlidesId(url)
+  })).filter(m => m.type);
+};
+
+
 const themeColors = [
   { id: 'blue', name: 'Blue', color: '#3b82f6' },
   { id: 'indigo', name: 'Indigo', color: '#6366f1' },
@@ -74,6 +107,172 @@ function LoadingSpinner({ message = 'Memuat...' }) {
     </div>
   );
 }
+
+// Media Embed Component - YouTube & Google Slides
+function MediaEmbed({ url, compact = false }) {
+  const videoId = getYouTubeVideoId(url);
+  const slidesId = getGoogleSlidesId(url);
+
+  if (videoId) {
+    return (
+      <div className="mt-3 rounded-xl overflow-hidden border border-[var(--border)]">
+        <div className={`relative ${compact ? 'pb-[45%]' : 'pb-[56.25%]'} bg-black`}>
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}`}
+            className="absolute inset-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="YouTube video"
+          />
+        </div>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3 py-2 bg-[var(--surface)] text-xs text-[var(--accent)] hover:underline"
+        >
+          <ExternalLink className="w-3 h-3" /> Buka di YouTube
+        </a>
+      </div>
+    );
+  }
+
+  if (slidesId) {
+    return (
+      <div className="mt-3 rounded-xl overflow-hidden border border-[var(--border)]">
+        <div className={`relative ${compact ? 'pb-[50%]' : 'pb-[60%]'} bg-[var(--surface)]`}>
+          <iframe
+            src={`https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000`}
+            className="absolute inset-0 w-full h-full"
+            allowFullScreen
+            title="Google Slides presentation"
+          />
+        </div>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3 py-2 bg-[var(--surface)] text-xs text-[var(--accent)] hover:underline"
+        >
+          <ExternalLink className="w-3 h-3" /> Buka di Google Slides
+        </a>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+// Zoomable Image Component - for Mindmaps
+function ZoomableImage({ src, alt = "Image", onClick, className = "" }) {
+  const [zoom, setZoom] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+
+  const handleZoomIn = (e) => {
+    e.stopPropagation();
+    setZoom(z => Math.min(3, z + 0.5));
+  };
+
+  const handleZoomOut = (e) => {
+    e.stopPropagation();
+    setZoom(z => {
+      const newZoom = Math.max(1, z - 0.5);
+      if (newZoom === 1) setPosition({ x: 0, y: 0 });
+      return newZoom;
+    });
+  };
+
+  const handleReset = (e) => {
+    e.stopPropagation();
+    setZoom(1);
+    setPosition({ x: 0, y: 0 });
+  };
+
+  const handleMouseDown = (e) => {
+    if (zoom > 1) {
+      setIsDragging(true);
+      setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging && zoom > 1) {
+      setPosition({ x: e.clientX - startPos.x, y: e.clientY - startPos.y });
+    }
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleImageClick = () => {
+    if (zoom === 1 && onClick) {
+      onClick(src);
+    }
+  };
+
+  return (
+    <div className={`relative group ${className}`}>
+      <div
+        ref={containerRef}
+        className="overflow-hidden rounded-xl cursor-pointer"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'pointer' }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="max-w-full max-h-96 object-contain transition-transform duration-200"
+          style={{
+            transform: `scale(${zoom}) translate(${position.x / zoom}px, ${position.y / zoom}px)`,
+          }}
+          onClick={handleImageClick}
+          draggable={false}
+        />
+      </div>
+      {/* Zoom Controls */}
+      <div className="absolute bottom-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          onClick={handleZoomOut}
+          disabled={zoom <= 1}
+          className="w-7 h-7 rounded-lg bg-black/60 text-white text-sm font-bold flex items-center justify-center hover:bg-black/80 disabled:opacity-40"
+        >
+          −
+        </button>
+        <button
+          onClick={handleZoomIn}
+          disabled={zoom >= 3}
+          className="w-7 h-7 rounded-lg bg-black/60 text-white text-sm font-bold flex items-center justify-center hover:bg-black/80 disabled:opacity-40"
+        >
+          +
+        </button>
+        <button
+          onClick={handleReset}
+          className="px-2 h-7 rounded-lg bg-black/60 text-white text-xs flex items-center justify-center hover:bg-black/80"
+        >
+          Reset
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); onClick?.(src); }}
+          className="w-7 h-7 rounded-lg bg-black/60 text-white flex items-center justify-center hover:bg-black/80"
+          title="Fullscreen"
+        >
+          <Maximize2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
+      {zoom > 1 && (
+        <div className="absolute top-2 left-2 px-2 py-1 rounded bg-black/60 text-white text-xs">
+          {Math.round(zoom * 100)}%
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function CircularProgress({ value, size = 140, stroke = 10 }) {
   const radius = (size - stroke) / 2;
@@ -5225,7 +5424,9 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
   const [newContent, setNewContent] = useState('');
   const [newImage, setNewImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [newMediaUrl, setNewMediaUrl] = useState(''); // YouTube / Google Slides URL
   const [selectedThread, setSelectedThread] = useState(null);
+
   const [creating, setCreating] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(null);
   // Poll states
@@ -5354,8 +5555,10 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
       if (newImage) {
         imageUrl = await uploadImage(newImage);
       }
-      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl, { isAdmin: session?.isAdmin, isTester: session?.isTester });
-      setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setShowNew(false);
+      // Pass mediaUrl (YouTube/Google Slides) to createThread
+      const mediaUrl = newMediaUrl.trim() || null;
+      await createThread(subjectId, newTitle, newContent, getDeviceId(), session.userName || session.name || 'Anonymous', selectedClass, imageUrl, { isAdmin: session?.isAdmin, isTester: session?.isTester }, mediaUrl);
+      setNewTitle(''); setNewContent(''); setNewImage(null); setImagePreview(null); setNewMediaUrl(''); setShowNew(false);
     } catch (e) { showToast(e.message, 'error'); }
     setCreating(false);
   };
@@ -5540,8 +5743,37 @@ function Forum({ subjectId, session, selectedClass, isPreviewMode, showCooldown,
               )}
             </div>
 
+            {/* Media URL Input - YouTube / Google Slides */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <input
+                  value={newMediaUrl}
+                  onChange={(e) => setNewMediaUrl(e.target.value)}
+                  placeholder="URL YouTube atau Google Slides (opsional)..."
+                  className="input flex-1 text-sm"
+                />
+                {newMediaUrl && (
+                  <button onClick={() => setNewMediaUrl('')} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg">
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              {/* Media Preview */}
+              {newMediaUrl && (getYouTubeVideoId(newMediaUrl) || getGoogleSlidesId(newMediaUrl)) && (
+                <div className="text-xs text-green-500 flex items-center gap-1">
+                  <Check className="w-3 h-3" />
+                  {getYouTubeVideoId(newMediaUrl) ? 'YouTube video terdeteksi' : 'Google Slides terdeteksi'}
+                </div>
+              )}
+              {newMediaUrl && !getYouTubeVideoId(newMediaUrl) && !getGoogleSlidesId(newMediaUrl) && (
+                <div className="text-xs text-orange-500">
+                  ⚠️ URL tidak dikenali. Gunakan link YouTube atau Google Slides.
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-2">
-              <button onClick={() => { setShowNew(false); setNewImage(null); setImagePreview(null); }} className="btn btn-secondary flex-1">Batal</button>
+              <button onClick={() => { setShowNew(false); setNewImage(null); setImagePreview(null); setNewMediaUrl(''); }} className="btn btn-secondary flex-1">Batal</button>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleCreate} disabled={creating || !newTitle.trim() || !newContent.trim()} className="btn btn-primary flex-1">
                 {creating ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'Buat Thread'}
               </motion.button>
@@ -5746,9 +5978,19 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
           <span>{new Date(thread.createdAt).toLocaleString('id-ID')}</span>
         </div>
         <p className="text-[var(--text)] whitespace-pre-wrap">{thread.content}</p>
+
+        {/* Thread Image - Zoomable */}
         {thread.imageUrl && (
-          <img src={thread.imageUrl} alt="Thread image" className="mt-4 rounded-xl max-w-full max-h-96 object-contain cursor-pointer hover:opacity-90 transition-opacity" onClick={() => onImageClick && onImageClick(thread.imageUrl)} />
+          <ZoomableImage
+            src={thread.imageUrl}
+            alt="Thread image"
+            onClick={onImageClick}
+            className="mt-4"
+          />
         )}
+
+        {/* Thread Media Embed - YouTube / Google Slides */}
+        {thread.mediaUrl && <MediaEmbed url={thread.mediaUrl} />}
       </div>
 
       {/* Comments */}
@@ -5827,6 +6069,11 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
               </div>
               <p className="text-[var(--text-secondary)] text-sm">{c.content}</p>
 
+              {/* Auto-detect media in comment */}
+              {detectMediaInText(c.content).map((media, i) => (
+                <MediaEmbed key={i} url={media.url} compact />
+              ))}
+
               {/* Replies */}
               {replies.length > 0 && (
                 <div className="ml-6 mt-3 space-y-2 border-l-2 border-[var(--border)] pl-4">
@@ -5839,6 +6086,11 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
                         <span className="text-xs text-[var(--text-muted)]">{new Date(r.createdAt).toLocaleString('id-ID')}</span>
                       </div>
                       <p className="text-[var(--text-secondary)]">{r.content}</p>
+
+                      {/* Auto-detect media in reply */}
+                      {detectMediaInText(r.content).map((media, j) => (
+                        <MediaEmbed key={j} url={media.url} compact />
+                      ))}
                     </div>
                   ))}
                 </div>
