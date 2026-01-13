@@ -2893,19 +2893,29 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
   const [expandedVersions, setExpandedVersions] = useState({}); // Track which versions are expanded
 
   // Version and patch notes data
-  const currentVersion = "1.5.4";
+  const currentVersion = "1.5.5";
   const patchNotes = {
     current: {
-      version: "1.5.4",
-      date: "12 Jan 2026",
+      version: "1.5.5",
+      date: "13 Jan 2026",
       changes: [
-        "- NEW: Pin pesan penting di Live Chat (max 3, klik untuk scroll)",
-        "- NEW: Mobile long-press menu (tahan 500ms untuk reply/hapus)",
-        "- NEW: Forum Polls! Buat poll, vote sekali, hasil realtime",
-        "- UX: Poll dengan persentase bar seperti Instagram Stories"
+        "- NEW: Embed YouTube & Google Slides di Forum (paste link langsung preview)",
+        "- NEW: Zoomable images untuk mindmap (hover untuk zoom controls)",
+        "- IMPROVE: Proses pembelian license key sudah semi-automated",
+        "- UX: Media auto-detect di komentar & reply"
       ]
     },
     past: [
+      {
+        version: "1.5.4",
+        date: "12 Jan 2026",
+        changes: [
+          "- NEW: Pin pesan penting di Live Chat (max 3, klik untuk scroll)",
+          "- NEW: Mobile long-press menu (tahan 500ms untuk reply/hapus)",
+          "- NEW: Forum Polls! Buat poll, vote sekali, hasil realtime",
+          "- UX: Poll dengan persentase bar seperti Instagram Stories"
+        ]
+      },
       {
         version: "1.5.3",
         date: "12 Jan 2026",
