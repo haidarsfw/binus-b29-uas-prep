@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     X, Plus, Settings, Trash2, RotateCcw, Zap, Key, Activity, FileText, Megaphone,
-    AlertTriangle, Database, Check, XCircle, Send, Crown, BarChart3
+    AlertTriangle, Database, Check, XCircle, Send, Crown, BarChart3, Copy, ExternalLink
 } from 'lucide-react';
 import {
     fetchLicenseKeys, getAllUsers, createLicenseKey, updateLicenseKey, deleteLicenseKey,
@@ -58,6 +58,114 @@ export default function AdminDashboard({ session, onClose }) {
     const [peakHours, setPeakHours] = useState(Array(24).fill(0));
     const [dangerZoneConfirm, setDangerZoneConfirm] = useState(0);
 
+    // Quick License Generator state
+    const [quickInvoice, setQuickInvoice] = useState(90); // Start from invoice 90
+    const [quickName, setQuickName] = useState('');
+    const [quickWhatsApp, setQuickWhatsApp] = useState('');
+    const [quickPackage, setQuickPackage] = useState('discount'); // discount, normal, free
+    const [quickFreeReason, setQuickFreeReason] = useState('LE86'); // LE86, FP Kak Chantyka, User Whitelist
+    const [generatedKey, setGeneratedKey] = useState('');
+    const [generatedMessage, setGeneratedMessage] = useState('');
+    const [quickCopied, setQuickCopied] = useState(false);
+
+    // Package options
+    const packageOptions = [
+        { id: 'discount', label: 'Discount Promo (Rp. 10.000)', days: 30 },
+        { id: 'normal', label: 'Normal Price (Rp. 15.000)', days: 30 },
+        { id: 'free', label: 'Free (LE86/FP/Whitelist)', days: 30 },
+    ];
+
+    const freeReasons = ['LE86', 'FP Kak Chantyka', 'User Whitelist'];
+
+    // Generate key and message
+    const handleQuickGenerate = async () => {
+        if (!quickName.trim()) return;
+
+        const prefix = 'B29';
+        const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const newKey = `${prefix}-${random}`;
+
+        const packageInfo = packageOptions.find(p => p.id === quickPackage);
+        const packageLabel = quickPackage === 'free'
+            ? `${quickFreeReason} (Free)`
+            : packageInfo?.label || '';
+
+        const today = new Date();
+        const dateStr = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        // Create the key in Firebase
+        try {
+            await createLicenseKey({
+                key: newKey,
+                name: quickName.trim(),
+                daysActive: packageInfo?.days || 30,
+                isAdmin: false,
+                isTester: false,
+                maxDevices: 1,
+            });
+
+            setGeneratedKey(newKey);
+
+            // Generate WhatsApp message
+            const message = `🧾 INVOICE #${String(quickInvoice).padStart(3, '0')}
+UAS BM B29 Study App
+Halo ${quickName.trim()}, pembayaran kamu sudah kami terima. 
+
+Berikut detail pesananmu:
+📅 Tanggal: ${dateStr}
+👤 ID: ${quickName.trim()}
+📦 Paket: ${packageLabel}
+✅ Status: LUNAS
+
+🔐 YOUR LICENSE KEY:
+${newKey}
+(Copy kode di atas)
+
+🌍 AKSES WEBSITE:
+https://uasbmb29.xyz/
+
+⚠️ LANGKAH AKTIVASI (PENTING!):
+Agar akunmu terverifikasi dan tidak kena banned, lakukan ini sekarang:
+1. Buka website & masukkan License Key di atas.
+2. Login menggunakan Device utama kamu (HP/Laptop).
+3. Screenshot halaman utama (Dashboard) setelah berhasil masuk.
+4. Kirim Screenshot-nya ke chat ini sebagai bukti validasi device.
+
+Note: Sistem akan mengunci ID device sesuai screenshot yang dikirim.
+
+Jangan share key ini ke orang lain ya!
+Selamat belajar! 🚀`;
+
+            setGeneratedMessage(message);
+            setQuickInvoice(prev => prev + 1);
+            setStatsRefresh(r => r + 1);
+        } catch (e) {
+            console.error('Error creating key:', e);
+        }
+    };
+
+    const copyToClipboard = async (text) => {
+        await navigator.clipboard.writeText(text);
+        setQuickCopied(true);
+        setTimeout(() => setQuickCopied(false), 2000);
+    };
+
+    const openWhatsApp = () => {
+        if (!quickWhatsApp.trim() || !generatedMessage) return;
+        let phone = quickWhatsApp.replace(/\D/g, '');
+        if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(generatedMessage)}`;
+        window.open(url, '_blank');
+    };
+
+    const resetQuickForm = () => {
+        setQuickName('');
+        setQuickWhatsApp('');
+        setQuickPackage('discount');
+        setGeneratedKey('');
+        setGeneratedMessage('');
+    };
+
     const announcementTemplates = [
         { label: '🔄 Server Reboot', text: 'Server akan di-reboot sebentar lagi. Mohon tunggu sekitar 1 menit dan refresh halaman.', type: 'maintenance' },
         { label: '⚡ Update', text: 'Sedang ada update sistem. Mohon tunggu sebentar dan refresh halaman setelah selesai.', type: 'info' },
@@ -88,6 +196,7 @@ export default function AdminDashboard({ session, onClose }) {
     };
 
     const tabs = [
+        { name: 'Quick', icon: Zap },      // Quick License Generator
         { name: 'Keys', icon: Key },
         { name: 'Stats', icon: Activity },
         { name: 'Logs', icon: FileText },
@@ -231,8 +340,131 @@ export default function AdminDashboard({ session, onClose }) {
                         </div>
                     ) : (
                         <>
-                            {/* License Keys Tab */}
+                            {/* Quick License Generator Tab */}
                             {activeTab === 0 && (
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-medium text-[var(--text)] flex items-center gap-2">
+                                            <Zap className="w-4 h-4 text-amber-500" />
+                                            Quick License Generator
+                                        </h3>
+                                        <span className="text-xs text-[var(--text-muted)]">Invoice #{String(quickInvoice).padStart(3, '0')}</span>
+                                    </div>
+
+                                    {/* Quick Form */}
+                                    <div className="glass-card p-4 space-y-3">
+                                        <input
+                                            value={quickName}
+                                            onChange={(e) => setQuickName(e.target.value)}
+                                            placeholder="Nama Customer..."
+                                            className="input"
+                                        />
+                                        <input
+                                            value={quickWhatsApp}
+                                            onChange={(e) => setQuickWhatsApp(e.target.value)}
+                                            placeholder="No. WhatsApp (08xxx)..."
+                                            className="input"
+                                        />
+
+                                        {/* Package Selection */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-[var(--text-muted)]">Paket:</label>
+                                            <div className="flex flex-wrap gap-2">
+                                                {packageOptions.map(pkg => (
+                                                    <button
+                                                        key={pkg.id}
+                                                        onClick={() => setQuickPackage(pkg.id)}
+                                                        className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${quickPackage === pkg.id
+                                                            ? 'bg-[var(--accent)] text-white'
+                                                            : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
+                                                            }`}
+                                                    >
+                                                        {pkg.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Free Reason Selection */}
+                                        {quickPackage === 'free' && (
+                                            <div className="space-y-2">
+                                                <label className="text-xs text-[var(--text-muted)]">Alasan Free:</label>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {freeReasons.map(reason => (
+                                                        <button
+                                                            key={reason}
+                                                            onClick={() => setQuickFreeReason(reason)}
+                                                            className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${quickFreeReason === reason
+                                                                ? 'bg-green-500 text-white'
+                                                                : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
+                                                                }`}
+                                                        >
+                                                            {reason}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <button
+                                            onClick={handleQuickGenerate}
+                                            disabled={!quickName.trim()}
+                                            className="btn btn-primary w-full"
+                                        >
+                                            <Zap className="w-4 h-4" /> Generate License Key
+                                        </button>
+                                    </div>
+
+                                    {/* Generated Result */}
+                                    {generatedKey && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="glass-card p-4 space-y-3 border border-green-500/30"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-sm font-medium text-green-500">✅ Key Created!</span>
+                                                <code className="text-lg font-mono text-[var(--accent)]">{generatedKey}</code>
+                                            </div>
+
+                                            {/* Message Preview */}
+                                            <div className="bg-[var(--surface)] rounded-lg p-3 max-h-48 overflow-y-auto">
+                                                <pre className="text-xs text-[var(--text-secondary)] whitespace-pre-wrap font-sans">
+                                                    {generatedMessage}
+                                                </pre>
+                                            </div>
+
+                                            {/* Action Buttons */}
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => copyToClipboard(generatedMessage)}
+                                                    className="btn btn-secondary flex-1"
+                                                >
+                                                    <Copy className="w-4 h-4" />
+                                                    {quickCopied ? 'Copied!' : 'Copy Message'}
+                                                </button>
+                                                <button
+                                                    onClick={openWhatsApp}
+                                                    disabled={!quickWhatsApp.trim()}
+                                                    className="btn btn-primary flex-1 bg-green-600 hover:bg-green-700"
+                                                >
+                                                    <ExternalLink className="w-4 h-4" /> Open WhatsApp
+                                                </button>
+                                            </div>
+
+                                            <button
+                                                onClick={resetQuickForm}
+                                                className="btn btn-ghost w-full text-sm"
+                                            >
+                                                + Buat Order Baru
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* License Keys Tab */}
+                            {activeTab === 1 && (
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between">
                                         <h3 className="font-medium text-[var(--text)]">{licenseKeys.length} License Keys</h3>
@@ -404,7 +636,7 @@ export default function AdminDashboard({ session, onClose }) {
                             )}
 
                             {/* Stats Tab */}
-                            {activeTab === 1 && (
+                            {activeTab === 2 && (
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="glass-card p-4 text-center">
@@ -498,7 +730,7 @@ export default function AdminDashboard({ session, onClose }) {
                             )}
 
                             {/* Logs Tab */}
-                            {activeTab === 2 && (
+                            {activeTab === 3 && (
                                 <div className="space-y-4">
                                     <h3 className="font-medium text-[var(--text)]">Activity Logs</h3>
                                     {activityLogs.length === 0 ? (
@@ -608,7 +840,7 @@ export default function AdminDashboard({ session, onClose }) {
                             )}
 
                             {/* Announce Tab */}
-                            {activeTab === 3 && (
+                            {activeTab === 4 && (
                                 <div className="space-y-4">
                                     <div className="glass-card p-4">
                                         <h4 className="font-medium text-[var(--text)] mb-3 flex items-center gap-2">
@@ -690,7 +922,7 @@ export default function AdminDashboard({ session, onClose }) {
                             )}
 
                             {/* Danger Zone Tab */}
-                            {activeTab === 4 && (
+                            {activeTab === 5 && (
                                 <div className="space-y-4">
                                     {dangerZoneConfirm < 3 ? (
                                         <div className="glass-card p-6 text-center">
