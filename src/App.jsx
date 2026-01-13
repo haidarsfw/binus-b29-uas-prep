@@ -611,6 +611,19 @@ export default function App() {
     return () => clearInterval(interval);
   }, [session?.licenseKey, session?.key]);
 
+  // Record sessions periodically for peak hours tracking (excludes admins)
+  useEffect(() => {
+    if (!session) return;
+    const isAdmin = session.isAdmin === true;
+    // Record immediately on mount
+    recordSession(isAdmin);
+    // Record every 5 minutes while active
+    const interval = setInterval(() => {
+      recordSession(isAdmin);
+    }, 5 * 60 * 1000); // Every 5 minutes
+    return () => clearInterval(interval);
+  }, [session]);
+
   // Subscribe to announcements (realtime)
   useEffect(() => {
     const unsubscribe = subscribeToAnnouncements((data) => {
@@ -5574,14 +5587,23 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
   const [confirmDeleteComment, setConfirmDeleteComment] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [showMentions, setShowMentions] = useState(false);
+  const [allUsers, setAllUsers] = useState([]); // All registered users for mentions
   const isOwner = thread.authorId === getDeviceId();
   const isAdmin = session?.isAdmin === true;
 
-  // Get unique usernames for mentions
-  const mentionableUsers = useMemo(() => {
-    const users = onlineUsers.filter(u => u.userName).map(u => u.userName);
-    return [...new Set(users)].slice(0, 10);
-  }, [onlineUsers]);
+  // Fetch all registered users for mentions
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const users = await getAllUsers();
+        const userNames = users.map(u => u.userName || u.name).filter(Boolean);
+        setAllUsers([...new Set(userNames)]); // Unique names
+      } catch (e) {
+        console.error('Failed to fetch users for mentions:', e);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   // Insert @mention into comment
   const insertMention = (username) => {
@@ -5747,15 +5769,15 @@ function ThreadView({ subjectId, thread, session, selectedClass, onBack, onDelet
             {showMentions && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-2 ml-12 p-2 surface-flat rounded-lg">
                 <p className="text-xs text-[var(--text-muted)] mb-2">Mention user:</p>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
                   {isAdmin && (
                     <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>
                   )}
-                  {mentionableUsers.map(u => (
+                  {allUsers.map(u => (
                     <button key={u} onClick={() => insertMention(u)} className="px-2 py-0.5 text-xs surface-flat rounded-lg hover:bg-[var(--accent-soft)]">@{u}</button>
                   ))}
-                  {mentionableUsers.length === 0 && !isAdmin && (
-                    <span className="text-xs text-[var(--text-muted)]">Tidak ada user online</span>
+                  {allUsers.length === 0 && !isAdmin && (
+                    <span className="text-xs text-[var(--text-muted)]">Memuat users...</span>
                   )}
                 </div>
               </motion.div>
@@ -6367,6 +6389,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [replyTo, setReplyTo] = useState(null);
   const [showMentions, setShowMentions] = useState(false);
+  const [mentionQuery, setMentionQuery] = useState(''); // Autocomplete query for @mentions
   const [customStickers, setCustomStickers] = useState(() => JSON.parse(localStorage.getItem('customStickers') || '[]'));
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [pinnedMessages, setPinnedMessages] = useState([]);
@@ -6378,6 +6401,7 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
   const [lastReadLoaded, setLastReadLoaded] = useState(false); // Track if Firebase data loaded
   const seenMentionIdsRef = useRef(seenMentionIds); // Ref to track latest seen IDs
   const messagesEndRef = useRef(null);
+  const [allUsers, setAllUsers] = useState([]); // All registered users for mentions
   const fileInputRef = useRef(null);
   const stickerInputRef = useRef(null);
   const isFirstLoad = useRef(true);
@@ -6499,8 +6523,28 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
 
   useEffect(() => {
     const match = input.match(/@(\w*)$/);
-    setShowMentions(match && onlineUsers.length > 0);
-  }, [input, onlineUsers]);
+    if (match) {
+      setMentionQuery(match[1].toLowerCase());
+      setShowMentions(allUsers.length > 0);
+    } else {
+      setMentionQuery('');
+      setShowMentions(false);
+    }
+  }, [input, allUsers]);
+
+  // Fetch all registered users for mentions
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const users = await getAllUsers();
+        const userNames = users.map(u => u.userName || u.name).filter(Boolean);
+        setAllUsers([...new Set(userNames)]); // Unique names
+      } catch (e) {
+        console.error('Failed to fetch users for mentions:', e);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   // Subscribe to pinned messages
   useEffect(() => {
@@ -6717,22 +6761,22 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
                     exit={{ height: 0, opacity: 0 }}
                     className="bg-gradient-to-b from-[var(--accent)]/15 to-transparent border-b border-[var(--accent)]/30 overflow-hidden shrink-0"
                   >
-                    <div className="p-3 space-y-2">
+                    <div className="p-2 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-[var(--accent)]">📌 Pinned Messages ({pinnedMessages.length}/3)</span>
-                        <button onClick={() => setShowPinnedBar(false)} className="text-[var(--text-muted)] hover:text-[var(--text)] p-1 hover:bg-[var(--surface-hover)] rounded">
-                          <ChevronUp className="w-4 h-4" />
+                        <span className="text-[10px] font-bold text-[var(--accent)]">📌 Pinned ({pinnedMessages.length}/3)</span>
+                        <button onClick={() => setShowPinnedBar(false)} className="text-[var(--text-muted)] hover:text-[var(--text)] p-0.5 hover:bg-[var(--surface-hover)] rounded">
+                          <ChevronUp className="w-3.5 h-3.5" />
                         </button>
                       </div>
                       {pinnedMessages.map(pin => (
-                        <div key={pin.id} className="flex items-center gap-2 p-2 rounded-lg bg-[var(--surface)]/80 hover:bg-[var(--surface-hover)] cursor-pointer border border-[var(--border)]" onClick={() => { scrollToMessage(pin.originalMsgId); setShowPinnedBar(false); }}>
+                        <div key={pin.id} className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[var(--surface)]/80 hover:bg-[var(--surface-hover)] cursor-pointer border border-[var(--border)]" onClick={() => { scrollToMessage(pin.originalMsgId); setShowPinnedBar(false); }}>
                           <div className="flex-1 min-w-0">
-                            <span className="text-[10px] font-bold text-[var(--accent)]">{pin.authorName}</span>
-                            <p className="text-xs text-[var(--text)] truncate">{pin.type === 'image' ? '📷 Gambar' : pin.type === 'audio' ? '🎤 Voice' : pin.content?.slice(0, 40) || '...'}</p>
+                            <span className="text-[9px] font-bold text-[var(--accent)]">{pin.authorName}</span>
+                            <p className="text-[10px] text-[var(--text)] truncate">{pin.type === 'image' ? '📷 Gambar' : pin.type === 'audio' ? '🎤 Voice' : pin.content?.slice(0, 30) || '...'}</p>
                           </div>
                           {isAdmin && (
-                            <button onClick={(e) => { e.stopPropagation(); handleUnpinMessage(pin.id); }} className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-lg border border-red-400/30" title="Unpin">
-                              <X className="w-3.5 h-3.5" />
+                            <button onClick={(e) => { e.stopPropagation(); handleUnpinMessage(pin.id); }} className="p-1 text-red-400 hover:bg-red-500/20 rounded border border-red-400/30" title="Unpin">
+                              <X className="w-3 h-3" />
                             </button>
                           )}
                         </div>
@@ -6873,7 +6917,19 @@ function GlobalChat({ session, selectedClass, onlineUsers = [], addNotification,
               </AnimatePresence>
 
               <AnimatePresence>
-                {showMentions && <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]"><div className="p-2 flex flex-wrap gap-1">{session?.isAdmin && <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>}{onlineUsers.filter(u => u.userName).slice(0, 6).map(u => <button key={u.id} onClick={() => insertMention(u.userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg">@{u.userName}</button>)}</div></motion.div>}
+                {showMentions && (() => {
+                  const filteredUsers = allUsers.filter(u => u.toLowerCase().startsWith(mentionQuery));
+                  const showAll = session?.isAdmin && 'all'.startsWith(mentionQuery);
+                  if (filteredUsers.length === 0 && !showAll) return null;
+                  return (
+                    <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden border-t border-[var(--border)]">
+                      <div className="p-2 flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                        {showAll && <button onClick={() => insertMention('all')} className="px-2 py-0.5 text-xs bg-red-500/15 text-red-500 rounded-lg font-medium">@all</button>}
+                        {filteredUsers.map(userName => <button key={userName} onClick={() => insertMention(userName)} className="px-2 py-0.5 text-xs surface-flat rounded-lg hover:bg-[var(--accent-soft)]">@{userName}</button>)}
+                      </div>
+                    </motion.div>
+                  );
+                })()}
               </AnimatePresence>
 
               <AnimatePresence>
