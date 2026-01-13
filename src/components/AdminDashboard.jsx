@@ -70,6 +70,7 @@ export default function AdminDashboard({ session, onClose }) {
     const [quickCopied, setQuickCopied] = useState(false);
     const [editingInvoice, setEditingInvoice] = useState(false);
     const [tempInvoice, setTempInvoice] = useState(90);
+    const [confirmDeleteQuickKey, setConfirmDeleteQuickKey] = useState(false); // For styled confirm modal
 
     // Subscribe to invoice counter from Firebase (real-time sync)
     useEffect(() => {
@@ -202,10 +203,10 @@ Selamat belajar! 🚀`;
         window.open(url, '_blank');
     };
 
-    // Delete the just-created license key (for quick undo)
-    const handleDeleteQuickKey = async () => {
+    // Delete the just-created license key (for quick undo) - uses styled modal
+    const confirmDeleteQuickKeyAction = async () => {
         if (!generatedKey) return;
-        if (!window.confirm(`Hapus license key ${generatedKey}?`)) return;
+        setConfirmDeleteQuickKey(false);
 
         try {
             await deleteLicenseKey(generatedKey);
@@ -564,7 +565,7 @@ Selamat belajar! 🚀`;
 
                                             {/* Delete Key Button (for quick undo) */}
                                             <button
-                                                onClick={handleDeleteQuickKey}
+                                                onClick={() => setConfirmDeleteQuickKey(true)}
                                                 className="btn btn-ghost w-full text-sm text-red-500 hover:bg-red-500/10"
                                             >
                                                 <Trash2 className="w-3 h-3" /> Hapus Key Ini (Undo)
@@ -1127,6 +1128,15 @@ Selamat belajar! 🚀`;
                     }}
                     title="🔄 Reset Devices"
                     message={`Reset semua devices untuk key ${resetDevicesKey}? User harus login ulang dari device baru.`}
+                />
+
+                {/* Quick Delete Key Confirmation */}
+                <ConfirmModal
+                    isOpen={confirmDeleteQuickKey}
+                    onClose={() => setConfirmDeleteQuickKey(false)}
+                    onConfirm={confirmDeleteQuickKeyAction}
+                    title="🗑️ Hapus License Key"
+                    message={`Hapus license key ${generatedKey}? Key ini tidak akan bisa digunakan lagi.`}
                 />
 
                 {/* Danger Action Confirmation */}
