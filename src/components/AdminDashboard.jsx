@@ -278,7 +278,12 @@ export default function AdminDashboard({ session, onClose }) {
                                                             <option value={1}>1 device</option>
                                                             <option value={2}>2 devices</option>
                                                             <option value={3}>3 devices</option>
+                                                            <option value={4}>4 devices</option>
                                                             <option value={5}>5 devices</option>
+                                                            <option value={6}>6 devices</option>
+                                                            <option value={7}>7 devices</option>
+                                                            <option value={8}>8 devices</option>
+                                                            <option value={9}>9 devices</option>
                                                             <option value={10}>10 devices</option>
                                                             <option value={999}>∞ Unlimited</option>
                                                         </select>
@@ -349,6 +354,7 @@ export default function AdminDashboard({ session, onClose }) {
                                                     {expiryDate && (
                                                         <div className="text-xs text-[var(--text-muted)] mt-1">
                                                             📅 Expire: {expiryDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                            {user?.activatedAt && <span className="ml-2">| Aktif: {new Date(user.activatedAt).toLocaleDateString('id-ID')}</span>}
                                                         </div>
                                                     )}
                                                 </div>
@@ -379,6 +385,11 @@ export default function AdminDashboard({ session, onClose }) {
                                                     <p className="text-xs text-[var(--text-muted)] mb-2">
                                                         <code className="text-[var(--accent)]">{u.licenseKey}</code>
                                                     </p>
+                                                    <div className="flex flex-wrap gap-2 text-xs text-[var(--text-muted)] mb-2">
+                                                        <span>📅 {u.expiry ? new Date(u.expiry).toLocaleDateString('id-ID') : '-'}</span>
+                                                        {u.referralCode && <span>🎁 {u.referralCount || 0} referral</span>}
+                                                        {u.email && <span>✉️ {u.email}</span>}
+                                                    </div>
                                                     <button
                                                         onClick={() => isSuspended ? unsuspendLicense(u.licenseKey).then(() => setStatsRefresh(r => r + 1)) : setSuspendModal({ key: u.licenseKey, name: u.userName })}
                                                         className={`w-full py-2 px-3 rounded-lg text-sm font-medium flex items-center justify-center gap-2 ${isSuspended ? 'bg-green-500/20 text-green-500 hover:bg-green-500/30' : 'bg-orange-500/20 text-orange-500 hover:bg-orange-500/30'}`}
@@ -525,6 +536,18 @@ export default function AdminDashboard({ session, onClose }) {
                                                 <option value="unresolved">Belum Diperbaiki</option>
                                                 <option value="resolved">Sudah Diperbaiki</option>
                                             </select>
+                                            <button
+                                                onClick={async () => {
+                                                    const unresolved = errorLogs.filter(l => !l.resolved);
+                                                    for (const log of unresolved) {
+                                                        await markErrorResolved(log.id);
+                                                    }
+                                                    alert(`${unresolved.length} errors marked as resolved`);
+                                                }}
+                                                className="btn btn-secondary text-xs py-1 px-2"
+                                            >
+                                                ✓ All Resolved
+                                            </button>
                                             <button
                                                 onClick={async () => {
                                                     setClearingLogs(true);
