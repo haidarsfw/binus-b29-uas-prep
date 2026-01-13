@@ -673,12 +673,15 @@ Selamat belajar! 🚀`;
                                             const expiryDate = user?.expiry ? new Date(user.expiry) : (k.fixedExpiry ? new Date(k.fixedExpiry) : null);
                                             const isExpired = expiryDate && expiryDate < new Date();
                                             const deviceCount = user?.deviceIds?.length || (user?.deviceId ? 1 : 0);
+                                            const keyId = k.key || k.id; // Use id as fallback
 
                                             return (
-                                                <div key={k.key} className="glass-card p-3">
+                                                <div key={keyId} className="glass-card p-3">
                                                     <div className="flex items-center justify-between mb-2">
                                                         <div className="flex items-center gap-2 flex-wrap">
-                                                            <code className="text-sm font-mono text-[var(--accent)]">{k.key}</code>
+                                                            <code className="text-sm font-mono text-[var(--accent)]">
+                                                                {k.key || <span className="text-red-500">(blank key: {k.id})</span>}
+                                                            </code>
                                                             {k.isAdmin && <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Admin</span>}
                                                             <span className="badge text-[10px] bg-blue-500/15 text-blue-500 border-0">{(k.maxDevices || 1) >= 999 ? '∞' : k.maxDevices || 1}📱</span>
                                                             {isExpired && <span className="badge text-[10px] bg-red-500/15 text-red-500 border-0">Expired</span>}
@@ -687,16 +690,16 @@ Selamat belajar! 🚀`;
                                                             <button onClick={() => startEdit(k)} className="p-2 text-[var(--accent)] hover:bg-[var(--accent)]/10 rounded-lg" title="Edit">
                                                                 <Settings className="w-4 h-4" />
                                                             </button>
-                                                            <button onClick={() => setResetDevicesKey(k.key)} className="p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg" title="Reset Devices">
+                                                            <button onClick={() => setResetDevicesKey(keyId)} className="p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg" title="Reset Devices">
                                                                 <RotateCcw className="w-4 h-4" />
                                                             </button>
-                                                            <button onClick={() => setConfirmDelete(k.key)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete">
+                                                            <button onClick={() => setConfirmDelete(keyId)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete">
                                                                 <Trash2 className="w-4 h-4" />
                                                             </button>
                                                         </div>
                                                     </div>
                                                     <div className="text-sm text-[var(--text-secondary)]">
-                                                        <span className="font-medium">{k.name}</span>
+                                                        <span className="font-medium">{k.name || '(no name)'}</span>
                                                         <span className="mx-2">•</span>
                                                         <span>{k.daysActive} hari</span>
                                                         {k.isTester && <span className="mx-2 text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-500 rounded">Tester</span>}

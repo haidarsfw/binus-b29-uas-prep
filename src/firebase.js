@@ -155,7 +155,13 @@ export const fetchLicenseKeys = async () => {
         const snapshot = await withTimeout(get(licenseKeysRef), 15000);
         if (snapshot.exists()) {
             const data = snapshot.val();
-            return Object.entries(data).map(([id, value]) => ({ id, ...value }));
+            return Object.entries(data)
+                .filter(([id]) => !id.startsWith('_')) // Filter out _config and other internal keys
+                .map(([id, value]) => ({
+                    id,
+                    key: value.key || id, // Use id as key if key property is missing
+                    ...value
+                }));
         }
         return [];
     } catch (error) {
