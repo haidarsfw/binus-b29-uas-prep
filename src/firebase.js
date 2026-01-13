@@ -257,14 +257,17 @@ export const updateLicenseKey = async (originalKey, keyData) => {
 // Admin function to update user's display name across all Firebase locations
 // This propagates name changes to: licenses, presence, chat messages, forum threads/comments
 // Invoice Counter - for Quick License Generator (synced across devices)
+// Using licenseKeys/_config path since it has the same permissions as licenseKeys
+const INVOICE_PATH = 'licenseKeys/_config/invoiceCounter';
+
 export const getInvoiceCounter = async () => {
-    const counterRef = ref(db, 'admin/invoiceCounter');
+    const counterRef = ref(db, INVOICE_PATH);
     const snap = await get(counterRef);
     return snap.exists() ? snap.val() : 90; // Default to 90
 };
 
 export const incrementInvoiceCounter = async () => {
-    const counterRef = ref(db, 'admin/invoiceCounter');
+    const counterRef = ref(db, INVOICE_PATH);
     const snap = await get(counterRef);
     const current = snap.exists() ? snap.val() : 90;
     const next = current + 1;
@@ -273,12 +276,12 @@ export const incrementInvoiceCounter = async () => {
 };
 
 export const setInvoiceCounter = async (value) => {
-    const counterRef = ref(db, 'admin/invoiceCounter');
+    const counterRef = ref(db, INVOICE_PATH);
     await set(counterRef, value);
 };
 
 export const subscribeToInvoiceCounter = (callback) => {
-    const counterRef = ref(db, 'admin/invoiceCounter');
+    const counterRef = ref(db, INVOICE_PATH);
     return onValue(counterRef, (snap) => {
         callback(snap.exists() ? snap.val() : 90);
     });

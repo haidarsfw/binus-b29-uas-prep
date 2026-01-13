@@ -197,8 +197,25 @@ Selamat belajar! 🚀`;
         if (!quickWhatsApp.trim() || !generatedMessage) return;
         let phone = quickWhatsApp.replace(/\D/g, '');
         if (phone.startsWith('0')) phone = '62' + phone.slice(1);
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(generatedMessage)}`;
+        // Using api.whatsapp.com instead of wa.me for better unicode/emoji support
+        const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(generatedMessage)}`;
         window.open(url, '_blank');
+    };
+
+    // Delete the just-created license key (for quick undo)
+    const handleDeleteQuickKey = async () => {
+        if (!generatedKey) return;
+        if (!window.confirm(`Hapus license key ${generatedKey}?`)) return;
+
+        try {
+            await deleteLicenseKey(generatedKey);
+            setGeneratedKey('');
+            setGeneratedMessage('');
+            // Don't decrement invoice - it's already used
+        } catch (e) {
+            console.error('Error deleting key:', e);
+            alert('Error deleting key: ' + e.message);
+        }
     };
 
     const resetQuickForm = () => {
@@ -544,6 +561,14 @@ Selamat belajar! 🚀`;
                                                     <ExternalLink className="w-4 h-4" /> Open WhatsApp
                                                 </button>
                                             </div>
+
+                                            {/* Delete Key Button (for quick undo) */}
+                                            <button
+                                                onClick={handleDeleteQuickKey}
+                                                className="btn btn-ghost w-full text-sm text-red-500 hover:bg-red-500/10"
+                                            >
+                                                <Trash2 className="w-3 h-3" /> Hapus Key Ini (Undo)
+                                            </button>
 
                                             <button
                                                 onClick={resetQuickForm}
