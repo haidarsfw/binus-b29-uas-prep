@@ -10,7 +10,7 @@ import {
     resetLicenseDevices, sendAnnouncement, clearAnnouncement, suspendLicense, unsuspendLicense,
     subscribeToActivityLogs, subscribeToErrorLogs, clearOldErrorLogs, markErrorResolved,
     getUserLeaderboard, getPeakHoursData, clearAllUserData, resetLicenseKeysToDefaults,
-    adminUpdateDisplayName
+    adminUpdateDisplayName, subscribeToInvoiceCounter, incrementInvoiceCounter, setInvoiceCounter
 } from '../firebase';
 
 // Simple ConfirmModal for standalone usage
@@ -59,14 +59,26 @@ export default function AdminDashboard({ session, onClose }) {
     const [dangerZoneConfirm, setDangerZoneConfirm] = useState(0);
 
     // Quick License Generator state
-    const [quickInvoice, setQuickInvoice] = useState(90); // Start from invoice 90
+    const [quickInvoice, setQuickInvoice] = useState(90); // Synced from Firebase
     const [quickName, setQuickName] = useState('');
     const [quickWhatsApp, setQuickWhatsApp] = useState('');
     const [quickPackage, setQuickPackage] = useState('discount'); // discount, normal, free
     const [quickFreeReason, setQuickFreeReason] = useState('LE86'); // LE86, FP Kak Chantyka, User Whitelist
+    const [quickDevices, setQuickDevices] = useState(1); // Device count
     const [generatedKey, setGeneratedKey] = useState('');
     const [generatedMessage, setGeneratedMessage] = useState('');
     const [quickCopied, setQuickCopied] = useState(false);
+    const [editingInvoice, setEditingInvoice] = useState(false);
+    const [tempInvoice, setTempInvoice] = useState(90);
+
+    // Subscribe to invoice counter from Firebase (real-time sync)
+    useEffect(() => {
+        const unsub = subscribeToInvoiceCounter((value) => {
+            setQuickInvoice(value);
+            setTempInvoice(value);
+        });
+        return () => unsub && unsub();
+    }, []);
 
     // Package options
     const packageOptions = [
@@ -77,9 +89,14 @@ export default function AdminDashboard({ session, onClose }) {
 
     const freeReasons = ['LE86', 'FP Kak Chantyka', 'User Whitelist'];
 
+    // Device options
+    const deviceOptions = [1, 2, 3, 5, 10];
+
+
     // Generate key and message
     const handleQuickGenerate = async () => {
         if (!quickName.trim()) return;
+        setSaving(true); // Reuse existing saving state
 
         const prefix = 'B29';
         const random = Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -93,21 +110,27 @@ export default function AdminDashboard({ session, onClose }) {
         const today = new Date();
         const dateStr = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        // Create the key in Firebase
+        // Use current invoice for message BEFORE incrementing
+        const currentInvoice = quickInvoice;
+
+        // Create the key in Firebase with device count
         try {
+            console.log('Creating license key:', newKey);
             await createLicenseKey({
                 key: newKey,
                 name: quickName.trim(),
                 daysActive: packageInfo?.days || 30,
                 isAdmin: false,
                 isTester: false,
-                maxDevices: 1,
+                maxDevices: quickDevices,
             });
+            console.log('License key created successfully');
 
             setGeneratedKey(newKey);
 
-            // Generate WhatsApp message
-            const message = `🧾 INVOICE #${String(quickInvoice).padStart(3, '0')}
+            // Generate WhatsApp message (exact template from user)
+            // Using template literal without fancy chars for better WA compatibility
+            const message = `🧾 INVOICE #${String(currentInvoice).padStart(3, '0')}
 UAS BM B29 Study App
 Halo ${quickName.trim()}, pembayaran kamu sudah kami terima. 
 
@@ -137,12 +160,32 @@ Jangan share key ini ke orang lain ya!
 Selamat belajar! 🚀`;
 
             setGeneratedMessage(message);
-            setQuickInvoice(prev => prev + 1);
+
+            // Increment invoice counter in Firebase (syncs to all devices)
+            console.log('Incrementing invoice counter...');
+            await incrementInvoiceCounter();
+            console.log('Invoice incremented');
+
             setStatsRefresh(r => r + 1);
         } catch (e) {
             console.error('Error creating key:', e);
+            alert('Error: ' + e.message);
+        }
+        setSaving(false);
+    };
+
+    // Save invoice number edit
+    const handleSaveInvoice = async () => {
+        const value = parseInt(tempInvoice) || 90;
+        try {
+            await setInvoiceCounter(value);
+            setEditingInvoice(false);
+        } catch (e) {
+            console.error('Error setting invoice:', e);
+            alert('Error saving invoice: ' + e.message);
         }
     };
+
 
     const copyToClipboard = async (text) => {
         await navigator.clipboard.writeText(text);
@@ -162,6 +205,7 @@ Selamat belajar! 🚀`;
         setQuickName('');
         setQuickWhatsApp('');
         setQuickPackage('discount');
+        setQuickDevices(1);
         setGeneratedKey('');
         setGeneratedMessage('');
     };
@@ -348,7 +392,32 @@ Selamat belajar! 🚀`;
                                             <Zap className="w-4 h-4 text-amber-500" />
                                             Quick License Generator
                                         </h3>
-                                        <span className="text-xs text-[var(--text-muted)]">Invoice #{String(quickInvoice).padStart(3, '0')}</span>
+                                        {/* Editable Invoice Number */}
+                                        {editingInvoice ? (
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-xs text-[var(--text-muted)]">#</span>
+                                                <input
+                                                    type="number"
+                                                    value={tempInvoice}
+                                                    onChange={(e) => setTempInvoice(e.target.value)}
+                                                    className="w-16 px-2 py-1 text-xs rounded bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]"
+                                                    autoFocus
+                                                />
+                                                <button onClick={handleSaveInvoice} className="p-1 text-green-500 hover:bg-green-500/10 rounded">
+                                                    <Check className="w-3 h-3" />
+                                                </button>
+                                                <button onClick={() => { setEditingInvoice(false); setTempInvoice(quickInvoice); }} className="p-1 text-red-500 hover:bg-red-500/10 rounded">
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <button
+                                                onClick={() => setEditingInvoice(true)}
+                                                className="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+                                            >
+                                                Invoice #{String(quickInvoice).padStart(3, '0')} ✏️
+                                            </button>
+                                        )}
                                     </div>
 
                                     {/* Quick Form */}
@@ -365,6 +434,25 @@ Selamat belajar! 🚀`;
                                             placeholder="No. WhatsApp (08xxx)..."
                                             className="input"
                                         />
+
+                                        {/* Device Count */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-[var(--text-muted)]">Max Devices:</label>
+                                            <div className="flex flex-wrap gap-2">
+                                                {deviceOptions.map(devices => (
+                                                    <button
+                                                        key={devices}
+                                                        onClick={() => setQuickDevices(devices)}
+                                                        className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${quickDevices === devices
+                                                            ? 'bg-blue-500 text-white'
+                                                            : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
+                                                            }`}
+                                                    >
+                                                        {devices} Device{devices > 1 ? 's' : ''}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
 
                                         {/* Package Selection */}
                                         <div className="space-y-2">
@@ -408,10 +496,15 @@ Selamat belajar! 🚀`;
 
                                         <button
                                             onClick={handleQuickGenerate}
-                                            disabled={!quickName.trim()}
+                                            disabled={!quickName.trim() || saving}
                                             className="btn btn-primary w-full"
                                         >
-                                            <Zap className="w-4 h-4" /> Generate License Key
+                                            {saving ? (
+                                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            ) : (
+                                                <Zap className="w-4 h-4" />
+                                            )}
+                                            {saving ? 'Creating...' : 'Generate License Key'}
                                         </button>
                                     </div>
 

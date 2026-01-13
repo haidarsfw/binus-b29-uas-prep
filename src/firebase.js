@@ -256,6 +256,34 @@ export const updateLicenseKey = async (originalKey, keyData) => {
 
 // Admin function to update user's display name across all Firebase locations
 // This propagates name changes to: licenses, presence, chat messages, forum threads/comments
+// Invoice Counter - for Quick License Generator (synced across devices)
+export const getInvoiceCounter = async () => {
+    const counterRef = ref(db, 'admin/invoiceCounter');
+    const snap = await get(counterRef);
+    return snap.exists() ? snap.val() : 90; // Default to 90
+};
+
+export const incrementInvoiceCounter = async () => {
+    const counterRef = ref(db, 'admin/invoiceCounter');
+    const snap = await get(counterRef);
+    const current = snap.exists() ? snap.val() : 90;
+    const next = current + 1;
+    await set(counterRef, next);
+    return next;
+};
+
+export const setInvoiceCounter = async (value) => {
+    const counterRef = ref(db, 'admin/invoiceCounter');
+    await set(counterRef, value);
+};
+
+export const subscribeToInvoiceCounter = (callback) => {
+    const counterRef = ref(db, 'admin/invoiceCounter');
+    return onValue(counterRef, (snap) => {
+        callback(snap.exists() ? snap.val() : 90);
+    });
+};
+
 export const adminUpdateDisplayName = async (licenseKey, oldName, newName) => {
     if (!licenseKey || !newName || oldName === newName) return;
 
