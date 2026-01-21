@@ -499,6 +499,14 @@ export default function App() {
   const [imagePreview, setImagePreview] = useState(null); // { url: string } for lightbox
   const [announcement, setAnnouncement] = useState(null); // { message, type, active }
   const [showAnnouncementPopup, setShowAnnouncementPopup] = useState(false);
+  const [showSurveyPopup, setShowSurveyPopup] = useState(() => {
+    // Show survey popup if:
+    // - User has NOT clicked "Isi Sekarang" before (checked via localStorage)
+    // - User has NOT clicked "Nanti" in this session (checked via sessionStorage)
+    const clickedSurvey = localStorage.getItem('surveyClicked');
+    const dismissedThisSession = sessionStorage.getItem('surveyPopupDismissed');
+    return !clickedSurvey && !dismissedThisSession;
+  });
   const [subjectSearch, setSubjectSearch] = useState({ show: false, query: '', category: 'all' });
   const [firebaseQuizScore, setFirebaseQuizScore] = useState(null); // Quiz score from Firebase for sync with admin panel
 
@@ -2602,6 +2610,73 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* Survey Popup - Encourage users to fill feedback form */}
+      <AnimatePresence>
+        {showSurveyPopup && !showAnnouncementPopup && !showTerms && view === 'dashboard' && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[750] bg-black/60 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-strong p-6 max-w-md w-full"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-[var(--text)]">Survei Kepuasan Pengguna</h3>
+                  <p className="text-xs text-[var(--text-muted)]">BM B29 StudyApp</p>
+                </div>
+              </div>
+              <p className="text-[var(--text)] mb-2">
+                Besok adalah <strong>ujian terakhir</strong> kita (HRM)! 📚
+              </p>
+              <p className="text-[var(--text-secondary)] text-sm mb-4">
+                Survei penggunaan StudyApp sudah bisa diisi. Masukan Anda sangat berarti untuk pengembangan berikutnya.
+              </p>
+              <div className="flex items-center gap-2 p-3 bg-emerald-500/10 rounded-xl mb-5 border border-emerald-500/20">
+                <Gift className="w-5 h-5 text-emerald-500 shrink-0" />
+                <p className="text-sm text-emerald-400 font-medium">
+                  Isi survei dan dapatkan <strong>DISKON 30%</strong> untuk StudyApp berikutnya!
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    setShowSurveyPopup(false);
+                    sessionStorage.setItem('surveyPopupDismissed', 'true'); // Only dismiss for this session
+                  }}
+                  className="btn btn-secondary flex-1"
+                >
+                  Nanti
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfBkJPX_ECfkc-pVQTUSKl1LeF58Ct2EXRpKwT3x-X2kcTSTw/viewform', '_blank');
+                    setShowSurveyPopup(false);
+                    localStorage.setItem('surveyClicked', 'true'); // Permanently dismiss
+                  }}
+                  className="btn btn-primary flex-1"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Isi Sekarang</span>
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Preview Mode Watermark - Full screen diagonal */}
       {isPreviewMode && <PreviewWatermark />}
 
@@ -3247,9 +3322,8 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
               })}
           </div>
         </div>
-
-        {/* Exam Countdown - fixed width */}
-        <div className="md:w-[200px] shrink-0">
+        {/* Exam Countdown with Survey CTA */}
+        <div className="md:w-[250px] shrink-0">
           <ExamCountdown schedules={schedules} selectedClass={selectedClass} />
         </div>
       </div>
@@ -6198,7 +6272,7 @@ function ExamCountdown({ schedules, selectedClass }) {
         {isUrgent && <span className="ml-auto text-xs text-red-500 font-bold animate-pulse">H-{countdown.days}</span>}
       </div>
       <p className="text-xs text-[var(--text-muted)] mb-3">{countdown.subject}</p>
-      <div className="flex gap-2 text-center flex-1 items-stretch">
+      <div className="flex gap-2 text-center flex-1 items-stretch mb-3">
         {[
           { value: countdown.days, label: 'Hari' },
           { value: countdown.hours, label: 'Jam' },
@@ -6213,6 +6287,23 @@ function ExamCountdown({ schedules, selectedClass }) {
           </div>
         ))}
       </div>
+
+      {/* Survey CTA - integrated in countdown widget */}
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfBkJPX_ECfkc-pVQTUSKl1LeF58Ct2EXRpKwT3x-X2kcTSTw/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group"
+      >
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0">
+          <FileText className="w-3.5 h-3.5 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-medium text-[var(--text)] group-hover:text-emerald-400 transition-colors">📝 Isi Survei</p>
+          <p className="text-[9px] text-emerald-500">Diskon 30%!</p>
+        </div>
+        <ExternalLink className="w-3 h-3 text-emerald-500/50 group-hover:text-emerald-400 shrink-0" />
+      </a>
     </motion.div>
   );
 }
