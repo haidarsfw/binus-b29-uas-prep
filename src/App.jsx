@@ -6277,7 +6277,44 @@ function ExamCountdown({ schedules, selectedClass }) {
     return () => clearInterval(interval);
   }, [schedules, selectedClass]);
 
-  if (!countdown.date) return null;
+  // If no upcoming exam, show survey-only widget
+  if (!countdown.date) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="glass-card p-4 h-full flex flex-col border border-emerald-500/30"
+      >
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+            <Check className="w-4 h-4 text-white" />
+          </div>
+          <div>
+            <span className="text-sm font-medium text-[var(--text)]">UAS Selesai! 🎉</span>
+            <p className="text-[10px] text-[var(--text-muted)]">Semua ujian telah berakhir</p>
+          </div>
+        </div>
+
+        {/* Survey CTA - Main focus */}
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfBkJPX_ECfkc-pVQTUSKl1LeF58Ct2EXRpKwT3x-X2kcTSTw/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex flex-col items-center justify-center p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all group cursor-pointer"
+        >
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform">
+            <FileText className="w-6 h-6 text-white" />
+          </div>
+          <p className="text-sm font-semibold text-[var(--text)] group-hover:text-emerald-400 transition-colors text-center">
+            📝 Isi Survei
+          </p>
+          <p className="text-xs text-emerald-500 font-medium mt-1">
+            Dapatkan diskon 30%!
+          </p>
+        </a>
+      </motion.div>
+    );
+  }
 
   const isUrgent = countdown.days <= 3;
 
