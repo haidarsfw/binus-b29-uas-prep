@@ -3352,6 +3352,27 @@ function Dashboard({ session, selectedClass, overallProgress, totalQuizPoints, o
         })}
       </div>
 
+      {/* Survey CTA Banner */}
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfBkJPX_ECfkc-pVQTUSKl1LeF58Ct2EXRpKwT3x-X2kcTSTw/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 glass-card p-4 flex items-center gap-4 hover:bg-[var(--surface-hover)] transition-all group cursor-pointer"
+      >
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg">
+          <FileText className="w-6 h-6 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm sm:text-base font-semibold text-[var(--text)] group-hover:text-emerald-400 transition-colors">
+            📝 Isi Survei Kepuasan Pengguna
+          </p>
+          <p className="text-xs text-emerald-500 font-medium">
+            Dapatkan diskon 30% untuk StudyApp berikutnya!
+          </p>
+        </div>
+        <ExternalLink className="w-5 h-5 text-[var(--text-muted)] group-hover:text-emerald-400 transition-colors shrink-0" />
+      </a>
+
       {/* Patch Notes Modal */}
       <AnimatePresence>
         {showPatchNotes && (
